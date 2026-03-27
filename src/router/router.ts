@@ -1,10 +1,12 @@
 import express from 'express' ; 
 import { createUser, deleteUser, getAllnonStudentUsers, getAllStudentUsers, getUserById, updateUser } from '../controllers/userController';
 import { login, me } from '../controllers/auth/auth';
+import { authMiddleware } from '../middlewares/auth';
+import { check } from '../middlewares/check-permission';
 
 const router = express.Router() ;
 
-router.get( '/users' , getAllnonStudentUsers ) ; 
+router.get( '/users', authMiddleware , check( "GET_USERS" ) , getAllnonStudentUsers ) ; 
 router.get( '/users/students' , getAllStudentUsers ) ; 
 router.get( '/users/:id' , getUserById ) ;
 router.post( '/users' , createUser ) ; 

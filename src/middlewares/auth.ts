@@ -6,7 +6,7 @@ import { JWT_SECRET  } from "../config/auth" ;
 export const authMiddleware = ( req : Request , res : Response , next : NextFunction ) => {
     const authHeader = req.headers.authorization ; 
     if( !authHeader || !authHeader.startsWith( "Bearer " ) ) {
-        return res.status( 401 ).json({ error : "NO" }) ; 
+        return res.status( 401 ).json({ error : "UNAUTHORIZED" }) ; 
     }
 
     const token = authHeader.split( " " )[ 1 ] ; 
@@ -16,6 +16,6 @@ export const authMiddleware = ( req : Request , res : Response , next : NextFunc
         next() ; 
     }
     catch( err ){
-        return res.status( 401 ).send( { error : "NO" }) ; 
+        return res.status( 401 ).send( { error : "UNAUTHORIZED" }) ; 
     }
 }

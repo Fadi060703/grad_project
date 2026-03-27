@@ -1,0 +1,8 @@
+{
+    "ADMIN" : {
+        "CAN" : [ "ALL" ] 
+    } , 
+    "DOCTOR" : {
+        "CAN" : [ "GET_GRADES" ]
+    }
+}
