@@ -1,0 +1,10 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\controllers",
+    "\\src\\prisma"
+  ],
+  "SelectedNode": "\\src\\prisma\\schema.prisma",
+  "PreviewInSolutionExplorer": false
+}

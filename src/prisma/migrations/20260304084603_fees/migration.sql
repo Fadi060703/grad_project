@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Fee" ALTER COLUMN "ammount" SET DEFAULT 5000;
