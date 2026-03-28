@@ -37,3 +37,8 @@ export type Year = Prisma.YearModel
  * 
  */
 export type Section = Prisma.SectionModel
+/**
+ * Model Group
+ * 
+ */
+export type Group = Prisma.GroupModel

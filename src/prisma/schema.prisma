@@ -53,7 +53,16 @@ model Section {
   name String
   yearId Int
   year Year @relation(fields: [yearId], references: [id], onDelete: Cascade)
+  groups Group[]
   @@unique([name, yearId]) 
+}
+
+model Group {
+  id Int @id @default(autoincrement())
+  name String
+  sectionId Int
+  section Section @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  @@unique([name, sectionId]) 
 }
 
 
