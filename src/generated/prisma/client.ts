@@ -49,3 +49,13 @@ export type User = Prisma.UserModel
  * 
  */
 export type Student = Prisma.StudentModel
+/**
+ * Model Year
+ * 
+ */
+export type Year = Prisma.YearModel
+/**
+ * Model Section
+ * 
+ */
+export type Section = Prisma.SectionModel

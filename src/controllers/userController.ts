@@ -1,9 +1,10 @@
 import { Request, Response } from "express"
-import { createUserSchema, getAllUsersrSchema, updateUserSchema } from "../validators/users";
+import { createStudentSchema, createUserSchema, getAllUsersrSchema, updateUserSchema } from "../validators/users";
 import z from 'zod';
 import { prisma } from "../lib/prisma";
 import { createListHandler } from "../lib/express-prisma-query";
 import bcrypt from 'bcrypt';
+import { parse } from "node:path";
 
 export const getAllnonStudentUsers = createListHandler({
     prisma: prisma.user,
@@ -25,7 +26,15 @@ export const getAllnonStudentUsers = createListHandler({
             userName: true,
             role: true,
             status: true,
+            student : {
+                select : {
+                    rollNum : true , 
+                    mothersName : true , 
+                    phoneNumber : true 
+                }
+            }
         },
+        
     } as any,
     // Hardcode your rule: role != STUDENT
     handleFindArgs: ({ findManyArgs }) => {
@@ -61,7 +70,16 @@ export const getAllStudentUsers = createListHandler({
             userName: true,
             role: true,
             status: true,
+            student : {
+                select : {
+                    userId : true ,
+                    rollNum : true , 
+                    mothersName : true , 
+                    phoneNumber : true 
+                }
+            }
         },
+        
     } as any,
     // Hardcode your rule: role != STUDENT
     handleFindArgs: ({ findManyArgs }) => {
@@ -117,6 +135,46 @@ export const createUser = async (req: Request, res: Response) => {
                 role: parsed.role,
                 status: parsed.status || true,
                 password: hashedPassword
+            }
+        });
+        return res.status(201).json(created);
+    }
+
+    catch (err) {
+
+        return res.status(400).json({ "ERROR": err });
+
+    }
+}
+
+export const createStudent = async (req: Request, res: Response) => {
+
+    try {
+        console.log('Available models:', Object.keys(prisma));
+        const parsed = createStudentSchema.parse(req.body);
+        const existing = await prisma.user.findFirst({
+
+            where: { userName: parsed.user_name }
+        });
+        console.log(" It exists ");
+
+        if (existing) return res.status(409).json({ "error": "User wirh same credentials exist" });
+
+        const hashedPassword = await bcrypt.hash(parsed.password, 10);
+        const created = await prisma.user.create({
+            data: {
+                email: parsed.email || null,
+                userName: parsed.user_name,
+                role: parsed.role,
+                status: parsed.status || true,
+                password: hashedPassword , 
+                student : {
+                    create : {
+                        rollNum : parsed.rollNum , 
+                        mothersName : parsed.mothersName , 
+                        phoneNumber : parsed.phoneNumber 
+                    }
+                }
             }
         });
         return res.status(201).json(created);

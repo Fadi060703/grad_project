@@ -39,16 +39,22 @@ export type StudentSumAggregateOutputType = {
 export type StudentMinAggregateOutputType = {
   rollNum: number | null
   userId: number | null
+  mothersName: string | null
+  phoneNumber: string | null
 }
 
 export type StudentMaxAggregateOutputType = {
   rollNum: number | null
   userId: number | null
+  mothersName: string | null
+  phoneNumber: string | null
 }
 
 export type StudentCountAggregateOutputType = {
   rollNum: number
   userId: number
+  mothersName: number
+  phoneNumber: number
   _all: number
 }
 
@@ -66,16 +72,22 @@ export type StudentSumAggregateInputType = {
 export type StudentMinAggregateInputType = {
   rollNum?: true
   userId?: true
+  mothersName?: true
+  phoneNumber?: true
 }
 
 export type StudentMaxAggregateInputType = {
   rollNum?: true
   userId?: true
+  mothersName?: true
+  phoneNumber?: true
 }
 
 export type StudentCountAggregateInputType = {
   rollNum?: true
   userId?: true
+  mothersName?: true
+  phoneNumber?: true
   _all?: true
 }
 
@@ -168,6 +180,8 @@ export type StudentGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 export type StudentGroupByOutputType = {
   rollNum: number
   userId: number
+  mothersName: string
+  phoneNumber: string
   _count: StudentCountAggregateOutputType | null
   _avg: StudentAvgAggregateOutputType | null
   _sum: StudentSumAggregateOutputType | null
@@ -196,12 +210,16 @@ export type StudentWhereInput = {
   NOT?: Prisma.StudentWhereInput | Prisma.StudentWhereInput[]
   rollNum?: Prisma.IntFilter<"Student"> | number
   userId?: Prisma.IntFilter<"Student"> | number
+  mothersName?: Prisma.StringFilter<"Student"> | string
+  phoneNumber?: Prisma.StringFilter<"Student"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type StudentOrderByWithRelationInput = {
   rollNum?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  mothersName?: Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
 }
 
@@ -211,12 +229,16 @@ export type StudentWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.StudentWhereInput | Prisma.StudentWhereInput[]
   OR?: Prisma.StudentWhereInput[]
   NOT?: Prisma.StudentWhereInput | Prisma.StudentWhereInput[]
+  mothersName?: Prisma.StringFilter<"Student"> | string
+  phoneNumber?: Prisma.StringFilter<"Student"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "rollNum" | "userId">
 
 export type StudentOrderByWithAggregationInput = {
   rollNum?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  mothersName?: Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrder
   _count?: Prisma.StudentCountOrderByAggregateInput
   _avg?: Prisma.StudentAvgOrderByAggregateInput
   _max?: Prisma.StudentMaxOrderByAggregateInput
@@ -230,38 +252,53 @@ export type StudentScalarWhereWithAggregatesInput = {
   NOT?: Prisma.StudentScalarWhereWithAggregatesInput | Prisma.StudentScalarWhereWithAggregatesInput[]
   rollNum?: Prisma.IntWithAggregatesFilter<"Student"> | number
   userId?: Prisma.IntWithAggregatesFilter<"Student"> | number
+  mothersName?: Prisma.StringWithAggregatesFilter<"Student"> | string
+  phoneNumber?: Prisma.StringWithAggregatesFilter<"Student"> | string
 }
 
 export type StudentCreateInput = {
+  mothersName: string
+  phoneNumber: string
   user: Prisma.UserCreateNestedOneWithoutStudentInput
 }
 
 export type StudentUncheckedCreateInput = {
   rollNum?: number
   userId: number
+  mothersName: string
+  phoneNumber: string
 }
 
 export type StudentUpdateInput = {
+  mothersName?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
   user?: Prisma.UserUpdateOneRequiredWithoutStudentNestedInput
 }
 
 export type StudentUncheckedUpdateInput = {
   rollNum?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
+  mothersName?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type StudentCreateManyInput = {
   rollNum?: number
   userId: number
+  mothersName: string
+  phoneNumber: string
 }
 
 export type StudentUpdateManyMutationInput = {
-
+  mothersName?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type StudentUncheckedUpdateManyInput = {
   rollNum?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
+  mothersName?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type StudentNullableScalarRelationFilter = {
@@ -272,6 +309,8 @@ export type StudentNullableScalarRelationFilter = {
 export type StudentCountOrderByAggregateInput = {
   rollNum?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  mothersName?: Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrder
 }
 
 export type StudentAvgOrderByAggregateInput = {
@@ -282,11 +321,15 @@ export type StudentAvgOrderByAggregateInput = {
 export type StudentMaxOrderByAggregateInput = {
   rollNum?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  mothersName?: Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrder
 }
 
 export type StudentMinOrderByAggregateInput = {
   rollNum?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  mothersName?: Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrder
 }
 
 export type StudentSumOrderByAggregateInput = {
@@ -327,11 +370,14 @@ export type StudentUncheckedUpdateOneWithoutUserNestedInput = {
 }
 
 export type StudentCreateWithoutUserInput = {
-
+  mothersName: string
+  phoneNumber: string
 }
 
 export type StudentUncheckedCreateWithoutUserInput = {
   rollNum?: number
+  mothersName: string
+  phoneNumber: string
 }
 
 export type StudentCreateOrConnectWithoutUserInput = {
@@ -351,11 +397,14 @@ export type StudentUpdateToOneWithWhereWithoutUserInput = {
 }
 
 export type StudentUpdateWithoutUserInput = {
-
+  mothersName?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type StudentUncheckedUpdateWithoutUserInput = {
   rollNum?: Prisma.IntFieldUpdateOperationsInput | number
+  mothersName?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 
@@ -363,27 +412,35 @@ export type StudentUncheckedUpdateWithoutUserInput = {
 export type StudentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   rollNum?: boolean
   userId?: boolean
+  mothersName?: boolean
+  phoneNumber?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["student"]>
 
 export type StudentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   rollNum?: boolean
   userId?: boolean
+  mothersName?: boolean
+  phoneNumber?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["student"]>
 
 export type StudentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   rollNum?: boolean
   userId?: boolean
+  mothersName?: boolean
+  phoneNumber?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["student"]>
 
 export type StudentSelectScalar = {
   rollNum?: boolean
   userId?: boolean
+  mothersName?: boolean
+  phoneNumber?: boolean
 }
 
-export type StudentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"rollNum" | "userId", ExtArgs["result"]["student"]>
+export type StudentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"rollNum" | "userId" | "mothersName" | "phoneNumber", ExtArgs["result"]["student"]>
 export type StudentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -402,6 +459,8 @@ export type $StudentPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     rollNum: number
     userId: number
+    mothersName: string
+    phoneNumber: string
   }, ExtArgs["result"]["student"]>
   composites: {}
 }
@@ -828,6 +887,8 @@ export interface Prisma__StudentClient<T, Null = never, ExtArgs extends runtime.
 export interface StudentFieldRefs {
   readonly rollNum: Prisma.FieldRef<"Student", 'Int'>
   readonly userId: Prisma.FieldRef<"Student", 'Int'>
+  readonly mothersName: Prisma.FieldRef<"Student", 'String'>
+  readonly phoneNumber: Prisma.FieldRef<"Student", 'String'>
 }
     
 

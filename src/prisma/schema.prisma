@@ -37,4 +37,24 @@ model Student {
   rollNum Int @id @default( autoincrement() ) 
   userId Int @unique 
   user User @relation( fields: [ userId ] , references: [ id ] , onDelete: Cascade ) 
+  mothersName String 
+  phoneNumber String 
 }
+
+
+model Year {
+  id Int @id @default( autoincrement() ) 
+  name String @unique
+  sections Section[]
+}
+
+model Section {
+  id Int @id @default(autoincrement())
+  name String
+  yearId Int
+  year Year @relation(fields: [yearId], references: [id], onDelete: Cascade)
+  @@unique([name, yearId]) 
+}
+
+
+
