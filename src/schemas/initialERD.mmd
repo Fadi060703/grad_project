@@ -1,0 +1,155 @@
+erDiagram
+
+    %% === USER & ROLES ===
+    USER        ||--o{ STUDENT : is_a
+    USER        ||--o{ DOCTOR  : is_a
+    USER        ||--o{ TEACHER : is_a
+
+    %% === ACADEMIC STRUCTURE ===
+    ACADEMIC_YEAR ||--o{ SECTION : contains
+    ACADEMIC_YEAR ||--o{ MAJOR   : has
+    SECTION       ||--|{ COURSE  : has
+    MAJOR         ||--|{ COURSE  : has
+    MAJOR         ||--|{ GROUP   : has
+    SECTION       ||--|{ GROUP   : includes
+    GROUP         ||--|{ STUDENT : has
+
+    %% === COURSES & LECTURES ===
+    STUDENT       ||--|| COURSE  : attends
+    COURSE        ||--|{ EXAM    : has
+    COURSE        ||--o{ LECTURE : consists_of
+    SECTION  ||--o{ LECTURE : includes
+    MAJOR    ||--o{ LECTURE : includes
+    GROUP    ||--o{ LECTURE : includes
+    DOCTOR        }|--|{ COURSE  : teaches_theoretical
+    TEACHER       }|--|{ COURSE  : teaches_practical
+
+    %% === ATTENDANCE ===
+    STUDENT       ||--o{ COURSE_ATTENDANCE : records
+    LECTURE       ||--o{ COURSE_ATTENDANCE : tracked_in
+
+    %% === EXTERNALS & ANNOUNCEMENTS ===
+    COURSE        ||--o{ EXTERNALS : has
+    ACADEMIC_YEAR ||--o{ ANNOUNCEMENT : receives
+    SECTION       ||--o{ ANNOUNCEMENT : receives
+    MAJOR         ||--o{ ANNOUNCEMENT : receives
+    GROUP         ||--o{ ANNOUNCEMENT : receives
+    STUDENT       ||--o{ ANNOUNCEMENT : receives
+
+    %% === GRADES ===
+    EXAM          }|--|{ GRADE   : has
+    STUDENT       }|--|{ GRADE   : has
+
+    %% === LOCATIONS ===
+    EXAM          ||--|| LOCATION : held_in
+    LECTURE       ||--|| LOCATION : taught_in
+
+
+    %% === ENTITY DEFINITIONS ===
+    ACADEMIC_YEAR {
+        int    yearId
+        string yearName
+    }
+
+    MAJOR {
+        int    majorId
+        string majorName
+    }
+
+    SECTION {
+        int    sectionId
+        string sectionName
+    }
+
+    GROUP {
+        int    groupId
+        string groupName
+    }
+    COURSE {
+        int    courseId
+        string courseName
+        enum courseType
+        enum examType 
+        int[] doctorsIds
+        int[] teacherIds
+    }
+
+    LECTURE {
+        int    lectureId
+        int    courseId
+        string lectureType   
+        date   lectureDate
+        string topic
+        string url
+        int    locationId
+    }
+
+    EXAM {
+        int    examId
+        int    courseId
+        int    sectionId
+        date   examDate
+        int    locationId
+        string examType
+    }
+
+    STUDENT {
+        int studentRollNumber
+    }
+
+    COURSE_ATTENDANCE {
+        int    attendanceId
+        int    studentId
+        int    lectureId
+        date   attendanceDate
+        string status   
+    }
+
+    ANNOUNCEMENT {
+        int    announcementId
+        string title
+        string content
+        date   publishDate
+        int    yearId
+        int    sectionId
+        int    majorId
+        int    groupId
+        int    studentId
+    }
+
+    EXTERNALS {
+        int    externalId
+        string description
+    }
+
+    GRADE {
+        int    gradeId
+        int    examId
+        int    studentId
+        float  scoreTheoretical
+        float  scorePractical
+    }
+
+    LOCATION {
+        int    locationId
+        string locationName
+    }
+
+    USER {
+        int userId 
+        string userName 
+        string fullName
+        string password
+        email emailAddress
+        number phoneNumber
+        bool isActive
+        string role
+    }
+
+    DOCTOR {
+        int[] courseIDs
+    }
+
+    TEACHER {
+        int[] courseIDs
+    }
