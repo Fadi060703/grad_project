@@ -193,12 +193,14 @@ export type YearWhereInput = {
   id?: Prisma.IntFilter<"Year"> | number
   name?: Prisma.StringFilter<"Year"> | string
   sections?: Prisma.SectionListRelationFilter
+  majors?: Prisma.MajorListRelationFilter
 }
 
 export type YearOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   sections?: Prisma.SectionOrderByRelationAggregateInput
+  majors?: Prisma.MajorOrderByRelationAggregateInput
 }
 
 export type YearWhereUniqueInput = Prisma.AtLeast<{
@@ -208,6 +210,7 @@ export type YearWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.YearWhereInput[]
   NOT?: Prisma.YearWhereInput | Prisma.YearWhereInput[]
   sections?: Prisma.SectionListRelationFilter
+  majors?: Prisma.MajorListRelationFilter
 }, "id" | "name">
 
 export type YearOrderByWithAggregationInput = {
@@ -231,23 +234,27 @@ export type YearScalarWhereWithAggregatesInput = {
 export type YearCreateInput = {
   name: string
   sections?: Prisma.SectionCreateNestedManyWithoutYearInput
+  majors?: Prisma.MajorCreateNestedManyWithoutYearInput
 }
 
 export type YearUncheckedCreateInput = {
   id?: number
   name: string
   sections?: Prisma.SectionUncheckedCreateNestedManyWithoutYearInput
+  majors?: Prisma.MajorUncheckedCreateNestedManyWithoutYearInput
 }
 
 export type YearUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   sections?: Prisma.SectionUpdateManyWithoutYearNestedInput
+  majors?: Prisma.MajorUpdateManyWithoutYearNestedInput
 }
 
 export type YearUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   sections?: Prisma.SectionUncheckedUpdateManyWithoutYearNestedInput
+  majors?: Prisma.MajorUncheckedUpdateManyWithoutYearNestedInput
 }
 
 export type YearCreateManyInput = {
@@ -306,13 +313,29 @@ export type YearUpdateOneRequiredWithoutSectionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.YearUpdateToOneWithWhereWithoutSectionsInput, Prisma.YearUpdateWithoutSectionsInput>, Prisma.YearUncheckedUpdateWithoutSectionsInput>
 }
 
+export type YearCreateNestedOneWithoutMajorsInput = {
+  create?: Prisma.XOR<Prisma.YearCreateWithoutMajorsInput, Prisma.YearUncheckedCreateWithoutMajorsInput>
+  connectOrCreate?: Prisma.YearCreateOrConnectWithoutMajorsInput
+  connect?: Prisma.YearWhereUniqueInput
+}
+
+export type YearUpdateOneRequiredWithoutMajorsNestedInput = {
+  create?: Prisma.XOR<Prisma.YearCreateWithoutMajorsInput, Prisma.YearUncheckedCreateWithoutMajorsInput>
+  connectOrCreate?: Prisma.YearCreateOrConnectWithoutMajorsInput
+  upsert?: Prisma.YearUpsertWithoutMajorsInput
+  connect?: Prisma.YearWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.YearUpdateToOneWithWhereWithoutMajorsInput, Prisma.YearUpdateWithoutMajorsInput>, Prisma.YearUncheckedUpdateWithoutMajorsInput>
+}
+
 export type YearCreateWithoutSectionsInput = {
   name: string
+  majors?: Prisma.MajorCreateNestedManyWithoutYearInput
 }
 
 export type YearUncheckedCreateWithoutSectionsInput = {
   id?: number
   name: string
+  majors?: Prisma.MajorUncheckedCreateNestedManyWithoutYearInput
 }
 
 export type YearCreateOrConnectWithoutSectionsInput = {
@@ -333,11 +356,51 @@ export type YearUpdateToOneWithWhereWithoutSectionsInput = {
 
 export type YearUpdateWithoutSectionsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  majors?: Prisma.MajorUpdateManyWithoutYearNestedInput
 }
 
 export type YearUncheckedUpdateWithoutSectionsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  majors?: Prisma.MajorUncheckedUpdateManyWithoutYearNestedInput
+}
+
+export type YearCreateWithoutMajorsInput = {
+  name: string
+  sections?: Prisma.SectionCreateNestedManyWithoutYearInput
+}
+
+export type YearUncheckedCreateWithoutMajorsInput = {
+  id?: number
+  name: string
+  sections?: Prisma.SectionUncheckedCreateNestedManyWithoutYearInput
+}
+
+export type YearCreateOrConnectWithoutMajorsInput = {
+  where: Prisma.YearWhereUniqueInput
+  create: Prisma.XOR<Prisma.YearCreateWithoutMajorsInput, Prisma.YearUncheckedCreateWithoutMajorsInput>
+}
+
+export type YearUpsertWithoutMajorsInput = {
+  update: Prisma.XOR<Prisma.YearUpdateWithoutMajorsInput, Prisma.YearUncheckedUpdateWithoutMajorsInput>
+  create: Prisma.XOR<Prisma.YearCreateWithoutMajorsInput, Prisma.YearUncheckedCreateWithoutMajorsInput>
+  where?: Prisma.YearWhereInput
+}
+
+export type YearUpdateToOneWithWhereWithoutMajorsInput = {
+  where?: Prisma.YearWhereInput
+  data: Prisma.XOR<Prisma.YearUpdateWithoutMajorsInput, Prisma.YearUncheckedUpdateWithoutMajorsInput>
+}
+
+export type YearUpdateWithoutMajorsInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  sections?: Prisma.SectionUpdateManyWithoutYearNestedInput
+}
+
+export type YearUncheckedUpdateWithoutMajorsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  sections?: Prisma.SectionUncheckedUpdateManyWithoutYearNestedInput
 }
 
 
@@ -347,10 +410,12 @@ export type YearUncheckedUpdateWithoutSectionsInput = {
 
 export type YearCountOutputType = {
   sections: number
+  majors: number
 }
 
 export type YearCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sections?: boolean | YearCountOutputTypeCountSectionsArgs
+  majors?: boolean | YearCountOutputTypeCountMajorsArgs
 }
 
 /**
@@ -370,11 +435,19 @@ export type YearCountOutputTypeCountSectionsArgs<ExtArgs extends runtime.Types.E
   where?: Prisma.SectionWhereInput
 }
 
+/**
+ * YearCountOutputType without action
+ */
+export type YearCountOutputTypeCountMajorsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MajorWhereInput
+}
+
 
 export type YearSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   sections?: boolean | Prisma.Year$sectionsArgs<ExtArgs>
+  majors?: boolean | Prisma.Year$majorsArgs<ExtArgs>
   _count?: boolean | Prisma.YearCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["year"]>
 
@@ -396,6 +469,7 @@ export type YearSelectScalar = {
 export type YearOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name", ExtArgs["result"]["year"]>
 export type YearInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sections?: boolean | Prisma.Year$sectionsArgs<ExtArgs>
+  majors?: boolean | Prisma.Year$majorsArgs<ExtArgs>
   _count?: boolean | Prisma.YearCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type YearIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -405,6 +479,7 @@ export type $YearPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "Year"
   objects: {
     sections: Prisma.$SectionPayload<ExtArgs>[]
+    majors: Prisma.$MajorPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -804,6 +879,7 @@ readonly fields: YearFieldRefs;
 export interface Prisma__YearClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   sections<T extends Prisma.Year$sectionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Year$sectionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  majors<T extends Prisma.Year$majorsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Year$majorsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MajorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1244,6 +1320,30 @@ export type Year$sectionsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.SectionScalarFieldEnum | Prisma.SectionScalarFieldEnum[]
+}
+
+/**
+ * Year.majors
+ */
+export type Year$majorsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Major
+   */
+  select?: Prisma.MajorSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Major
+   */
+  omit?: Prisma.MajorOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MajorInclude<ExtArgs> | null
+  where?: Prisma.MajorWhereInput
+  orderBy?: Prisma.MajorOrderByWithRelationInput | Prisma.MajorOrderByWithRelationInput[]
+  cursor?: Prisma.MajorWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MajorScalarFieldEnum | Prisma.MajorScalarFieldEnum[]
 }
 
 /**

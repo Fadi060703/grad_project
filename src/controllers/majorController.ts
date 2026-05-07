@@ -1,11 +1,13 @@
-import { Request, Response } from "express"
-import { createSectionSchema, getSectionsSchema, updateSectionSchema } from "../validators/sections"
+// controllers/majors.ts
+
+import { Request, Response } from "express";
+import { createMajorSchema, getMajorsSchema, updateMajorSchema } from "../validators/major";
 import { prisma } from "../lib/prisma";
 import { createListHandler } from "../lib/express-prisma-query";
-import { z } from "zod";
+import { z } from 'zod';
 
-export const getAllSections = createListHandler({
-  prisma: prisma.section,
+export const getAllMajors = createListHandler({
+  prisma: prisma.major,
 
   allowedSortFields: ["id", "name", "yearId"],
 
@@ -37,14 +39,14 @@ export const getAllSections = createListHandler({
     },
   } as any,
 
-  mapResult: ({ data }) => z.array(getSectionsSchema).parse(data),
+  mapResult: ({ data }) => z.array(getMajorsSchema).parse(data),
 });
 
-export const getSectionById = async (req: Request, res: Response) => {
+export const getMajorById = async (req: Request, res: Response) => {
   try {
     const id = parseInt(req.params.id, 10);
     
-    const section = await prisma.section.findUnique({
+    const major = await prisma.major.findUnique({
       where: { id },
       select: {
         id: true,
@@ -65,11 +67,11 @@ export const getSectionById = async (req: Request, res: Response) => {
       }
     });
     
-    if (!section) {
-      return res.status(404).json({ error: "Section not found" });
+    if (!major) {
+      return res.status(404).json({ error: "Major not found" });
     }
     
-    const parsed = getSectionsSchema.parse(section);
+    const parsed = getMajorsSchema.parse(major);
     return res.status(200).json(parsed);
   } catch (err) {
     if (err instanceof z.ZodError) {
@@ -79,21 +81,9 @@ export const getSectionById = async (req: Request, res: Response) => {
   }
 };
 
-export const createSection = async (req: Request, res: Response) => {
+export const createMajor = async (req: Request, res: Response) => {
   try {
-    const data = createSectionSchema.parse(req.body);
-    
-    // Check if section with same name exists in the same year
-    const existing = await prisma.section.findFirst({
-      where: {
-        name: data.name,
-        yearId: data.year_id
-      }
-    });
-    
-    if (existing) {
-      return res.status(409).json({ error: "Section with this name already exists in the selected year" });
-    }
+    const data = createMajorSchema.parse(req.body);
     
     // Check if year exists
     const yearExists = await prisma.year.findUnique({
@@ -104,10 +94,22 @@ export const createSection = async (req: Request, res: Response) => {
       return res.status(404).json({ error: "Year not found" });
     }
     
-    const created = await prisma.section.create({
+    // Check if major with same name exists in the same year
+    const existing = await prisma.major.findFirst({
+      where: {
+        name: data.name,
+        yearId: data.year_id
+      }
+    });
+    
+    if (existing) {
+      return res.status(409).json({ error: "Major with this name already exists in the selected year" });
+    }
+    
+    const created = await prisma.major.create({
       data: {
         name: data.name,
-        yearId: data.year_id  // Direct assignment instead of connect
+        yearId: data.year_id
       },
       select: {
         id: true,
@@ -127,23 +129,23 @@ export const createSection = async (req: Request, res: Response) => {
     if (err instanceof z.ZodError) {
       return res.status(400).json({ error: "Validation failed" });
     }
-    console.error("Create section error:", err);
+    console.error("Create major error:", err);
     return res.status(500).json({ error: "Internal server error" });
   }
 };
 
-export const updateSection = async (req: Request, res: Response) => {
+export const updateMajor = async (req: Request, res: Response) => {
   try {
     const id = parseInt(req.params.id, 10);
-    const data = updateSectionSchema.parse(req.body);
+    const data = updateMajorSchema.parse(req.body);
     
-    // Check if section exists
-    const existingSection = await prisma.section.findUnique({
+    // Check if major exists
+    const existingMajor = await prisma.major.findUnique({
       where: { id }
     });
     
-    if (!existingSection) {
-      return res.status(404).json({ error: "Section not found" });
+    if (!existingMajor) {
+      return res.status(404).json({ error: "Major not found" });
     }
     
     const updateData: { name?: string; yearId?: number } = {};
@@ -164,10 +166,10 @@ export const updateSection = async (req: Request, res: Response) => {
     }
     
     // Check for duplicate name in the same year (if name or year is being changed)
-    const checkYearId = data.year_id !== undefined ? data.year_id : existingSection.yearId;
-    const checkName = data.name !== undefined ? data.name : existingSection.name;
+    const checkYearId = data.year_id !== undefined ? data.year_id : existingMajor.yearId;
+    const checkName = data.name !== undefined ? data.name : existingMajor.name;
     
-    const duplicate = await prisma.section.findFirst({
+    const duplicate = await prisma.major.findFirst({
       where: {
         name: checkName,
         yearId: checkYearId,
@@ -176,10 +178,10 @@ export const updateSection = async (req: Request, res: Response) => {
     });
     
     if (duplicate) {
-      return res.status(409).json({ error: "Section with this name already exists in the selected year" });
+      return res.status(409).json({ error: "Major with this name already exists in the selected year" });
     }
     
-    const updated = await prisma.section.update({
+    const updated = await prisma.major.update({
       where: { id },
       data: updateData,
       select: {
@@ -200,34 +202,34 @@ export const updateSection = async (req: Request, res: Response) => {
     if (err instanceof z.ZodError) {
       return res.status(400).json({ error: "Validation failed" });
     }
-    console.error("Update section error:", err);
+    console.error("Update major error:", err);
     return res.status(500).json({ error: "Internal server error" });
   }
 };
 
-export const deleteSection = async (req: Request, res: Response) => {
+export const deleteMajor = async (req: Request, res: Response) => {
   try {
     const id = parseInt(req.params.id, 10);
     
-    const existingSection = await prisma.section.findUnique({
+    const existingMajor = await prisma.major.findUnique({
       where: { id },
       include: {
         groups: true
       }
     });
     
-    if (!existingSection) {
-      return res.status(404).json({ error: "Section not found" });
+    if (!existingMajor) {
+      return res.status(404).json({ error: "Major not found" });
     }
     
-    // Optional: Check if section has groups
-    if (existingSection.groups.length > 0) {
+    // Check if major has groups
+    if (existingMajor.groups.length > 0) {
       return res.status(400).json({ 
-        error: "Cannot delete section with existing groups. Delete associated groups first." 
+        error: "Cannot delete major with existing groups. Delete associated groups first or reassign them." 
       });
     }
     
-    const deleted = await prisma.section.delete({
+    const deleted = await prisma.major.delete({
       where: { id },
       select: {
         id: true,
@@ -238,7 +240,7 @@ export const deleteSection = async (req: Request, res: Response) => {
     
     return res.status(200).json(deleted);
   } catch (err) {
-    console.error("Delete section error:", err);
+    console.error("Delete major error:", err);
     return res.status(400).json({ error: err });
   }
 };

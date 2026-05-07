@@ -5,7 +5,7 @@ import { authMiddleware } from '../middlewares/auth';
 import { check } from '../middlewares/check-permission';
 import { createYear, getAllYears } from '../controllers/yearController';
 import { createSection, getAllSections } from '../controllers/sectionController';
-import { createGroup, getAllGroups } from '../controllers/grouoController';
+import { createGroup, getAllGroups } from '../controllers/groupController';
 
 const router = express.Router() ;
 

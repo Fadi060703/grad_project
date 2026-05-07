@@ -18,6 +18,11 @@ export { Prisma }
 export * as $Enums from './enums.js'
 export * from './enums.js';
 /**
+ * Model SystemSettings
+ * 
+ */
+export type SystemSettings = Prisma.SystemSettingsModel
+/**
  * Model User
  * 
  */
@@ -38,7 +43,17 @@ export type Year = Prisma.YearModel
  */
 export type Section = Prisma.SectionModel
 /**
+ * Model Major
+ * 
+ */
+export type Major = Prisma.MajorModel
+/**
  * Model Group
  * 
  */
 export type Group = Prisma.GroupModel
+/**
+ * Model UniversityLocation
+ * 
+ */
+export type UniversityLocation = Prisma.UniversityLocationModel

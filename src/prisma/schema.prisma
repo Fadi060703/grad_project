@@ -13,6 +13,20 @@ datasource db {
   provider = "postgresql"
 }
 
+model SystemSettings {
+  id                          Int      @id @default(autoincrement())
+  lecture_duration            Int?
+  lectures_start_time         String?
+  aided_pass_courses_number   Int?
+  aided_marks_number          Int?
+  theoretical_exam_date       DateTime?
+  practical_exam_date         DateTime?
+  created_at                  DateTime @default(now())
+  updated_at                  DateTime @updatedAt
+  
+  @@map("system_settings")
+}
+
 enum Role {
 
   ADMIN
@@ -21,18 +35,22 @@ enum Role {
   STUDENT
 
 }
-
 model User {
+  id           Int      @id @default(autoincrement())
+  email        String?  @unique
+  username     String   @unique
+  full_name    String   
+  phoneNumber  String?  
+  role         Role
+  is_active    Boolean  @default(true) 
+  password     String
+  created_at    DateTime @default(now()) 
+  updated_at   DateTime @updatedAt
+  student      Student?
+  permissions  String[] @default([])
 
-  id Int @id @default( autoincrement() ) 
-  email String? @unique
-  userName String @unique
-  role Role
-  status Boolean 
-  password String
-  student Student?
+  @@map("users")
 }
-
 model Student {
   rollNum Int @id @default( autoincrement() ) 
   userId Int @unique 
@@ -46,6 +64,7 @@ model Year {
   id Int @id @default( autoincrement() ) 
   name String @unique
   sections Section[]
+  majors Major[]
 }
 
 model Section {
@@ -57,13 +76,37 @@ model Section {
   @@unique([name, yearId]) 
 }
 
-model Group {
-  id Int @id @default(autoincrement())
-  name String
-  sectionId Int
-  section Section @relation(fields: [sectionId], references: [id], onDelete: Cascade)
-  @@unique([name, sectionId]) 
+model Major {
+  id      Int     @id @default(autoincrement())
+  name    String
+  yearId  Int
+  year    Year    @relation(fields: [yearId], references: [id], onDelete: Cascade)
+  groups  Group[]
+  
+  @@unique([name, yearId])
+  @@map("majors")
 }
 
+model Group {
+  id        Int      @id @default(autoincrement())
+  name      String
+  sectionId Int
+  section   Section  @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  majorId   Int?
+  major     Major?   @relation(fields: [majorId], references: [id], onDelete: SetNull)
+  
+  @@unique([name, sectionId])
+  @@map("groups")
+}
+
+model UniversityLocation {
+  id                  Int      @id @default(autoincrement())
+  name                String   @unique
+  reaching_description String?
+  created_at          DateTime @default(now())
+  updated_at          DateTime @updatedAt
+  
+  @@map("university_locations")
+}
 
 

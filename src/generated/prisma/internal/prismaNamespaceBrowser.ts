@@ -51,11 +51,14 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
+  SystemSettings: 'SystemSettings',
   User: 'User',
   Student: 'Student',
   Year: 'Year',
   Section: 'Section',
-  Group: 'Group'
+  Major: 'Major',
+  Group: 'Group',
+  UniversityLocation: 'UniversityLocation'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -74,13 +77,33 @@ export const TransactionIsolationLevel = {
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+export const SystemSettingsScalarFieldEnum = {
+  id: 'id',
+  lecture_duration: 'lecture_duration',
+  lectures_start_time: 'lectures_start_time',
+  aided_pass_courses_number: 'aided_pass_courses_number',
+  aided_marks_number: 'aided_marks_number',
+  theoretical_exam_date: 'theoretical_exam_date',
+  practical_exam_date: 'practical_exam_date',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type SystemSettingsScalarFieldEnum = (typeof SystemSettingsScalarFieldEnum)[keyof typeof SystemSettingsScalarFieldEnum]
+
+
 export const UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
-  userName: 'userName',
+  username: 'username',
+  full_name: 'full_name',
+  phoneNumber: 'phoneNumber',
   role: 'role',
-  status: 'status',
-  password: 'password'
+  is_active: 'is_active',
+  password: 'password',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  permissions: 'permissions'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -113,13 +136,34 @@ export const SectionScalarFieldEnum = {
 export type SectionScalarFieldEnum = (typeof SectionScalarFieldEnum)[keyof typeof SectionScalarFieldEnum]
 
 
+export const MajorScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  yearId: 'yearId'
+} as const
+
+export type MajorScalarFieldEnum = (typeof MajorScalarFieldEnum)[keyof typeof MajorScalarFieldEnum]
+
+
 export const GroupScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  sectionId: 'sectionId'
+  sectionId: 'sectionId',
+  majorId: 'majorId'
 } as const
 
 export type GroupScalarFieldEnum = (typeof GroupScalarFieldEnum)[keyof typeof GroupScalarFieldEnum]
+
+
+export const UniversityLocationScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  reaching_description: 'reaching_description',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type UniversityLocationScalarFieldEnum = (typeof UniversityLocationScalarFieldEnum)[keyof typeof UniversityLocationScalarFieldEnum]
 
 
 export const SortOrder = {

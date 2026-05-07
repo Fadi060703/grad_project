@@ -20,7 +20,7 @@ const config: runtime.GetPrismaClientConfig = {
   "clientVersion": "7.0.0",
   "engineVersion": "0c19ccc313cf9911a90d99d2ac2eb0280c76c513",
   "activeProvider": "postgresql",
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nenum Role {\n  ADMIN\n  DOCTOR\n  TEACHER\n  STUDENT\n}\n\nmodel User {\n  id       Int      @id @default(autoincrement())\n  email    String?  @unique\n  userName String   @unique\n  role     Role\n  status   Boolean\n  password String\n  student  Student?\n}\n\nmodel Student {\n  rollNum     Int    @id @default(autoincrement())\n  userId      Int    @unique\n  user        User   @relation(fields: [userId], references: [id], onDelete: Cascade)\n  mothersName String\n  phoneNumber String\n}\n\nmodel Year {\n  id       Int       @id @default(autoincrement())\n  name     String    @unique\n  sections Section[]\n}\n\nmodel Section {\n  id     Int     @id @default(autoincrement())\n  name   String\n  yearId Int\n  year   Year    @relation(fields: [yearId], references: [id], onDelete: Cascade)\n  groups Group[]\n\n  @@unique([name, yearId])\n}\n\nmodel Group {\n  id        Int     @id @default(autoincrement())\n  name      String\n  sectionId Int\n  section   Section @relation(fields: [sectionId], references: [id], onDelete: Cascade)\n\n  @@unique([name, sectionId])\n}\n",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel SystemSettings {\n  id                        Int       @id @default(autoincrement())\n  lecture_duration          Int?\n  lectures_start_time       String?\n  aided_pass_courses_number Int?\n  aided_marks_number        Int?\n  theoretical_exam_date     DateTime?\n  practical_exam_date       DateTime?\n  created_at                DateTime  @default(now())\n  updated_at                DateTime  @updatedAt\n\n  @@map(\"system_settings\")\n}\n\nenum Role {\n  ADMIN\n  DOCTOR\n  TEACHER\n  STUDENT\n}\n\nmodel User {\n  id          Int      @id @default(autoincrement())\n  email       String?  @unique\n  username    String   @unique\n  full_name   String\n  phoneNumber String?\n  role        Role\n  is_active   Boolean  @default(true)\n  password    String\n  created_at  DateTime @default(now())\n  updated_at  DateTime @updatedAt\n  student     Student?\n  permissions String[] @default([])\n\n  @@map(\"users\")\n}\n\nmodel Student {\n  rollNum     Int    @id @default(autoincrement())\n  userId      Int    @unique\n  user        User   @relation(fields: [userId], references: [id], onDelete: Cascade)\n  mothersName String\n  phoneNumber String\n}\n\nmodel Year {\n  id       Int       @id @default(autoincrement())\n  name     String    @unique\n  sections Section[]\n  majors   Major[]\n}\n\nmodel Section {\n  id     Int     @id @default(autoincrement())\n  name   String\n  yearId Int\n  year   Year    @relation(fields: [yearId], references: [id], onDelete: Cascade)\n  groups Group[]\n\n  @@unique([name, yearId])\n}\n\nmodel Major {\n  id     Int     @id @default(autoincrement())\n  name   String\n  yearId Int\n  year   Year    @relation(fields: [yearId], references: [id], onDelete: Cascade)\n  groups Group[]\n\n  @@unique([name, yearId])\n  @@map(\"majors\")\n}\n\nmodel Group {\n  id        Int     @id @default(autoincrement())\n  name      String\n  sectionId Int\n  section   Section @relation(fields: [sectionId], references: [id], onDelete: Cascade)\n  majorId   Int?\n  major     Major?  @relation(fields: [majorId], references: [id], onDelete: SetNull)\n\n  @@unique([name, sectionId])\n  @@map(\"groups\")\n}\n\nmodel UniversityLocation {\n  id                   Int      @id @default(autoincrement())\n  name                 String   @unique\n  reaching_description String?\n  created_at           DateTime @default(now())\n  updated_at           DateTime @updatedAt\n\n  @@map(\"university_locations\")\n}\n",
   "runtimeDataModel": {
     "models": {},
     "enums": {},
@@ -28,7 +28,7 @@ const config: runtime.GetPrismaClientConfig = {
   }
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"role\",\"kind\":\"enum\",\"type\":\"Role\"},{\"name\":\"status\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"student\",\"kind\":\"object\",\"type\":\"Student\",\"relationName\":\"StudentToUser\"}],\"dbName\":null},\"Student\":{\"fields\":[{\"name\":\"rollNum\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"StudentToUser\"},{\"name\":\"mothersName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"phoneNumber\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null},\"Year\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"sections\",\"kind\":\"object\",\"type\":\"Section\",\"relationName\":\"SectionToYear\"}],\"dbName\":null},\"Section\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"yearId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"year\",\"kind\":\"object\",\"type\":\"Year\",\"relationName\":\"SectionToYear\"},{\"name\":\"groups\",\"kind\":\"object\",\"type\":\"Group\",\"relationName\":\"GroupToSection\"}],\"dbName\":null},\"Group\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"sectionId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"section\",\"kind\":\"object\",\"type\":\"Section\",\"relationName\":\"GroupToSection\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"SystemSettings\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"lecture_duration\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"lectures_start_time\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"aided_pass_courses_number\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"aided_marks_number\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"theoretical_exam_date\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"practical_exam_date\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"system_settings\"},\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"username\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"full_name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"phoneNumber\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"role\",\"kind\":\"enum\",\"type\":\"Role\"},{\"name\":\"is_active\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"student\",\"kind\":\"object\",\"type\":\"Student\",\"relationName\":\"StudentToUser\"},{\"name\":\"permissions\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":\"users\"},\"Student\":{\"fields\":[{\"name\":\"rollNum\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"StudentToUser\"},{\"name\":\"mothersName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"phoneNumber\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null},\"Year\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"sections\",\"kind\":\"object\",\"type\":\"Section\",\"relationName\":\"SectionToYear\"},{\"name\":\"majors\",\"kind\":\"object\",\"type\":\"Major\",\"relationName\":\"MajorToYear\"}],\"dbName\":null},\"Section\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"yearId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"year\",\"kind\":\"object\",\"type\":\"Year\",\"relationName\":\"SectionToYear\"},{\"name\":\"groups\",\"kind\":\"object\",\"type\":\"Group\",\"relationName\":\"GroupToSection\"}],\"dbName\":null},\"Major\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"yearId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"year\",\"kind\":\"object\",\"type\":\"Year\",\"relationName\":\"MajorToYear\"},{\"name\":\"groups\",\"kind\":\"object\",\"type\":\"Group\",\"relationName\":\"GroupToMajor\"}],\"dbName\":\"majors\"},\"Group\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"sectionId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"section\",\"kind\":\"object\",\"type\":\"Section\",\"relationName\":\"GroupToSection\"},{\"name\":\"majorId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"major\",\"kind\":\"object\",\"type\":\"Major\",\"relationName\":\"GroupToMajor\"}],\"dbName\":\"groups\"},\"UniversityLocation\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"reaching_description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"university_locations\"}},\"enums\":{},\"types\":{}}")
 
 async function decodeBase64AsWasm(wasmBase64: string): Promise<WebAssembly.Module> {
   const { Buffer } = await import('node:buffer')
@@ -58,8 +58,8 @@ export interface PrismaClientConstructor {
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more Users
-   * const users = await prisma.user.findMany()
+   * // Fetch zero or more SystemSettings
+   * const systemSettings = await prisma.systemSettings.findMany()
    * ```
    * 
    * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
@@ -80,8 +80,8 @@ export interface PrismaClientConstructor {
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Users
- * const users = await prisma.user.findMany()
+ * // Fetch zero or more SystemSettings
+ * const systemSettings = await prisma.systemSettings.findMany()
  * ```
  * 
  * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
@@ -175,6 +175,16 @@ export interface PrismaClient<
   }>>
 
       /**
+   * `prisma.systemSettings`: Exposes CRUD operations for the **SystemSettings** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SystemSettings
+    * const systemSettings = await prisma.systemSettings.findMany()
+    * ```
+    */
+  get systemSettings(): Prisma.SystemSettingsDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
    * `prisma.user`: Exposes CRUD operations for the **User** model.
     * Example usage:
     * ```ts
@@ -215,6 +225,16 @@ export interface PrismaClient<
   get section(): Prisma.SectionDelegate<ExtArgs, { omit: OmitOpts }>;
 
   /**
+   * `prisma.major`: Exposes CRUD operations for the **Major** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Majors
+    * const majors = await prisma.major.findMany()
+    * ```
+    */
+  get major(): Prisma.MajorDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
    * `prisma.group`: Exposes CRUD operations for the **Group** model.
     * Example usage:
     * ```ts
@@ -223,6 +243,16 @@ export interface PrismaClient<
     * ```
     */
   get group(): Prisma.GroupDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.universityLocation`: Exposes CRUD operations for the **UniversityLocation** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UniversityLocations
+    * const universityLocations = await prisma.universityLocation.findMany()
+    * ```
+    */
+  get universityLocation(): Prisma.UniversityLocationDelegate<ExtArgs, { omit: OmitOpts }>;
 }
 
 export function getPrismaClientClass(): PrismaClientConstructor {
