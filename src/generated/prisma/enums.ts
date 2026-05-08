@@ -17,3 +17,19 @@ export const Role = {
 } as const
 
 export type Role = (typeof Role)[keyof typeof Role]
+
+
+export const CourseType = {
+  THEORITICAL_ONLY: 'THEORITICAL_ONLY',
+  THEORITICAL_AND_PRACTICAL: 'THEORITICAL_AND_PRACTICAL'
+} as const
+
+export type CourseType = (typeof CourseType)[keyof typeof CourseType]
+
+
+export const ExamType = {
+  MSQ: 'MSQ',
+  WRITTEN: 'WRITTEN'
+} as const
+
+export type ExamType = (typeof ExamType)[keyof typeof ExamType]

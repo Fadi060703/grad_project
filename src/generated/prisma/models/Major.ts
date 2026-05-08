@@ -206,6 +206,7 @@ export type MajorWhereInput = {
   yearId?: Prisma.IntFilter<"Major"> | number
   year?: Prisma.XOR<Prisma.YearScalarRelationFilter, Prisma.YearWhereInput>
   groups?: Prisma.GroupListRelationFilter
+  courses?: Prisma.CourseListRelationFilter
 }
 
 export type MajorOrderByWithRelationInput = {
@@ -214,6 +215,7 @@ export type MajorOrderByWithRelationInput = {
   yearId?: Prisma.SortOrder
   year?: Prisma.YearOrderByWithRelationInput
   groups?: Prisma.GroupOrderByRelationAggregateInput
+  courses?: Prisma.CourseOrderByRelationAggregateInput
 }
 
 export type MajorWhereUniqueInput = Prisma.AtLeast<{
@@ -226,6 +228,7 @@ export type MajorWhereUniqueInput = Prisma.AtLeast<{
   yearId?: Prisma.IntFilter<"Major"> | number
   year?: Prisma.XOR<Prisma.YearScalarRelationFilter, Prisma.YearWhereInput>
   groups?: Prisma.GroupListRelationFilter
+  courses?: Prisma.CourseListRelationFilter
 }, "id" | "name_yearId">
 
 export type MajorOrderByWithAggregationInput = {
@@ -252,6 +255,7 @@ export type MajorCreateInput = {
   name: string
   year: Prisma.YearCreateNestedOneWithoutMajorsInput
   groups?: Prisma.GroupCreateNestedManyWithoutMajorInput
+  courses?: Prisma.CourseCreateNestedManyWithoutMajorInput
 }
 
 export type MajorUncheckedCreateInput = {
@@ -259,12 +263,14 @@ export type MajorUncheckedCreateInput = {
   name: string
   yearId: number
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutMajorInput
+  courses?: Prisma.CourseUncheckedCreateNestedManyWithoutMajorInput
 }
 
 export type MajorUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   year?: Prisma.YearUpdateOneRequiredWithoutMajorsNestedInput
   groups?: Prisma.GroupUpdateManyWithoutMajorNestedInput
+  courses?: Prisma.CourseUpdateManyWithoutMajorNestedInput
 }
 
 export type MajorUncheckedUpdateInput = {
@@ -272,6 +278,7 @@ export type MajorUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   yearId?: Prisma.IntFieldUpdateOperationsInput | number
   groups?: Prisma.GroupUncheckedUpdateManyWithoutMajorNestedInput
+  courses?: Prisma.CourseUncheckedUpdateManyWithoutMajorNestedInput
 }
 
 export type MajorCreateManyInput = {
@@ -396,15 +403,33 @@ export type MajorUpdateOneWithoutGroupsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.MajorUpdateToOneWithWhereWithoutGroupsInput, Prisma.MajorUpdateWithoutGroupsInput>, Prisma.MajorUncheckedUpdateWithoutGroupsInput>
 }
 
+export type MajorCreateNestedOneWithoutCoursesInput = {
+  create?: Prisma.XOR<Prisma.MajorCreateWithoutCoursesInput, Prisma.MajorUncheckedCreateWithoutCoursesInput>
+  connectOrCreate?: Prisma.MajorCreateOrConnectWithoutCoursesInput
+  connect?: Prisma.MajorWhereUniqueInput
+}
+
+export type MajorUpdateOneWithoutCoursesNestedInput = {
+  create?: Prisma.XOR<Prisma.MajorCreateWithoutCoursesInput, Prisma.MajorUncheckedCreateWithoutCoursesInput>
+  connectOrCreate?: Prisma.MajorCreateOrConnectWithoutCoursesInput
+  upsert?: Prisma.MajorUpsertWithoutCoursesInput
+  disconnect?: Prisma.MajorWhereInput | boolean
+  delete?: Prisma.MajorWhereInput | boolean
+  connect?: Prisma.MajorWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MajorUpdateToOneWithWhereWithoutCoursesInput, Prisma.MajorUpdateWithoutCoursesInput>, Prisma.MajorUncheckedUpdateWithoutCoursesInput>
+}
+
 export type MajorCreateWithoutYearInput = {
   name: string
   groups?: Prisma.GroupCreateNestedManyWithoutMajorInput
+  courses?: Prisma.CourseCreateNestedManyWithoutMajorInput
 }
 
 export type MajorUncheckedCreateWithoutYearInput = {
   id?: number
   name: string
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutMajorInput
+  courses?: Prisma.CourseUncheckedCreateNestedManyWithoutMajorInput
 }
 
 export type MajorCreateOrConnectWithoutYearInput = {
@@ -445,12 +470,14 @@ export type MajorScalarWhereInput = {
 export type MajorCreateWithoutGroupsInput = {
   name: string
   year: Prisma.YearCreateNestedOneWithoutMajorsInput
+  courses?: Prisma.CourseCreateNestedManyWithoutMajorInput
 }
 
 export type MajorUncheckedCreateWithoutGroupsInput = {
   id?: number
   name: string
   yearId: number
+  courses?: Prisma.CourseUncheckedCreateNestedManyWithoutMajorInput
 }
 
 export type MajorCreateOrConnectWithoutGroupsInput = {
@@ -472,12 +499,56 @@ export type MajorUpdateToOneWithWhereWithoutGroupsInput = {
 export type MajorUpdateWithoutGroupsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   year?: Prisma.YearUpdateOneRequiredWithoutMajorsNestedInput
+  courses?: Prisma.CourseUpdateManyWithoutMajorNestedInput
 }
 
 export type MajorUncheckedUpdateWithoutGroupsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   yearId?: Prisma.IntFieldUpdateOperationsInput | number
+  courses?: Prisma.CourseUncheckedUpdateManyWithoutMajorNestedInput
+}
+
+export type MajorCreateWithoutCoursesInput = {
+  name: string
+  year: Prisma.YearCreateNestedOneWithoutMajorsInput
+  groups?: Prisma.GroupCreateNestedManyWithoutMajorInput
+}
+
+export type MajorUncheckedCreateWithoutCoursesInput = {
+  id?: number
+  name: string
+  yearId: number
+  groups?: Prisma.GroupUncheckedCreateNestedManyWithoutMajorInput
+}
+
+export type MajorCreateOrConnectWithoutCoursesInput = {
+  where: Prisma.MajorWhereUniqueInput
+  create: Prisma.XOR<Prisma.MajorCreateWithoutCoursesInput, Prisma.MajorUncheckedCreateWithoutCoursesInput>
+}
+
+export type MajorUpsertWithoutCoursesInput = {
+  update: Prisma.XOR<Prisma.MajorUpdateWithoutCoursesInput, Prisma.MajorUncheckedUpdateWithoutCoursesInput>
+  create: Prisma.XOR<Prisma.MajorCreateWithoutCoursesInput, Prisma.MajorUncheckedCreateWithoutCoursesInput>
+  where?: Prisma.MajorWhereInput
+}
+
+export type MajorUpdateToOneWithWhereWithoutCoursesInput = {
+  where?: Prisma.MajorWhereInput
+  data: Prisma.XOR<Prisma.MajorUpdateWithoutCoursesInput, Prisma.MajorUncheckedUpdateWithoutCoursesInput>
+}
+
+export type MajorUpdateWithoutCoursesInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  year?: Prisma.YearUpdateOneRequiredWithoutMajorsNestedInput
+  groups?: Prisma.GroupUpdateManyWithoutMajorNestedInput
+}
+
+export type MajorUncheckedUpdateWithoutCoursesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  yearId?: Prisma.IntFieldUpdateOperationsInput | number
+  groups?: Prisma.GroupUncheckedUpdateManyWithoutMajorNestedInput
 }
 
 export type MajorCreateManyYearInput = {
@@ -488,12 +559,14 @@ export type MajorCreateManyYearInput = {
 export type MajorUpdateWithoutYearInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   groups?: Prisma.GroupUpdateManyWithoutMajorNestedInput
+  courses?: Prisma.CourseUpdateManyWithoutMajorNestedInput
 }
 
 export type MajorUncheckedUpdateWithoutYearInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   groups?: Prisma.GroupUncheckedUpdateManyWithoutMajorNestedInput
+  courses?: Prisma.CourseUncheckedUpdateManyWithoutMajorNestedInput
 }
 
 export type MajorUncheckedUpdateManyWithoutYearInput = {
@@ -508,10 +581,12 @@ export type MajorUncheckedUpdateManyWithoutYearInput = {
 
 export type MajorCountOutputType = {
   groups: number
+  courses: number
 }
 
 export type MajorCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   groups?: boolean | MajorCountOutputTypeCountGroupsArgs
+  courses?: boolean | MajorCountOutputTypeCountCoursesArgs
 }
 
 /**
@@ -531,6 +606,13 @@ export type MajorCountOutputTypeCountGroupsArgs<ExtArgs extends runtime.Types.Ex
   where?: Prisma.GroupWhereInput
 }
 
+/**
+ * MajorCountOutputType without action
+ */
+export type MajorCountOutputTypeCountCoursesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CourseWhereInput
+}
+
 
 export type MajorSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -538,6 +620,7 @@ export type MajorSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   yearId?: boolean
   year?: boolean | Prisma.YearDefaultArgs<ExtArgs>
   groups?: boolean | Prisma.Major$groupsArgs<ExtArgs>
+  courses?: boolean | Prisma.Major$coursesArgs<ExtArgs>
   _count?: boolean | Prisma.MajorCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["major"]>
 
@@ -565,6 +648,7 @@ export type MajorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
 export type MajorInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   year?: boolean | Prisma.YearDefaultArgs<ExtArgs>
   groups?: boolean | Prisma.Major$groupsArgs<ExtArgs>
+  courses?: boolean | Prisma.Major$coursesArgs<ExtArgs>
   _count?: boolean | Prisma.MajorCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type MajorIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -579,6 +663,7 @@ export type $MajorPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   objects: {
     year: Prisma.$YearPayload<ExtArgs>
     groups: Prisma.$GroupPayload<ExtArgs>[]
+    courses: Prisma.$CoursePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -980,6 +1065,7 @@ export interface Prisma__MajorClient<T, Null = never, ExtArgs extends runtime.Ty
   readonly [Symbol.toStringTag]: "PrismaPromise"
   year<T extends Prisma.YearDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.YearDefaultArgs<ExtArgs>>): Prisma.Prisma__YearClient<runtime.Types.Result.GetResult<Prisma.$YearPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   groups<T extends Prisma.Major$groupsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Major$groupsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GroupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  courses<T extends Prisma.Major$coursesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Major$coursesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1429,6 +1515,30 @@ export type Major$groupsArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.GroupScalarFieldEnum | Prisma.GroupScalarFieldEnum[]
+}
+
+/**
+ * Major.courses
+ */
+export type Major$coursesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Course
+   */
+  select?: Prisma.CourseSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Course
+   */
+  omit?: Prisma.CourseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CourseInclude<ExtArgs> | null
+  where?: Prisma.CourseWhereInput
+  orderBy?: Prisma.CourseOrderByWithRelationInput | Prisma.CourseOrderByWithRelationInput[]
+  cursor?: Prisma.CourseWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CourseScalarFieldEnum | Prisma.CourseScalarFieldEnum[]
 }
 
 /**

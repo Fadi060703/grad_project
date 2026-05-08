@@ -79,3 +79,8 @@ export type Group = Prisma.GroupModel
  * 
  */
 export type UniversityLocation = Prisma.UniversityLocationModel
+/**
+ * Model Course
+ * 
+ */
+export type Course = Prisma.CourseModel

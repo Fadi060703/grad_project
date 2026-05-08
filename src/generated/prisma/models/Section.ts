@@ -206,6 +206,7 @@ export type SectionWhereInput = {
   yearId?: Prisma.IntFilter<"Section"> | number
   year?: Prisma.XOR<Prisma.YearScalarRelationFilter, Prisma.YearWhereInput>
   groups?: Prisma.GroupListRelationFilter
+  courses?: Prisma.CourseListRelationFilter
 }
 
 export type SectionOrderByWithRelationInput = {
@@ -214,6 +215,7 @@ export type SectionOrderByWithRelationInput = {
   yearId?: Prisma.SortOrder
   year?: Prisma.YearOrderByWithRelationInput
   groups?: Prisma.GroupOrderByRelationAggregateInput
+  courses?: Prisma.CourseOrderByRelationAggregateInput
 }
 
 export type SectionWhereUniqueInput = Prisma.AtLeast<{
@@ -226,6 +228,7 @@ export type SectionWhereUniqueInput = Prisma.AtLeast<{
   yearId?: Prisma.IntFilter<"Section"> | number
   year?: Prisma.XOR<Prisma.YearScalarRelationFilter, Prisma.YearWhereInput>
   groups?: Prisma.GroupListRelationFilter
+  courses?: Prisma.CourseListRelationFilter
 }, "id" | "name_yearId">
 
 export type SectionOrderByWithAggregationInput = {
@@ -252,6 +255,7 @@ export type SectionCreateInput = {
   name: string
   year: Prisma.YearCreateNestedOneWithoutSectionsInput
   groups?: Prisma.GroupCreateNestedManyWithoutSectionInput
+  courses?: Prisma.CourseCreateNestedManyWithoutSectionInput
 }
 
 export type SectionUncheckedCreateInput = {
@@ -259,12 +263,14 @@ export type SectionUncheckedCreateInput = {
   name: string
   yearId: number
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutSectionInput
+  courses?: Prisma.CourseUncheckedCreateNestedManyWithoutSectionInput
 }
 
 export type SectionUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   year?: Prisma.YearUpdateOneRequiredWithoutSectionsNestedInput
   groups?: Prisma.GroupUpdateManyWithoutSectionNestedInput
+  courses?: Prisma.CourseUpdateManyWithoutSectionNestedInput
 }
 
 export type SectionUncheckedUpdateInput = {
@@ -272,6 +278,7 @@ export type SectionUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   yearId?: Prisma.IntFieldUpdateOperationsInput | number
   groups?: Prisma.GroupUncheckedUpdateManyWithoutSectionNestedInput
+  courses?: Prisma.CourseUncheckedUpdateManyWithoutSectionNestedInput
 }
 
 export type SectionCreateManyInput = {
@@ -338,6 +345,11 @@ export type SectionScalarRelationFilter = {
   isNot?: Prisma.SectionWhereInput
 }
 
+export type SectionNullableScalarRelationFilter = {
+  is?: Prisma.SectionWhereInput | null
+  isNot?: Prisma.SectionWhereInput | null
+}
+
 export type SectionCreateNestedManyWithoutYearInput = {
   create?: Prisma.XOR<Prisma.SectionCreateWithoutYearInput, Prisma.SectionUncheckedCreateWithoutYearInput> | Prisma.SectionCreateWithoutYearInput[] | Prisma.SectionUncheckedCreateWithoutYearInput[]
   connectOrCreate?: Prisma.SectionCreateOrConnectWithoutYearInput | Prisma.SectionCreateOrConnectWithoutYearInput[]
@@ -394,15 +406,33 @@ export type SectionUpdateOneRequiredWithoutGroupsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.SectionUpdateToOneWithWhereWithoutGroupsInput, Prisma.SectionUpdateWithoutGroupsInput>, Prisma.SectionUncheckedUpdateWithoutGroupsInput>
 }
 
+export type SectionCreateNestedOneWithoutCoursesInput = {
+  create?: Prisma.XOR<Prisma.SectionCreateWithoutCoursesInput, Prisma.SectionUncheckedCreateWithoutCoursesInput>
+  connectOrCreate?: Prisma.SectionCreateOrConnectWithoutCoursesInput
+  connect?: Prisma.SectionWhereUniqueInput
+}
+
+export type SectionUpdateOneWithoutCoursesNestedInput = {
+  create?: Prisma.XOR<Prisma.SectionCreateWithoutCoursesInput, Prisma.SectionUncheckedCreateWithoutCoursesInput>
+  connectOrCreate?: Prisma.SectionCreateOrConnectWithoutCoursesInput
+  upsert?: Prisma.SectionUpsertWithoutCoursesInput
+  disconnect?: Prisma.SectionWhereInput | boolean
+  delete?: Prisma.SectionWhereInput | boolean
+  connect?: Prisma.SectionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SectionUpdateToOneWithWhereWithoutCoursesInput, Prisma.SectionUpdateWithoutCoursesInput>, Prisma.SectionUncheckedUpdateWithoutCoursesInput>
+}
+
 export type SectionCreateWithoutYearInput = {
   name: string
   groups?: Prisma.GroupCreateNestedManyWithoutSectionInput
+  courses?: Prisma.CourseCreateNestedManyWithoutSectionInput
 }
 
 export type SectionUncheckedCreateWithoutYearInput = {
   id?: number
   name: string
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutSectionInput
+  courses?: Prisma.CourseUncheckedCreateNestedManyWithoutSectionInput
 }
 
 export type SectionCreateOrConnectWithoutYearInput = {
@@ -443,12 +473,14 @@ export type SectionScalarWhereInput = {
 export type SectionCreateWithoutGroupsInput = {
   name: string
   year: Prisma.YearCreateNestedOneWithoutSectionsInput
+  courses?: Prisma.CourseCreateNestedManyWithoutSectionInput
 }
 
 export type SectionUncheckedCreateWithoutGroupsInput = {
   id?: number
   name: string
   yearId: number
+  courses?: Prisma.CourseUncheckedCreateNestedManyWithoutSectionInput
 }
 
 export type SectionCreateOrConnectWithoutGroupsInput = {
@@ -470,12 +502,56 @@ export type SectionUpdateToOneWithWhereWithoutGroupsInput = {
 export type SectionUpdateWithoutGroupsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   year?: Prisma.YearUpdateOneRequiredWithoutSectionsNestedInput
+  courses?: Prisma.CourseUpdateManyWithoutSectionNestedInput
 }
 
 export type SectionUncheckedUpdateWithoutGroupsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   yearId?: Prisma.IntFieldUpdateOperationsInput | number
+  courses?: Prisma.CourseUncheckedUpdateManyWithoutSectionNestedInput
+}
+
+export type SectionCreateWithoutCoursesInput = {
+  name: string
+  year: Prisma.YearCreateNestedOneWithoutSectionsInput
+  groups?: Prisma.GroupCreateNestedManyWithoutSectionInput
+}
+
+export type SectionUncheckedCreateWithoutCoursesInput = {
+  id?: number
+  name: string
+  yearId: number
+  groups?: Prisma.GroupUncheckedCreateNestedManyWithoutSectionInput
+}
+
+export type SectionCreateOrConnectWithoutCoursesInput = {
+  where: Prisma.SectionWhereUniqueInput
+  create: Prisma.XOR<Prisma.SectionCreateWithoutCoursesInput, Prisma.SectionUncheckedCreateWithoutCoursesInput>
+}
+
+export type SectionUpsertWithoutCoursesInput = {
+  update: Prisma.XOR<Prisma.SectionUpdateWithoutCoursesInput, Prisma.SectionUncheckedUpdateWithoutCoursesInput>
+  create: Prisma.XOR<Prisma.SectionCreateWithoutCoursesInput, Prisma.SectionUncheckedCreateWithoutCoursesInput>
+  where?: Prisma.SectionWhereInput
+}
+
+export type SectionUpdateToOneWithWhereWithoutCoursesInput = {
+  where?: Prisma.SectionWhereInput
+  data: Prisma.XOR<Prisma.SectionUpdateWithoutCoursesInput, Prisma.SectionUncheckedUpdateWithoutCoursesInput>
+}
+
+export type SectionUpdateWithoutCoursesInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  year?: Prisma.YearUpdateOneRequiredWithoutSectionsNestedInput
+  groups?: Prisma.GroupUpdateManyWithoutSectionNestedInput
+}
+
+export type SectionUncheckedUpdateWithoutCoursesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  yearId?: Prisma.IntFieldUpdateOperationsInput | number
+  groups?: Prisma.GroupUncheckedUpdateManyWithoutSectionNestedInput
 }
 
 export type SectionCreateManyYearInput = {
@@ -486,12 +562,14 @@ export type SectionCreateManyYearInput = {
 export type SectionUpdateWithoutYearInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   groups?: Prisma.GroupUpdateManyWithoutSectionNestedInput
+  courses?: Prisma.CourseUpdateManyWithoutSectionNestedInput
 }
 
 export type SectionUncheckedUpdateWithoutYearInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   groups?: Prisma.GroupUncheckedUpdateManyWithoutSectionNestedInput
+  courses?: Prisma.CourseUncheckedUpdateManyWithoutSectionNestedInput
 }
 
 export type SectionUncheckedUpdateManyWithoutYearInput = {
@@ -506,10 +584,12 @@ export type SectionUncheckedUpdateManyWithoutYearInput = {
 
 export type SectionCountOutputType = {
   groups: number
+  courses: number
 }
 
 export type SectionCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   groups?: boolean | SectionCountOutputTypeCountGroupsArgs
+  courses?: boolean | SectionCountOutputTypeCountCoursesArgs
 }
 
 /**
@@ -529,6 +609,13 @@ export type SectionCountOutputTypeCountGroupsArgs<ExtArgs extends runtime.Types.
   where?: Prisma.GroupWhereInput
 }
 
+/**
+ * SectionCountOutputType without action
+ */
+export type SectionCountOutputTypeCountCoursesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CourseWhereInput
+}
+
 
 export type SectionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -536,6 +623,7 @@ export type SectionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   yearId?: boolean
   year?: boolean | Prisma.YearDefaultArgs<ExtArgs>
   groups?: boolean | Prisma.Section$groupsArgs<ExtArgs>
+  courses?: boolean | Prisma.Section$coursesArgs<ExtArgs>
   _count?: boolean | Prisma.SectionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["section"]>
 
@@ -563,6 +651,7 @@ export type SectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
 export type SectionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   year?: boolean | Prisma.YearDefaultArgs<ExtArgs>
   groups?: boolean | Prisma.Section$groupsArgs<ExtArgs>
+  courses?: boolean | Prisma.Section$coursesArgs<ExtArgs>
   _count?: boolean | Prisma.SectionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type SectionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -577,6 +666,7 @@ export type $SectionPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   objects: {
     year: Prisma.$YearPayload<ExtArgs>
     groups: Prisma.$GroupPayload<ExtArgs>[]
+    courses: Prisma.$CoursePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -978,6 +1068,7 @@ export interface Prisma__SectionClient<T, Null = never, ExtArgs extends runtime.
   readonly [Symbol.toStringTag]: "PrismaPromise"
   year<T extends Prisma.YearDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.YearDefaultArgs<ExtArgs>>): Prisma.Prisma__YearClient<runtime.Types.Result.GetResult<Prisma.$YearPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   groups<T extends Prisma.Section$groupsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Section$groupsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GroupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  courses<T extends Prisma.Section$coursesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Section$coursesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1427,6 +1518,30 @@ export type Section$groupsArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   distinct?: Prisma.GroupScalarFieldEnum | Prisma.GroupScalarFieldEnum[]
+}
+
+/**
+ * Section.courses
+ */
+export type Section$coursesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Course
+   */
+  select?: Prisma.CourseSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Course
+   */
+  omit?: Prisma.CourseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CourseInclude<ExtArgs> | null
+  where?: Prisma.CourseWhereInput
+  orderBy?: Prisma.CourseOrderByWithRelationInput | Prisma.CourseOrderByWithRelationInput[]
+  cursor?: Prisma.CourseWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CourseScalarFieldEnum | Prisma.CourseScalarFieldEnum[]
 }
 
 /**
