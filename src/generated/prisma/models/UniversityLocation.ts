@@ -184,7 +184,7 @@ export type UniversityLocationGroupByOutputType = {
   name: string
   reaching_description: string | null
   created_at: Date
-  updated_at: Date
+  updated_at: Date | null
   _count: UniversityLocationCountAggregateOutputType | null
   _avg: UniversityLocationAvgAggregateOutputType | null
   _sum: UniversityLocationSumAggregateOutputType | null
@@ -192,7 +192,7 @@ export type UniversityLocationGroupByOutputType = {
   _max: UniversityLocationMaxAggregateOutputType | null
 }
 
-type GetUniversityLocationGroupByPayload<T extends UniversityLocationGroupByArgs> = Prisma.PrismaPromise<
+export type GetUniversityLocationGroupByPayload<T extends UniversityLocationGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<UniversityLocationGroupByOutputType, T['by']> &
       {
@@ -215,7 +215,7 @@ export type UniversityLocationWhereInput = {
   name?: Prisma.StringFilter<"UniversityLocation"> | string
   reaching_description?: Prisma.StringNullableFilter<"UniversityLocation"> | string | null
   created_at?: Prisma.DateTimeFilter<"UniversityLocation"> | Date | string
-  updated_at?: Prisma.DateTimeFilter<"UniversityLocation"> | Date | string
+  updated_at?: Prisma.DateTimeNullableFilter<"UniversityLocation"> | Date | string | null
 }
 
 export type UniversityLocationOrderByWithRelationInput = {
@@ -223,7 +223,7 @@ export type UniversityLocationOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   reaching_description?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
-  updated_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrderInput | Prisma.SortOrder
 }
 
 export type UniversityLocationWhereUniqueInput = Prisma.AtLeast<{
@@ -234,7 +234,7 @@ export type UniversityLocationWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.UniversityLocationWhereInput | Prisma.UniversityLocationWhereInput[]
   reaching_description?: Prisma.StringNullableFilter<"UniversityLocation"> | string | null
   created_at?: Prisma.DateTimeFilter<"UniversityLocation"> | Date | string
-  updated_at?: Prisma.DateTimeFilter<"UniversityLocation"> | Date | string
+  updated_at?: Prisma.DateTimeNullableFilter<"UniversityLocation"> | Date | string | null
 }, "id" | "name">
 
 export type UniversityLocationOrderByWithAggregationInput = {
@@ -242,7 +242,7 @@ export type UniversityLocationOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   reaching_description?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
-  updated_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UniversityLocationCountOrderByAggregateInput
   _avg?: Prisma.UniversityLocationAvgOrderByAggregateInput
   _max?: Prisma.UniversityLocationMaxOrderByAggregateInput
@@ -258,14 +258,14 @@ export type UniversityLocationScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"UniversityLocation"> | string
   reaching_description?: Prisma.StringNullableWithAggregatesFilter<"UniversityLocation"> | string | null
   created_at?: Prisma.DateTimeWithAggregatesFilter<"UniversityLocation"> | Date | string
-  updated_at?: Prisma.DateTimeWithAggregatesFilter<"UniversityLocation"> | Date | string
+  updated_at?: Prisma.DateTimeNullableWithAggregatesFilter<"UniversityLocation"> | Date | string | null
 }
 
 export type UniversityLocationCreateInput = {
   name: string
   reaching_description?: string | null
   created_at?: Date | string
-  updated_at?: Date | string
+  updated_at?: Date | string | null
 }
 
 export type UniversityLocationUncheckedCreateInput = {
@@ -273,14 +273,14 @@ export type UniversityLocationUncheckedCreateInput = {
   name: string
   reaching_description?: string | null
   created_at?: Date | string
-  updated_at?: Date | string
+  updated_at?: Date | string | null
 }
 
 export type UniversityLocationUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   reaching_description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type UniversityLocationUncheckedUpdateInput = {
@@ -288,7 +288,7 @@ export type UniversityLocationUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   reaching_description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type UniversityLocationCreateManyInput = {
@@ -296,14 +296,14 @@ export type UniversityLocationCreateManyInput = {
   name: string
   reaching_description?: string | null
   created_at?: Date | string
-  updated_at?: Date | string
+  updated_at?: Date | string | null
 }
 
 export type UniversityLocationUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   reaching_description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type UniversityLocationUncheckedUpdateManyInput = {
@@ -311,7 +311,7 @@ export type UniversityLocationUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   reaching_description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type UniversityLocationCountOrderByAggregateInput = {
@@ -390,7 +390,7 @@ export type $UniversityLocationPayload<ExtArgs extends runtime.Types.Extensions.
     name: string
     reaching_description: string | null
     created_at: Date
-    updated_at: Date
+    updated_at: Date | null
   }, ExtArgs["result"]["universityLocation"]>
   composites: {}
 }
@@ -995,6 +995,11 @@ export type UniversityLocationFindManyArgs<ExtArgs extends runtime.Types.Extensi
    * Skip the first `n` UniversityLocations.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of UniversityLocations.
+   */
   distinct?: Prisma.UniversityLocationScalarFieldEnum | Prisma.UniversityLocationScalarFieldEnum[]
 }
 

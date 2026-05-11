@@ -7,7 +7,7 @@ export const sortSchema = z.object({
 
 export const paginationSchema = z.object({
   page: z.coerce.number().int().positive().default(1),
-  pagesize: z.coerce.number().int().positive().max(500).default(10),
+  pagesize: z.coerce.number().int().positive().max(10000).default(10),
   filters: z.any().optional().default([]),
   sort: z.any().optional().default([]),
   search: z.string().optional(),

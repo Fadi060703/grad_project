@@ -4,16 +4,19 @@ import { getSectionsSchema } from "./sections";
 export const yearSchema = z.object({
   id: z.number(),
   name: z.string(),
+  has_majors: z.boolean(),
   sections: z.array(getSectionsSchema).optional(), // Made optional to match frontend
   majors: z.array(z.any()).optional(), // Added to match frontend Year interface
 });
 
 export const createYearSchema = z.object({
   name: z.string(),
+  has_majors: z.boolean().default(false),
 });
 
 export const updateYearSchema = z.object({
   name: z.string(),
+  has_majors: z.boolean(),
 });
 
 // Export types

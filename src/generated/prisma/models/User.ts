@@ -221,7 +221,7 @@ export type UserGroupByOutputType = {
   is_active: boolean
   password: string
   created_at: Date
-  updated_at: Date
+  updated_at: Date | null
   permissions: string[]
   _count: UserCountAggregateOutputType | null
   _avg: UserAvgAggregateOutputType | null
@@ -230,7 +230,7 @@ export type UserGroupByOutputType = {
   _max: UserMaxAggregateOutputType | null
 }
 
-type GetUserGroupByPayload<T extends UserGroupByArgs> = Prisma.PrismaPromise<
+export type GetUserGroupByPayload<T extends UserGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<UserGroupByOutputType, T['by']> &
       {
@@ -258,7 +258,7 @@ export type UserWhereInput = {
   is_active?: Prisma.BoolFilter<"User"> | boolean
   password?: Prisma.StringFilter<"User"> | string
   created_at?: Prisma.DateTimeFilter<"User"> | Date | string
-  updated_at?: Prisma.DateTimeFilter<"User"> | Date | string
+  updated_at?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   permissions?: Prisma.StringNullableListFilter<"User">
   student?: Prisma.XOR<Prisma.StudentNullableScalarRelationFilter, Prisma.StudentWhereInput> | null
   teachingCourses?: Prisma.CourseListRelationFilter
@@ -275,7 +275,7 @@ export type UserOrderByWithRelationInput = {
   is_active?: Prisma.SortOrder
   password?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
-  updated_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrderInput | Prisma.SortOrder
   permissions?: Prisma.SortOrder
   student?: Prisma.StudentOrderByWithRelationInput
   teachingCourses?: Prisma.CourseOrderByRelationAggregateInput
@@ -295,7 +295,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   is_active?: Prisma.BoolFilter<"User"> | boolean
   password?: Prisma.StringFilter<"User"> | string
   created_at?: Prisma.DateTimeFilter<"User"> | Date | string
-  updated_at?: Prisma.DateTimeFilter<"User"> | Date | string
+  updated_at?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   permissions?: Prisma.StringNullableListFilter<"User">
   student?: Prisma.XOR<Prisma.StudentNullableScalarRelationFilter, Prisma.StudentWhereInput> | null
   teachingCourses?: Prisma.CourseListRelationFilter
@@ -312,7 +312,7 @@ export type UserOrderByWithAggregationInput = {
   is_active?: Prisma.SortOrder
   password?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
-  updated_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrderInput | Prisma.SortOrder
   permissions?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _avg?: Prisma.UserAvgOrderByAggregateInput
@@ -334,7 +334,7 @@ export type UserScalarWhereWithAggregatesInput = {
   is_active?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   password?: Prisma.StringWithAggregatesFilter<"User"> | string
   created_at?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
-  updated_at?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
+  updated_at?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   permissions?: Prisma.StringNullableListFilter<"User">
 }
 
@@ -347,7 +347,7 @@ export type UserCreateInput = {
   is_active?: boolean
   password: string
   created_at?: Date | string
-  updated_at?: Date | string
+  updated_at?: Date | string | null
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   student?: Prisma.StudentCreateNestedOneWithoutUserInput
   teachingCourses?: Prisma.CourseCreateNestedManyWithoutTeachersInput
@@ -364,7 +364,7 @@ export type UserUncheckedCreateInput = {
   is_active?: boolean
   password: string
   created_at?: Date | string
-  updated_at?: Date | string
+  updated_at?: Date | string | null
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   student?: Prisma.StudentUncheckedCreateNestedOneWithoutUserInput
   teachingCourses?: Prisma.CourseUncheckedCreateNestedManyWithoutTeachersInput
@@ -380,7 +380,7 @@ export type UserUpdateInput = {
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   student?: Prisma.StudentUpdateOneWithoutUserNestedInput
   teachingCourses?: Prisma.CourseUpdateManyWithoutTeachersNestedInput
@@ -397,7 +397,7 @@ export type UserUncheckedUpdateInput = {
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   student?: Prisma.StudentUncheckedUpdateOneWithoutUserNestedInput
   teachingCourses?: Prisma.CourseUncheckedUpdateManyWithoutTeachersNestedInput
@@ -414,7 +414,7 @@ export type UserCreateManyInput = {
   is_active?: boolean
   password: string
   created_at?: Date | string
-  updated_at?: Date | string
+  updated_at?: Date | string | null
   permissions?: Prisma.UserCreatepermissionsInput | string[]
 }
 
@@ -427,7 +427,7 @@ export type UserUpdateManyMutationInput = {
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
 }
 
@@ -441,7 +441,7 @@ export type UserUncheckedUpdateManyInput = {
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
 }
 
@@ -636,7 +636,7 @@ export type UserCreateWithoutStudentInput = {
   is_active?: boolean
   password: string
   created_at?: Date | string
-  updated_at?: Date | string
+  updated_at?: Date | string | null
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   teachingCourses?: Prisma.CourseCreateNestedManyWithoutTeachersInput
   doctorCourses?: Prisma.CourseCreateNestedManyWithoutDoctorsInput
@@ -652,7 +652,7 @@ export type UserUncheckedCreateWithoutStudentInput = {
   is_active?: boolean
   password: string
   created_at?: Date | string
-  updated_at?: Date | string
+  updated_at?: Date | string | null
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   teachingCourses?: Prisma.CourseUncheckedCreateNestedManyWithoutTeachersInput
   doctorCourses?: Prisma.CourseUncheckedCreateNestedManyWithoutDoctorsInput
@@ -683,7 +683,7 @@ export type UserUpdateWithoutStudentInput = {
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   teachingCourses?: Prisma.CourseUpdateManyWithoutTeachersNestedInput
   doctorCourses?: Prisma.CourseUpdateManyWithoutDoctorsNestedInput
@@ -699,7 +699,7 @@ export type UserUncheckedUpdateWithoutStudentInput = {
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   teachingCourses?: Prisma.CourseUncheckedUpdateManyWithoutTeachersNestedInput
   doctorCourses?: Prisma.CourseUncheckedUpdateManyWithoutDoctorsNestedInput
@@ -714,7 +714,7 @@ export type UserCreateWithoutDoctorCoursesInput = {
   is_active?: boolean
   password: string
   created_at?: Date | string
-  updated_at?: Date | string
+  updated_at?: Date | string | null
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   student?: Prisma.StudentCreateNestedOneWithoutUserInput
   teachingCourses?: Prisma.CourseCreateNestedManyWithoutTeachersInput
@@ -730,7 +730,7 @@ export type UserUncheckedCreateWithoutDoctorCoursesInput = {
   is_active?: boolean
   password: string
   created_at?: Date | string
-  updated_at?: Date | string
+  updated_at?: Date | string | null
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   student?: Prisma.StudentUncheckedCreateNestedOneWithoutUserInput
   teachingCourses?: Prisma.CourseUncheckedCreateNestedManyWithoutTeachersInput
@@ -750,7 +750,7 @@ export type UserCreateWithoutTeachingCoursesInput = {
   is_active?: boolean
   password: string
   created_at?: Date | string
-  updated_at?: Date | string
+  updated_at?: Date | string | null
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   student?: Prisma.StudentCreateNestedOneWithoutUserInput
   doctorCourses?: Prisma.CourseCreateNestedManyWithoutDoctorsInput
@@ -766,7 +766,7 @@ export type UserUncheckedCreateWithoutTeachingCoursesInput = {
   is_active?: boolean
   password: string
   created_at?: Date | string
-  updated_at?: Date | string
+  updated_at?: Date | string | null
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   student?: Prisma.StudentUncheckedCreateNestedOneWithoutUserInput
   doctorCourses?: Prisma.CourseUncheckedCreateNestedManyWithoutDoctorsInput
@@ -806,7 +806,7 @@ export type UserScalarWhereInput = {
   is_active?: Prisma.BoolFilter<"User"> | boolean
   password?: Prisma.StringFilter<"User"> | string
   created_at?: Prisma.DateTimeFilter<"User"> | Date | string
-  updated_at?: Prisma.DateTimeFilter<"User"> | Date | string
+  updated_at?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   permissions?: Prisma.StringNullableListFilter<"User">
 }
 
@@ -835,7 +835,7 @@ export type UserUpdateWithoutDoctorCoursesInput = {
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   student?: Prisma.StudentUpdateOneWithoutUserNestedInput
   teachingCourses?: Prisma.CourseUpdateManyWithoutTeachersNestedInput
@@ -851,7 +851,7 @@ export type UserUncheckedUpdateWithoutDoctorCoursesInput = {
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   student?: Prisma.StudentUncheckedUpdateOneWithoutUserNestedInput
   teachingCourses?: Prisma.CourseUncheckedUpdateManyWithoutTeachersNestedInput
@@ -867,7 +867,7 @@ export type UserUncheckedUpdateManyWithoutDoctorCoursesInput = {
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
 }
 
@@ -880,7 +880,7 @@ export type UserUpdateWithoutTeachingCoursesInput = {
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   student?: Prisma.StudentUpdateOneWithoutUserNestedInput
   doctorCourses?: Prisma.CourseUpdateManyWithoutDoctorsNestedInput
@@ -896,7 +896,7 @@ export type UserUncheckedUpdateWithoutTeachingCoursesInput = {
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   student?: Prisma.StudentUncheckedUpdateOneWithoutUserNestedInput
   doctorCourses?: Prisma.CourseUncheckedUpdateManyWithoutDoctorsNestedInput
@@ -912,7 +912,7 @@ export type UserUncheckedUpdateManyWithoutTeachingCoursesInput = {
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
 }
 
@@ -1043,7 +1043,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     is_active: boolean
     password: string
     created_at: Date
-    updated_at: Date
+    updated_at: Date | null
     permissions: string[]
   }, ExtArgs["result"]["user"]>
   composites: {}
@@ -1678,6 +1678,11 @@ export type UserFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    * Skip the first `n` Users.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of Users.
+   */
   distinct?: Prisma.UserScalarFieldEnum | Prisma.UserScalarFieldEnum[]
 }
 

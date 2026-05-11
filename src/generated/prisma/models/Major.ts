@@ -40,18 +40,24 @@ export type MajorMinAggregateOutputType = {
   id: number | null
   name: string | null
   year_id: number | null
+  created_at: Date | null
+  updated_at: Date | null
 }
 
 export type MajorMaxAggregateOutputType = {
   id: number | null
   name: string | null
   year_id: number | null
+  created_at: Date | null
+  updated_at: Date | null
 }
 
 export type MajorCountAggregateOutputType = {
   id: number
   name: number
   year_id: number
+  created_at: number
+  updated_at: number
   _all: number
 }
 
@@ -70,18 +76,24 @@ export type MajorMinAggregateInputType = {
   id?: true
   name?: true
   year_id?: true
+  created_at?: true
+  updated_at?: true
 }
 
 export type MajorMaxAggregateInputType = {
   id?: true
   name?: true
   year_id?: true
+  created_at?: true
+  updated_at?: true
 }
 
 export type MajorCountAggregateInputType = {
   id?: true
   name?: true
   year_id?: true
+  created_at?: true
+  updated_at?: true
   _all?: true
 }
 
@@ -175,6 +187,8 @@ export type MajorGroupByOutputType = {
   id: number
   name: string
   year_id: number
+  created_at: Date
+  updated_at: Date | null
   _count: MajorCountAggregateOutputType | null
   _avg: MajorAvgAggregateOutputType | null
   _sum: MajorSumAggregateOutputType | null
@@ -182,7 +196,7 @@ export type MajorGroupByOutputType = {
   _max: MajorMaxAggregateOutputType | null
 }
 
-type GetMajorGroupByPayload<T extends MajorGroupByArgs> = Prisma.PrismaPromise<
+export type GetMajorGroupByPayload<T extends MajorGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<MajorGroupByOutputType, T['by']> &
       {
@@ -204,6 +218,8 @@ export type MajorWhereInput = {
   id?: Prisma.IntFilter<"Major"> | number
   name?: Prisma.StringFilter<"Major"> | string
   year_id?: Prisma.IntFilter<"Major"> | number
+  created_at?: Prisma.DateTimeFilter<"Major"> | Date | string
+  updated_at?: Prisma.DateTimeNullableFilter<"Major"> | Date | string | null
   year?: Prisma.XOR<Prisma.YearScalarRelationFilter, Prisma.YearWhereInput>
   groups?: Prisma.GroupListRelationFilter
   courses?: Prisma.CourseListRelationFilter
@@ -213,6 +229,8 @@ export type MajorOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   year_id?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrderInput | Prisma.SortOrder
   year?: Prisma.YearOrderByWithRelationInput
   groups?: Prisma.GroupOrderByRelationAggregateInput
   courses?: Prisma.CourseOrderByRelationAggregateInput
@@ -226,6 +244,8 @@ export type MajorWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.MajorWhereInput | Prisma.MajorWhereInput[]
   name?: Prisma.StringFilter<"Major"> | string
   year_id?: Prisma.IntFilter<"Major"> | number
+  created_at?: Prisma.DateTimeFilter<"Major"> | Date | string
+  updated_at?: Prisma.DateTimeNullableFilter<"Major"> | Date | string | null
   year?: Prisma.XOR<Prisma.YearScalarRelationFilter, Prisma.YearWhereInput>
   groups?: Prisma.GroupListRelationFilter
   courses?: Prisma.CourseListRelationFilter
@@ -235,6 +255,8 @@ export type MajorOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   year_id?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.MajorCountOrderByAggregateInput
   _avg?: Prisma.MajorAvgOrderByAggregateInput
   _max?: Prisma.MajorMaxOrderByAggregateInput
@@ -249,10 +271,14 @@ export type MajorScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"Major"> | number
   name?: Prisma.StringWithAggregatesFilter<"Major"> | string
   year_id?: Prisma.IntWithAggregatesFilter<"Major"> | number
+  created_at?: Prisma.DateTimeWithAggregatesFilter<"Major"> | Date | string
+  updated_at?: Prisma.DateTimeNullableWithAggregatesFilter<"Major"> | Date | string | null
 }
 
 export type MajorCreateInput = {
   name: string
+  created_at?: Date | string
+  updated_at?: Date | string | null
   year: Prisma.YearCreateNestedOneWithoutMajorsInput
   groups?: Prisma.GroupCreateNestedManyWithoutMajorInput
   courses?: Prisma.CourseCreateNestedManyWithoutMajorInput
@@ -262,12 +288,16 @@ export type MajorUncheckedCreateInput = {
   id?: number
   name: string
   year_id: number
+  created_at?: Date | string
+  updated_at?: Date | string | null
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutMajorInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutMajorInput
 }
 
 export type MajorUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   year?: Prisma.YearUpdateOneRequiredWithoutMajorsNestedInput
   groups?: Prisma.GroupUpdateManyWithoutMajorNestedInput
   courses?: Prisma.CourseUpdateManyWithoutMajorNestedInput
@@ -277,6 +307,8 @@ export type MajorUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   groups?: Prisma.GroupUncheckedUpdateManyWithoutMajorNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutMajorNestedInput
 }
@@ -285,16 +317,22 @@ export type MajorCreateManyInput = {
   id?: number
   name: string
   year_id: number
+  created_at?: Date | string
+  updated_at?: Date | string | null
 }
 
 export type MajorUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type MajorUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type MajorListRelationFilter = {
@@ -316,6 +354,8 @@ export type MajorCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   year_id?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
 }
 
 export type MajorAvgOrderByAggregateInput = {
@@ -327,12 +367,16 @@ export type MajorMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   year_id?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
 }
 
 export type MajorMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   year_id?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
 }
 
 export type MajorSumOrderByAggregateInput = {
@@ -421,6 +465,8 @@ export type MajorUpdateOneWithoutCoursesNestedInput = {
 
 export type MajorCreateWithoutYearInput = {
   name: string
+  created_at?: Date | string
+  updated_at?: Date | string | null
   groups?: Prisma.GroupCreateNestedManyWithoutMajorInput
   courses?: Prisma.CourseCreateNestedManyWithoutMajorInput
 }
@@ -428,6 +474,8 @@ export type MajorCreateWithoutYearInput = {
 export type MajorUncheckedCreateWithoutYearInput = {
   id?: number
   name: string
+  created_at?: Date | string
+  updated_at?: Date | string | null
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutMajorInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutMajorInput
 }
@@ -465,10 +513,14 @@ export type MajorScalarWhereInput = {
   id?: Prisma.IntFilter<"Major"> | number
   name?: Prisma.StringFilter<"Major"> | string
   year_id?: Prisma.IntFilter<"Major"> | number
+  created_at?: Prisma.DateTimeFilter<"Major"> | Date | string
+  updated_at?: Prisma.DateTimeNullableFilter<"Major"> | Date | string | null
 }
 
 export type MajorCreateWithoutGroupsInput = {
   name: string
+  created_at?: Date | string
+  updated_at?: Date | string | null
   year: Prisma.YearCreateNestedOneWithoutMajorsInput
   courses?: Prisma.CourseCreateNestedManyWithoutMajorInput
 }
@@ -477,6 +529,8 @@ export type MajorUncheckedCreateWithoutGroupsInput = {
   id?: number
   name: string
   year_id: number
+  created_at?: Date | string
+  updated_at?: Date | string | null
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutMajorInput
 }
 
@@ -498,6 +552,8 @@ export type MajorUpdateToOneWithWhereWithoutGroupsInput = {
 
 export type MajorUpdateWithoutGroupsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   year?: Prisma.YearUpdateOneRequiredWithoutMajorsNestedInput
   courses?: Prisma.CourseUpdateManyWithoutMajorNestedInput
 }
@@ -506,11 +562,15 @@ export type MajorUncheckedUpdateWithoutGroupsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   courses?: Prisma.CourseUncheckedUpdateManyWithoutMajorNestedInput
 }
 
 export type MajorCreateWithoutCoursesInput = {
   name: string
+  created_at?: Date | string
+  updated_at?: Date | string | null
   year: Prisma.YearCreateNestedOneWithoutMajorsInput
   groups?: Prisma.GroupCreateNestedManyWithoutMajorInput
 }
@@ -519,6 +579,8 @@ export type MajorUncheckedCreateWithoutCoursesInput = {
   id?: number
   name: string
   year_id: number
+  created_at?: Date | string
+  updated_at?: Date | string | null
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutMajorInput
 }
 
@@ -540,6 +602,8 @@ export type MajorUpdateToOneWithWhereWithoutCoursesInput = {
 
 export type MajorUpdateWithoutCoursesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   year?: Prisma.YearUpdateOneRequiredWithoutMajorsNestedInput
   groups?: Prisma.GroupUpdateManyWithoutMajorNestedInput
 }
@@ -548,16 +612,22 @@ export type MajorUncheckedUpdateWithoutCoursesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   groups?: Prisma.GroupUncheckedUpdateManyWithoutMajorNestedInput
 }
 
 export type MajorCreateManyYearInput = {
   id?: number
   name: string
+  created_at?: Date | string
+  updated_at?: Date | string | null
 }
 
 export type MajorUpdateWithoutYearInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   groups?: Prisma.GroupUpdateManyWithoutMajorNestedInput
   courses?: Prisma.CourseUpdateManyWithoutMajorNestedInput
 }
@@ -565,6 +635,8 @@ export type MajorUpdateWithoutYearInput = {
 export type MajorUncheckedUpdateWithoutYearInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   groups?: Prisma.GroupUncheckedUpdateManyWithoutMajorNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutMajorNestedInput
 }
@@ -572,6 +644,8 @@ export type MajorUncheckedUpdateWithoutYearInput = {
 export type MajorUncheckedUpdateManyWithoutYearInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -618,6 +692,8 @@ export type MajorSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   id?: boolean
   name?: boolean
   year_id?: boolean
+  created_at?: boolean
+  updated_at?: boolean
   year?: boolean | Prisma.YearDefaultArgs<ExtArgs>
   groups?: boolean | Prisma.Major$groupsArgs<ExtArgs>
   courses?: boolean | Prisma.Major$coursesArgs<ExtArgs>
@@ -628,6 +704,8 @@ export type MajorSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   id?: boolean
   name?: boolean
   year_id?: boolean
+  created_at?: boolean
+  updated_at?: boolean
   year?: boolean | Prisma.YearDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["major"]>
 
@@ -635,6 +713,8 @@ export type MajorSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   id?: boolean
   name?: boolean
   year_id?: boolean
+  created_at?: boolean
+  updated_at?: boolean
   year?: boolean | Prisma.YearDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["major"]>
 
@@ -642,9 +722,11 @@ export type MajorSelectScalar = {
   id?: boolean
   name?: boolean
   year_id?: boolean
+  created_at?: boolean
+  updated_at?: boolean
 }
 
-export type MajorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "year_id", ExtArgs["result"]["major"]>
+export type MajorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "year_id" | "created_at" | "updated_at", ExtArgs["result"]["major"]>
 export type MajorInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   year?: boolean | Prisma.YearDefaultArgs<ExtArgs>
   groups?: boolean | Prisma.Major$groupsArgs<ExtArgs>
@@ -669,6 +751,8 @@ export type $MajorPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     id: number
     name: string
     year_id: number
+    created_at: Date
+    updated_at: Date | null
   }, ExtArgs["result"]["major"]>
   composites: {}
 }
@@ -1098,6 +1182,8 @@ export interface MajorFieldRefs {
   readonly id: Prisma.FieldRef<"Major", 'Int'>
   readonly name: Prisma.FieldRef<"Major", 'String'>
   readonly year_id: Prisma.FieldRef<"Major", 'Int'>
+  readonly created_at: Prisma.FieldRef<"Major", 'DateTime'>
+  readonly updated_at: Prisma.FieldRef<"Major", 'DateTime'>
 }
     
 
@@ -1294,6 +1380,11 @@ export type MajorFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Skip the first `n` Majors.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of Majors.
+   */
   distinct?: Prisma.MajorScalarFieldEnum | Prisma.MajorScalarFieldEnum[]
 }
 
