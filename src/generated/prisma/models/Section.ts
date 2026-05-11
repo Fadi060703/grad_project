@@ -28,60 +28,60 @@ export type AggregateSection = {
 
 export type SectionAvgAggregateOutputType = {
   id: number | null
-  yearId: number | null
+  year_id: number | null
 }
 
 export type SectionSumAggregateOutputType = {
   id: number | null
-  yearId: number | null
+  year_id: number | null
 }
 
 export type SectionMinAggregateOutputType = {
   id: number | null
   name: string | null
-  yearId: number | null
+  year_id: number | null
 }
 
 export type SectionMaxAggregateOutputType = {
   id: number | null
   name: string | null
-  yearId: number | null
+  year_id: number | null
 }
 
 export type SectionCountAggregateOutputType = {
   id: number
   name: number
-  yearId: number
+  year_id: number
   _all: number
 }
 
 
 export type SectionAvgAggregateInputType = {
   id?: true
-  yearId?: true
+  year_id?: true
 }
 
 export type SectionSumAggregateInputType = {
   id?: true
-  yearId?: true
+  year_id?: true
 }
 
 export type SectionMinAggregateInputType = {
   id?: true
   name?: true
-  yearId?: true
+  year_id?: true
 }
 
 export type SectionMaxAggregateInputType = {
   id?: true
   name?: true
-  yearId?: true
+  year_id?: true
 }
 
 export type SectionCountAggregateInputType = {
   id?: true
   name?: true
-  yearId?: true
+  year_id?: true
   _all?: true
 }
 
@@ -174,7 +174,7 @@ export type SectionGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 export type SectionGroupByOutputType = {
   id: number
   name: string
-  yearId: number
+  year_id: number
   _count: SectionCountAggregateOutputType | null
   _avg: SectionAvgAggregateOutputType | null
   _sum: SectionSumAggregateOutputType | null
@@ -203,7 +203,7 @@ export type SectionWhereInput = {
   NOT?: Prisma.SectionWhereInput | Prisma.SectionWhereInput[]
   id?: Prisma.IntFilter<"Section"> | number
   name?: Prisma.StringFilter<"Section"> | string
-  yearId?: Prisma.IntFilter<"Section"> | number
+  year_id?: Prisma.IntFilter<"Section"> | number
   year?: Prisma.XOR<Prisma.YearScalarRelationFilter, Prisma.YearWhereInput>
   groups?: Prisma.GroupListRelationFilter
   courses?: Prisma.CourseListRelationFilter
@@ -212,7 +212,7 @@ export type SectionWhereInput = {
 export type SectionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  yearId?: Prisma.SortOrder
+  year_id?: Prisma.SortOrder
   year?: Prisma.YearOrderByWithRelationInput
   groups?: Prisma.GroupOrderByRelationAggregateInput
   courses?: Prisma.CourseOrderByRelationAggregateInput
@@ -220,21 +220,21 @@ export type SectionOrderByWithRelationInput = {
 
 export type SectionWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  name_yearId?: Prisma.SectionNameYearIdCompoundUniqueInput
+  name_year_id?: Prisma.SectionNameYear_idCompoundUniqueInput
   AND?: Prisma.SectionWhereInput | Prisma.SectionWhereInput[]
   OR?: Prisma.SectionWhereInput[]
   NOT?: Prisma.SectionWhereInput | Prisma.SectionWhereInput[]
   name?: Prisma.StringFilter<"Section"> | string
-  yearId?: Prisma.IntFilter<"Section"> | number
+  year_id?: Prisma.IntFilter<"Section"> | number
   year?: Prisma.XOR<Prisma.YearScalarRelationFilter, Prisma.YearWhereInput>
   groups?: Prisma.GroupListRelationFilter
   courses?: Prisma.CourseListRelationFilter
-}, "id" | "name_yearId">
+}, "id" | "name_year_id">
 
 export type SectionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  yearId?: Prisma.SortOrder
+  year_id?: Prisma.SortOrder
   _count?: Prisma.SectionCountOrderByAggregateInput
   _avg?: Prisma.SectionAvgOrderByAggregateInput
   _max?: Prisma.SectionMaxOrderByAggregateInput
@@ -248,7 +248,7 @@ export type SectionScalarWhereWithAggregatesInput = {
   NOT?: Prisma.SectionScalarWhereWithAggregatesInput | Prisma.SectionScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Section"> | number
   name?: Prisma.StringWithAggregatesFilter<"Section"> | string
-  yearId?: Prisma.IntWithAggregatesFilter<"Section"> | number
+  year_id?: Prisma.IntWithAggregatesFilter<"Section"> | number
 }
 
 export type SectionCreateInput = {
@@ -261,7 +261,7 @@ export type SectionCreateInput = {
 export type SectionUncheckedCreateInput = {
   id?: number
   name: string
-  yearId: number
+  year_id: number
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutSectionInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutSectionInput
 }
@@ -276,7 +276,7 @@ export type SectionUpdateInput = {
 export type SectionUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  yearId?: Prisma.IntFieldUpdateOperationsInput | number
+  year_id?: Prisma.IntFieldUpdateOperationsInput | number
   groups?: Prisma.GroupUncheckedUpdateManyWithoutSectionNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutSectionNestedInput
 }
@@ -284,7 +284,7 @@ export type SectionUncheckedUpdateInput = {
 export type SectionCreateManyInput = {
   id?: number
   name: string
-  yearId: number
+  year_id: number
 }
 
 export type SectionUpdateManyMutationInput = {
@@ -294,7 +294,7 @@ export type SectionUpdateManyMutationInput = {
 export type SectionUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  yearId?: Prisma.IntFieldUpdateOperationsInput | number
+  year_id?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type SectionListRelationFilter = {
@@ -307,37 +307,37 @@ export type SectionOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type SectionNameYearIdCompoundUniqueInput = {
+export type SectionNameYear_idCompoundUniqueInput = {
   name: string
-  yearId: number
+  year_id: number
 }
 
 export type SectionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  yearId?: Prisma.SortOrder
+  year_id?: Prisma.SortOrder
 }
 
 export type SectionAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  yearId?: Prisma.SortOrder
+  year_id?: Prisma.SortOrder
 }
 
 export type SectionMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  yearId?: Prisma.SortOrder
+  year_id?: Prisma.SortOrder
 }
 
 export type SectionMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  yearId?: Prisma.SortOrder
+  year_id?: Prisma.SortOrder
 }
 
 export type SectionSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  yearId?: Prisma.SortOrder
+  year_id?: Prisma.SortOrder
 }
 
 export type SectionScalarRelationFilter = {
@@ -467,7 +467,7 @@ export type SectionScalarWhereInput = {
   NOT?: Prisma.SectionScalarWhereInput | Prisma.SectionScalarWhereInput[]
   id?: Prisma.IntFilter<"Section"> | number
   name?: Prisma.StringFilter<"Section"> | string
-  yearId?: Prisma.IntFilter<"Section"> | number
+  year_id?: Prisma.IntFilter<"Section"> | number
 }
 
 export type SectionCreateWithoutGroupsInput = {
@@ -479,7 +479,7 @@ export type SectionCreateWithoutGroupsInput = {
 export type SectionUncheckedCreateWithoutGroupsInput = {
   id?: number
   name: string
-  yearId: number
+  year_id: number
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutSectionInput
 }
 
@@ -508,7 +508,7 @@ export type SectionUpdateWithoutGroupsInput = {
 export type SectionUncheckedUpdateWithoutGroupsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  yearId?: Prisma.IntFieldUpdateOperationsInput | number
+  year_id?: Prisma.IntFieldUpdateOperationsInput | number
   courses?: Prisma.CourseUncheckedUpdateManyWithoutSectionNestedInput
 }
 
@@ -521,7 +521,7 @@ export type SectionCreateWithoutCoursesInput = {
 export type SectionUncheckedCreateWithoutCoursesInput = {
   id?: number
   name: string
-  yearId: number
+  year_id: number
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutSectionInput
 }
 
@@ -550,7 +550,7 @@ export type SectionUpdateWithoutCoursesInput = {
 export type SectionUncheckedUpdateWithoutCoursesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  yearId?: Prisma.IntFieldUpdateOperationsInput | number
+  year_id?: Prisma.IntFieldUpdateOperationsInput | number
   groups?: Prisma.GroupUncheckedUpdateManyWithoutSectionNestedInput
 }
 
@@ -620,7 +620,7 @@ export type SectionCountOutputTypeCountCoursesArgs<ExtArgs extends runtime.Types
 export type SectionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  yearId?: boolean
+  year_id?: boolean
   year?: boolean | Prisma.YearDefaultArgs<ExtArgs>
   groups?: boolean | Prisma.Section$groupsArgs<ExtArgs>
   courses?: boolean | Prisma.Section$coursesArgs<ExtArgs>
@@ -630,24 +630,24 @@ export type SectionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
 export type SectionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  yearId?: boolean
+  year_id?: boolean
   year?: boolean | Prisma.YearDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["section"]>
 
 export type SectionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  yearId?: boolean
+  year_id?: boolean
   year?: boolean | Prisma.YearDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["section"]>
 
 export type SectionSelectScalar = {
   id?: boolean
   name?: boolean
-  yearId?: boolean
+  year_id?: boolean
 }
 
-export type SectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "yearId", ExtArgs["result"]["section"]>
+export type SectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "year_id", ExtArgs["result"]["section"]>
 export type SectionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   year?: boolean | Prisma.YearDefaultArgs<ExtArgs>
   groups?: boolean | Prisma.Section$groupsArgs<ExtArgs>
@@ -671,7 +671,7 @@ export type $SectionPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     name: string
-    yearId: number
+    year_id: number
   }, ExtArgs["result"]["section"]>
   composites: {}
 }
@@ -1100,7 +1100,7 @@ export interface Prisma__SectionClient<T, Null = never, ExtArgs extends runtime.
 export interface SectionFieldRefs {
   readonly id: Prisma.FieldRef<"Section", 'Int'>
   readonly name: Prisma.FieldRef<"Section", 'String'>
-  readonly yearId: Prisma.FieldRef<"Section", 'Int'>
+  readonly year_id: Prisma.FieldRef<"Section", 'Int'>
 }
     
 

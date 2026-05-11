@@ -1,17 +1,20 @@
 import express from 'express' ; 
-import { createStudent, createUser, deleteUser, getAllnonStudentUsers, getAllStudentUsers, getUserById, updateUser } from '../controllers/userController';
+import { createStudent, createUser, deleteUser, getAllnonStudentUsers, getAllStudentUsers, getUserById, toggleUserActivity, updateStudent, updateUser } from '../controllers/userController';
 import { login, me } from '../controllers/auth/auth';
 import { authMiddleware } from '../middlewares/auth';
 import { check } from '../middlewares/check-permission';
-import { createYear, getAllYears } from '../controllers/yearController';
-import { createSection, getAllSections } from '../controllers/sectionController';
-import { createGroup, getAllGroups } from '../controllers/groupController';
+import { createYear, deleteYear, getAllYears, updateYear } from '../controllers/yearController';
+import { createSection, deleteSection, getAllSections, updateSection } from '../controllers/sectionController';
+import { createGroup, deleteGroup, getAllGroups, updateGroup } from '../controllers/groupController';
+import { createUniversityLocation, deleteUniversityLocation, getAllUniversityLocations, updateUniversityLocation } from '../controllers/locationsController';
 
 const router = express.Router() ;
 
 router.get( '/users' , getAllnonStudentUsers ) ; 
+router.put( '/users/toggle-active/:id' , toggleUserActivity ) ; 
 router.get( '/students' , getAllStudentUsers ) ;
 router.post( '/students' , createStudent ) ;  
+router.put( '/students/:id' , updateStudent ) ;
 router.get( '/users/:id' , getUserById ) ;
 router.post( '/users' , createUser ) ; 
 router.put( '/users/:id' , updateUser ) ;
@@ -20,9 +23,19 @@ router.post( '/auth/login' , login ) ;
 router.get( '/auth/me' , authMiddleware , me ) ; 
 router.get( '/years' , getAllYears ) ; 
 router.post( '/years' , createYear ) ; 
+router.put( '/years/:id', updateYear) ; 
+router.delete( '/years/:id' , deleteYear ) ;
 router.get( '/sections' , getAllSections ) ; 
 router.post( '/sections' , createSection ) ; 
+router.put( '/sections/:id' , updateSection ) ; 
+router.delete( '/sections/:id' , deleteSection ) ; 
 router.get( '/groups' , getAllGroups ) ; 
-router.get( '/groups' , createGroup ) ;
+router.post( '/groups' , createGroup ) ;
+router.put( '/groups/:id' , updateGroup ) ;
+router.delete( '/groups/:id' , deleteGroup ) ;
+router.get( '/locations' , getAllUniversityLocations ) ; 
+router.post( '/locations' , createUniversityLocation ) ;
+router.put( '/locations/:id' , updateUniversityLocation ) ;
+router.delete( '/locations/:id' , deleteUniversityLocation ) ;
 
 export default router ; 

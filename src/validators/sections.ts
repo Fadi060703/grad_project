@@ -3,7 +3,7 @@ import z from "zod";
 export const getSectionsSchema = z.object({
     id: z.number().positive(),
     name: z.string().min(3),
-    yearId: z.number().positive(), // Added to match Prisma and frontend
+    year_id: z.number().positive(), // Added to match Prisma and frontend
     year: z.object({  // Added to match frontend interface
         id: z.number().positive(),
         name: z.string()

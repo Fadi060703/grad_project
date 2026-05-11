@@ -20,14 +20,14 @@ export const getAllYears = createListHandler({
         select: {
           id: true,
           name: true,
-          yearId: true,
+          year_id: true,
         }
       },
       majors: {  // Added to match frontend interface
         select: {
           id: true,
           name: true,
-          yearId: true,
+          year_id: true,
         }
       }
     },
@@ -47,14 +47,14 @@ export const getYearById = async (req: Request, res: Response) => {
           select: {
             id: true,
             name: true,
-            yearId: true,
+            year_id: true,
           }
         },
         majors: {
           select: {
             id: true,
             name: true,
-            yearId: true,
+            year_id: true,
           }
         }
       }

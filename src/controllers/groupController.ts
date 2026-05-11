@@ -9,13 +9,13 @@ import { z } from 'zod';
 export const getAllGroups = createListHandler({
   prisma: prisma.group,
 
-  allowedSortFields: ["id", "name", "sectionId", "majorId", "created_at", "updated_at"],
+  allowedSortFields: ["id", "name", "section_id", "major_id", "created_at", "updated_at"],
 
   fieldTypes: {
     id: "number",
     name: "text",
-    sectionId: "number",
-    majorId: "number",
+    section_id: "number",
+    major_id: "number",
     created_at: "date",
     updated_at: "date",
   },
@@ -26,13 +26,13 @@ export const getAllGroups = createListHandler({
     select: {
       id: true,
       name: true,
-      sectionId: true,
-      majorId: true,
+      section_id: true,
+      major_id: true,
       section: {
         select: {
           id: true,
           name: true,
-          yearId: true,
+          year_id: true,
           year: {
             select: {
               id: true,
@@ -45,7 +45,7 @@ export const getAllGroups = createListHandler({
         select: {
           id: true,
           name: true,
-          yearId: true,
+          year_id: true,
           year: {
             select: {
               id: true,
@@ -71,13 +71,13 @@ export const getGroupById = async (req: Request, res: Response) => {
       select: {
         id: true,
         name: true,
-        sectionId: true,
-        majorId: true,
+        section_id: true,
+        major_id: true,
         section: {
           select: {
             id: true,
             name: true,
-            yearId: true,
+            year_id: true,
             year: {
               select: {
                 id: true,
@@ -90,7 +90,7 @@ export const getGroupById = async (req: Request, res: Response) => {
           select: {
             id: true,
             name: true,
-            yearId: true,
+            year_id: true,
             year: {
               select: {
                 id: true,
@@ -146,7 +146,7 @@ export const createGroup = async (req: Request, res: Response) => {
     const existing = await prisma.group.findFirst({
       where: {
         name: data.name,
-        sectionId: data.section_id
+        section_id: data.section_id
       }
     });
     
@@ -156,11 +156,11 @@ export const createGroup = async (req: Request, res: Response) => {
     
     const createData: any = {
       name: data.name,
-      sectionId: data.section_id
+      section_id: data.section_id
     };
     
     if (data.major_id) {
-      createData.majorId = data.major_id;
+      createData.major_id = data.major_id;
     }
     
     const created = await prisma.group.create({
@@ -168,13 +168,13 @@ export const createGroup = async (req: Request, res: Response) => {
       select: {
         id: true,
         name: true,
-        sectionId: true,
-        majorId: true,
+        section_id: true,
+        major_id: true,
         section: {
           select: {
             id: true,
             name: true,
-            yearId: true,
+            year_id: true,
             year: {
               select: {
                 id: true,
@@ -187,7 +187,7 @@ export const createGroup = async (req: Request, res: Response) => {
           select: {
             id: true,
             name: true,
-            yearId: true,
+            year_id: true,
             year: {
               select: {
                 id: true,
@@ -225,7 +225,7 @@ export const updateGroup = async (req: Request, res: Response) => {
       return res.status(404).json({ error: "Group not found" });
     }
     
-    const updateData: { name?: string; sectionId?: number; majorId?: number | null } = {};
+    const updateData: { name?: string; section_id?: number; major_id?: number | null } = {};
     
     if (data.name !== undefined) updateData.name = data.name;
     
@@ -239,7 +239,7 @@ export const updateGroup = async (req: Request, res: Response) => {
         return res.status(404).json({ error: "Section not found" });
       }
       
-      updateData.sectionId = data.section_id;
+      updateData.section_id = data.section_id;
     }
     
     if (data.major_id !== undefined) {
@@ -252,21 +252,21 @@ export const updateGroup = async (req: Request, res: Response) => {
         if (!majorExists) {
           return res.status(404).json({ error: "Major not found" });
         }
-        updateData.majorId = data.major_id;
+        updateData.major_id = data.major_id;
       } else {
-        // If major_id is null or 0, set majorId to null
-        updateData.majorId = null;
+        // If major_id is null or 0, set major_id to null
+        updateData.major_id = null;
       }
     }
     
     // Check for duplicate name in the same section (if name or section is being changed)
-    const checkSectionId = data.section_id !== undefined ? data.section_id : existingGroup.sectionId;
+    const checkSectionId = data.section_id !== undefined ? data.section_id : existingGroup.section_id;
     const checkName = data.name !== undefined ? data.name : existingGroup.name;
     
     const duplicate = await prisma.group.findFirst({
       where: {
         name: checkName,
-        sectionId: checkSectionId,
+        section_id: checkSectionId,
         id: { not: id }
       }
     });
@@ -281,13 +281,13 @@ export const updateGroup = async (req: Request, res: Response) => {
       select: {
         id: true,
         name: true,
-        sectionId: true,
-        majorId: true,
+        section_id: true,
+        major_id: true,
         section: {
           select: {
             id: true,
             name: true,
-            yearId: true,
+            year_id: true,
             year: {
               select: {
                 id: true,
@@ -300,7 +300,7 @@ export const updateGroup = async (req: Request, res: Response) => {
           select: {
             id: true,
             name: true,
-            yearId: true,
+            year_id: true,
             year: {
               select: {
                 id: true,
@@ -341,8 +341,8 @@ export const deleteGroup = async (req: Request, res: Response) => {
       select: {
         id: true,
         name: true,
-        sectionId: true,
-        majorId: true,
+        section_id: true,
+        major_id: true,
       }
     });
     
@@ -356,20 +356,20 @@ export const deleteGroup = async (req: Request, res: Response) => {
 // Get groups by section
 export const getGroupsBySection = async (req: Request, res: Response) => {
   try {
-    const sectionId = parseInt(req.params.sectionId, 10);
+    const section_id = parseInt(req.params.section_id, 10);
     
     const groups = await prisma.group.findMany({
-      where: { sectionId },
+      where: { section_id },
       select: {
         id: true,
         name: true,
-        sectionId: true,
-        majorId: true,
+        section_id: true,
+        major_id: true,
         major: {
           select: {
             id: true,
             name: true,
-            yearId: true
+            year_id: true
           }
         },
         created_at: true,
@@ -393,20 +393,20 @@ export const getGroupsBySection = async (req: Request, res: Response) => {
 // Get groups by major
 export const getGroupsByMajor = async (req: Request, res: Response) => {
   try {
-    const majorId = parseInt(req.params.majorId, 10);
+    const major_id = parseInt(req.params.major_id, 10);
     
     const groups = await prisma.group.findMany({
-      where: { majorId },
+      where: { major_id },
       select: {
         id: true,
         name: true,
-        sectionId: true,
-        majorId: true,
+        section_id: true,
+        major_id: true,
         section: {
           select: {
             id: true,
             name: true,
-            yearId: true
+            year_id: true
           }
         },
         created_at: true,

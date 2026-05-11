@@ -1137,7 +1137,7 @@ export const UserScalarFieldEnum = {
   email: 'email',
   username: 'username',
   full_name: 'full_name',
-  phoneNumber: 'phoneNumber',
+  phone_number: 'phone_number',
   role: 'role',
   is_active: 'is_active',
   password: 'password',
@@ -1150,10 +1150,9 @@ export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof User
 
 
 export const StudentScalarFieldEnum = {
-  rollNum: 'rollNum',
+  student_id: 'student_id',
   userId: 'userId',
-  mothersName: 'mothersName',
-  phoneNumber: 'phoneNumber'
+  mother_name: 'mother_name'
 } as const
 
 export type StudentScalarFieldEnum = (typeof StudentScalarFieldEnum)[keyof typeof StudentScalarFieldEnum]
@@ -1170,7 +1169,7 @@ export type YearScalarFieldEnum = (typeof YearScalarFieldEnum)[keyof typeof Year
 export const SectionScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  yearId: 'yearId'
+  year_id: 'year_id'
 } as const
 
 export type SectionScalarFieldEnum = (typeof SectionScalarFieldEnum)[keyof typeof SectionScalarFieldEnum]
@@ -1179,7 +1178,7 @@ export type SectionScalarFieldEnum = (typeof SectionScalarFieldEnum)[keyof typeo
 export const MajorScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  yearId: 'yearId'
+  year_id: 'year_id'
 } as const
 
 export type MajorScalarFieldEnum = (typeof MajorScalarFieldEnum)[keyof typeof MajorScalarFieldEnum]
@@ -1188,8 +1187,8 @@ export type MajorScalarFieldEnum = (typeof MajorScalarFieldEnum)[keyof typeof Ma
 export const GroupScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  sectionId: 'sectionId',
-  majorId: 'majorId'
+  section_id: 'section_id',
+  major_id: 'major_id'
 } as const
 
 export type GroupScalarFieldEnum = (typeof GroupScalarFieldEnum)[keyof typeof GroupScalarFieldEnum]
@@ -1213,8 +1212,8 @@ export const CourseScalarFieldEnum = {
   exam_type: 'exam_type',
   theoretical_grade: 'theoretical_grade',
   practical_grade: 'practical_grade',
-  majorId: 'majorId',
-  sectionId: 'sectionId',
+  major_id: 'major_id',
+  section_id: 'section_id',
   created_at: 'created_at',
   updated_at: 'updated_at'
 } as const

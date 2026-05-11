@@ -7,10 +7,10 @@ import { notFound } from './src/middlewares/404';
 
 
 const app : Application = express();
-const path = 'localhost';
+const path = '0.0.0.0';
 const port = 8000;
 app.use( cors({
-    origin : [ 'http://127.0.0.1:3000' , 'http://localhost:3000' ] ,
+    origin : /.*/,
     credentials : true , 
     methods : [ "GET" , "POST" , "PUT" , "PATCH" , "DELETE" , "OPTIONS" ] ,
     allowedHeaders : [ "Content-Type" , "Authorization" , "Accept"] 

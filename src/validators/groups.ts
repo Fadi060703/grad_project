@@ -5,21 +5,21 @@ import { z } from 'zod';
 export const getGroupsSchema = z.object({
   id: z.number().positive(),
   name: z.string(),
-  sectionId: z.number().positive(),
+  section_id: z.number().positive(),
   section: z.object({
     id: z.number().positive(),
     name: z.string(),
-    yearId: z.number().positive(),
+    year_id: z.number().positive(),
     year: z.object({
       id: z.number().positive(),
       name: z.string()
     }).optional()
   }).optional(),
-  majorId: z.number().positive().optional(),
+  major_id: z.number().positive().optional(),
   major: z.object({
     id: z.number().positive(),
     name: z.string(),
-    yearId: z.number().positive(),
+    year_id: z.number().positive(),
     year: z.object({
       id: z.number().positive(),
       name: z.string()

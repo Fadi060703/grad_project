@@ -7,12 +7,12 @@ import { z } from "zod";
 export const getAllSections = createListHandler({
   prisma: prisma.section,
 
-  allowedSortFields: ["id", "name", "yearId"],
+  allowedSortFields: ["id", "name", "year_id"],
 
   fieldTypes: {
     id: "number",
     name: "text",
-    yearId: "number",
+    year_id: "number",
   },
 
   searchableFields: ["name"],
@@ -21,7 +21,7 @@ export const getAllSections = createListHandler({
     select: {
       id: true,
       name: true,
-      yearId: true,
+      year_id: true,
       year: {
         select: {
           id: true,
@@ -49,7 +49,7 @@ export const getSectionById = async (req: Request, res: Response) => {
       select: {
         id: true,
         name: true,
-        yearId: true,
+        year_id: true,
         year: {
           select: {
             id: true,
@@ -87,7 +87,7 @@ export const createSection = async (req: Request, res: Response) => {
     const existing = await prisma.section.findFirst({
       where: {
         name: data.name,
-        yearId: data.year_id
+        year_id: data.year_id
       }
     });
     
@@ -107,12 +107,12 @@ export const createSection = async (req: Request, res: Response) => {
     const created = await prisma.section.create({
       data: {
         name: data.name,
-        yearId: data.year_id  // Direct assignment instead of connect
+        year_id: data.year_id  // Direct assignment instead of connect
       },
       select: {
         id: true,
         name: true,
-        yearId: true,
+        year_id: true,
         year: {
           select: {
             id: true,
@@ -146,7 +146,7 @@ export const updateSection = async (req: Request, res: Response) => {
       return res.status(404).json({ error: "Section not found" });
     }
     
-    const updateData: { name?: string; yearId?: number } = {};
+    const updateData: { name?: string; year_id?: number } = {};
     
     if (data.name !== undefined) updateData.name = data.name;
     
@@ -160,17 +160,17 @@ export const updateSection = async (req: Request, res: Response) => {
         return res.status(404).json({ error: "Year not found" });
       }
       
-      updateData.yearId = data.year_id;
+      updateData.year_id = data.year_id;
     }
     
     // Check for duplicate name in the same year (if name or year is being changed)
-    const checkYearId = data.year_id !== undefined ? data.year_id : existingSection.yearId;
+    const checkYearId = data.year_id !== undefined ? data.year_id : existingSection.year_id;
     const checkName = data.name !== undefined ? data.name : existingSection.name;
     
     const duplicate = await prisma.section.findFirst({
       where: {
         name: checkName,
-        yearId: checkYearId,
+        year_id: checkYearId,
         id: { not: id }
       }
     });
@@ -185,7 +185,7 @@ export const updateSection = async (req: Request, res: Response) => {
       select: {
         id: true,
         name: true,
-        yearId: true,
+        year_id: true,
         year: {
           select: {
             id: true,
@@ -232,7 +232,7 @@ export const deleteSection = async (req: Request, res: Response) => {
       select: {
         id: true,
         name: true,
-        yearId: true
+        year_id: true
       }
     });
     

@@ -13,13 +13,13 @@ export const getCoursesSchema = z.object({
   major: z.object({
     id: z.number().positive(),
     name: z.string(),
-    yearId: z.number().positive()
+    year_id: z.number().positive()
   }).optional().nullable(),
   section_id: z.number().positive().optional().nullable(),
   section: z.object({
     id: z.number().positive(),
     name: z.string(),
-    yearId: z.number().positive()
+    year_id: z.number().positive()
   }).optional().nullable(),
   doctors: z.array(z.object({
     id: z.number().positive(),

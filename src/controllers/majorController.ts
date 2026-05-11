@@ -9,12 +9,12 @@ import { z } from 'zod';
 export const getAllMajors = createListHandler({
   prisma: prisma.major,
 
-  allowedSortFields: ["id", "name", "yearId"],
+  allowedSortFields: ["id", "name", "year_id"],
 
   fieldTypes: {
     id: "number",
     name: "text",
-    yearId: "number",
+    year_id: "number",
   },
 
   searchableFields: ["name"],
@@ -23,7 +23,7 @@ export const getAllMajors = createListHandler({
     select: {
       id: true,
       name: true,
-      yearId: true,
+      year_id: true,
       year: {
         select: {
           id: true,
@@ -51,7 +51,7 @@ export const getMajorById = async (req: Request, res: Response) => {
       select: {
         id: true,
         name: true,
-        yearId: true,
+        year_id: true,
         year: {
           select: {
             id: true,
@@ -98,7 +98,7 @@ export const createMajor = async (req: Request, res: Response) => {
     const existing = await prisma.major.findFirst({
       where: {
         name: data.name,
-        yearId: data.year_id
+        year_id: data.year_id
       }
     });
     
@@ -109,12 +109,12 @@ export const createMajor = async (req: Request, res: Response) => {
     const created = await prisma.major.create({
       data: {
         name: data.name,
-        yearId: data.year_id
+        year_id: data.year_id
       },
       select: {
         id: true,
         name: true,
-        yearId: true,
+        year_id: true,
         year: {
           select: {
             id: true,
@@ -148,7 +148,7 @@ export const updateMajor = async (req: Request, res: Response) => {
       return res.status(404).json({ error: "Major not found" });
     }
     
-    const updateData: { name?: string; yearId?: number } = {};
+    const updateData: { name?: string; year_id?: number } = {};
     
     if (data.name !== undefined) updateData.name = data.name;
     
@@ -162,17 +162,17 @@ export const updateMajor = async (req: Request, res: Response) => {
         return res.status(404).json({ error: "Year not found" });
       }
       
-      updateData.yearId = data.year_id;
+      updateData.year_id = data.year_id;
     }
     
     // Check for duplicate name in the same year (if name or year is being changed)
-    const checkYearId = data.year_id !== undefined ? data.year_id : existingMajor.yearId;
+    const checkYearId = data.year_id !== undefined ? data.year_id : existingMajor.year_id;
     const checkName = data.name !== undefined ? data.name : existingMajor.name;
     
     const duplicate = await prisma.major.findFirst({
       where: {
         name: checkName,
-        yearId: checkYearId,
+        year_id: checkYearId,
         id: { not: id }
       }
     });
@@ -187,7 +187,7 @@ export const updateMajor = async (req: Request, res: Response) => {
       select: {
         id: true,
         name: true,
-        yearId: true,
+        year_id: true,
         year: {
           select: {
             id: true,
@@ -234,7 +234,7 @@ export const deleteMajor = async (req: Request, res: Response) => {
       select: {
         id: true,
         name: true,
-        yearId: true
+        year_id: true
       }
     });
     

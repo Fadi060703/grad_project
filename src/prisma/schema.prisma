@@ -40,7 +40,7 @@ model User {
   email        String?  @unique
   username     String   @unique
   full_name    String   
-  phoneNumber  String?  
+  phone_number  String?  
   role         Role
   is_active    Boolean  @default(true)
   password     String
@@ -56,11 +56,10 @@ model User {
   @@map("users")
 }
 model Student {
-  rollNum Int @id @default( autoincrement() ) 
+  student_id Int @id @default( autoincrement() ) 
   userId Int @unique 
   user User @relation( fields: [ userId ] , references: [ id ] , onDelete: Cascade ) 
-  mothersName String 
-  phoneNumber String 
+  mother_name String
 }
 
 
@@ -74,34 +73,34 @@ model Year {
 model Section {
   id Int @id @default(autoincrement())
   name String
-  yearId Int
-  year Year @relation(fields: [yearId], references: [id], onDelete: Cascade)
+  year_id Int
+  year Year @relation(fields: [year_id], references: [id], onDelete: Cascade)
   groups Group[]
   courses Course[]
-  @@unique([name, yearId]) 
+  @@unique([name, year_id]) 
 }
 
 model Major {
   id      Int     @id @default(autoincrement())
   name    String
-  yearId  Int
-  year    Year    @relation(fields: [yearId], references: [id], onDelete: Cascade)
+  year_id Int
+  year    Year    @relation(fields: [year_id], references: [id], onDelete: Cascade)
   groups  Group[]
   courses Course[]
   
-  @@unique([name, yearId])
+  @@unique([name, year_id])
   @@map("majors")
 }
 
 model Group {
   id        Int      @id @default(autoincrement())
   name      String
-  sectionId Int
-  section   Section  @relation(fields: [sectionId], references: [id], onDelete: Cascade)
-  majorId   Int?
-  major     Major?   @relation(fields: [majorId], references: [id], onDelete: SetNull)
+  section_id Int
+  section   Section  @relation(fields: [section_id], references: [id], onDelete: Cascade)
+  major_id   Int?
+  major     Major?   @relation(fields: [major_id], references: [id], onDelete: SetNull)
   
-  @@unique([name, sectionId])
+  @@unique([name, section_id, major_id])
   @@map("groups")
 }
 
@@ -146,4 +145,3 @@ model Course {
   @@map("courses")
 }
 
-model Lecture {} // Hanin

@@ -5,7 +5,7 @@ import { z } from 'zod';
 export const getMajorsSchema = z.object({
   id: z.number().positive(),
   name: z.string(),
-  yearId: z.number().positive(),
+  year_id: z.number().positive(),
   year: z.object({
     id: z.number().positive(),
     name: z.string()

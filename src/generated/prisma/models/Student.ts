@@ -27,67 +27,61 @@ export type AggregateStudent = {
 }
 
 export type StudentAvgAggregateOutputType = {
-  rollNum: number | null
+  student_id: number | null
   userId: number | null
 }
 
 export type StudentSumAggregateOutputType = {
-  rollNum: number | null
+  student_id: number | null
   userId: number | null
 }
 
 export type StudentMinAggregateOutputType = {
-  rollNum: number | null
+  student_id: number | null
   userId: number | null
-  mothersName: string | null
-  phoneNumber: string | null
+  mother_name: string | null
 }
 
 export type StudentMaxAggregateOutputType = {
-  rollNum: number | null
+  student_id: number | null
   userId: number | null
-  mothersName: string | null
-  phoneNumber: string | null
+  mother_name: string | null
 }
 
 export type StudentCountAggregateOutputType = {
-  rollNum: number
+  student_id: number
   userId: number
-  mothersName: number
-  phoneNumber: number
+  mother_name: number
   _all: number
 }
 
 
 export type StudentAvgAggregateInputType = {
-  rollNum?: true
+  student_id?: true
   userId?: true
 }
 
 export type StudentSumAggregateInputType = {
-  rollNum?: true
+  student_id?: true
   userId?: true
 }
 
 export type StudentMinAggregateInputType = {
-  rollNum?: true
+  student_id?: true
   userId?: true
-  mothersName?: true
-  phoneNumber?: true
+  mother_name?: true
 }
 
 export type StudentMaxAggregateInputType = {
-  rollNum?: true
+  student_id?: true
   userId?: true
-  mothersName?: true
-  phoneNumber?: true
+  mother_name?: true
 }
 
 export type StudentCountAggregateInputType = {
-  rollNum?: true
+  student_id?: true
   userId?: true
-  mothersName?: true
-  phoneNumber?: true
+  mother_name?: true
   _all?: true
 }
 
@@ -178,10 +172,9 @@ export type StudentGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 export type StudentGroupByOutputType = {
-  rollNum: number
+  student_id: number
   userId: number
-  mothersName: string
-  phoneNumber: string
+  mother_name: string
   _count: StudentCountAggregateOutputType | null
   _avg: StudentAvgAggregateOutputType | null
   _sum: StudentSumAggregateOutputType | null
@@ -208,37 +201,33 @@ export type StudentWhereInput = {
   AND?: Prisma.StudentWhereInput | Prisma.StudentWhereInput[]
   OR?: Prisma.StudentWhereInput[]
   NOT?: Prisma.StudentWhereInput | Prisma.StudentWhereInput[]
-  rollNum?: Prisma.IntFilter<"Student"> | number
+  student_id?: Prisma.IntFilter<"Student"> | number
   userId?: Prisma.IntFilter<"Student"> | number
-  mothersName?: Prisma.StringFilter<"Student"> | string
-  phoneNumber?: Prisma.StringFilter<"Student"> | string
+  mother_name?: Prisma.StringFilter<"Student"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type StudentOrderByWithRelationInput = {
-  rollNum?: Prisma.SortOrder
+  student_id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  mothersName?: Prisma.SortOrder
-  phoneNumber?: Prisma.SortOrder
+  mother_name?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
 }
 
 export type StudentWhereUniqueInput = Prisma.AtLeast<{
-  rollNum?: number
+  student_id?: number
   userId?: number
   AND?: Prisma.StudentWhereInput | Prisma.StudentWhereInput[]
   OR?: Prisma.StudentWhereInput[]
   NOT?: Prisma.StudentWhereInput | Prisma.StudentWhereInput[]
-  mothersName?: Prisma.StringFilter<"Student"> | string
-  phoneNumber?: Prisma.StringFilter<"Student"> | string
+  mother_name?: Prisma.StringFilter<"Student"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-}, "rollNum" | "userId">
+}, "student_id" | "userId">
 
 export type StudentOrderByWithAggregationInput = {
-  rollNum?: Prisma.SortOrder
+  student_id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  mothersName?: Prisma.SortOrder
-  phoneNumber?: Prisma.SortOrder
+  mother_name?: Prisma.SortOrder
   _count?: Prisma.StudentCountOrderByAggregateInput
   _avg?: Prisma.StudentAvgOrderByAggregateInput
   _max?: Prisma.StudentMaxOrderByAggregateInput
@@ -250,55 +239,47 @@ export type StudentScalarWhereWithAggregatesInput = {
   AND?: Prisma.StudentScalarWhereWithAggregatesInput | Prisma.StudentScalarWhereWithAggregatesInput[]
   OR?: Prisma.StudentScalarWhereWithAggregatesInput[]
   NOT?: Prisma.StudentScalarWhereWithAggregatesInput | Prisma.StudentScalarWhereWithAggregatesInput[]
-  rollNum?: Prisma.IntWithAggregatesFilter<"Student"> | number
+  student_id?: Prisma.IntWithAggregatesFilter<"Student"> | number
   userId?: Prisma.IntWithAggregatesFilter<"Student"> | number
-  mothersName?: Prisma.StringWithAggregatesFilter<"Student"> | string
-  phoneNumber?: Prisma.StringWithAggregatesFilter<"Student"> | string
+  mother_name?: Prisma.StringWithAggregatesFilter<"Student"> | string
 }
 
 export type StudentCreateInput = {
-  mothersName: string
-  phoneNumber: string
+  mother_name: string
   user: Prisma.UserCreateNestedOneWithoutStudentInput
 }
 
 export type StudentUncheckedCreateInput = {
-  rollNum?: number
+  student_id?: number
   userId: number
-  mothersName: string
-  phoneNumber: string
+  mother_name: string
 }
 
 export type StudentUpdateInput = {
-  mothersName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  mother_name?: Prisma.StringFieldUpdateOperationsInput | string
   user?: Prisma.UserUpdateOneRequiredWithoutStudentNestedInput
 }
 
 export type StudentUncheckedUpdateInput = {
-  rollNum?: Prisma.IntFieldUpdateOperationsInput | number
+  student_id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  mothersName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  mother_name?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type StudentCreateManyInput = {
-  rollNum?: number
+  student_id?: number
   userId: number
-  mothersName: string
-  phoneNumber: string
+  mother_name: string
 }
 
 export type StudentUpdateManyMutationInput = {
-  mothersName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  mother_name?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type StudentUncheckedUpdateManyInput = {
-  rollNum?: Prisma.IntFieldUpdateOperationsInput | number
+  student_id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  mothersName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  mother_name?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type StudentNullableScalarRelationFilter = {
@@ -307,33 +288,30 @@ export type StudentNullableScalarRelationFilter = {
 }
 
 export type StudentCountOrderByAggregateInput = {
-  rollNum?: Prisma.SortOrder
+  student_id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  mothersName?: Prisma.SortOrder
-  phoneNumber?: Prisma.SortOrder
+  mother_name?: Prisma.SortOrder
 }
 
 export type StudentAvgOrderByAggregateInput = {
-  rollNum?: Prisma.SortOrder
+  student_id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
 }
 
 export type StudentMaxOrderByAggregateInput = {
-  rollNum?: Prisma.SortOrder
+  student_id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  mothersName?: Prisma.SortOrder
-  phoneNumber?: Prisma.SortOrder
+  mother_name?: Prisma.SortOrder
 }
 
 export type StudentMinOrderByAggregateInput = {
-  rollNum?: Prisma.SortOrder
+  student_id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  mothersName?: Prisma.SortOrder
-  phoneNumber?: Prisma.SortOrder
+  mother_name?: Prisma.SortOrder
 }
 
 export type StudentSumOrderByAggregateInput = {
-  rollNum?: Prisma.SortOrder
+  student_id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
 }
 
@@ -370,14 +348,12 @@ export type StudentUncheckedUpdateOneWithoutUserNestedInput = {
 }
 
 export type StudentCreateWithoutUserInput = {
-  mothersName: string
-  phoneNumber: string
+  mother_name: string
 }
 
 export type StudentUncheckedCreateWithoutUserInput = {
-  rollNum?: number
-  mothersName: string
-  phoneNumber: string
+  student_id?: number
+  mother_name: string
 }
 
 export type StudentCreateOrConnectWithoutUserInput = {
@@ -397,50 +373,44 @@ export type StudentUpdateToOneWithWhereWithoutUserInput = {
 }
 
 export type StudentUpdateWithoutUserInput = {
-  mothersName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  mother_name?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type StudentUncheckedUpdateWithoutUserInput = {
-  rollNum?: Prisma.IntFieldUpdateOperationsInput | number
-  mothersName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  student_id?: Prisma.IntFieldUpdateOperationsInput | number
+  mother_name?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 
 
 export type StudentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  rollNum?: boolean
+  student_id?: boolean
   userId?: boolean
-  mothersName?: boolean
-  phoneNumber?: boolean
+  mother_name?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["student"]>
 
 export type StudentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  rollNum?: boolean
+  student_id?: boolean
   userId?: boolean
-  mothersName?: boolean
-  phoneNumber?: boolean
+  mother_name?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["student"]>
 
 export type StudentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  rollNum?: boolean
+  student_id?: boolean
   userId?: boolean
-  mothersName?: boolean
-  phoneNumber?: boolean
+  mother_name?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["student"]>
 
 export type StudentSelectScalar = {
-  rollNum?: boolean
+  student_id?: boolean
   userId?: boolean
-  mothersName?: boolean
-  phoneNumber?: boolean
+  mother_name?: boolean
 }
 
-export type StudentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"rollNum" | "userId" | "mothersName" | "phoneNumber", ExtArgs["result"]["student"]>
+export type StudentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"student_id" | "userId" | "mother_name", ExtArgs["result"]["student"]>
 export type StudentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -457,10 +427,9 @@ export type $StudentPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     user: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    rollNum: number
+    student_id: number
     userId: number
-    mothersName: string
-    phoneNumber: string
+    mother_name: string
   }, ExtArgs["result"]["student"]>
   composites: {}
 }
@@ -544,8 +513,8 @@ export interface StudentDelegate<ExtArgs extends runtime.Types.Extensions.Intern
    * // Get first 10 Students
    * const students = await prisma.student.findMany({ take: 10 })
    * 
-   * // Only select the `rollNum`
-   * const studentWithRollNumOnly = await prisma.student.findMany({ select: { rollNum: true } })
+   * // Only select the `student_id`
+   * const studentWithStudent_idOnly = await prisma.student.findMany({ select: { student_id: true } })
    * 
    */
   findMany<T extends StudentFindManyArgs>(args?: Prisma.SelectSubset<T, StudentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
@@ -589,9 +558,9 @@ export interface StudentDelegate<ExtArgs extends runtime.Types.Extensions.Intern
    *   ]
    * })
    * 
-   * // Create many Students and only return the `rollNum`
-   * const studentWithRollNumOnly = await prisma.student.createManyAndReturn({
-   *   select: { rollNum: true },
+   * // Create many Students and only return the `student_id`
+   * const studentWithStudent_idOnly = await prisma.student.createManyAndReturn({
+   *   select: { student_id: true },
    *   data: [
    *     // ... provide data here
    *   ]
@@ -680,9 +649,9 @@ export interface StudentDelegate<ExtArgs extends runtime.Types.Extensions.Intern
    *   ]
    * })
    * 
-   * // Update zero or more Students and only return the `rollNum`
-   * const studentWithRollNumOnly = await prisma.student.updateManyAndReturn({
-   *   select: { rollNum: true },
+   * // Update zero or more Students and only return the `student_id`
+   * const studentWithStudent_idOnly = await prisma.student.updateManyAndReturn({
+   *   select: { student_id: true },
    *   where: {
    *     // ... provide filter here
    *   },
@@ -885,10 +854,9 @@ export interface Prisma__StudentClient<T, Null = never, ExtArgs extends runtime.
  * Fields of the Student model
  */
 export interface StudentFieldRefs {
-  readonly rollNum: Prisma.FieldRef<"Student", 'Int'>
+  readonly student_id: Prisma.FieldRef<"Student", 'Int'>
   readonly userId: Prisma.FieldRef<"Student", 'Int'>
-  readonly mothersName: Prisma.FieldRef<"Student", 'String'>
-  readonly phoneNumber: Prisma.FieldRef<"Student", 'String'>
+  readonly mother_name: Prisma.FieldRef<"Student", 'String'>
 }
     
 

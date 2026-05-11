@@ -28,70 +28,70 @@ export type AggregateGroup = {
 
 export type GroupAvgAggregateOutputType = {
   id: number | null
-  sectionId: number | null
-  majorId: number | null
+  section_id: number | null
+  major_id: number | null
 }
 
 export type GroupSumAggregateOutputType = {
   id: number | null
-  sectionId: number | null
-  majorId: number | null
+  section_id: number | null
+  major_id: number | null
 }
 
 export type GroupMinAggregateOutputType = {
   id: number | null
   name: string | null
-  sectionId: number | null
-  majorId: number | null
+  section_id: number | null
+  major_id: number | null
 }
 
 export type GroupMaxAggregateOutputType = {
   id: number | null
   name: string | null
-  sectionId: number | null
-  majorId: number | null
+  section_id: number | null
+  major_id: number | null
 }
 
 export type GroupCountAggregateOutputType = {
   id: number
   name: number
-  sectionId: number
-  majorId: number
+  section_id: number
+  major_id: number
   _all: number
 }
 
 
 export type GroupAvgAggregateInputType = {
   id?: true
-  sectionId?: true
-  majorId?: true
+  section_id?: true
+  major_id?: true
 }
 
 export type GroupSumAggregateInputType = {
   id?: true
-  sectionId?: true
-  majorId?: true
+  section_id?: true
+  major_id?: true
 }
 
 export type GroupMinAggregateInputType = {
   id?: true
   name?: true
-  sectionId?: true
-  majorId?: true
+  section_id?: true
+  major_id?: true
 }
 
 export type GroupMaxAggregateInputType = {
   id?: true
   name?: true
-  sectionId?: true
-  majorId?: true
+  section_id?: true
+  major_id?: true
 }
 
 export type GroupCountAggregateInputType = {
   id?: true
   name?: true
-  sectionId?: true
-  majorId?: true
+  section_id?: true
+  major_id?: true
   _all?: true
 }
 
@@ -184,8 +184,8 @@ export type GroupGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
 export type GroupGroupByOutputType = {
   id: number
   name: string
-  sectionId: number
-  majorId: number | null
+  section_id: number
+  major_id: number | null
   _count: GroupCountAggregateOutputType | null
   _avg: GroupAvgAggregateOutputType | null
   _sum: GroupSumAggregateOutputType | null
@@ -214,8 +214,8 @@ export type GroupWhereInput = {
   NOT?: Prisma.GroupWhereInput | Prisma.GroupWhereInput[]
   id?: Prisma.IntFilter<"Group"> | number
   name?: Prisma.StringFilter<"Group"> | string
-  sectionId?: Prisma.IntFilter<"Group"> | number
-  majorId?: Prisma.IntNullableFilter<"Group"> | number | null
+  section_id?: Prisma.IntFilter<"Group"> | number
+  major_id?: Prisma.IntNullableFilter<"Group"> | number | null
   section?: Prisma.XOR<Prisma.SectionScalarRelationFilter, Prisma.SectionWhereInput>
   major?: Prisma.XOR<Prisma.MajorNullableScalarRelationFilter, Prisma.MajorWhereInput> | null
 }
@@ -223,30 +223,30 @@ export type GroupWhereInput = {
 export type GroupOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  sectionId?: Prisma.SortOrder
-  majorId?: Prisma.SortOrderInput | Prisma.SortOrder
+  section_id?: Prisma.SortOrder
+  major_id?: Prisma.SortOrderInput | Prisma.SortOrder
   section?: Prisma.SectionOrderByWithRelationInput
   major?: Prisma.MajorOrderByWithRelationInput
 }
 
 export type GroupWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  name_sectionId?: Prisma.GroupNameSectionIdCompoundUniqueInput
+  name_section_id_major_id?: Prisma.GroupNameSection_idMajor_idCompoundUniqueInput
   AND?: Prisma.GroupWhereInput | Prisma.GroupWhereInput[]
   OR?: Prisma.GroupWhereInput[]
   NOT?: Prisma.GroupWhereInput | Prisma.GroupWhereInput[]
   name?: Prisma.StringFilter<"Group"> | string
-  sectionId?: Prisma.IntFilter<"Group"> | number
-  majorId?: Prisma.IntNullableFilter<"Group"> | number | null
+  section_id?: Prisma.IntFilter<"Group"> | number
+  major_id?: Prisma.IntNullableFilter<"Group"> | number | null
   section?: Prisma.XOR<Prisma.SectionScalarRelationFilter, Prisma.SectionWhereInput>
   major?: Prisma.XOR<Prisma.MajorNullableScalarRelationFilter, Prisma.MajorWhereInput> | null
-}, "id" | "name_sectionId">
+}, "id" | "name_section_id_major_id">
 
 export type GroupOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  sectionId?: Prisma.SortOrder
-  majorId?: Prisma.SortOrderInput | Prisma.SortOrder
+  section_id?: Prisma.SortOrder
+  major_id?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.GroupCountOrderByAggregateInput
   _avg?: Prisma.GroupAvgOrderByAggregateInput
   _max?: Prisma.GroupMaxOrderByAggregateInput
@@ -260,8 +260,8 @@ export type GroupScalarWhereWithAggregatesInput = {
   NOT?: Prisma.GroupScalarWhereWithAggregatesInput | Prisma.GroupScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Group"> | number
   name?: Prisma.StringWithAggregatesFilter<"Group"> | string
-  sectionId?: Prisma.IntWithAggregatesFilter<"Group"> | number
-  majorId?: Prisma.IntNullableWithAggregatesFilter<"Group"> | number | null
+  section_id?: Prisma.IntWithAggregatesFilter<"Group"> | number
+  major_id?: Prisma.IntNullableWithAggregatesFilter<"Group"> | number | null
 }
 
 export type GroupCreateInput = {
@@ -273,8 +273,8 @@ export type GroupCreateInput = {
 export type GroupUncheckedCreateInput = {
   id?: number
   name: string
-  sectionId: number
-  majorId?: number | null
+  section_id: number
+  major_id?: number | null
 }
 
 export type GroupUpdateInput = {
@@ -286,15 +286,15 @@ export type GroupUpdateInput = {
 export type GroupUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  sectionId?: Prisma.IntFieldUpdateOperationsInput | number
-  majorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  section_id?: Prisma.IntFieldUpdateOperationsInput | number
+  major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type GroupCreateManyInput = {
   id?: number
   name: string
-  sectionId: number
-  majorId?: number | null
+  section_id: number
+  major_id?: number | null
 }
 
 export type GroupUpdateManyMutationInput = {
@@ -304,8 +304,8 @@ export type GroupUpdateManyMutationInput = {
 export type GroupUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  sectionId?: Prisma.IntFieldUpdateOperationsInput | number
-  majorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  section_id?: Prisma.IntFieldUpdateOperationsInput | number
+  major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type GroupListRelationFilter = {
@@ -318,42 +318,43 @@ export type GroupOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type GroupNameSectionIdCompoundUniqueInput = {
+export type GroupNameSection_idMajor_idCompoundUniqueInput = {
   name: string
-  sectionId: number
+  section_id: number
+  major_id: number
 }
 
 export type GroupCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  sectionId?: Prisma.SortOrder
-  majorId?: Prisma.SortOrder
+  section_id?: Prisma.SortOrder
+  major_id?: Prisma.SortOrder
 }
 
 export type GroupAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  sectionId?: Prisma.SortOrder
-  majorId?: Prisma.SortOrder
+  section_id?: Prisma.SortOrder
+  major_id?: Prisma.SortOrder
 }
 
 export type GroupMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  sectionId?: Prisma.SortOrder
-  majorId?: Prisma.SortOrder
+  section_id?: Prisma.SortOrder
+  major_id?: Prisma.SortOrder
 }
 
 export type GroupMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  sectionId?: Prisma.SortOrder
-  majorId?: Prisma.SortOrder
+  section_id?: Prisma.SortOrder
+  major_id?: Prisma.SortOrder
 }
 
 export type GroupSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  sectionId?: Prisma.SortOrder
-  majorId?: Prisma.SortOrder
+  section_id?: Prisma.SortOrder
+  major_id?: Prisma.SortOrder
 }
 
 export type GroupCreateNestedManyWithoutSectionInput = {
@@ -448,7 +449,7 @@ export type GroupCreateWithoutSectionInput = {
 export type GroupUncheckedCreateWithoutSectionInput = {
   id?: number
   name: string
-  majorId?: number | null
+  major_id?: number | null
 }
 
 export type GroupCreateOrConnectWithoutSectionInput = {
@@ -483,8 +484,8 @@ export type GroupScalarWhereInput = {
   NOT?: Prisma.GroupScalarWhereInput | Prisma.GroupScalarWhereInput[]
   id?: Prisma.IntFilter<"Group"> | number
   name?: Prisma.StringFilter<"Group"> | string
-  sectionId?: Prisma.IntFilter<"Group"> | number
-  majorId?: Prisma.IntNullableFilter<"Group"> | number | null
+  section_id?: Prisma.IntFilter<"Group"> | number
+  major_id?: Prisma.IntNullableFilter<"Group"> | number | null
 }
 
 export type GroupCreateWithoutMajorInput = {
@@ -495,7 +496,7 @@ export type GroupCreateWithoutMajorInput = {
 export type GroupUncheckedCreateWithoutMajorInput = {
   id?: number
   name: string
-  sectionId: number
+  section_id: number
 }
 
 export type GroupCreateOrConnectWithoutMajorInput = {
@@ -527,7 +528,7 @@ export type GroupUpdateManyWithWhereWithoutMajorInput = {
 export type GroupCreateManySectionInput = {
   id?: number
   name: string
-  majorId?: number | null
+  major_id?: number | null
 }
 
 export type GroupUpdateWithoutSectionInput = {
@@ -538,19 +539,19 @@ export type GroupUpdateWithoutSectionInput = {
 export type GroupUncheckedUpdateWithoutSectionInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  majorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type GroupUncheckedUpdateManyWithoutSectionInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  majorId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type GroupCreateManyMajorInput = {
   id?: number
   name: string
-  sectionId: number
+  section_id: number
 }
 
 export type GroupUpdateWithoutMajorInput = {
@@ -561,13 +562,13 @@ export type GroupUpdateWithoutMajorInput = {
 export type GroupUncheckedUpdateWithoutMajorInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  sectionId?: Prisma.IntFieldUpdateOperationsInput | number
+  section_id?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type GroupUncheckedUpdateManyWithoutMajorInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  sectionId?: Prisma.IntFieldUpdateOperationsInput | number
+  section_id?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 
@@ -575,8 +576,8 @@ export type GroupUncheckedUpdateManyWithoutMajorInput = {
 export type GroupSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  sectionId?: boolean
-  majorId?: boolean
+  section_id?: boolean
+  major_id?: boolean
   section?: boolean | Prisma.SectionDefaultArgs<ExtArgs>
   major?: boolean | Prisma.Group$majorArgs<ExtArgs>
 }, ExtArgs["result"]["group"]>
@@ -584,8 +585,8 @@ export type GroupSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
 export type GroupSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  sectionId?: boolean
-  majorId?: boolean
+  section_id?: boolean
+  major_id?: boolean
   section?: boolean | Prisma.SectionDefaultArgs<ExtArgs>
   major?: boolean | Prisma.Group$majorArgs<ExtArgs>
 }, ExtArgs["result"]["group"]>
@@ -593,8 +594,8 @@ export type GroupSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type GroupSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  sectionId?: boolean
-  majorId?: boolean
+  section_id?: boolean
+  major_id?: boolean
   section?: boolean | Prisma.SectionDefaultArgs<ExtArgs>
   major?: boolean | Prisma.Group$majorArgs<ExtArgs>
 }, ExtArgs["result"]["group"]>
@@ -602,11 +603,11 @@ export type GroupSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type GroupSelectScalar = {
   id?: boolean
   name?: boolean
-  sectionId?: boolean
-  majorId?: boolean
+  section_id?: boolean
+  major_id?: boolean
 }
 
-export type GroupOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "sectionId" | "majorId", ExtArgs["result"]["group"]>
+export type GroupOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "section_id" | "major_id", ExtArgs["result"]["group"]>
 export type GroupInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   section?: boolean | Prisma.SectionDefaultArgs<ExtArgs>
   major?: boolean | Prisma.Group$majorArgs<ExtArgs>
@@ -629,8 +630,8 @@ export type $GroupPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     name: string
-    sectionId: number
-    majorId: number | null
+    section_id: number
+    major_id: number | null
   }, ExtArgs["result"]["group"]>
   composites: {}
 }
@@ -1058,8 +1059,8 @@ export interface Prisma__GroupClient<T, Null = never, ExtArgs extends runtime.Ty
 export interface GroupFieldRefs {
   readonly id: Prisma.FieldRef<"Group", 'Int'>
   readonly name: Prisma.FieldRef<"Group", 'String'>
-  readonly sectionId: Prisma.FieldRef<"Group", 'Int'>
-  readonly majorId: Prisma.FieldRef<"Group", 'Int'>
+  readonly section_id: Prisma.FieldRef<"Group", 'Int'>
+  readonly major_id: Prisma.FieldRef<"Group", 'Int'>
 }
     
 

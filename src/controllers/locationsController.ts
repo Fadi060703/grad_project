@@ -9,11 +9,12 @@ import { z } from 'zod';
 export const getAllUniversityLocations = createListHandler({
   prisma: prisma.universityLocation,
 
-  allowedSortFields: ["id", "name", "created_at", "updated_at"],
+  allowedSortFields: ["id", "name", "reaching_description", "created_at", "updated_at"],
 
   fieldTypes: {
     id: "number",
     name: "text",
+    reaching_description: "text",
     created_at: "date",
     updated_at: "date",
   },

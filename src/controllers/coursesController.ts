@@ -18,8 +18,8 @@ export const getAllCourses = createListHandler({
     exam_type: "text",
     theoretical_grade: "number",
     practical_grade: "number",
-    majorId: "number",
-    sectionId: "number",
+    major_id: "number",
+    section_id: "number",
     created_at: "date",
     updated_at: "date",
   },
@@ -34,13 +34,13 @@ export const getAllCourses = createListHandler({
       exam_type: true,
       theoretical_grade: true,
       practical_grade: true,
-      majorId: true,
-      sectionId: true,
+      major_id: true,
+      section_id: true,
       major: {
         select: {
           id: true,
           name: true,
-          yearId: true,
+          year_id: true,
           year: {
             select: {
               id: true,
@@ -53,7 +53,7 @@ export const getAllCourses = createListHandler({
         select: {
           id: true,
           name: true,
-          yearId: true,
+          year_id: true,
           year: {
             select: {
               id: true,
@@ -99,13 +99,13 @@ export const getCourseById = async (req: Request, res: Response) => {
         exam_type: true,
         theoretical_grade: true,
         practical_grade: true,
-        majorId: true,
-        sectionId: true,
+        major_id: true,
+        section_id: true,
         major: {
           select: {
             id: true,
             name: true,
-            yearId: true,
+            year_id: true,
             year: {
               select: {
                 id: true,
@@ -118,7 +118,7 @@ export const getCourseById = async (req: Request, res: Response) => {
           select: {
             id: true,
             name: true,
-            yearId: true,
+            year_id: true,
             year: {
               select: {
                 id: true,
@@ -155,8 +155,8 @@ export const getCourseById = async (req: Request, res: Response) => {
     // Transform to match frontend schema
     const transformed = {
       ...course,
-      major_id: course.majorId,
-      section_id: course.sectionId,
+      major_id: course.major_id,
+      section_id: course.section_id,
     };
     
     const parsed = getCoursesSchema.parse(transformed);
@@ -228,8 +228,8 @@ export const createCourse = async (req: Request, res: Response) => {
     const existing = await prisma.course.findFirst({
       where: {
         name: data.name,
-        majorId: data.major_id || null,
-        sectionId: data.section_id || null
+        major_id: data.major_id || null,
+        section_id: data.section_id || null
       }
     });
     
@@ -244,8 +244,8 @@ export const createCourse = async (req: Request, res: Response) => {
         exam_type: data.exam_type,
         theoretical_grade: data.theoretical_grade,
         practical_grade: data.practical_grade,
-        majorId: data.major_id || null,
-        sectionId: data.section_id || null,
+        major_id: data.major_id || null,
+        section_id: data.section_id || null,
         doctors: {
           connect: data.doctors_ids.map(id => ({ id }))
         },
@@ -260,20 +260,20 @@ export const createCourse = async (req: Request, res: Response) => {
         exam_type: true,
         theoretical_grade: true,
         practical_grade: true,
-        majorId: true,
-        sectionId: true,
+        major_id: true,
+        section_id: true,
         major: {
           select: {
             id: true,
             name: true,
-            yearId: true
+            year_id: true
           }
         },
         section: {
           select: {
             id: true,
             name: true,
-            yearId: true
+            year_id: true
           }
         },
         doctors: {
@@ -300,8 +300,8 @@ export const createCourse = async (req: Request, res: Response) => {
     // Transform to match frontend schema
     const transformed = {
       ...created,
-      major_id: created.majorId,
-      section_id: created.sectionId,
+      major_id: created.major_id,
+      section_id: created.section_id,
     };
     
     return res.status(201).json(transformed);
@@ -334,8 +334,8 @@ export const updateCourse = async (req: Request, res: Response) => {
     
     // Validate major/section combination
     if (data.major_id !== undefined || data.section_id !== undefined) {
-      const newMajorId = data.major_id !== undefined ? data.major_id : existingCourse.majorId;
-      const newSectionId = data.section_id !== undefined ? data.section_id : existingCourse.sectionId;
+      const newMajorId = data.major_id !== undefined ? data.major_id : existingCourse.major_id;
+      const newSectionId = data.section_id !== undefined ? data.section_id : existingCourse.section_id;
       
       if (!newMajorId && !newSectionId) {
         return res.status(400).json({ error: "Either major_id or section_id must be provided" });
@@ -395,14 +395,14 @@ export const updateCourse = async (req: Request, res: Response) => {
     // Check for duplicate course name
     if (data.name || data.major_id !== undefined || data.section_id !== undefined) {
       const checkName = data.name !== undefined ? data.name : existingCourse.name;
-      const checkMajorId = data.major_id !== undefined ? data.major_id : existingCourse.majorId;
-      const checkSectionId = data.section_id !== undefined ? data.section_id : existingCourse.sectionId;
+      const checkMajorId = data.major_id !== undefined ? data.major_id : existingCourse.major_id;
+      const checkSectionId = data.section_id !== undefined ? data.section_id : existingCourse.section_id;
       
       const duplicate = await prisma.course.findFirst({
         where: {
           name: checkName,
-          majorId: checkMajorId || null,
-          sectionId: checkSectionId || null,
+          major_id: checkMajorId || null,
+          section_id: checkSectionId || null,
           id: { not: id }
         }
       });
@@ -418,8 +418,8 @@ export const updateCourse = async (req: Request, res: Response) => {
     if (data.exam_type !== undefined) updateData.exam_type = data.exam_type;
     if (data.theoretical_grade !== undefined) updateData.theoretical_grade = data.theoretical_grade;
     if (data.practical_grade !== undefined) updateData.practical_grade = data.practical_grade;
-    if (data.major_id !== undefined) updateData.majorId = data.major_id;
-    if (data.section_id !== undefined) updateData.sectionId = data.section_id;
+    if (data.major_id !== undefined) updateData.major_id = data.major_id;
+    if (data.section_id !== undefined) updateData.section_id = data.section_id;
     
     // Handle relations
     if (data.teachers_ids) {
@@ -444,20 +444,20 @@ export const updateCourse = async (req: Request, res: Response) => {
         exam_type: true,
         theoretical_grade: true,
         practical_grade: true,
-        majorId: true,
-        sectionId: true,
+        major_id: true,
+        section_id: true,
         major: {
           select: {
             id: true,
             name: true,
-            yearId: true
+            year_id: true
           }
         },
         section: {
           select: {
             id: true,
             name: true,
-            yearId: true
+            year_id: true
           }
         },
         doctors: {
@@ -484,8 +484,8 @@ export const updateCourse = async (req: Request, res: Response) => {
     // Transform to match frontend schema
     const transformed = {
       ...updated,
-      major_id: updated.majorId,
-      section_id: updated.sectionId,
+      major_id: updated.major_id,
+      section_id: updated.section_id,
     };
     
     return res.status(200).json(transformed);
@@ -530,10 +530,10 @@ export const deleteCourse = async (req: Request, res: Response) => {
 // Get courses by major
 export const getCoursesByMajor = async (req: Request, res: Response) => {
   try {
-    const majorId = parseInt(req.params.majorId, 10);
+    const major_id = parseInt(req.params.major_id, 10);
     
     const courses = await prisma.course.findMany({
-      where: { majorId },
+      where: { major_id },
       select: {
         id: true,
         name: true,
@@ -541,7 +541,7 @@ export const getCoursesByMajor = async (req: Request, res: Response) => {
         exam_type: true,
         theoretical_grade: true,
         practical_grade: true,
-        sectionId: true,
+        section_id: true,
         doctors: {
           select: {
             id: true,
@@ -566,8 +566,8 @@ export const getCoursesByMajor = async (req: Request, res: Response) => {
     
     const transformed = courses.map(course => ({
       ...course,
-      major_id: majorId,
-      section_id: course.sectionId,
+      major_id: major_id,
+      section_id: course.section_id,
     }));
     
     const parsed = z.array(getCoursesSchema).parse(transformed);
@@ -583,10 +583,10 @@ export const getCoursesByMajor = async (req: Request, res: Response) => {
 // Get courses by section
 export const getCoursesBySection = async (req: Request, res: Response) => {
   try {
-    const sectionId = parseInt(req.params.sectionId, 10);
+    const section_id = parseInt(req.params.section_id, 10);
     
     const courses = await prisma.course.findMany({
-      where: { sectionId },
+      where: { section_id },
       select: {
         id: true,
         name: true,
@@ -594,7 +594,7 @@ export const getCoursesBySection = async (req: Request, res: Response) => {
         exam_type: true,
         theoretical_grade: true,
         practical_grade: true,
-        majorId: true,
+        major_id: true,
         doctors: {
           select: {
             id: true,
@@ -619,8 +619,8 @@ export const getCoursesBySection = async (req: Request, res: Response) => {
     
     const transformed = courses.map(course => ({
       ...course,
-      major_id: course.majorId,
-      section_id: sectionId,
+      major_id: course.major_id,
+      section_id: section_id,
     }));
     
     const parsed = z.array(getCoursesSchema).parse(transformed);
