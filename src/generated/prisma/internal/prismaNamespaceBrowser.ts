@@ -59,7 +59,10 @@ export const ModelName = {
   Major: 'Major',
   Group: 'Group',
   UniversityLocation: 'UniversityLocation',
-  Course: 'Course'
+  Course: 'Course',
+  FAQ: 'FAQ',
+  Blog: 'Blog',
+  ExamGuideline: 'ExamGuideline'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -68,12 +71,12 @@ export type ModelName = (typeof ModelName)[keyof typeof ModelName]
  * Enums
  */
 
-export const TransactionIsolationLevel = {
+export const TransactionIsolationLevel = runtime.makeStrictEnum({
   ReadUncommitted: 'ReadUncommitted',
   ReadCommitted: 'ReadCommitted',
   RepeatableRead: 'RepeatableRead',
   Serializable: 'Serializable'
-} as const
+} as const)
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
@@ -121,7 +124,10 @@ export type StudentScalarFieldEnum = (typeof StudentScalarFieldEnum)[keyof typeo
 
 export const YearScalarFieldEnum = {
   id: 'id',
-  name: 'name'
+  name: 'name',
+  has_majors: 'has_majors',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 } as const
 
 export type YearScalarFieldEnum = (typeof YearScalarFieldEnum)[keyof typeof YearScalarFieldEnum]
@@ -130,7 +136,9 @@ export type YearScalarFieldEnum = (typeof YearScalarFieldEnum)[keyof typeof Year
 export const SectionScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  year_id: 'year_id'
+  year_id: 'year_id',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 } as const
 
 export type SectionScalarFieldEnum = (typeof SectionScalarFieldEnum)[keyof typeof SectionScalarFieldEnum]
@@ -139,7 +147,9 @@ export type SectionScalarFieldEnum = (typeof SectionScalarFieldEnum)[keyof typeo
 export const MajorScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  year_id: 'year_id'
+  year_id: 'year_id',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 } as const
 
 export type MajorScalarFieldEnum = (typeof MajorScalarFieldEnum)[keyof typeof MajorScalarFieldEnum]
@@ -149,7 +159,9 @@ export const GroupScalarFieldEnum = {
   id: 'id',
   name: 'name',
   section_id: 'section_id',
-  major_id: 'major_id'
+  major_id: 'major_id',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 } as const
 
 export type GroupScalarFieldEnum = (typeof GroupScalarFieldEnum)[keyof typeof GroupScalarFieldEnum]
@@ -180,6 +192,39 @@ export const CourseScalarFieldEnum = {
 } as const
 
 export type CourseScalarFieldEnum = (typeof CourseScalarFieldEnum)[keyof typeof CourseScalarFieldEnum]
+
+
+export const FAQScalarFieldEnum = {
+  id: 'id',
+  question: 'question',
+  answer: 'answer'
+} as const
+
+export type FAQScalarFieldEnum = (typeof FAQScalarFieldEnum)[keyof typeof FAQScalarFieldEnum]
+
+
+export const BlogScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  content: 'content',
+  image: 'image',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type BlogScalarFieldEnum = (typeof BlogScalarFieldEnum)[keyof typeof BlogScalarFieldEnum]
+
+
+export const ExamGuidelineScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  image: 'image',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type ExamGuidelineScalarFieldEnum = (typeof ExamGuidelineScalarFieldEnum)[keyof typeof ExamGuidelineScalarFieldEnum]
 
 
 export const SortOrder = {

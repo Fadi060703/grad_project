@@ -16,6 +16,7 @@ export const getAllYears = createListHandler({
     select: {
       id: true,
       name: true,
+      has_majors: true,
       sections: {
         select: {
           id: true,
@@ -43,6 +44,7 @@ export const getYearById = async (req: Request, res: Response) => {
       select: {
         id: true,
         name: true,
+        has_majors: true,
         sections: {
           select: {
             id: true,
@@ -89,11 +91,13 @@ export const createYear = async (req: Request, res: Response) => {
     
     const created = await prisma.year.create({
       data: {
-        name: data.name
+        name: data.name,
+        has_majors: data.has_majors ?? false,
       },
       select: {
         id: true,
         name: true,
+        has_majors: true,
       }
     });
 
@@ -134,11 +138,13 @@ export const updateYear = async (req: Request, res: Response) => {
     const updated = await prisma.year.update({
       where: { id },
       data: {
-        name: data.name
+        name: data.name,
+        has_majors: data.has_majors
       },
       select: {
         id: true,
         name: true,
+        has_majors: true,
       }
     });
     
