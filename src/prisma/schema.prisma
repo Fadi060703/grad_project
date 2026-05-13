@@ -53,6 +53,7 @@ model User {
   teachingCourses Course[] @relation("CourseTeachers")
   doctorCourses   Course[] @relation("CourseDoctors")
 
+
   @@map("users")
 }
 model Student {
@@ -80,6 +81,7 @@ model Section {
   year Year @relation(fields: [year_id], references: [id], onDelete: Cascade)
   groups Group[]
   courses Course[]
+  lectures Lecture[]
   created_at          DateTime @default(now())
   updated_at          DateTime? @updatedAt
 
@@ -93,6 +95,7 @@ model Major {
   year    Year    @relation(fields: [year_id], references: [id], onDelete: Cascade)
   groups  Group[]
   courses Course[]
+  lectures Lecture[]
   created_at          DateTime @default(now())
   updated_at          DateTime? @updatedAt
   
@@ -107,6 +110,7 @@ model Group {
   section   Section?  @relation(fields: [section_id], references: [id], onDelete: Cascade)
   major_id   Int?
   major     Major?   @relation(fields: [major_id], references: [id], onDelete: SetNull)
+  lecture Lecture[]
   created_at          DateTime @default(now())
   updated_at          DateTime? @updatedAt
   
@@ -120,7 +124,7 @@ model UniversityLocation {
   reaching_description String?
   created_at          DateTime @default(now())
   updated_at          DateTime? @updatedAt
-  
+  lectures             Lecture[]
   @@map("university_locations")
 }
 
@@ -148,6 +152,7 @@ model Course {
   section             Section? @relation(fields: [section_id], references: [id], onDelete: SetNull)
   doctors             User[]   @relation("CourseDoctors")
   teachers            User[]   @relation("CourseTeachers")
+  lectures            Lecture[]
   created_at          DateTime @default(now())
   updated_at          DateTime? @updatedAt
 
@@ -177,4 +182,36 @@ model ExamGuideline {
   image       String?
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
+}
+
+enum LectureType {
+  THEORETICAL
+  PRACTICAL
+}
+
+model Lecture {
+  id          Int       @id @default(autoincrement())
+  title       String
+  description String?
+  date        DateTime  @default(now())
+  location_id Int?      // Reference to UniversityLocation
+  location    UniversityLocation? @relation(fields: [location_id], references: [id], onDelete: SetNull)
+  course_id   Int
+  course      Course    @relation(fields: [course_id], references: [id], onDelete: Cascade)
+  lecture_type LectureType @default(THEORETICAL)
+  major_id    Int?
+  major       Major?    @relation(fields: [major_id], references: [id], onDelete: SetNull)
+  section_id  Int?
+  section     Section?  @relation(fields: [section_id], references: [id], onDelete: SetNull)
+  group_id    Int?
+  group       Group?    @relation(fields: [group_id], references: [id], onDelete: SetNull)  
+  created_at   DateTime  @default(now())
+  updated_at   DateTime  @updatedAt
+
+  @@index([course_id])
+  @@index([date])
+  @@index([major_id])
+  @@index([section_id])
+  @@index([group_id])
+  @@map("lectures")
 }
