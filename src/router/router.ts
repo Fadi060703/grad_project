@@ -73,6 +73,18 @@ import {
   getAllExamGuidelines,
   updateExamGuideline,
 } from "../controllers/examGuidelineController";
+import {
+  createMarksCourse,
+  deleteMarksCourse,
+  getAllMarksCourses,
+  updateMarksCourse,
+} from "../controllers/marksCourseController";
+import {
+  bulkCreateMarks,
+  bulkDeleteMarks,
+  getAllMarks,
+  updateMark,
+} from "../controllers/marksController";
 
 const router = express.Router();
 const upload = multer({
@@ -135,6 +147,16 @@ router.get("/exam-guidelines", getAllExamGuidelines);
 router.post("/exam-guidelines", createExamGuideline);
 router.put("/exam-guidelines/:id", updateExamGuideline);
 router.delete("/exam-guidelines/:id", deleteExamGuideline);
+
+router.get("/marks-courses", getAllMarksCourses);
+router.post("/marks-courses", createMarksCourse);
+router.put("/marks-courses/:id", updateMarksCourse);
+router.delete("/marks-courses/:id", deleteMarksCourse);
+
+router.get("/marks", getAllMarks);
+router.post("/marks/bulk-create", bulkCreateMarks);
+router.put("/marks/:id", updateMark);
+router.delete("/marks/bulk-delete", bulkDeleteMarks);
 
 router.post("/file/upload", upload.single("file"), uploadFile);
 

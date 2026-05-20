@@ -33,3 +33,20 @@ export const ExamType = {
 } as const
 
 export type ExamType = (typeof ExamType)[keyof typeof ExamType]
+
+
+export const StudentCourseStatus = {
+  ENROLLED: 'ENROLLED',
+  PASSED: 'PASSED',
+  FAILED: 'FAILED'
+} as const
+
+export type StudentCourseStatus = (typeof StudentCourseStatus)[keyof typeof StudentCourseStatus]
+
+
+export const LectureType = {
+  THEORETICAL: 'THEORETICAL',
+  PRACTICAL: 'PRACTICAL'
+} as const
+
+export type LectureType = (typeof LectureType)[keyof typeof LectureType]
