@@ -393,9 +393,13 @@ export const ModelName = {
   Group: 'Group',
   UniversityLocation: 'UniversityLocation',
   Course: 'Course',
+  MarksCourse: 'MarksCourse',
+  Mark: 'Mark',
+  StudentCourse: 'StudentCourse',
   FAQ: 'FAQ',
   Blog: 'Blog',
-  ExamGuideline: 'ExamGuideline'
+  ExamGuideline: 'ExamGuideline',
+  Lecture: 'Lecture'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -411,7 +415,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "systemSettings" | "user" | "student" | "year" | "section" | "major" | "group" | "universityLocation" | "course" | "fAQ" | "blog" | "examGuideline"
+    modelProps: "systemSettings" | "user" | "student" | "year" | "section" | "major" | "group" | "universityLocation" | "course" | "marksCourse" | "mark" | "studentCourse" | "fAQ" | "blog" | "examGuideline" | "lecture"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1081,6 +1085,228 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    MarksCourse: {
+      payload: Prisma.$MarksCoursePayload<ExtArgs>
+      fields: Prisma.MarksCourseFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MarksCourseFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarksCoursePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MarksCourseFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarksCoursePayload>
+        }
+        findFirst: {
+          args: Prisma.MarksCourseFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarksCoursePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MarksCourseFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarksCoursePayload>
+        }
+        findMany: {
+          args: Prisma.MarksCourseFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarksCoursePayload>[]
+        }
+        create: {
+          args: Prisma.MarksCourseCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarksCoursePayload>
+        }
+        createMany: {
+          args: Prisma.MarksCourseCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MarksCourseCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarksCoursePayload>[]
+        }
+        delete: {
+          args: Prisma.MarksCourseDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarksCoursePayload>
+        }
+        update: {
+          args: Prisma.MarksCourseUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarksCoursePayload>
+        }
+        deleteMany: {
+          args: Prisma.MarksCourseDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MarksCourseUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MarksCourseUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarksCoursePayload>[]
+        }
+        upsert: {
+          args: Prisma.MarksCourseUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarksCoursePayload>
+        }
+        aggregate: {
+          args: Prisma.MarksCourseAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMarksCourse>
+        }
+        groupBy: {
+          args: Prisma.MarksCourseGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MarksCourseGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MarksCourseCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MarksCourseCountAggregateOutputType> | number
+        }
+      }
+    }
+    Mark: {
+      payload: Prisma.$MarkPayload<ExtArgs>
+      fields: Prisma.MarkFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MarkFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarkPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MarkFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarkPayload>
+        }
+        findFirst: {
+          args: Prisma.MarkFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarkPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MarkFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarkPayload>
+        }
+        findMany: {
+          args: Prisma.MarkFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarkPayload>[]
+        }
+        create: {
+          args: Prisma.MarkCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarkPayload>
+        }
+        createMany: {
+          args: Prisma.MarkCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MarkCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarkPayload>[]
+        }
+        delete: {
+          args: Prisma.MarkDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarkPayload>
+        }
+        update: {
+          args: Prisma.MarkUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarkPayload>
+        }
+        deleteMany: {
+          args: Prisma.MarkDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MarkUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MarkUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarkPayload>[]
+        }
+        upsert: {
+          args: Prisma.MarkUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarkPayload>
+        }
+        aggregate: {
+          args: Prisma.MarkAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMark>
+        }
+        groupBy: {
+          args: Prisma.MarkGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MarkGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MarkCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MarkCountAggregateOutputType> | number
+        }
+      }
+    }
+    StudentCourse: {
+      payload: Prisma.$StudentCoursePayload<ExtArgs>
+      fields: Prisma.StudentCourseFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.StudentCourseFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudentCoursePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.StudentCourseFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudentCoursePayload>
+        }
+        findFirst: {
+          args: Prisma.StudentCourseFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudentCoursePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.StudentCourseFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudentCoursePayload>
+        }
+        findMany: {
+          args: Prisma.StudentCourseFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudentCoursePayload>[]
+        }
+        create: {
+          args: Prisma.StudentCourseCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudentCoursePayload>
+        }
+        createMany: {
+          args: Prisma.StudentCourseCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.StudentCourseCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudentCoursePayload>[]
+        }
+        delete: {
+          args: Prisma.StudentCourseDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudentCoursePayload>
+        }
+        update: {
+          args: Prisma.StudentCourseUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudentCoursePayload>
+        }
+        deleteMany: {
+          args: Prisma.StudentCourseDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.StudentCourseUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.StudentCourseUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudentCoursePayload>[]
+        }
+        upsert: {
+          args: Prisma.StudentCourseUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudentCoursePayload>
+        }
+        aggregate: {
+          args: Prisma.StudentCourseAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateStudentCourse>
+        }
+        groupBy: {
+          args: Prisma.StudentCourseGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StudentCourseGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.StudentCourseCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StudentCourseCountAggregateOutputType> | number
+        }
+      }
+    }
     FAQ: {
       payload: Prisma.$FAQPayload<ExtArgs>
       fields: Prisma.FAQFieldRefs
@@ -1303,6 +1529,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Lecture: {
+      payload: Prisma.$LecturePayload<ExtArgs>
+      fields: Prisma.LectureFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LectureFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LecturePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LectureFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LecturePayload>
+        }
+        findFirst: {
+          args: Prisma.LectureFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LecturePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LectureFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LecturePayload>
+        }
+        findMany: {
+          args: Prisma.LectureFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LecturePayload>[]
+        }
+        create: {
+          args: Prisma.LectureCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LecturePayload>
+        }
+        createMany: {
+          args: Prisma.LectureCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LectureCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LecturePayload>[]
+        }
+        delete: {
+          args: Prisma.LectureDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LecturePayload>
+        }
+        update: {
+          args: Prisma.LectureUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LecturePayload>
+        }
+        deleteMany: {
+          args: Prisma.LectureDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LectureUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LectureUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LecturePayload>[]
+        }
+        upsert: {
+          args: Prisma.LectureUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LecturePayload>
+        }
+        aggregate: {
+          args: Prisma.LectureAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLecture>
+        }
+        groupBy: {
+          args: Prisma.LectureGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LectureGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LectureCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LectureCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1377,7 +1677,11 @@ export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof User
 export const StudentScalarFieldEnum = {
   student_id: 'student_id',
   userId: 'userId',
-  mother_name: 'mother_name'
+  mother_name: 'mother_name',
+  year_id: 'year_id',
+  section_id: 'section_id',
+  major_id: 'major_id',
+  group_id: 'group_id'
 } as const
 
 export type StudentScalarFieldEnum = (typeof StudentScalarFieldEnum)[keyof typeof StudentScalarFieldEnum]
@@ -1386,6 +1690,7 @@ export type StudentScalarFieldEnum = (typeof StudentScalarFieldEnum)[keyof typeo
 export const YearScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  order: 'order',
   has_majors: 'has_majors',
   created_at: 'created_at',
   updated_at: 'updated_at'
@@ -1446,6 +1751,7 @@ export const CourseScalarFieldEnum = {
   exam_type: 'exam_type',
   theoretical_grade: 'theoretical_grade',
   practical_grade: 'practical_grade',
+  marks_course_id: 'marks_course_id',
   major_id: 'major_id',
   section_id: 'section_id',
   created_at: 'created_at',
@@ -1453,6 +1759,40 @@ export const CourseScalarFieldEnum = {
 } as const
 
 export type CourseScalarFieldEnum = (typeof CourseScalarFieldEnum)[keyof typeof CourseScalarFieldEnum]
+
+
+export const MarksCourseScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type MarksCourseScalarFieldEnum = (typeof MarksCourseScalarFieldEnum)[keyof typeof MarksCourseScalarFieldEnum]
+
+
+export const MarkScalarFieldEnum = {
+  id: 'id',
+  marks_course_id: 'marks_course_id',
+  student_id: 'student_id',
+  practical_grade: 'practical_grade',
+  theoretical_grade: 'theoretical_grade',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type MarkScalarFieldEnum = (typeof MarkScalarFieldEnum)[keyof typeof MarkScalarFieldEnum]
+
+
+export const StudentCourseScalarFieldEnum = {
+  id: 'id',
+  student_id: 'student_id',
+  course_id: 'course_id',
+  enrollment_date: 'enrollment_date',
+  status: 'status'
+} as const
+
+export type StudentCourseScalarFieldEnum = (typeof StudentCourseScalarFieldEnum)[keyof typeof StudentCourseScalarFieldEnum]
 
 
 export const FAQScalarFieldEnum = {
@@ -1486,6 +1826,24 @@ export const ExamGuidelineScalarFieldEnum = {
 } as const
 
 export type ExamGuidelineScalarFieldEnum = (typeof ExamGuidelineScalarFieldEnum)[keyof typeof ExamGuidelineScalarFieldEnum]
+
+
+export const LectureScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  date: 'date',
+  location_id: 'location_id',
+  course_id: 'course_id',
+  lecture_type: 'lecture_type',
+  major_id: 'major_id',
+  section_id: 'section_id',
+  group_id: 'group_id',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type LectureScalarFieldEnum = (typeof LectureScalarFieldEnum)[keyof typeof LectureScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1606,6 +1964,34 @@ export type EnumExamTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
  * Reference to a field of type 'ExamType[]'
  */
 export type ListEnumExamTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ExamType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'StudentCourseStatus'
+ */
+export type EnumStudentCourseStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StudentCourseStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'StudentCourseStatus[]'
+ */
+export type ListEnumStudentCourseStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StudentCourseStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'LectureType'
+ */
+export type EnumLectureTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LectureType'>
+    
+
+
+/**
+ * Reference to a field of type 'LectureType[]'
+ */
+export type ListEnumLectureTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LectureType[]'>
     
 
 
@@ -1741,9 +2127,13 @@ export type GlobalOmitConfig = {
   group?: Prisma.GroupOmit
   universityLocation?: Prisma.UniversityLocationOmit
   course?: Prisma.CourseOmit
+  marksCourse?: Prisma.MarksCourseOmit
+  mark?: Prisma.MarkOmit
+  studentCourse?: Prisma.StudentCourseOmit
   fAQ?: Prisma.FAQOmit
   blog?: Prisma.BlogOmit
   examGuideline?: Prisma.ExamGuidelineOmit
+  lecture?: Prisma.LectureOmit
 }
 
 /* Types for Logging */

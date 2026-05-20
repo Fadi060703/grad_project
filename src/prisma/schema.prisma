@@ -56,20 +56,41 @@ model User {
 
   @@map("users")
 }
+// Agreements (app logic responsibilities):
+// - Student must always have year_id and group_id (both required in DB).
+// - Student must have exactly one of section_id or major_id (mutually exclusive).
+// - If section_id is set, major_id must be null; if major_id is set, section_id must be null.
+// - Student.year_id must match the Year of the chosen Section or Major (denormalized year_id).
+// - group_id must belong to the same Section or Major as the student (consistency check).
+// - Student-course enrollment is many-to-many via StudentCourse, with enrollment_date and status.
+// - Only allow enrollment in courses that match the student's year/section/major.
+// - These rules are enforced in app logic .
 model Student {
   student_id Int @id @default( autoincrement() ) 
   userId Int @unique 
   user User @relation( fields: [ userId ] , references: [ id ] , onDelete: Cascade ) 
   mother_name String
+  year_id Int
+  year Year @relation(fields: [year_id], references: [id], onDelete: Cascade)
+  section_id Int?
+  section Section? @relation(fields: [section_id], references: [id], onDelete: SetNull)
+  major_id Int?
+  major Major? @relation(fields: [major_id], references: [id], onDelete: SetNull)
+  group_id Int
+  group Group @relation(fields: [group_id], references: [id], onDelete: Cascade)
+  courses StudentCourse[]
+  marks Mark[]
 }
 
 
 model Year {
   id Int @id @default( autoincrement() ) 
   name String @unique
+  order Int @unique
   has_majors Boolean @default(false)
   sections Section[]
   majors Major[]
+  students Student[]
   created_at          DateTime @default(now())
   updated_at          DateTime? @updatedAt
 }
@@ -82,6 +103,7 @@ model Section {
   groups Group[]
   courses Course[]
   lectures Lecture[]
+  students Student[]
   created_at          DateTime @default(now())
   updated_at          DateTime? @updatedAt
 
@@ -96,6 +118,7 @@ model Major {
   groups  Group[]
   courses Course[]
   lectures Lecture[]
+  students Student[]
   created_at          DateTime @default(now())
   updated_at          DateTime? @updatedAt
   
@@ -111,6 +134,7 @@ model Group {
   major_id   Int?
   major     Major?   @relation(fields: [major_id], references: [id], onDelete: SetNull)
   lecture Lecture[]
+  students Student[]
   created_at          DateTime @default(now())
   updated_at          DateTime? @updatedAt
   
@@ -146,6 +170,8 @@ model Course {
   exam_type           ExamType
   theoretical_grade   Int
   practical_grade     Int
+  marks_course_id     Int?
+  marks_course        MarksCourse? @relation(fields: [marks_course_id], references: [id], onDelete: SetNull)
   major_id             Int?
   major               Major?   @relation(fields: [major_id], references: [id], onDelete: SetNull)
   section_id           Int?
@@ -153,11 +179,56 @@ model Course {
   doctors             User[]   @relation("CourseDoctors")
   teachers            User[]   @relation("CourseTeachers")
   lectures            Lecture[]
+  students            StudentCourse[]
   created_at          DateTime @default(now())
   updated_at          DateTime? @updatedAt
 
   @@unique([name, major_id, section_id])
   @@map("courses")
+}
+
+model MarksCourse {
+  id         Int      @id @default(autoincrement())
+  name       String   @unique
+  courses    Course[]
+  marks      Mark[]
+  created_at DateTime @default(now())
+  updated_at DateTime? @updatedAt
+}
+
+model Mark {
+  id                Int      @id @default(autoincrement())
+  marks_course_id   Int
+  marks_course      MarksCourse @relation(fields: [marks_course_id], references: [id], onDelete: Cascade)
+  student_id        Int
+  student           Student   @relation(fields: [student_id], references: [student_id], onDelete: Cascade)
+  practical_grade   Int
+  theoretical_grade Int
+  created_at        DateTime @default(now())
+  updated_at        DateTime? @updatedAt
+
+  @@unique([marks_course_id, student_id])
+  @@index([marks_course_id])
+  @@index([student_id])
+}
+
+enum StudentCourseStatus {
+  ENROLLED
+  PASSED
+  FAILED
+}
+
+model StudentCourse {
+  id Int @id @default(autoincrement())
+  student_id Int
+  student Student @relation(fields: [student_id], references: [student_id], onDelete: Cascade)
+  course_id Int
+  course Course @relation(fields: [course_id], references: [id], onDelete: Cascade)
+  enrollment_date DateTime @default(now())
+  status StudentCourseStatus @default(ENROLLED)
+
+  @@unique([student_id, course_id])
+  @@map("student_courses")
 }
 
 model FAQ {

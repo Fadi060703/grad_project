@@ -60,9 +60,13 @@ export const ModelName = {
   Group: 'Group',
   UniversityLocation: 'UniversityLocation',
   Course: 'Course',
+  MarksCourse: 'MarksCourse',
+  Mark: 'Mark',
+  StudentCourse: 'StudentCourse',
   FAQ: 'FAQ',
   Blog: 'Blog',
-  ExamGuideline: 'ExamGuideline'
+  ExamGuideline: 'ExamGuideline',
+  Lecture: 'Lecture'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -116,7 +120,11 @@ export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof User
 export const StudentScalarFieldEnum = {
   student_id: 'student_id',
   userId: 'userId',
-  mother_name: 'mother_name'
+  mother_name: 'mother_name',
+  year_id: 'year_id',
+  section_id: 'section_id',
+  major_id: 'major_id',
+  group_id: 'group_id'
 } as const
 
 export type StudentScalarFieldEnum = (typeof StudentScalarFieldEnum)[keyof typeof StudentScalarFieldEnum]
@@ -125,6 +133,7 @@ export type StudentScalarFieldEnum = (typeof StudentScalarFieldEnum)[keyof typeo
 export const YearScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  order: 'order',
   has_majors: 'has_majors',
   created_at: 'created_at',
   updated_at: 'updated_at'
@@ -185,6 +194,7 @@ export const CourseScalarFieldEnum = {
   exam_type: 'exam_type',
   theoretical_grade: 'theoretical_grade',
   practical_grade: 'practical_grade',
+  marks_course_id: 'marks_course_id',
   major_id: 'major_id',
   section_id: 'section_id',
   created_at: 'created_at',
@@ -192,6 +202,40 @@ export const CourseScalarFieldEnum = {
 } as const
 
 export type CourseScalarFieldEnum = (typeof CourseScalarFieldEnum)[keyof typeof CourseScalarFieldEnum]
+
+
+export const MarksCourseScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type MarksCourseScalarFieldEnum = (typeof MarksCourseScalarFieldEnum)[keyof typeof MarksCourseScalarFieldEnum]
+
+
+export const MarkScalarFieldEnum = {
+  id: 'id',
+  marks_course_id: 'marks_course_id',
+  student_id: 'student_id',
+  practical_grade: 'practical_grade',
+  theoretical_grade: 'theoretical_grade',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type MarkScalarFieldEnum = (typeof MarkScalarFieldEnum)[keyof typeof MarkScalarFieldEnum]
+
+
+export const StudentCourseScalarFieldEnum = {
+  id: 'id',
+  student_id: 'student_id',
+  course_id: 'course_id',
+  enrollment_date: 'enrollment_date',
+  status: 'status'
+} as const
+
+export type StudentCourseScalarFieldEnum = (typeof StudentCourseScalarFieldEnum)[keyof typeof StudentCourseScalarFieldEnum]
 
 
 export const FAQScalarFieldEnum = {
@@ -225,6 +269,24 @@ export const ExamGuidelineScalarFieldEnum = {
 } as const
 
 export type ExamGuidelineScalarFieldEnum = (typeof ExamGuidelineScalarFieldEnum)[keyof typeof ExamGuidelineScalarFieldEnum]
+
+
+export const LectureScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  date: 'date',
+  location_id: 'location_id',
+  course_id: 'course_id',
+  lecture_type: 'lecture_type',
+  major_id: 'major_id',
+  section_id: 'section_id',
+  group_id: 'group_id',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type LectureScalarFieldEnum = (typeof LectureScalarFieldEnum)[keyof typeof LectureScalarFieldEnum]
 
 
 export const SortOrder = {
