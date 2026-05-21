@@ -15,7 +15,22 @@ const markItemSchema = z
 export const getMarksSchema = z.object({
   id: z.number().positive(),
   marks_course_id: z.number().positive(),
+  marks_course: z.object({
+    name: z.string(),
+  }),
   student_id: z.number().positive(),
+  student: z.object({
+    student_id: z.number().positive(),
+    mother_name: z.string(),
+    year: z.object({
+      id: z.number().positive(),
+      name: z.string(),
+    }),
+    user: z.object({
+      full_name: z.string(),
+      email: z.string().email().nullable(),
+    }),
+  }),
   practical_grade: z.number().int().min(0).max(100),
   theoretical_grade: z.number().int().min(0).max(100),
   created_at: z.date().optional(),

@@ -7,6 +7,8 @@ import {
   updateMarksCourseSchema,
 } from "../validators/marksCourse";
 import { z } from "zod";
+import { asyncHandler } from "../utils/asyncHandler";
+import { ConflictError, NotFoundError } from "../errors";
 
 export const getAllMarksCourses = createListHandler({
   prisma: prisma.marksCourse,
@@ -37,11 +39,37 @@ export const getAllMarksCourses = createListHandler({
     },
   } as any,
 
+  querySchema: z.object({
+    year_id: z.coerce.number().positive().optional(),
+  }),
+
+  handleFindArgs: ({ query, findManyArgs }) => {
+    if (!query.year_id) return {};
+
+    return {
+      where: {
+        AND: [
+          findManyArgs.where,
+          {
+            courses: {
+              some: {
+                OR: [
+                  { section: { year_id: query.year_id } },
+                  { major: { year_id: query.year_id } },
+                ],
+              },
+            },
+          },
+        ],
+      },
+    };
+  },
+
   mapResult: ({ data }) => z.array(getMarksCourseSchema).parse(data),
 });
 
-export const createMarksCourse = async (req: Request, res: Response) => {
-  try {
+export const createMarksCourse = asyncHandler(
+  async (req: Request, res: Response) => {
     const data = createMarksCourseSchema.parse(req.body);
 
     const existing = await prisma.marksCourse.findUnique({
@@ -49,9 +77,7 @@ export const createMarksCourse = async (req: Request, res: Response) => {
     });
 
     if (existing) {
-      return res
-        .status(409)
-        .json({ error: "Marks course name already exists" });
+      throw new ConflictError("Marks course name already exists");
     }
 
     const courses = await prisma.course.findMany({
@@ -60,7 +86,7 @@ export const createMarksCourse = async (req: Request, res: Response) => {
     });
 
     if (courses.length !== data.course_ids.length) {
-      return res.status(404).json({ error: "One or more courses not found" });
+      throw new NotFoundError("Course");
     }
 
     const conflicting = courses.filter(
@@ -68,9 +94,9 @@ export const createMarksCourse = async (req: Request, res: Response) => {
     );
 
     if (conflicting.length > 0) {
-      return res.status(409).json({
-        error: "One or more courses already assigned to a marks course",
-      });
+      throw new ConflictError(
+        "One or more courses already assigned to a marks course",
+      );
     }
 
     const created = await prisma.marksCourse.create({
@@ -95,17 +121,11 @@ export const createMarksCourse = async (req: Request, res: Response) => {
     });
 
     return res.status(201).json(created);
-  } catch (err) {
-    if (err instanceof z.ZodError) {
-      return res.status(400).json({ error: "Validation failed" });
-    }
-    console.error("Create marks course error:", err);
-    return res.status(500).json({ error: "Internal server error" });
-  }
-};
+  },
+);
 
-export const updateMarksCourse = async (req: Request, res: Response) => {
-  try {
+export const updateMarksCourse = asyncHandler(
+  async (req: Request, res: Response) => {
     //@ts-expect-error
     const id = parseInt(req.params.id, 10);
     const data = updateMarksCourseSchema.parse(req.body);
@@ -115,7 +135,7 @@ export const updateMarksCourse = async (req: Request, res: Response) => {
     });
 
     if (!existing) {
-      return res.status(404).json({ error: "Marks course not found" });
+      throw new NotFoundError("Marks course");
     }
 
     if (data.name && data.name !== existing.name) {
@@ -124,9 +144,7 @@ export const updateMarksCourse = async (req: Request, res: Response) => {
       });
 
       if (duplicate) {
-        return res
-          .status(409)
-          .json({ error: "Marks course name already exists" });
+        throw new ConflictError("Marks course name already exists");
       }
     }
 
@@ -145,7 +163,7 @@ export const updateMarksCourse = async (req: Request, res: Response) => {
         });
 
         if (courses.length !== data.course_ids.length) {
-          throw new Error("COURSE_NOT_FOUND");
+          throw new NotFoundError("Course");
         }
 
         const conflicting = courses.filter(
@@ -154,7 +172,9 @@ export const updateMarksCourse = async (req: Request, res: Response) => {
         );
 
         if (conflicting.length > 0) {
-          throw new Error("COURSE_CONFLICT");
+          throw new ConflictError(
+            "One or more courses already assigned to a marks course",
+          );
         }
 
         await tx.course.updateMany({
@@ -186,25 +206,11 @@ export const updateMarksCourse = async (req: Request, res: Response) => {
     });
 
     return res.status(200).json(updated);
-  } catch (err: any) {
-    if (err instanceof z.ZodError) {
-      return res.status(400).json({ error: "Validation failed" });
-    }
-    if (err?.message === "COURSE_NOT_FOUND") {
-      return res.status(404).json({ error: "One or more courses not found" });
-    }
-    if (err?.message === "COURSE_CONFLICT") {
-      return res.status(409).json({
-        error: "One or more courses already assigned to a marks course",
-      });
-    }
-    console.error("Update marks course error:", err);
-    return res.status(500).json({ error: "Internal server error" });
-  }
-};
+  },
+);
 
-export const deleteMarksCourse = async (req: Request, res: Response) => {
-  try {
+export const deleteMarksCourse = asyncHandler(
+  async (req: Request, res: Response) => {
     //@ts-expect-error
     const id = parseInt(req.params.id, 10);
 
@@ -213,7 +219,7 @@ export const deleteMarksCourse = async (req: Request, res: Response) => {
     });
 
     if (!existing) {
-      return res.status(404).json({ error: "Marks course not found" });
+      throw new NotFoundError("Marks course");
     }
 
     const deleted = await prisma.marksCourse.delete({
@@ -225,8 +231,5 @@ export const deleteMarksCourse = async (req: Request, res: Response) => {
     });
 
     return res.status(200).json(deleted);
-  } catch (err) {
-    console.error("Delete marks course error:", err);
-    return res.status(400).json({ error: err });
-  }
-};
+  },
+);
