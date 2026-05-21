@@ -77,3 +77,8 @@ export type Blog = Prisma.BlogModel
  * 
  */
 export type ExamGuideline = Prisma.ExamGuidelineModel
+/**
+ * Model Lecture
+ * 
+ */
+export type Lecture = Prisma.LectureModel

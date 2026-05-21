@@ -62,7 +62,8 @@ export const ModelName = {
   Course: 'Course',
   FAQ: 'FAQ',
   Blog: 'Blog',
-  ExamGuideline: 'ExamGuideline'
+  ExamGuideline: 'ExamGuideline',
+  Lecture: 'Lecture'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -225,6 +226,24 @@ export const ExamGuidelineScalarFieldEnum = {
 } as const
 
 export type ExamGuidelineScalarFieldEnum = (typeof ExamGuidelineScalarFieldEnum)[keyof typeof ExamGuidelineScalarFieldEnum]
+
+
+export const LectureScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  date: 'date',
+  location_id: 'location_id',
+  course_id: 'course_id',
+  lecture_type: 'lecture_type',
+  major_id: 'major_id',
+  section_id: 'section_id',
+  group_id: 'group_id',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type LectureScalarFieldEnum = (typeof LectureScalarFieldEnum)[keyof typeof LectureScalarFieldEnum]
 
 
 export const SortOrder = {

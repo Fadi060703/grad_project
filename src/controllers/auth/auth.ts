@@ -10,7 +10,7 @@ export const login = async( req : Request , res : Response ) => {
         const data = loginSchema.parse( req.body ) ; 
         const user = await prisma.user.findUnique({
             where : {
-                userName : data.userName
+                username : data.userName
             }
         }); 
         if( !user ) { return res.status( 400 ).json({ "ERROR" : "Wrong Credentials" } ) ; } 

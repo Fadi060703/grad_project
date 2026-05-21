@@ -216,6 +216,7 @@ export type UniversityLocationWhereInput = {
   reaching_description?: Prisma.StringNullableFilter<"UniversityLocation"> | string | null
   created_at?: Prisma.DateTimeFilter<"UniversityLocation"> | Date | string
   updated_at?: Prisma.DateTimeNullableFilter<"UniversityLocation"> | Date | string | null
+  lectures?: Prisma.LectureListRelationFilter
 }
 
 export type UniversityLocationOrderByWithRelationInput = {
@@ -224,6 +225,7 @@ export type UniversityLocationOrderByWithRelationInput = {
   reaching_description?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  lectures?: Prisma.LectureOrderByRelationAggregateInput
 }
 
 export type UniversityLocationWhereUniqueInput = Prisma.AtLeast<{
@@ -235,6 +237,7 @@ export type UniversityLocationWhereUniqueInput = Prisma.AtLeast<{
   reaching_description?: Prisma.StringNullableFilter<"UniversityLocation"> | string | null
   created_at?: Prisma.DateTimeFilter<"UniversityLocation"> | Date | string
   updated_at?: Prisma.DateTimeNullableFilter<"UniversityLocation"> | Date | string | null
+  lectures?: Prisma.LectureListRelationFilter
 }, "id" | "name">
 
 export type UniversityLocationOrderByWithAggregationInput = {
@@ -266,6 +269,7 @@ export type UniversityLocationCreateInput = {
   reaching_description?: string | null
   created_at?: Date | string
   updated_at?: Date | string | null
+  lectures?: Prisma.LectureCreateNestedManyWithoutLocationInput
 }
 
 export type UniversityLocationUncheckedCreateInput = {
@@ -274,6 +278,7 @@ export type UniversityLocationUncheckedCreateInput = {
   reaching_description?: string | null
   created_at?: Date | string
   updated_at?: Date | string | null
+  lectures?: Prisma.LectureUncheckedCreateNestedManyWithoutLocationInput
 }
 
 export type UniversityLocationUpdateInput = {
@@ -281,6 +286,7 @@ export type UniversityLocationUpdateInput = {
   reaching_description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lectures?: Prisma.LectureUpdateManyWithoutLocationNestedInput
 }
 
 export type UniversityLocationUncheckedUpdateInput = {
@@ -289,6 +295,7 @@ export type UniversityLocationUncheckedUpdateInput = {
   reaching_description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lectures?: Prisma.LectureUncheckedUpdateManyWithoutLocationNestedInput
 }
 
 export type UniversityLocationCreateManyInput = {
@@ -346,6 +353,102 @@ export type UniversityLocationSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
 }
 
+export type UniversityLocationNullableScalarRelationFilter = {
+  is?: Prisma.UniversityLocationWhereInput | null
+  isNot?: Prisma.UniversityLocationWhereInput | null
+}
+
+export type UniversityLocationCreateNestedOneWithoutLecturesInput = {
+  create?: Prisma.XOR<Prisma.UniversityLocationCreateWithoutLecturesInput, Prisma.UniversityLocationUncheckedCreateWithoutLecturesInput>
+  connectOrCreate?: Prisma.UniversityLocationCreateOrConnectWithoutLecturesInput
+  connect?: Prisma.UniversityLocationWhereUniqueInput
+}
+
+export type UniversityLocationUpdateOneWithoutLecturesNestedInput = {
+  create?: Prisma.XOR<Prisma.UniversityLocationCreateWithoutLecturesInput, Prisma.UniversityLocationUncheckedCreateWithoutLecturesInput>
+  connectOrCreate?: Prisma.UniversityLocationCreateOrConnectWithoutLecturesInput
+  upsert?: Prisma.UniversityLocationUpsertWithoutLecturesInput
+  disconnect?: Prisma.UniversityLocationWhereInput | boolean
+  delete?: Prisma.UniversityLocationWhereInput | boolean
+  connect?: Prisma.UniversityLocationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UniversityLocationUpdateToOneWithWhereWithoutLecturesInput, Prisma.UniversityLocationUpdateWithoutLecturesInput>, Prisma.UniversityLocationUncheckedUpdateWithoutLecturesInput>
+}
+
+export type UniversityLocationCreateWithoutLecturesInput = {
+  name: string
+  reaching_description?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string | null
+}
+
+export type UniversityLocationUncheckedCreateWithoutLecturesInput = {
+  id?: number
+  name: string
+  reaching_description?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string | null
+}
+
+export type UniversityLocationCreateOrConnectWithoutLecturesInput = {
+  where: Prisma.UniversityLocationWhereUniqueInput
+  create: Prisma.XOR<Prisma.UniversityLocationCreateWithoutLecturesInput, Prisma.UniversityLocationUncheckedCreateWithoutLecturesInput>
+}
+
+export type UniversityLocationUpsertWithoutLecturesInput = {
+  update: Prisma.XOR<Prisma.UniversityLocationUpdateWithoutLecturesInput, Prisma.UniversityLocationUncheckedUpdateWithoutLecturesInput>
+  create: Prisma.XOR<Prisma.UniversityLocationCreateWithoutLecturesInput, Prisma.UniversityLocationUncheckedCreateWithoutLecturesInput>
+  where?: Prisma.UniversityLocationWhereInput
+}
+
+export type UniversityLocationUpdateToOneWithWhereWithoutLecturesInput = {
+  where?: Prisma.UniversityLocationWhereInput
+  data: Prisma.XOR<Prisma.UniversityLocationUpdateWithoutLecturesInput, Prisma.UniversityLocationUncheckedUpdateWithoutLecturesInput>
+}
+
+export type UniversityLocationUpdateWithoutLecturesInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  reaching_description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+export type UniversityLocationUncheckedUpdateWithoutLecturesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  reaching_description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+
+/**
+ * Count Type UniversityLocationCountOutputType
+ */
+
+export type UniversityLocationCountOutputType = {
+  lectures: number
+}
+
+export type UniversityLocationCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  lectures?: boolean | UniversityLocationCountOutputTypeCountLecturesArgs
+}
+
+/**
+ * UniversityLocationCountOutputType without action
+ */
+export type UniversityLocationCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UniversityLocationCountOutputType
+   */
+  select?: Prisma.UniversityLocationCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * UniversityLocationCountOutputType without action
+ */
+export type UniversityLocationCountOutputTypeCountLecturesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LectureWhereInput
+}
 
 
 export type UniversityLocationSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -354,6 +457,8 @@ export type UniversityLocationSelect<ExtArgs extends runtime.Types.Extensions.In
   reaching_description?: boolean
   created_at?: boolean
   updated_at?: boolean
+  lectures?: boolean | Prisma.UniversityLocation$lecturesArgs<ExtArgs>
+  _count?: boolean | Prisma.UniversityLocationCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["universityLocation"]>
 
 export type UniversityLocationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -381,10 +486,18 @@ export type UniversityLocationSelectScalar = {
 }
 
 export type UniversityLocationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "reaching_description" | "created_at" | "updated_at", ExtArgs["result"]["universityLocation"]>
+export type UniversityLocationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  lectures?: boolean | Prisma.UniversityLocation$lecturesArgs<ExtArgs>
+  _count?: boolean | Prisma.UniversityLocationCountOutputTypeDefaultArgs<ExtArgs>
+}
+export type UniversityLocationIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type UniversityLocationIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $UniversityLocationPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "UniversityLocation"
-  objects: {}
+  objects: {
+    lectures: Prisma.$LecturePayload<ExtArgs>[]
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     name: string
@@ -785,6 +898,7 @@ readonly fields: UniversityLocationFieldRefs;
  */
 export interface Prisma__UniversityLocationClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  lectures<T extends Prisma.UniversityLocation$lecturesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UniversityLocation$lecturesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LecturePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -836,6 +950,10 @@ export type UniversityLocationFindUniqueArgs<ExtArgs extends runtime.Types.Exten
    */
   omit?: Prisma.UniversityLocationOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UniversityLocationInclude<ExtArgs> | null
+  /**
    * Filter, which UniversityLocation to fetch.
    */
   where: Prisma.UniversityLocationWhereUniqueInput
@@ -854,6 +972,10 @@ export type UniversityLocationFindUniqueOrThrowArgs<ExtArgs extends runtime.Type
    */
   omit?: Prisma.UniversityLocationOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UniversityLocationInclude<ExtArgs> | null
+  /**
    * Filter, which UniversityLocation to fetch.
    */
   where: Prisma.UniversityLocationWhereUniqueInput
@@ -871,6 +993,10 @@ export type UniversityLocationFindFirstArgs<ExtArgs extends runtime.Types.Extens
    * Omit specific fields from the UniversityLocation
    */
   omit?: Prisma.UniversityLocationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UniversityLocationInclude<ExtArgs> | null
   /**
    * Filter, which UniversityLocation to fetch.
    */
@@ -920,6 +1046,10 @@ export type UniversityLocationFindFirstOrThrowArgs<ExtArgs extends runtime.Types
    */
   omit?: Prisma.UniversityLocationOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UniversityLocationInclude<ExtArgs> | null
+  /**
    * Filter, which UniversityLocation to fetch.
    */
   where?: Prisma.UniversityLocationWhereInput
@@ -967,6 +1097,10 @@ export type UniversityLocationFindManyArgs<ExtArgs extends runtime.Types.Extensi
    * Omit specific fields from the UniversityLocation
    */
   omit?: Prisma.UniversityLocationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UniversityLocationInclude<ExtArgs> | null
   /**
    * Filter, which UniversityLocations to fetch.
    */
@@ -1016,6 +1150,10 @@ export type UniversityLocationCreateArgs<ExtArgs extends runtime.Types.Extension
    */
   omit?: Prisma.UniversityLocationOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UniversityLocationInclude<ExtArgs> | null
+  /**
    * The data needed to create a UniversityLocation.
    */
   data: Prisma.XOR<Prisma.UniversityLocationCreateInput, Prisma.UniversityLocationUncheckedCreateInput>
@@ -1063,6 +1201,10 @@ export type UniversityLocationUpdateArgs<ExtArgs extends runtime.Types.Extension
    * Omit specific fields from the UniversityLocation
    */
   omit?: Prisma.UniversityLocationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UniversityLocationInclude<ExtArgs> | null
   /**
    * The data needed to update a UniversityLocation.
    */
@@ -1130,6 +1272,10 @@ export type UniversityLocationUpsertArgs<ExtArgs extends runtime.Types.Extension
    */
   omit?: Prisma.UniversityLocationOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UniversityLocationInclude<ExtArgs> | null
+  /**
    * The filter to search for the UniversityLocation to update in case it exists.
    */
   where: Prisma.UniversityLocationWhereUniqueInput
@@ -1156,6 +1302,10 @@ export type UniversityLocationDeleteArgs<ExtArgs extends runtime.Types.Extension
    */
   omit?: Prisma.UniversityLocationOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UniversityLocationInclude<ExtArgs> | null
+  /**
    * Filter which UniversityLocation to delete.
    */
   where: Prisma.UniversityLocationWhereUniqueInput
@@ -1176,6 +1326,30 @@ export type UniversityLocationDeleteManyArgs<ExtArgs extends runtime.Types.Exten
 }
 
 /**
+ * UniversityLocation.lectures
+ */
+export type UniversityLocation$lecturesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Lecture
+   */
+  select?: Prisma.LectureSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Lecture
+   */
+  omit?: Prisma.LectureOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LectureInclude<ExtArgs> | null
+  where?: Prisma.LectureWhereInput
+  orderBy?: Prisma.LectureOrderByWithRelationInput | Prisma.LectureOrderByWithRelationInput[]
+  cursor?: Prisma.LectureWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LectureScalarFieldEnum | Prisma.LectureScalarFieldEnum[]
+}
+
+/**
  * UniversityLocation without action
  */
 export type UniversityLocationDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1187,4 +1361,8 @@ export type UniversityLocationDefaultArgs<ExtArgs extends runtime.Types.Extensio
    * Omit specific fields from the UniversityLocation
    */
   omit?: Prisma.UniversityLocationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UniversityLocationInclude<ExtArgs> | null
 }
