@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket Test Client</title>
+    <script src="https://cdn.socket.io/4.5.0/socket.io.min.js"></script>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .message { margin: 5px 0; padding: 5px; border-bottom: 1px solid #ccc; }
+        .connected { color: green; }
+        .disconnected { color: red; }
+        input, button { margin: 5px; padding: 8px; }
+        textarea { width: 100%; height: 100px; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h2>WebSocket/Socket.IO Test Client</h2>
+    
+    <div>
+        <label>Server URL: </label>
+        <input type="text" id="serverUrl" value="http://localhost:8000" size="40">
+        <label>Token: </label>
+        <input type="text" id="token" placeholder="JWT Token" size="30">
+        <button onclick="connect()">Connect</button>
+        <button onclick="disconnect()">Disconnect</button>
+    </div>
+    
+    <div>
+        <h3>Status: <span id="status" class="disconnected">Disconnected</span></h3>
+    </div>
+    
+    <div>
+        <h3>Emit Event:</h3>
+        <input type="text" id="eventName" placeholder="Event name (e.g., join-room)" size="20">
+        <input type="text" id="eventData" placeholder='Event data (e.g., "year:1")' size="40">
+        <button onclick="emitEvent()">Emit</button>
+    </div>
+    
+    <div>
+        <h3>Listen to Event:</h3>
+        <input type="text" id="listenEvent" placeholder="Event to listen (e.g., new-announcement)" size="30">
+        <button onclick="addListener()">Add Listener</button>
+        <button onclick="removeListener()">Remove Listener</button>
+    </div>
+    
+    <div>
+        <h3>Messages:</h3>
+        <button onclick="clearMessages()">Clear</button>
+        <div id="messages" style="border:1px solid #ccc; height:300px; overflow-y:auto; padding:10px;"></div>
+    </div>
+
+    <script>
+        let socket = null;
+        let listeners = [];
+
+        function addMessage(type, data) {
+            const messagesDiv = document.getElementById('messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+            messageDiv.innerHTML = `<strong>${type}:</strong> ${JSON.stringify(data, null, 2)}`;
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function connect() {
+            const url = document.getElementById('serverUrl').value;
+            const token = document.getElementById('token').value;
+            
+            socket = io(url, {
+                auth: { token: token },
+                transports: ['websocket']
+            });
+            
+            socket.on('connect', () => {
+                addMessage('System', 'Connected to server');
+                document.getElementById('status').className = 'connected';
+                document.getElementById('status').textContent = 'Connected';
+            });
+            
+            socket.on('disconnect', () => {
+                addMessage('System', 'Disconnected from server');
+                document.getElementById('status').className = 'disconnected';
+                document.getElementById('status').textContent = 'Disconnected';
+            });
+            
+            // Add default listeners
+            socket.on('new-announcement', (data) => {
+                addMessage('📢 New Announcement', data);
+            });
+            
+            socket.on('announcement-updated', (data) => {
+                addMessage('✏️ Announcement Updated', data);
+            });
+            
+            socket.on('announcement-deleted', (data) => {
+                addMessage('🗑️ Announcement Deleted', data);
+            });
+            
+            socket.on('user-status', (data) => {
+                addMessage('👤 User Status', data);
+            });
+        }
+        
+        function disconnect() {
+            if (socket) {
+                socket.disconnect();
+                socket = null;
+                addMessage('System', 'Disconnected manually');
+            }
+        }
+        
+        function emitEvent() {
+            if (!socket) {
+                addMessage('Error', 'Not connected to server');
+                return;
+            }
+            
+            const eventName = document.getElementById('eventName').value;
+            const eventData = document.getElementById('eventData').value;
+            
+            if (!eventName) {
+                addMessage('Error', 'Event name is required');
+                return;
+            }
+            
+            let data = null;
+            try {
+                data = eventData ? JSON.parse(eventData) : {};
+            } catch (e) {
+                data = eventData;
+            }
+            
+            socket.emit(eventName, data);
+            addMessage('Emitted', `${eventName}: ${JSON.stringify(data)}`);
+        }
+        
+        function addListener() {
+            if (!socket) {
+                addMessage('Error', 'Not connected to server');
+                return;
+            }
+            
+            const eventName = document.getElementById('listenEvent').value;
+            if (!eventName) {
+                addMessage('Error', 'Event name is required');
+                return;
+            }
+            
+            const handler = (data) => {
+                addMessage(`📡 ${eventName}`, data);
+            };
+            
+            socket.on(eventName, handler);
+            listeners.push({ eventName, handler });
+            addMessage('System', `Now listening to: ${eventName}`);
+        }
+        
+        function removeListener() {
+            const eventName = document.getElementById('listenEvent').value;
+            if (!eventName || !socket) return;
+            
+            const toRemove = listeners.filter(l => l.eventName === eventName);
+            toRemove.forEach(({ eventName, handler }) => {
+                socket.off(eventName, handler);
+            });
+            listeners = listeners.filter(l => l.eventName !== eventName);
+            addMessage('System', `Stopped listening to: ${eventName}`);
+        }
+        
+        function clearMessages() {
+            document.getElementById('messages').innerHTML = '';
+        }
+    </script>
+</body>
+</html>

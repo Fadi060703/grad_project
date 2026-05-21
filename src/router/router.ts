@@ -18,7 +18,7 @@ import {
   createYear,
   deleteYear,
   getAllYears,
-  updateYear,
+  getYearById, updateYear,
 } from "../controllers/yearController";
 import {
   createSection,
@@ -106,6 +106,7 @@ router.delete("/users/:id", deleteUser);
 router.post("/auth/login", login);
 router.get("/auth/me", authMiddleware, me);
 router.get("/years", getAllYears);
+router.get("/years/:id", getYearById);
 router.post("/years", createYear);
 router.put("/years/:id", updateYear);
 router.delete("/years/:id", deleteYear);

@@ -1,5 +1,9 @@
 import { Request , Response } from "express";
 import { createListHandler } from "../lib/express-prisma-query";
+import { asyncHandler } from "../utils/asyncHandler";
+import { UnauthorizedError , NotFoundError , ConflictError , 
+BadRequestError,ForbiddenError , ValidationError
+} from "../errors";
 import { prisma } from "../lib/prisma";
 import { yearSchema, createYearSchema, updateYearSchema } from "../validators/years";
 import { z } from 'zod';
@@ -24,7 +28,7 @@ export const getAllYears = createListHandler({
           year_id: true,
         }
       },
-      majors: {  // Added to match frontend interface
+      majors: { 
         select: {
           id: true,
           name: true,
@@ -35,46 +39,48 @@ export const getAllYears = createListHandler({
   } as any,
   mapResult: ({ data }) => z.array(yearSchema).parse(data),
 });
-
-export const getYearById = async (req: Request, res: Response) => {
-  try {
-    const id = parseInt(req.params.id, 10);
-    const year = await prisma.year.findUnique({
-      where: { id },
-      select: {
-        id: true,
-        name: true,
-        has_majors: true,
-        sections: {
-          select: {
-            id: true,
-            name: true,
-            year_id: true,
-          }
-        },
-        majors: {
-          select: {
-            id: true,
-            name: true,
-            year_id: true,
-          }
+export const getYearById = asyncHandler(async (req: Request, res: Response) => {
+  const id = parseInt(req.params.id as string, 10);
+  
+  // Validate ID
+  if (isNaN(id)) {
+    throw new BadRequestError('Invalid year ID');
+  }
+  
+  const year = await prisma.year.findUnique({
+    where: { id },
+    select: {
+      id: true,
+      name: true,
+      has_majors: true,
+      sections: {
+        select: {
+          id: true,
+          name: true,
+          year_id: true,
+        }
+      },
+      majors: {
+        select: {
+          id: true,
+          name: true,
+          year_id: true,
         }
       }
-    });
-    
-    if (!year) {
-      return res.status(404).json({ error: "Year not found" });
     }
-    
-    const parsed = yearSchema.parse(year);
-    return res.status(200).json(parsed);
-  } catch (err) {
-    if (err instanceof z.ZodError) {
-      return res.status(400).json({ error: "Validation failed" });
-    }
-    return res.status(400).json({ error: err });
+  });
+  
+  if (!year) {
+    throw new NotFoundError('Year');
   }
-};
+  
+  const parsed = yearSchema.parse(year);
+  
+  return res.status(200).json({
+    success: true,
+    data: parsed
+  });
+});
 
 export const createYear = async (req: Request, res: Response) => {
   try {
@@ -93,6 +99,7 @@ export const createYear = async (req: Request, res: Response) => {
       data: {
         name: data.name,
         has_majors: data.has_majors ?? false,
+        
       },
       select: {
         id: true,
@@ -112,7 +119,7 @@ export const createYear = async (req: Request, res: Response) => {
 
 export const updateYear = async (req: Request, res: Response) => {
   try {
-    const id = parseInt(req.params.id, 10);
+    const id = parseInt(req.params.id , 10);
     const data = updateYearSchema.parse(req.body);
     
     // Check if year exists

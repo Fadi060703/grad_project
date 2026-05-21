@@ -14,46 +14,44 @@ datasource db {
 }
 
 model SystemSettings {
-  id                          Int      @id @default(autoincrement())
-  lecture_duration            Int?
-  lectures_start_time         String?
-  aided_pass_courses_number   Int?
-  aided_marks_number          Int?
-  theoretical_exam_date       DateTime?
-  practical_exam_date         DateTime?
-  created_at                  DateTime @default(now())
-  updated_at                  DateTime @updatedAt
-  
+  id                        Int       @id @default(autoincrement())
+  lecture_duration          Int?
+  lectures_start_time       String?
+  aided_pass_courses_number Int?
+  aided_marks_number        Int?
+  theoretical_exam_date     DateTime?
+  practical_exam_date       DateTime?
+  created_at                DateTime  @default(now())
+  updated_at                DateTime  @updatedAt
+
   @@map("system_settings")
 }
 
 enum Role {
-
   ADMIN
   DOCTOR
   TEACHER
   STUDENT
-
 }
+
 model User {
-  id           Int      @id @default(autoincrement())
-  email        String?  @unique
-  username     String   @unique
-  full_name    String   
-  phone_number  String?  
+  id           Int       @id @default(autoincrement())
+  email        String?   @unique
+  username     String    @unique
+  full_name    String
+  phone_number String?
   role         Role
-  is_active    Boolean  @default(true)
+  is_active    Boolean   @default(true)
   password     String
-  created_at   DateTime @default(now())
+  created_at   DateTime  @default(now())
   updated_at   DateTime? @updatedAt
   student      Student?
-  permissions  String[] @default([])
-  
+  permissions  String[]  @default([])
+
   // Course relations
   teachingCourses Course[] @relation("CourseTeachers")
   doctorCourses   Course[] @relation("CourseDoctors")
-
-
+  announcements   Announcement[] 
   @@map("users")
 }
 // Agreements (app logic responsibilities):
@@ -66,9 +64,9 @@ model User {
 // - Only allow enrollment in courses that match the student's year/section/major.
 // - These rules are enforced in app logic .
 model Student {
-  student_id Int @id @default( autoincrement() ) 
-  userId Int @unique 
-  user User @relation( fields: [ userId ] , references: [ id ] , onDelete: Cascade ) 
+  student_id  Int    @id @default(autoincrement())
+  userId      Int    @unique
+  user        User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   mother_name String
   year_id Int
   year Year @relation(fields: [year_id], references: [id], onDelete: Cascade)
@@ -82,7 +80,6 @@ model Student {
   marks Mark[]
 }
 
-
 model Year {
   id Int @id @default( autoincrement() ) 
   name String @unique
@@ -91,6 +88,7 @@ model Year {
   sections Section[]
   majors Major[]
   students Student[]
+  announcements Announcement[]
   created_at          DateTime @default(now())
   updated_at          DateTime? @updatedAt
 }
@@ -104,10 +102,11 @@ model Section {
   courses Course[]
   lectures Lecture[]
   students Student[]
+  announcements Announcement[]
   created_at          DateTime @default(now())
   updated_at          DateTime? @updatedAt
 
-  @@unique([name, year_id]) 
+  @@unique([name, year_id])
 }
 
 model Major {
@@ -119,6 +118,7 @@ model Major {
   courses Course[]
   lectures Lecture[]
   students Student[]
+  announcements Announcement[]
   created_at          DateTime @default(now())
   updated_at          DateTime? @updatedAt
   
@@ -127,12 +127,13 @@ model Major {
 }
 
 model Group {
-  id        Int      @id @default(autoincrement())
-  name      String
+  id         Int       @id @default(autoincrement())
+  name       String
   section_id Int?
-  section   Section?  @relation(fields: [section_id], references: [id], onDelete: Cascade)
+  section    Section?  @relation(fields: [section_id], references: [id], onDelete: Cascade)
   major_id   Int?
   major     Major?   @relation(fields: [major_id], references: [id], onDelete: SetNull)
+  announcements Announcement[]
   lecture Lecture[]
   students Student[]
   created_at          DateTime @default(now())
@@ -143,12 +144,13 @@ model Group {
 }
 
 model UniversityLocation {
-  id                  Int      @id @default(autoincrement())
-  name                String   @unique
+  id                   Int       @id @default(autoincrement())
+  name                 String    @unique
   reaching_description String?
-  created_at          DateTime @default(now())
-  updated_at          DateTime? @updatedAt
+  created_at           DateTime  @default(now())
+  updated_at           DateTime? @updatedAt
   lectures             Lecture[]
+
   @@map("university_locations")
 }
 
@@ -161,7 +163,6 @@ enum ExamType {
   MSQ
   WRITTEN
 }
-
 
 model Course {
   id                  Int      @id @default(autoincrement())
@@ -180,6 +181,7 @@ model Course {
   teachers            User[]   @relation("CourseTeachers")
   lectures            Lecture[]
   students            StudentCourse[]
+  announcements       Announcement[]
   created_at          DateTime @default(now())
   updated_at          DateTime? @updatedAt
 
@@ -261,23 +263,23 @@ enum LectureType {
 }
 
 model Lecture {
-  id          Int       @id @default(autoincrement())
-  title       String
-  description String?
-  date        DateTime  @default(now())
-  location_id Int?      // Reference to UniversityLocation
-  location    UniversityLocation? @relation(fields: [location_id], references: [id], onDelete: SetNull)
-  course_id   Int
-  course      Course    @relation(fields: [course_id], references: [id], onDelete: Cascade)
-  lecture_type LectureType @default(THEORETICAL)
-  major_id    Int?
-  major       Major?    @relation(fields: [major_id], references: [id], onDelete: SetNull)
-  section_id  Int?
-  section     Section?  @relation(fields: [section_id], references: [id], onDelete: SetNull)
-  group_id    Int?
-  group       Group?    @relation(fields: [group_id], references: [id], onDelete: SetNull)  
-  created_at   DateTime  @default(now())
-  updated_at   DateTime  @updatedAt
+  id           Int                 @id @default(autoincrement())
+  title        String
+  description  String?
+  date         DateTime            @default(now())
+  location_id  Int? // Reference to UniversityLocation
+  location     UniversityLocation? @relation(fields: [location_id], references: [id], onDelete: SetNull)
+  course_id    Int
+  course       Course              @relation(fields: [course_id], references: [id], onDelete: Cascade)
+  lecture_type LectureType         @default(THEORETICAL)
+  major_id     Int?
+  major        Major?              @relation(fields: [major_id], references: [id], onDelete: SetNull)
+  section_id   Int?
+  section      Section?            @relation(fields: [section_id], references: [id], onDelete: SetNull)
+  group_id     Int?
+  group        Group?              @relation(fields: [group_id], references: [id], onDelete: SetNull)
+  created_at   DateTime            @default(now())
+  updated_at   DateTime            @updatedAt
 
   @@index([course_id])
   @@index([date])
@@ -285,4 +287,45 @@ model Lecture {
   @@index([section_id])
   @@index([group_id])
   @@map("lectures")
+}
+
+enum AnnouncementType {
+  REGULAR
+  IMPORTANT
+  EMERGENCY
+}
+
+model Announcement {
+  id          Int      @id @default(autoincrement())
+  title       String
+  content     String
+  type        AnnouncementType @default(REGULAR)
+  attachments String[] @default([])
+  
+  // Target audience (all optional)
+  year_id     Int?
+  year        Year?    @relation(fields: [year_id], references: [id], onDelete: SetNull)
+  section_id  Int?
+  section     Section? @relation(fields: [section_id], references: [id], onDelete: SetNull)
+  major_id    Int?
+  major       Major?   @relation(fields: [major_id], references: [id], onDelete: SetNull)
+  group_id    Int?
+  group       Group?   @relation(fields: [group_id], references: [id], onDelete: SetNull)
+  course_id   Int?
+  course      Course?  @relation(fields: [course_id], references: [id], onDelete: SetNull)
+  student_id  Int?
+  student     User?    @relation(fields: [student_id], references: [id], onDelete: SetNull)
+  
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  @@index([year_id])
+  @@index([section_id])
+  @@index([major_id])
+  @@index([group_id])
+  @@index([course_id])
+  @@index([student_id])
+  @@index([type])
+  @@index([created_at])
+  @@map("announcements")
 }

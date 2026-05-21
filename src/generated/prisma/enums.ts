@@ -50,3 +50,12 @@ export const LectureType = {
 } as const
 
 export type LectureType = (typeof LectureType)[keyof typeof LectureType]
+
+
+export const AnnouncementType = {
+  REGULAR: 'REGULAR',
+  IMPORTANT: 'IMPORTANT',
+  EMERGENCY: 'EMERGENCY'
+} as const
+
+export type AnnouncementType = (typeof AnnouncementType)[keyof typeof AnnouncementType]
