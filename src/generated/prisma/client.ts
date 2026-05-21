@@ -121,3 +121,8 @@ export type ExamGuideline = Prisma.ExamGuidelineModel
  * 
  */
 export type Lecture = Prisma.LectureModel
+/**
+ * Model Announcement
+ * 
+ */
+export type Announcement = Prisma.AnnouncementModel

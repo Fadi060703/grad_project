@@ -3,7 +3,7 @@ import { createStudent, createUser, deleteUser, getAllnonStudentUsers, getAllStu
 import { login, me } from '../controllers/auth/auth';
 import { authMiddleware } from '../middlewares/auth';
 import { check } from '../middlewares/check-permission';
-import { createYear, deleteYear, getAllYears, updateYear } from '../controllers/yearController';
+import { createYear, deleteYear, getAllYears, getYearById, updateYear } from '../controllers/yearController';
 import { createSection, deleteSection, getAllSections, updateSection } from '../controllers/sectionController';
 import { createGroup, deleteGroup, getAllGroups, updateGroup } from '../controllers/groupController';
 import { createUniversityLocation, deleteUniversityLocation, getAllUniversityLocations, updateUniversityLocation } from '../controllers/locationsController';
@@ -22,6 +22,7 @@ router.delete( '/users/:id' , deleteUser ) ;
 router.post( '/auth/login' , login ) ;
 router.get( '/auth/me' , authMiddleware , me ) ; 
 router.get( '/years' , getAllYears ) ; 
+router.get( '/years/:id' , getYearById ) ;
 router.post( '/years' , createYear ) ; 
 router.put( '/years/:id', updateYear) ; 
 router.delete( '/years/:id' , deleteYear ) ;

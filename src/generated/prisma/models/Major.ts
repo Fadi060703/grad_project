@@ -224,10 +224,8 @@ export type MajorWhereInput = {
   groups?: Prisma.GroupListRelationFilter
   courses?: Prisma.CourseListRelationFilter
   lectures?: Prisma.LectureListRelationFilter
-<<<<<<< HEAD
-=======
   students?: Prisma.StudentListRelationFilter
->>>>>>> 2a614c50670a9da9899a10d1353b3b541821ba3e
+  announcements?: Prisma.AnnouncementListRelationFilter
 }
 
 export type MajorOrderByWithRelationInput = {
@@ -240,10 +238,8 @@ export type MajorOrderByWithRelationInput = {
   groups?: Prisma.GroupOrderByRelationAggregateInput
   courses?: Prisma.CourseOrderByRelationAggregateInput
   lectures?: Prisma.LectureOrderByRelationAggregateInput
-<<<<<<< HEAD
-=======
   students?: Prisma.StudentOrderByRelationAggregateInput
->>>>>>> 2a614c50670a9da9899a10d1353b3b541821ba3e
+  announcements?: Prisma.AnnouncementOrderByRelationAggregateInput
 }
 
 export type MajorWhereUniqueInput = Prisma.AtLeast<{
@@ -260,10 +256,8 @@ export type MajorWhereUniqueInput = Prisma.AtLeast<{
   groups?: Prisma.GroupListRelationFilter
   courses?: Prisma.CourseListRelationFilter
   lectures?: Prisma.LectureListRelationFilter
-<<<<<<< HEAD
-=======
   students?: Prisma.StudentListRelationFilter
->>>>>>> 2a614c50670a9da9899a10d1353b3b541821ba3e
+  announcements?: Prisma.AnnouncementListRelationFilter
 }, "id" | "name_year_id">
 
 export type MajorOrderByWithAggregationInput = {
@@ -298,10 +292,8 @@ export type MajorCreateInput = {
   groups?: Prisma.GroupCreateNestedManyWithoutMajorInput
   courses?: Prisma.CourseCreateNestedManyWithoutMajorInput
   lectures?: Prisma.LectureCreateNestedManyWithoutMajorInput
-<<<<<<< HEAD
-=======
   students?: Prisma.StudentCreateNestedManyWithoutMajorInput
->>>>>>> 2a614c50670a9da9899a10d1353b3b541821ba3e
+  announcements?: Prisma.AnnouncementCreateNestedManyWithoutMajorInput
 }
 
 export type MajorUncheckedCreateInput = {
@@ -313,10 +305,8 @@ export type MajorUncheckedCreateInput = {
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutMajorInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutMajorInput
   lectures?: Prisma.LectureUncheckedCreateNestedManyWithoutMajorInput
-<<<<<<< HEAD
-=======
   students?: Prisma.StudentUncheckedCreateNestedManyWithoutMajorInput
->>>>>>> 2a614c50670a9da9899a10d1353b3b541821ba3e
+  announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutMajorInput
 }
 
 export type MajorUpdateInput = {
@@ -327,10 +317,8 @@ export type MajorUpdateInput = {
   groups?: Prisma.GroupUpdateManyWithoutMajorNestedInput
   courses?: Prisma.CourseUpdateManyWithoutMajorNestedInput
   lectures?: Prisma.LectureUpdateManyWithoutMajorNestedInput
-<<<<<<< HEAD
-=======
   students?: Prisma.StudentUpdateManyWithoutMajorNestedInput
->>>>>>> 2a614c50670a9da9899a10d1353b3b541821ba3e
+  announcements?: Prisma.AnnouncementUpdateManyWithoutMajorNestedInput
 }
 
 export type MajorUncheckedUpdateInput = {
@@ -342,10 +330,8 @@ export type MajorUncheckedUpdateInput = {
   groups?: Prisma.GroupUncheckedUpdateManyWithoutMajorNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutMajorNestedInput
   lectures?: Prisma.LectureUncheckedUpdateManyWithoutMajorNestedInput
-<<<<<<< HEAD
-=======
   students?: Prisma.StudentUncheckedUpdateManyWithoutMajorNestedInput
->>>>>>> 2a614c50670a9da9899a10d1353b3b541821ba3e
+  announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutMajorNestedInput
 }
 
 export type MajorCreateManyInput = {
@@ -530,8 +516,22 @@ export type MajorUpdateOneWithoutLecturesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.MajorUpdateToOneWithWhereWithoutLecturesInput, Prisma.MajorUpdateWithoutLecturesInput>, Prisma.MajorUncheckedUpdateWithoutLecturesInput>
 }
 
-<<<<<<< HEAD
-=======
+export type MajorCreateNestedOneWithoutAnnouncementsInput = {
+  create?: Prisma.XOR<Prisma.MajorCreateWithoutAnnouncementsInput, Prisma.MajorUncheckedCreateWithoutAnnouncementsInput>
+  connectOrCreate?: Prisma.MajorCreateOrConnectWithoutAnnouncementsInput
+  connect?: Prisma.MajorWhereUniqueInput
+}
+
+export type MajorUpdateOneWithoutAnnouncementsNestedInput = {
+  create?: Prisma.XOR<Prisma.MajorCreateWithoutAnnouncementsInput, Prisma.MajorUncheckedCreateWithoutAnnouncementsInput>
+  connectOrCreate?: Prisma.MajorCreateOrConnectWithoutAnnouncementsInput
+  upsert?: Prisma.MajorUpsertWithoutAnnouncementsInput
+  disconnect?: Prisma.MajorWhereInput | boolean
+  delete?: Prisma.MajorWhereInput | boolean
+  connect?: Prisma.MajorWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MajorUpdateToOneWithWhereWithoutAnnouncementsInput, Prisma.MajorUpdateWithoutAnnouncementsInput>, Prisma.MajorUncheckedUpdateWithoutAnnouncementsInput>
+}
+
 export type MajorCreateWithoutStudentsInput = {
   name: string
   created_at?: Date | string
@@ -540,6 +540,7 @@ export type MajorCreateWithoutStudentsInput = {
   groups?: Prisma.GroupCreateNestedManyWithoutMajorInput
   courses?: Prisma.CourseCreateNestedManyWithoutMajorInput
   lectures?: Prisma.LectureCreateNestedManyWithoutMajorInput
+  announcements?: Prisma.AnnouncementCreateNestedManyWithoutMajorInput
 }
 
 export type MajorUncheckedCreateWithoutStudentsInput = {
@@ -551,6 +552,7 @@ export type MajorUncheckedCreateWithoutStudentsInput = {
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutMajorInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutMajorInput
   lectures?: Prisma.LectureUncheckedCreateNestedManyWithoutMajorInput
+  announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutMajorInput
 }
 
 export type MajorCreateOrConnectWithoutStudentsInput = {
@@ -577,6 +579,7 @@ export type MajorUpdateWithoutStudentsInput = {
   groups?: Prisma.GroupUpdateManyWithoutMajorNestedInput
   courses?: Prisma.CourseUpdateManyWithoutMajorNestedInput
   lectures?: Prisma.LectureUpdateManyWithoutMajorNestedInput
+  announcements?: Prisma.AnnouncementUpdateManyWithoutMajorNestedInput
 }
 
 export type MajorUncheckedUpdateWithoutStudentsInput = {
@@ -588,9 +591,9 @@ export type MajorUncheckedUpdateWithoutStudentsInput = {
   groups?: Prisma.GroupUncheckedUpdateManyWithoutMajorNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutMajorNestedInput
   lectures?: Prisma.LectureUncheckedUpdateManyWithoutMajorNestedInput
+  announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutMajorNestedInput
 }
 
->>>>>>> 2a614c50670a9da9899a10d1353b3b541821ba3e
 export type MajorCreateWithoutYearInput = {
   name: string
   created_at?: Date | string
@@ -598,10 +601,8 @@ export type MajorCreateWithoutYearInput = {
   groups?: Prisma.GroupCreateNestedManyWithoutMajorInput
   courses?: Prisma.CourseCreateNestedManyWithoutMajorInput
   lectures?: Prisma.LectureCreateNestedManyWithoutMajorInput
-<<<<<<< HEAD
-=======
   students?: Prisma.StudentCreateNestedManyWithoutMajorInput
->>>>>>> 2a614c50670a9da9899a10d1353b3b541821ba3e
+  announcements?: Prisma.AnnouncementCreateNestedManyWithoutMajorInput
 }
 
 export type MajorUncheckedCreateWithoutYearInput = {
@@ -612,10 +613,8 @@ export type MajorUncheckedCreateWithoutYearInput = {
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutMajorInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutMajorInput
   lectures?: Prisma.LectureUncheckedCreateNestedManyWithoutMajorInput
-<<<<<<< HEAD
-=======
   students?: Prisma.StudentUncheckedCreateNestedManyWithoutMajorInput
->>>>>>> 2a614c50670a9da9899a10d1353b3b541821ba3e
+  announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutMajorInput
 }
 
 export type MajorCreateOrConnectWithoutYearInput = {
@@ -662,10 +661,8 @@ export type MajorCreateWithoutGroupsInput = {
   year: Prisma.YearCreateNestedOneWithoutMajorsInput
   courses?: Prisma.CourseCreateNestedManyWithoutMajorInput
   lectures?: Prisma.LectureCreateNestedManyWithoutMajorInput
-<<<<<<< HEAD
-=======
   students?: Prisma.StudentCreateNestedManyWithoutMajorInput
->>>>>>> 2a614c50670a9da9899a10d1353b3b541821ba3e
+  announcements?: Prisma.AnnouncementCreateNestedManyWithoutMajorInput
 }
 
 export type MajorUncheckedCreateWithoutGroupsInput = {
@@ -676,10 +673,8 @@ export type MajorUncheckedCreateWithoutGroupsInput = {
   updated_at?: Date | string | null
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutMajorInput
   lectures?: Prisma.LectureUncheckedCreateNestedManyWithoutMajorInput
-<<<<<<< HEAD
-=======
   students?: Prisma.StudentUncheckedCreateNestedManyWithoutMajorInput
->>>>>>> 2a614c50670a9da9899a10d1353b3b541821ba3e
+  announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutMajorInput
 }
 
 export type MajorCreateOrConnectWithoutGroupsInput = {
@@ -705,10 +700,8 @@ export type MajorUpdateWithoutGroupsInput = {
   year?: Prisma.YearUpdateOneRequiredWithoutMajorsNestedInput
   courses?: Prisma.CourseUpdateManyWithoutMajorNestedInput
   lectures?: Prisma.LectureUpdateManyWithoutMajorNestedInput
-<<<<<<< HEAD
-=======
   students?: Prisma.StudentUpdateManyWithoutMajorNestedInput
->>>>>>> 2a614c50670a9da9899a10d1353b3b541821ba3e
+  announcements?: Prisma.AnnouncementUpdateManyWithoutMajorNestedInput
 }
 
 export type MajorUncheckedUpdateWithoutGroupsInput = {
@@ -719,10 +712,8 @@ export type MajorUncheckedUpdateWithoutGroupsInput = {
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   courses?: Prisma.CourseUncheckedUpdateManyWithoutMajorNestedInput
   lectures?: Prisma.LectureUncheckedUpdateManyWithoutMajorNestedInput
-<<<<<<< HEAD
-=======
   students?: Prisma.StudentUncheckedUpdateManyWithoutMajorNestedInput
->>>>>>> 2a614c50670a9da9899a10d1353b3b541821ba3e
+  announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutMajorNestedInput
 }
 
 export type MajorCreateWithoutCoursesInput = {
@@ -732,10 +723,8 @@ export type MajorCreateWithoutCoursesInput = {
   year: Prisma.YearCreateNestedOneWithoutMajorsInput
   groups?: Prisma.GroupCreateNestedManyWithoutMajorInput
   lectures?: Prisma.LectureCreateNestedManyWithoutMajorInput
-<<<<<<< HEAD
-=======
   students?: Prisma.StudentCreateNestedManyWithoutMajorInput
->>>>>>> 2a614c50670a9da9899a10d1353b3b541821ba3e
+  announcements?: Prisma.AnnouncementCreateNestedManyWithoutMajorInput
 }
 
 export type MajorUncheckedCreateWithoutCoursesInput = {
@@ -746,10 +735,8 @@ export type MajorUncheckedCreateWithoutCoursesInput = {
   updated_at?: Date | string | null
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutMajorInput
   lectures?: Prisma.LectureUncheckedCreateNestedManyWithoutMajorInput
-<<<<<<< HEAD
-=======
   students?: Prisma.StudentUncheckedCreateNestedManyWithoutMajorInput
->>>>>>> 2a614c50670a9da9899a10d1353b3b541821ba3e
+  announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutMajorInput
 }
 
 export type MajorCreateOrConnectWithoutCoursesInput = {
@@ -775,10 +762,8 @@ export type MajorUpdateWithoutCoursesInput = {
   year?: Prisma.YearUpdateOneRequiredWithoutMajorsNestedInput
   groups?: Prisma.GroupUpdateManyWithoutMajorNestedInput
   lectures?: Prisma.LectureUpdateManyWithoutMajorNestedInput
-<<<<<<< HEAD
-=======
   students?: Prisma.StudentUpdateManyWithoutMajorNestedInput
->>>>>>> 2a614c50670a9da9899a10d1353b3b541821ba3e
+  announcements?: Prisma.AnnouncementUpdateManyWithoutMajorNestedInput
 }
 
 export type MajorUncheckedUpdateWithoutCoursesInput = {
@@ -789,10 +774,8 @@ export type MajorUncheckedUpdateWithoutCoursesInput = {
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   groups?: Prisma.GroupUncheckedUpdateManyWithoutMajorNestedInput
   lectures?: Prisma.LectureUncheckedUpdateManyWithoutMajorNestedInput
-<<<<<<< HEAD
-=======
   students?: Prisma.StudentUncheckedUpdateManyWithoutMajorNestedInput
->>>>>>> 2a614c50670a9da9899a10d1353b3b541821ba3e
+  announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutMajorNestedInput
 }
 
 export type MajorCreateWithoutLecturesInput = {
@@ -802,10 +785,8 @@ export type MajorCreateWithoutLecturesInput = {
   year: Prisma.YearCreateNestedOneWithoutMajorsInput
   groups?: Prisma.GroupCreateNestedManyWithoutMajorInput
   courses?: Prisma.CourseCreateNestedManyWithoutMajorInput
-<<<<<<< HEAD
-=======
   students?: Prisma.StudentCreateNestedManyWithoutMajorInput
->>>>>>> 2a614c50670a9da9899a10d1353b3b541821ba3e
+  announcements?: Prisma.AnnouncementCreateNestedManyWithoutMajorInput
 }
 
 export type MajorUncheckedCreateWithoutLecturesInput = {
@@ -816,10 +797,8 @@ export type MajorUncheckedCreateWithoutLecturesInput = {
   updated_at?: Date | string | null
   groups?: Prisma.GroupUncheckedCreateNestedManyWithoutMajorInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutMajorInput
-<<<<<<< HEAD
-=======
   students?: Prisma.StudentUncheckedCreateNestedManyWithoutMajorInput
->>>>>>> 2a614c50670a9da9899a10d1353b3b541821ba3e
+  announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutMajorInput
 }
 
 export type MajorCreateOrConnectWithoutLecturesInput = {
@@ -845,10 +824,8 @@ export type MajorUpdateWithoutLecturesInput = {
   year?: Prisma.YearUpdateOneRequiredWithoutMajorsNestedInput
   groups?: Prisma.GroupUpdateManyWithoutMajorNestedInput
   courses?: Prisma.CourseUpdateManyWithoutMajorNestedInput
-<<<<<<< HEAD
-=======
   students?: Prisma.StudentUpdateManyWithoutMajorNestedInput
->>>>>>> 2a614c50670a9da9899a10d1353b3b541821ba3e
+  announcements?: Prisma.AnnouncementUpdateManyWithoutMajorNestedInput
 }
 
 export type MajorUncheckedUpdateWithoutLecturesInput = {
@@ -859,10 +836,70 @@ export type MajorUncheckedUpdateWithoutLecturesInput = {
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   groups?: Prisma.GroupUncheckedUpdateManyWithoutMajorNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutMajorNestedInput
-<<<<<<< HEAD
-=======
   students?: Prisma.StudentUncheckedUpdateManyWithoutMajorNestedInput
->>>>>>> 2a614c50670a9da9899a10d1353b3b541821ba3e
+  announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutMajorNestedInput
+}
+
+export type MajorCreateWithoutAnnouncementsInput = {
+  name: string
+  created_at?: Date | string
+  updated_at?: Date | string | null
+  year: Prisma.YearCreateNestedOneWithoutMajorsInput
+  groups?: Prisma.GroupCreateNestedManyWithoutMajorInput
+  courses?: Prisma.CourseCreateNestedManyWithoutMajorInput
+  lectures?: Prisma.LectureCreateNestedManyWithoutMajorInput
+  students?: Prisma.StudentCreateNestedManyWithoutMajorInput
+}
+
+export type MajorUncheckedCreateWithoutAnnouncementsInput = {
+  id?: number
+  name: string
+  year_id: number
+  created_at?: Date | string
+  updated_at?: Date | string | null
+  groups?: Prisma.GroupUncheckedCreateNestedManyWithoutMajorInput
+  courses?: Prisma.CourseUncheckedCreateNestedManyWithoutMajorInput
+  lectures?: Prisma.LectureUncheckedCreateNestedManyWithoutMajorInput
+  students?: Prisma.StudentUncheckedCreateNestedManyWithoutMajorInput
+}
+
+export type MajorCreateOrConnectWithoutAnnouncementsInput = {
+  where: Prisma.MajorWhereUniqueInput
+  create: Prisma.XOR<Prisma.MajorCreateWithoutAnnouncementsInput, Prisma.MajorUncheckedCreateWithoutAnnouncementsInput>
+}
+
+export type MajorUpsertWithoutAnnouncementsInput = {
+  update: Prisma.XOR<Prisma.MajorUpdateWithoutAnnouncementsInput, Prisma.MajorUncheckedUpdateWithoutAnnouncementsInput>
+  create: Prisma.XOR<Prisma.MajorCreateWithoutAnnouncementsInput, Prisma.MajorUncheckedCreateWithoutAnnouncementsInput>
+  where?: Prisma.MajorWhereInput
+}
+
+export type MajorUpdateToOneWithWhereWithoutAnnouncementsInput = {
+  where?: Prisma.MajorWhereInput
+  data: Prisma.XOR<Prisma.MajorUpdateWithoutAnnouncementsInput, Prisma.MajorUncheckedUpdateWithoutAnnouncementsInput>
+}
+
+export type MajorUpdateWithoutAnnouncementsInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  year?: Prisma.YearUpdateOneRequiredWithoutMajorsNestedInput
+  groups?: Prisma.GroupUpdateManyWithoutMajorNestedInput
+  courses?: Prisma.CourseUpdateManyWithoutMajorNestedInput
+  lectures?: Prisma.LectureUpdateManyWithoutMajorNestedInput
+  students?: Prisma.StudentUpdateManyWithoutMajorNestedInput
+}
+
+export type MajorUncheckedUpdateWithoutAnnouncementsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  year_id?: Prisma.IntFieldUpdateOperationsInput | number
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  groups?: Prisma.GroupUncheckedUpdateManyWithoutMajorNestedInput
+  courses?: Prisma.CourseUncheckedUpdateManyWithoutMajorNestedInput
+  lectures?: Prisma.LectureUncheckedUpdateManyWithoutMajorNestedInput
+  students?: Prisma.StudentUncheckedUpdateManyWithoutMajorNestedInput
 }
 
 export type MajorCreateManyYearInput = {
@@ -879,10 +916,8 @@ export type MajorUpdateWithoutYearInput = {
   groups?: Prisma.GroupUpdateManyWithoutMajorNestedInput
   courses?: Prisma.CourseUpdateManyWithoutMajorNestedInput
   lectures?: Prisma.LectureUpdateManyWithoutMajorNestedInput
-<<<<<<< HEAD
-=======
   students?: Prisma.StudentUpdateManyWithoutMajorNestedInput
->>>>>>> 2a614c50670a9da9899a10d1353b3b541821ba3e
+  announcements?: Prisma.AnnouncementUpdateManyWithoutMajorNestedInput
 }
 
 export type MajorUncheckedUpdateWithoutYearInput = {
@@ -893,10 +928,8 @@ export type MajorUncheckedUpdateWithoutYearInput = {
   groups?: Prisma.GroupUncheckedUpdateManyWithoutMajorNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutMajorNestedInput
   lectures?: Prisma.LectureUncheckedUpdateManyWithoutMajorNestedInput
-<<<<<<< HEAD
-=======
   students?: Prisma.StudentUncheckedUpdateManyWithoutMajorNestedInput
->>>>>>> 2a614c50670a9da9899a10d1353b3b541821ba3e
+  announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutMajorNestedInput
 }
 
 export type MajorUncheckedUpdateManyWithoutYearInput = {
@@ -915,20 +948,16 @@ export type MajorCountOutputType = {
   groups: number
   courses: number
   lectures: number
-<<<<<<< HEAD
-=======
   students: number
->>>>>>> 2a614c50670a9da9899a10d1353b3b541821ba3e
+  announcements: number
 }
 
 export type MajorCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   groups?: boolean | MajorCountOutputTypeCountGroupsArgs
   courses?: boolean | MajorCountOutputTypeCountCoursesArgs
   lectures?: boolean | MajorCountOutputTypeCountLecturesArgs
-<<<<<<< HEAD
-=======
   students?: boolean | MajorCountOutputTypeCountStudentsArgs
->>>>>>> 2a614c50670a9da9899a10d1353b3b541821ba3e
+  announcements?: boolean | MajorCountOutputTypeCountAnnouncementsArgs
 }
 
 /**
@@ -962,8 +991,6 @@ export type MajorCountOutputTypeCountLecturesArgs<ExtArgs extends runtime.Types.
   where?: Prisma.LectureWhereInput
 }
 
-<<<<<<< HEAD
-=======
 /**
  * MajorCountOutputType without action
  */
@@ -971,7 +998,13 @@ export type MajorCountOutputTypeCountStudentsArgs<ExtArgs extends runtime.Types.
   where?: Prisma.StudentWhereInput
 }
 
->>>>>>> 2a614c50670a9da9899a10d1353b3b541821ba3e
+/**
+ * MajorCountOutputType without action
+ */
+export type MajorCountOutputTypeCountAnnouncementsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AnnouncementWhereInput
+}
+
 
 export type MajorSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -983,10 +1016,8 @@ export type MajorSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   groups?: boolean | Prisma.Major$groupsArgs<ExtArgs>
   courses?: boolean | Prisma.Major$coursesArgs<ExtArgs>
   lectures?: boolean | Prisma.Major$lecturesArgs<ExtArgs>
-<<<<<<< HEAD
-=======
   students?: boolean | Prisma.Major$studentsArgs<ExtArgs>
->>>>>>> 2a614c50670a9da9899a10d1353b3b541821ba3e
+  announcements?: boolean | Prisma.Major$announcementsArgs<ExtArgs>
   _count?: boolean | Prisma.MajorCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["major"]>
 
@@ -1022,10 +1053,8 @@ export type MajorInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   groups?: boolean | Prisma.Major$groupsArgs<ExtArgs>
   courses?: boolean | Prisma.Major$coursesArgs<ExtArgs>
   lectures?: boolean | Prisma.Major$lecturesArgs<ExtArgs>
-<<<<<<< HEAD
-=======
   students?: boolean | Prisma.Major$studentsArgs<ExtArgs>
->>>>>>> 2a614c50670a9da9899a10d1353b3b541821ba3e
+  announcements?: boolean | Prisma.Major$announcementsArgs<ExtArgs>
   _count?: boolean | Prisma.MajorCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type MajorIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1042,10 +1071,8 @@ export type $MajorPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     groups: Prisma.$GroupPayload<ExtArgs>[]
     courses: Prisma.$CoursePayload<ExtArgs>[]
     lectures: Prisma.$LecturePayload<ExtArgs>[]
-<<<<<<< HEAD
-=======
     students: Prisma.$StudentPayload<ExtArgs>[]
->>>>>>> 2a614c50670a9da9899a10d1353b3b541821ba3e
+    announcements: Prisma.$AnnouncementPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1451,10 +1478,8 @@ export interface Prisma__MajorClient<T, Null = never, ExtArgs extends runtime.Ty
   groups<T extends Prisma.Major$groupsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Major$groupsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GroupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   courses<T extends Prisma.Major$coursesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Major$coursesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   lectures<T extends Prisma.Major$lecturesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Major$lecturesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LecturePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-<<<<<<< HEAD
-=======
   students<T extends Prisma.Major$studentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Major$studentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
->>>>>>> 2a614c50670a9da9899a10d1353b3b541821ba3e
+  announcements<T extends Prisma.Major$announcementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Major$announcementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AnnouncementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1962,8 +1987,6 @@ export type Major$lecturesArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
-<<<<<<< HEAD
-=======
  * Major.students
  */
 export type Major$studentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1988,7 +2011,30 @@ export type Major$studentsArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
->>>>>>> 2a614c50670a9da9899a10d1353b3b541821ba3e
+ * Major.announcements
+ */
+export type Major$announcementsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Announcement
+   */
+  select?: Prisma.AnnouncementSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Announcement
+   */
+  omit?: Prisma.AnnouncementOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AnnouncementInclude<ExtArgs> | null
+  where?: Prisma.AnnouncementWhereInput
+  orderBy?: Prisma.AnnouncementOrderByWithRelationInput | Prisma.AnnouncementOrderByWithRelationInput[]
+  cursor?: Prisma.AnnouncementWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AnnouncementScalarFieldEnum | Prisma.AnnouncementScalarFieldEnum[]
+}
+
+/**
  * Major without action
  */
 export type MajorDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
