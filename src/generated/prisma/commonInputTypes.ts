@@ -253,6 +253,26 @@ export type EnumExamTypeWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumExamTypeFilter<$PrismaModel>
 }
 
+<<<<<<< HEAD
+=======
+export type EnumStudentCourseStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.StudentCourseStatus | Prisma.EnumStudentCourseStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.StudentCourseStatus[] | Prisma.ListEnumStudentCourseStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StudentCourseStatus[] | Prisma.ListEnumStudentCourseStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStudentCourseStatusFilter<$PrismaModel> | $Enums.StudentCourseStatus
+}
+
+export type EnumStudentCourseStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.StudentCourseStatus | Prisma.EnumStudentCourseStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.StudentCourseStatus[] | Prisma.ListEnumStudentCourseStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StudentCourseStatus[] | Prisma.ListEnumStudentCourseStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStudentCourseStatusWithAggregatesFilter<$PrismaModel> | $Enums.StudentCourseStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumStudentCourseStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumStudentCourseStatusFilter<$PrismaModel>
+}
+
+>>>>>>> 2a614c50670a9da9899a10d1353b3b541821ba3e
 export type EnumLectureTypeFilter<$PrismaModel = never> = {
   equals?: $Enums.LectureType | Prisma.EnumLectureTypeFieldRefInput<$PrismaModel>
   in?: $Enums.LectureType[] | Prisma.ListEnumLectureTypeFieldRefInput<$PrismaModel>
@@ -522,6 +542,26 @@ export type NestedEnumExamTypeWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumExamTypeFilter<$PrismaModel>
 }
 
+<<<<<<< HEAD
+=======
+export type NestedEnumStudentCourseStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.StudentCourseStatus | Prisma.EnumStudentCourseStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.StudentCourseStatus[] | Prisma.ListEnumStudentCourseStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StudentCourseStatus[] | Prisma.ListEnumStudentCourseStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStudentCourseStatusFilter<$PrismaModel> | $Enums.StudentCourseStatus
+}
+
+export type NestedEnumStudentCourseStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.StudentCourseStatus | Prisma.EnumStudentCourseStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.StudentCourseStatus[] | Prisma.ListEnumStudentCourseStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StudentCourseStatus[] | Prisma.ListEnumStudentCourseStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStudentCourseStatusWithAggregatesFilter<$PrismaModel> | $Enums.StudentCourseStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumStudentCourseStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumStudentCourseStatusFilter<$PrismaModel>
+}
+
+>>>>>>> 2a614c50670a9da9899a10d1353b3b541821ba3e
 export type NestedEnumLectureTypeFilter<$PrismaModel = never> = {
   equals?: $Enums.LectureType | Prisma.EnumLectureTypeFieldRefInput<$PrismaModel>
   in?: $Enums.LectureType[] | Prisma.ListEnumLectureTypeFieldRefInput<$PrismaModel>

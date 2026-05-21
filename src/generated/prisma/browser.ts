@@ -63,6 +63,21 @@ export type UniversityLocation = Prisma.UniversityLocationModel
  */
 export type Course = Prisma.CourseModel
 /**
+ * Model MarksCourse
+ * 
+ */
+export type MarksCourse = Prisma.MarksCourseModel
+/**
+ * Model Mark
+ * 
+ */
+export type Mark = Prisma.MarkModel
+/**
+ * Model StudentCourse
+ * 
+ */
+export type StudentCourse = Prisma.StudentCourseModel
+/**
  * Model FAQ
  * 
  */
