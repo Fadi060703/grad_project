@@ -27,6 +27,26 @@ model SystemSettings {
   @@map("system_settings")
 }
 
+model FaculityInfo {
+  id                             Int      @id @default(autoincrement())
+  telegram_url                   String?
+  facebook_url                   String?
+  instagram_url                  String?
+  linkedin_url                   String?
+  website_url                    String?
+  university_name                String?
+  faculity_name                  String?
+  faculity_picture_url           String?
+  support_email                  String?
+  lectures_schedule_url          String?
+  theoritical_exam_schedule_url  String?
+  practical_exam_schedule_url    String?
+  created_at                     DateTime @default(now())
+  updated_at                     DateTime @updatedAt
+
+  @@map("faculity_info")
+}
+
 enum Role {
   ADMIN
   DOCTOR

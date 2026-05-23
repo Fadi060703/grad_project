@@ -85,6 +85,7 @@ import {
   getAllMarks,
   updateMark,
 } from "../controllers/marksController";
+import { createOrUpdateFaculityInfo, getFaculityInfo } from "../controllers/faculityInfoController";
 
 const router = express.Router();
 const upload = multer({
@@ -133,6 +134,9 @@ router.delete("/courses/:id", deleteCourse);
 
 router.get("/system-settings", getSystemSettings);
 router.put("/system-settings", createOrUpdateSystemSettings);
+
+router.get("/faculity-info", getFaculityInfo);
+router.put("/faculity-info", createOrUpdateFaculityInfo);
 
 router.get("/faqs", getAllFaqs);
 router.post("/faqs", createFaq);

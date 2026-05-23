@@ -47,6 +47,11 @@ export { Prisma }
  */
 export type SystemSettings = Prisma.SystemSettingsModel
 /**
+ * Model FaculityInfo
+ * 
+ */
+export type FaculityInfo = Prisma.FaculityInfoModel
+/**
  * Model User
  * 
  */

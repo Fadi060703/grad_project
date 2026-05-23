@@ -9,6 +9,7 @@
  * 🟢 You can import this file directly.
  */
 export type * from './models/SystemSettings.js'
+export type * from './models/FaculityInfo.js'
 export type * from './models/User.js'
 export type * from './models/Student.js'
 export type * from './models/Year.js'

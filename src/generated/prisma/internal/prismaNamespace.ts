@@ -385,6 +385,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   SystemSettings: 'SystemSettings',
+  FaculityInfo: 'FaculityInfo',
   User: 'User',
   Student: 'Student',
   Year: 'Year',
@@ -416,7 +417,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "systemSettings" | "user" | "student" | "year" | "section" | "major" | "group" | "universityLocation" | "course" | "marksCourse" | "mark" | "studentCourse" | "fAQ" | "blog" | "examGuideline" | "lecture" | "announcement"
+    modelProps: "systemSettings" | "faculityInfo" | "user" | "student" | "year" | "section" | "major" | "group" | "universityLocation" | "course" | "marksCourse" | "mark" | "studentCourse" | "fAQ" | "blog" | "examGuideline" | "lecture" | "announcement"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -491,6 +492,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.SystemSettingsCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.SystemSettingsCountAggregateOutputType> | number
+        }
+      }
+    }
+    FaculityInfo: {
+      payload: Prisma.$FaculityInfoPayload<ExtArgs>
+      fields: Prisma.FaculityInfoFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FaculityInfoFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FaculityInfoPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FaculityInfoFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FaculityInfoPayload>
+        }
+        findFirst: {
+          args: Prisma.FaculityInfoFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FaculityInfoPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FaculityInfoFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FaculityInfoPayload>
+        }
+        findMany: {
+          args: Prisma.FaculityInfoFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FaculityInfoPayload>[]
+        }
+        create: {
+          args: Prisma.FaculityInfoCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FaculityInfoPayload>
+        }
+        createMany: {
+          args: Prisma.FaculityInfoCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FaculityInfoCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FaculityInfoPayload>[]
+        }
+        delete: {
+          args: Prisma.FaculityInfoDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FaculityInfoPayload>
+        }
+        update: {
+          args: Prisma.FaculityInfoUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FaculityInfoPayload>
+        }
+        deleteMany: {
+          args: Prisma.FaculityInfoDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FaculityInfoUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FaculityInfoUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FaculityInfoPayload>[]
+        }
+        upsert: {
+          args: Prisma.FaculityInfoUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FaculityInfoPayload>
+        }
+        aggregate: {
+          args: Prisma.FaculityInfoAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFaculityInfo>
+        }
+        groupBy: {
+          args: Prisma.FaculityInfoGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FaculityInfoGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FaculityInfoCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FaculityInfoCountAggregateOutputType> | number
         }
       }
     }
@@ -1732,6 +1807,27 @@ export const SystemSettingsScalarFieldEnum = {
 export type SystemSettingsScalarFieldEnum = (typeof SystemSettingsScalarFieldEnum)[keyof typeof SystemSettingsScalarFieldEnum]
 
 
+export const FaculityInfoScalarFieldEnum = {
+  id: 'id',
+  telegram_url: 'telegram_url',
+  facebook_url: 'facebook_url',
+  instagram_url: 'instagram_url',
+  linkedin_url: 'linkedin_url',
+  website_url: 'website_url',
+  university_name: 'university_name',
+  faculity_name: 'faculity_name',
+  faculity_picture_url: 'faculity_picture_url',
+  support_email: 'support_email',
+  lectures_schedule_url: 'lectures_schedule_url',
+  theoritical_exam_schedule_url: 'theoritical_exam_schedule_url',
+  practical_exam_schedule_url: 'practical_exam_schedule_url',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type FaculityInfoScalarFieldEnum = (typeof FaculityInfoScalarFieldEnum)[keyof typeof FaculityInfoScalarFieldEnum]
+
+
 export const UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
@@ -2227,6 +2323,7 @@ export type PrismaClientOptions = ({
 }
 export type GlobalOmitConfig = {
   systemSettings?: Prisma.SystemSettingsOmit
+  faculityInfo?: Prisma.FaculityInfoOmit
   user?: Prisma.UserOmit
   student?: Prisma.StudentOmit
   year?: Prisma.YearOmit

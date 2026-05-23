@@ -52,6 +52,7 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   SystemSettings: 'SystemSettings',
+  FaculityInfo: 'FaculityInfo',
   User: 'User',
   Student: 'Student',
   Year: 'Year',
@@ -99,6 +100,27 @@ export const SystemSettingsScalarFieldEnum = {
 } as const
 
 export type SystemSettingsScalarFieldEnum = (typeof SystemSettingsScalarFieldEnum)[keyof typeof SystemSettingsScalarFieldEnum]
+
+
+export const FaculityInfoScalarFieldEnum = {
+  id: 'id',
+  telegram_url: 'telegram_url',
+  facebook_url: 'facebook_url',
+  instagram_url: 'instagram_url',
+  linkedin_url: 'linkedin_url',
+  website_url: 'website_url',
+  university_name: 'university_name',
+  faculity_name: 'faculity_name',
+  faculity_picture_url: 'faculity_picture_url',
+  support_email: 'support_email',
+  lectures_schedule_url: 'lectures_schedule_url',
+  theoritical_exam_schedule_url: 'theoritical_exam_schedule_url',
+  practical_exam_schedule_url: 'practical_exam_schedule_url',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type FaculityInfoScalarFieldEnum = (typeof FaculityInfoScalarFieldEnum)[keyof typeof FaculityInfoScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {
