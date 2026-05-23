@@ -394,6 +394,7 @@ export const ModelName = {
   Group: 'Group',
   UniversityLocation: 'UniversityLocation',
   Course: 'Course',
+  CourseFile: 'CourseFile',
   MarksCourse: 'MarksCourse',
   Mark: 'Mark',
   StudentCourse: 'StudentCourse',
@@ -417,7 +418,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "systemSettings" | "faculityInfo" | "user" | "student" | "year" | "section" | "major" | "group" | "universityLocation" | "course" | "marksCourse" | "mark" | "studentCourse" | "fAQ" | "blog" | "examGuideline" | "lecture" | "announcement"
+    modelProps: "systemSettings" | "faculityInfo" | "user" | "student" | "year" | "section" | "major" | "group" | "universityLocation" | "course" | "courseFile" | "marksCourse" | "mark" | "studentCourse" | "fAQ" | "blog" | "examGuideline" | "lecture" | "announcement"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1158,6 +1159,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.CourseCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.CourseCountAggregateOutputType> | number
+        }
+      }
+    }
+    CourseFile: {
+      payload: Prisma.$CourseFilePayload<ExtArgs>
+      fields: Prisma.CourseFileFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CourseFileFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseFilePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CourseFileFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseFilePayload>
+        }
+        findFirst: {
+          args: Prisma.CourseFileFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseFilePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CourseFileFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseFilePayload>
+        }
+        findMany: {
+          args: Prisma.CourseFileFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseFilePayload>[]
+        }
+        create: {
+          args: Prisma.CourseFileCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseFilePayload>
+        }
+        createMany: {
+          args: Prisma.CourseFileCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CourseFileCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseFilePayload>[]
+        }
+        delete: {
+          args: Prisma.CourseFileDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseFilePayload>
+        }
+        update: {
+          args: Prisma.CourseFileUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseFilePayload>
+        }
+        deleteMany: {
+          args: Prisma.CourseFileDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CourseFileUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CourseFileUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseFilePayload>[]
+        }
+        upsert: {
+          args: Prisma.CourseFileUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseFilePayload>
+        }
+        aggregate: {
+          args: Prisma.CourseFileAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCourseFile>
+        }
+        groupBy: {
+          args: Prisma.CourseFileGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CourseFileGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CourseFileCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CourseFileCountAggregateOutputType> | number
         }
       }
     }
@@ -1932,6 +2007,21 @@ export const CourseScalarFieldEnum = {
 export type CourseScalarFieldEnum = (typeof CourseScalarFieldEnum)[keyof typeof CourseScalarFieldEnum]
 
 
+export const CourseFileScalarFieldEnum = {
+  id: 'id',
+  course_id: 'course_id',
+  type: 'type',
+  file: 'file',
+  size: 'size',
+  title: 'title',
+  mime_type: 'mime_type',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type CourseFileScalarFieldEnum = (typeof CourseFileScalarFieldEnum)[keyof typeof CourseFileScalarFieldEnum]
+
+
 export const MarksCourseScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -2158,20 +2248,6 @@ export type ListEnumExamTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$Pri
 
 
 /**
- * Reference to a field of type 'StudentCourseStatus'
- */
-export type EnumStudentCourseStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StudentCourseStatus'>
-    
-
-
-/**
- * Reference to a field of type 'StudentCourseStatus[]'
- */
-export type ListEnumStudentCourseStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StudentCourseStatus[]'>
-    
-
-
-/**
  * Reference to a field of type 'LectureType'
  */
 export type EnumLectureTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LectureType'>
@@ -2182,6 +2258,20 @@ export type EnumLectureTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$Pris
  * Reference to a field of type 'LectureType[]'
  */
 export type ListEnumLectureTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LectureType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'StudentCourseStatus'
+ */
+export type EnumStudentCourseStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StudentCourseStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'StudentCourseStatus[]'
+ */
+export type ListEnumStudentCourseStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StudentCourseStatus[]'>
     
 
 
@@ -2332,6 +2422,7 @@ export type GlobalOmitConfig = {
   group?: Prisma.GroupOmit
   universityLocation?: Prisma.UniversityLocationOmit
   course?: Prisma.CourseOmit
+  courseFile?: Prisma.CourseFileOmit
   marksCourse?: Prisma.MarksCourseOmit
   mark?: Prisma.MarkOmit
   studentCourse?: Prisma.StudentCourseOmit

@@ -18,7 +18,8 @@ import {
   createYear,
   deleteYear,
   getAllYears,
-  getYearById, updateYear,
+  getYearById,
+  updateYear,
 } from "../controllers/yearController";
 import {
   createSection,
@@ -85,7 +86,17 @@ import {
   getAllMarks,
   updateMark,
 } from "../controllers/marksController";
-import { createOrUpdateFaculityInfo, getFaculityInfo } from "../controllers/faculityInfoController";
+import {
+  createOrUpdateFaculityInfo,
+  getFaculityInfo,
+} from "../controllers/faculityInfoController";
+import {
+  createCourseFile,
+  deleteCourseFile,
+  getAllCourseFiles,
+  updateCourseFile,
+  uploadCourseFile,
+} from "../controllers/courseFilesController";
 
 const router = express.Router();
 const upload = multer({
@@ -131,6 +142,15 @@ router.get("/courses", getAllCourses);
 router.post("/courses", createCourse);
 router.put("/courses/:id", updateCourse);
 router.delete("/courses/:id", deleteCourse);
+router.get("/courses/:course_id/files", getAllCourseFiles);
+router.post("/courses/:course_id/files", createCourseFile);
+router.put("/courses/:course_id/files/:id", updateCourseFile);
+router.delete("/courses/:course_id/files/:id", deleteCourseFile);
+router.post(
+  "/courses/:course_id/files/upload",
+  upload.single("file"),
+  uploadCourseFile,
+);
 
 router.get("/system-settings", getSystemSettings);
 router.put("/system-settings", createOrUpdateSystemSettings);

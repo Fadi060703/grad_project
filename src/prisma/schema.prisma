@@ -200,6 +200,7 @@ model Course {
   doctors             User[]   @relation("CourseDoctors")
   teachers            User[]   @relation("CourseTeachers")
   lectures            Lecture[]
+  courseFiles         CourseFile[]
   students            StudentCourse[]
   announcements       Announcement[]
   created_at          DateTime @default(now())
@@ -207,6 +208,22 @@ model Course {
 
   @@unique([name, major_id, section_id])
   @@map("courses")
+}
+
+model CourseFile {
+  id         Int      @id @default(autoincrement())
+  course_id  Int
+  course     Course   @relation(fields: [course_id], references: [id], onDelete: Cascade)
+  type       LectureType
+  file       String
+  size       Int
+  title      String
+  mime_type  String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@index([course_id])
+  @@map("course_files")
 }
 
 model MarksCourse {

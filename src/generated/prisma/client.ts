@@ -92,6 +92,11 @@ export type UniversityLocation = Prisma.UniversityLocationModel
  */
 export type Course = Prisma.CourseModel
 /**
+ * Model CourseFile
+ * 
+ */
+export type CourseFile = Prisma.CourseFileModel
+/**
  * Model MarksCourse
  * 
  */
