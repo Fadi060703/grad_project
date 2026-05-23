@@ -10,12 +10,29 @@ type UploadedFile = {
   path?: string;
 };
 
+type UploadType = "announcement" | "blog" | "exam_guideline" | "faculity_info" | "other";
+
+const UPLOAD_TYPE_FOLDER: Record<UploadType, string> = {
+  announcement: "announcements-attachements",
+  blog: "blogs",
+  exam_guideline: "exam-guidelines",
+  faculity_info: "faculity-info",
+  other: "",
+};
+
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
 const ALLOWED_MIME_PREFIX = "image/";
 const ALLOWED_MIME_EXACT = new Set(["application/pdf"]);
 
 const sanitizeFilename = (name: string) =>
   name.replace(/[^a-zA-Z0-9._-]/g, "_");
+
+const resolveUploadSubfolder = (type: string | undefined): string => {
+  if (type && type in UPLOAD_TYPE_FOLDER) {
+    return UPLOAD_TYPE_FOLDER[type as UploadType];
+  }
+  return UPLOAD_TYPE_FOLDER.other;
+};
 
 export const uploadFile = async (req: Request, res: Response) => {
   try {
@@ -52,7 +69,8 @@ export const uploadFile = async (req: Request, res: Response) => {
       return res.status(500).json({ error: "Failed to read uploaded file" });
     }
 
-    const uploadDir = join(process.cwd(), "public", "uploads");
+    const subfolder = resolveUploadSubfolder(req.query.type as string | undefined);
+    const uploadDir = join(process.cwd(), "public", "uploads", subfolder);
     await mkdir(uploadDir, { recursive: true });
 
     const safeName = sanitizeFilename(file.originalname || "file");
@@ -61,12 +79,16 @@ export const uploadFile = async (req: Request, res: Response) => {
 
     await writeFile(filePath, buffer);
 
+    const publicPath = subfolder
+      ? `/uploads/${subfolder}/${uniqueFilename}`
+      : `/uploads/${uniqueFilename}`;
+
     return res.status(201).json({
       message: "File uploaded successfully",
       filename: uniqueFilename,
       mimetype: file.mimetype,
       size: buffer.length,
-      path: `/uploads/${uniqueFilename}`,
+      path: publicPath,
     });
   } catch (err) {
     console.error("Upload file error:", err);
