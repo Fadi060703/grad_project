@@ -9,6 +9,8 @@ import {
 import { prisma } from "../lib/prisma";
 import { createListHandler } from "../lib/express-prisma-query";
 import { z } from "zod";
+import { asyncHandler } from "../utils/asyncHandler";
+import { BadRequestError, NotFoundError } from "../errors";
 
 export const getAllBlogs = createListHandler({
   prisma: prisma.blog,
@@ -40,137 +42,138 @@ export const getAllBlogs = createListHandler({
   mapResult: ({ data }) => z.array(getBlogsSchema).parse(data),
 });
 
-export const getBlogById = async (req: Request, res: Response) => {
-  try {
-    const id = parseInt(req.params.id, 10);
-
-    const blog = await prisma.blog.findUnique({
-      where: { id },
-      select: {
-        id: true,
-        title: true,
-        content: true,
-        image: true,
-        created_at: true,
-        updated_at: true,
-      },
-    });
-
-    if (!blog) {
-      return res.status(404).json({ error: "Blog not found" });
-    }
-
-    const parsed = getBlogsSchema.parse(blog);
-    return res.status(200).json(parsed);
-  } catch (err) {
-    if (err instanceof z.ZodError) {
-      return res.status(400).json({ error: "Validation failed" });
-    }
-    return res.status(400).json({ error: err });
+export const getBlogById = asyncHandler(async (req: Request, res: Response) => {
+  const id = parseInt(req.params.id as string, 10);
+  
+  if (isNaN(id)) {
+    throw new BadRequestError('Invalid blog ID');
   }
-};
 
-export const createBlog = async (req: Request, res: Response) => {
-  try {
-    const data = createBlogSchema.parse(req.body);
+  const blog = await prisma.blog.findUnique({
+    where: { id },
+    select: {
+      id: true,
+      title: true,
+      content: true,
+      image: true,
+      created_at: true,
+      updated_at: true,
+    },
+  });
 
-    const created = await prisma.blog.create({
-      data: {
-        title: data.title,
-        content: data.content,
-        image: data.image ?? null,
-      },
-      select: {
-        id: true,
-        title: true,
-        content: true,
-        image: true,
-        created_at: true,
-        updated_at: true,
-      },
-    });
-
-    return res.status(201).json(created);
-  } catch (err) {
-    if (err instanceof z.ZodError) {
-      return res.status(400).json({ error: "Validation failed" });
-    }
-    console.error("Create blog error:", err);
-    return res.status(500).json({ error: "Internal server error" });
+  if (!blog) {
+    throw new NotFoundError('Blog');
   }
-};
 
-export const updateBlog = async (req: Request, res: Response) => {
-  try {
-    const id = parseInt(req.params.id, 10);
-    const data = updateBlogSchema.parse(req.body);
+  const parsed = getBlogsSchema.parse(blog);
+  
+  return res.status(200).json({
+    success: true,
+    data: parsed
+  });
+});
 
-    const existingBlog = await prisma.blog.findUnique({
-      where: { id },
-    });
+export const createBlog = asyncHandler(async (req: Request, res: Response) => {
+  const data = createBlogSchema.parse(req.body);
 
-    if (!existingBlog) {
-      return res.status(404).json({ error: "Blog not found" });
-    }
+  const created = await prisma.blog.create({
+    data: {
+      title: data.title,
+      content: data.content,
+      image: data.image ?? null,
+    },
+    select: {
+      id: true,
+      title: true,
+      content: true,
+      image: true,
+      created_at: true,
+      updated_at: true,
+    },
+  });
 
-    const updateData: {
-      title?: string;
-      content?: string;
-      image?: string | null;
-    } = {};
+  return res.status(201).json({
+    success: true,
+    message: 'Blog created successfully',
+    data: created
+  });
+});
 
-    if (data.title !== undefined) updateData.title = data.title;
-    if (data.content !== undefined) updateData.content = data.content;
-    if (data.image !== undefined) updateData.image = data.image;
-
-    const updated = await prisma.blog.update({
-      where: { id },
-      data: updateData,
-      select: {
-        id: true,
-        title: true,
-        content: true,
-        image: true,
-        created_at: true,
-        updated_at: true,
-      },
-    });
-
-    return res.status(200).json(updated);
-  } catch (err) {
-    if (err instanceof z.ZodError) {
-      return res.status(400).json({ error: "Validation failed" });
-    }
-    console.error("Update blog error:", err);
-    return res.status(500).json({ error: "Internal server error" });
+export const updateBlog = asyncHandler(async (req: Request, res: Response) => {
+  const id = parseInt(req.params.id as string, 10);
+  
+  if (isNaN(id)) {
+    throw new BadRequestError('Invalid blog ID');
   }
-};
+  
+  const data = updateBlogSchema.parse(req.body);
 
-export const deleteBlog = async (req: Request, res: Response) => {
-  try {
-    const id = parseInt(req.params.id, 10);
+  const existingBlog = await prisma.blog.findUnique({
+    where: { id },
+  });
 
-    const existingBlog = await prisma.blog.findUnique({
-      where: { id },
-    });
-
-    if (!existingBlog) {
-      return res.status(404).json({ error: "Blog not found" });
-    }
-
-    const deleted = await prisma.blog.delete({
-      where: { id },
-      select: {
-        id: true,
-        title: true,
-        content: true,
-        image: true,
-      },
-    });
-
-    return res.status(200).json(deleted);
-  } catch (err) {
-    console.error("Delete blog error:", err);
-    return res.status(400).json({ error: err });
+  if (!existingBlog) {
+    throw new NotFoundError('Blog');
   }
-};
+
+  const updateData: {
+    title?: string;
+    content?: string;
+    image?: string | null;
+  } = {};
+
+  if (data.title !== undefined) updateData.title = data.title;
+  if (data.content !== undefined) updateData.content = data.content;
+  if (data.image !== undefined) updateData.image = data.image;
+
+  const updated = await prisma.blog.update({
+    where: { id },
+    data: updateData,
+    select: {
+      id: true,
+      title: true,
+      content: true,
+      image: true,
+      created_at: true,
+      updated_at: true,
+    },
+  });
+
+  return res.status(200).json({
+    success: true,
+    message: 'Blog updated successfully',
+    data: updated
+  });
+});
+
+export const deleteBlog = asyncHandler(async (req: Request, res: Response) => {
+  const id = parseInt(req.params.id as string, 10);
+  
+  if (isNaN(id)) {
+    throw new BadRequestError('Invalid blog ID');
+  }
+
+  const existingBlog = await prisma.blog.findUnique({
+    where: { id },
+  });
+
+  if (!existingBlog) {
+    throw new NotFoundError('Blog');
+  }
+
+  const deleted = await prisma.blog.delete({
+    where: { id },
+    select: {
+      id: true,
+      title: true,
+      content: true,
+      image: true,
+    },
+  });
+
+  return res.status(200).json({
+    success: true,
+    message: 'Blog deleted successfully',
+    data: deleted
+  });
+});

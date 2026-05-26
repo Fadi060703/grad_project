@@ -9,6 +9,8 @@ import {
 import { prisma } from "../lib/prisma";
 import { createListHandler } from "../lib/express-prisma-query";
 import { z } from "zod";
+import { asyncHandler } from "../utils/asyncHandler";
+import { BadRequestError, NotFoundError } from "../errors";
 
 export const getAllExamGuidelines = createListHandler({
   prisma: prisma.examGuideline,
@@ -40,138 +42,138 @@ export const getAllExamGuidelines = createListHandler({
   mapResult: ({ data }) => z.array(getExamGuidelinesSchema).parse(data),
 });
 
-export const getExamGuidelineById = async (req: Request, res: Response) => {
-  try {
-    const id = parseInt(req.params.id, 10);
-
-    const guideline = await prisma.examGuideline.findUnique({
-      where: { id },
-      select: {
-        id: true,
-        title: true,
-        description: true,
-        image: true,
-        created_at: true,
-        updated_at: true,
-      },
-    });
-
-    if (!guideline) {
-      return res.status(404).json({ error: "Exam guideline not found" });
-    }
-
-    const parsed = getExamGuidelinesSchema.parse(guideline);
-    return res.status(200).json(parsed);
-  } catch (err) {
-    if (err instanceof z.ZodError) {
-      return res.status(400).json({ error: "Validation failed" });
-    }
-    return res.status(400).json({ error: err });
+export const getExamGuidelineById = asyncHandler(async (req: Request, res: Response) => {
+  const id = parseInt(req.params.id as string, 10);
+  
+  if (isNaN(id)) {
+    throw new BadRequestError('Invalid exam guideline ID');
   }
-};
 
-export const createExamGuideline = async (req: Request, res: Response) => {
-  try {
-    const data = createExamGuidelineSchema.parse(req.body);
+  const guideline = await prisma.examGuideline.findUnique({
+    where: { id },
+    select: {
+      id: true,
+      title: true,
+      description: true,
+      image: true,
+      created_at: true,
+      updated_at: true,
+    },
+  });
 
-    const created = await prisma.examGuideline.create({
-      data: {
-        title: data.title,
-        description: data.description,
-        image: data.image ?? null,
-      },
-      select: {
-        id: true,
-        title: true,
-        description: true,
-        image: true,
-        created_at: true,
-        updated_at: true,
-      },
-    });
-
-    return res.status(201).json(created);
-  } catch (err) {
-    if (err instanceof z.ZodError) {
-      return res.status(400).json({ error: "Validation failed" });
-    }
-    console.error("Create exam guideline error:", err);
-    return res.status(500).json({ error: "Internal server error" });
+  if (!guideline) {
+    throw new NotFoundError('Exam guideline');
   }
-};
 
-export const updateExamGuideline = async (req: Request, res: Response) => {
-  try {
-    const id = parseInt(req.params.id, 10);
-    const data = updateExamGuidelineSchema.parse(req.body);
+  const parsed = getExamGuidelinesSchema.parse(guideline);
+  
+  return res.status(200).json({
+    success: true,
+    data: parsed
+  });
+});
 
-    const existingGuideline = await prisma.examGuideline.findUnique({
-      where: { id },
-    });
+export const createExamGuideline = asyncHandler(async (req: Request, res: Response) => {
+  const data = createExamGuidelineSchema.parse(req.body);
 
-    if (!existingGuideline) {
-      return res.status(404).json({ error: "Exam guideline not found" });
-    }
+  const created = await prisma.examGuideline.create({
+    data: {
+      title: data.title,
+      description: data.description,
+      image: data.image ?? null,
+    },
+    select: {
+      id: true,
+      title: true,
+      description: true,
+      image: true,
+      created_at: true,
+      updated_at: true,
+    },
+  });
 
-    const updateData: {
-      title?: string;
-      description?: string;
-      image?: string | null;
-    } = {};
+  return res.status(201).json({
+    success: true,
+    message: 'Exam guideline created successfully',
+    data: created
+  });
+});
 
-    if (data.title !== undefined) updateData.title = data.title;
-    if (data.description !== undefined)
-      updateData.description = data.description;
-    if (data.image !== undefined) updateData.image = data.image;
-
-    const updated = await prisma.examGuideline.update({
-      where: { id },
-      data: updateData,
-      select: {
-        id: true,
-        title: true,
-        description: true,
-        image: true,
-        created_at: true,
-        updated_at: true,
-      },
-    });
-
-    return res.status(200).json(updated);
-  } catch (err) {
-    if (err instanceof z.ZodError) {
-      return res.status(400).json({ error: "Validation failed" });
-    }
-    console.error("Update exam guideline error:", err);
-    return res.status(500).json({ error: "Internal server error" });
+export const updateExamGuideline = asyncHandler(async (req: Request, res: Response) => {
+  const id = parseInt(req.params.id as string, 10);
+  
+  if (isNaN(id)) {
+    throw new BadRequestError('Invalid exam guideline ID');
   }
-};
+  
+  const data = updateExamGuidelineSchema.parse(req.body);
 
-export const deleteExamGuideline = async (req: Request, res: Response) => {
-  try {
-    const id = parseInt(req.params.id, 10);
+  const existingGuideline = await prisma.examGuideline.findUnique({
+    where: { id },
+  });
 
-    const existingGuideline = await prisma.examGuideline.findUnique({
-      where: { id },
-    });
-
-    if (!existingGuideline) {
-      return res.status(404).json({ error: "Exam guideline not found" });
-    }
-
-    const deleted = await prisma.examGuideline.delete({
-      where: { id },
-      select: {
-        id: true,
-        title: true,
-        description: true,
-        image: true,
-      },
-    });
-
-    return res.status(200).json(deleted);
-  } catch (err) {
-    console.error("Delete exam guideline error:", err);
-    return res.status(400).json({ error: err });
+  if (!existingGuideline) {
+    throw new NotFoundError('Exam guideline');
   }
-};
+
+  const updateData: {
+    title?: string;
+    description?: string;
+    image?: string | null;
+  } = {};
+
+  if (data.title !== undefined) updateData.title = data.title;
+  if (data.description !== undefined) updateData.description = data.description;
+  if (data.image !== undefined) updateData.image = data.image;
+
+  const updated = await prisma.examGuideline.update({
+    where: { id },
+    data: updateData,
+    select: {
+      id: true,
+      title: true,
+      description: true,
+      image: true,
+      created_at: true,
+      updated_at: true,
+    },
+  });
+
+  return res.status(200).json({
+    success: true,
+    message: 'Exam guideline updated successfully',
+    data: updated
+  });
+});
+
+export const deleteExamGuideline = asyncHandler(async (req: Request, res: Response) => {
+  const id = parseInt(req.params.id as string, 10);
+  
+  if (isNaN(id)) {
+    throw new BadRequestError('Invalid exam guideline ID');
+  }
+
+  const existingGuideline = await prisma.examGuideline.findUnique({
+    where: { id },
+  });
+
+  if (!existingGuideline) {
+    throw new NotFoundError('Exam guideline');
+  }
+
+  const deleted = await prisma.examGuideline.delete({
+    where: { id },
+    select: {
+      id: true,
+      title: true,
+      description: true,
+      image: true,
+    },
+  });
+
+  return res.status(200).json({
+    success: true,
+    message: 'Exam guideline deleted successfully',
+    data: deleted
+  });
+});

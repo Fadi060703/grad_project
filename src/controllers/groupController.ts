@@ -9,6 +9,8 @@ import {
 import { prisma } from "../lib/prisma";
 import { createListHandler } from "../lib/express-prisma-query";
 import { z } from "zod";
+import { asyncHandler } from "../utils/asyncHandler";
+import { BadRequestError, NotFoundError, ConflictError } from "../errors";
 
 export const getAllGroups = createListHandler({
   prisma: prisma.group,
@@ -73,416 +75,403 @@ export const getAllGroups = createListHandler({
   mapResult: ({ data }) => z.array(getGroupsSchema).parse(data),
 });
 
-export const getGroupById = async (req: Request, res: Response) => {
-  try {
-    const id = parseInt(req.params.id, 10);
+export const getGroupById = asyncHandler(async (req: Request, res: Response) => {
+  const id = parseInt(req.params.id as string, 10);
+  
+  if (isNaN(id)) {
+    throw new BadRequestError('Invalid group ID');
+  }
 
-    const group = await prisma.group.findUnique({
-      where: { id },
-      select: {
-        id: true,
-        name: true,
-        section_id: true,
-        major_id: true,
-        section: {
-          select: {
-            id: true,
-            name: true,
-            year_id: true,
-            year: {
-              select: {
-                id: true,
-                name: true,
-              },
+  const group = await prisma.group.findUnique({
+    where: { id },
+    select: {
+      id: true,
+      name: true,
+      section_id: true,
+      major_id: true,
+      section: {
+        select: {
+          id: true,
+          name: true,
+          year_id: true,
+          year: {
+            select: {
+              id: true,
+              name: true,
             },
           },
         },
-        major: {
-          select: {
-            id: true,
-            name: true,
-            year_id: true,
-            year: {
-              select: {
-                id: true,
-                name: true,
-              },
-            },
-          },
-        },
-        created_at: true,
-        updated_at: true,
       },
+      major: {
+        select: {
+          id: true,
+          name: true,
+          year_id: true,
+          year: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+        },
+      },
+      created_at: true,
+      updated_at: true,
+    },
+  });
+
+  if (!group) {
+    throw new NotFoundError('Group');
+  }
+
+  const parsed = getGroupsSchema.parse(group);
+  
+  return res.status(200).json({
+    success: true,
+    data: parsed
+  });
+});
+
+export const createGroup = asyncHandler(async (req: Request, res: Response) => {
+  const data = createGroupSchema.parse(req.body);
+
+  const sectionId = Number(data.section_id ?? 0);
+  const majorId = Number(data.major_id ?? 0);
+  const hasSection = sectionId > 0;
+  const hasMajor = majorId > 0;
+
+  if (hasSection === hasMajor) {
+    throw new BadRequestError('Provide either section_id or major_id (one must be > 0)');
+  }
+
+  if (hasSection) {
+    const sectionExists = await prisma.section.findUnique({
+      where: { id: sectionId },
     });
 
-    if (!group) {
-      return res.status(404).json({ error: "Group not found" });
+    if (!sectionExists) {
+      throw new NotFoundError('Section');
     }
-
-    const parsed = getGroupsSchema.parse(group);
-    return res.status(200).json(parsed);
-  } catch (err) {
-    if (err instanceof z.ZodError) {
-      return res.status(400).json({ error: "Validation failed" });
-    }
-    return res.status(400).json({ error: err });
   }
-};
 
-export const createGroup = async (req: Request, res: Response) => {
-  try {
-    const data = createGroupSchema.parse(req.body);
+  if (hasMajor) {
+    const majorExists = await prisma.major.findUnique({
+      where: { id: majorId },
+    });
 
-    const sectionId = Number(data.section_id ?? 0);
-    const majorId = Number(data.major_id ?? 0);
-    const hasSection = sectionId > 0;
-    const hasMajor = majorId > 0;
+    if (!majorExists) {
+      throw new NotFoundError('Major');
+    }
+  }
 
-    if (hasSection === hasMajor) {
-      return res.status(400).json({
-        error: "Provide either section_id or major_id (one must be > 0)",
-      });
+  const duplicateWhere = hasSection
+    ? { name: data.name, section_id: sectionId, major_id: null }
+    : { name: data.name, major_id: majorId, section_id: null };
+
+  const existing = await prisma.group.findFirst({
+    where: duplicateWhere,
+  });
+
+  if (existing) {
+    throw new ConflictError('Group with this name already exists in the selected scope');
+  }
+
+  const createData: any = {
+    name: data.name,
+    section_id: hasSection ? sectionId : null,
+    major_id: hasMajor ? majorId : null,
+  };
+
+  const created = await prisma.group.create({
+    data: createData,
+    select: {
+      id: true,
+      name: true,
+      section_id: true,
+      major_id: true,
+      section: {
+        select: {
+          id: true,
+          name: true,
+          year_id: true,
+          year: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+        },
+      },
+      major: {
+        select: {
+          id: true,
+          name: true,
+          year_id: true,
+          year: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+        },
+      },
+      created_at: true,
+      updated_at: true,
+    },
+  });
+
+  return res.status(201).json({
+    success: true,
+    message: 'Group created successfully',
+    data: created
+  });
+});
+
+export const updateGroup = asyncHandler(async (req: Request, res: Response) => {
+  const id = parseInt(req.params.id as string, 10);
+  
+  if (isNaN(id)) {
+    throw new BadRequestError('Invalid group ID');
+  }
+  
+  const data = updateGroupSchema.parse(req.body);
+
+  // Check if group exists
+  const existingGroup = await prisma.group.findUnique({
+    where: { id },
+  });
+
+  if (!existingGroup) {
+    throw new NotFoundError('Group');
+  }
+
+  const updateData: {
+    name?: string;
+    section_id?: number | null;
+    major_id?: number | null;
+  } = {};
+
+  if (data.name !== undefined) updateData.name = data.name;
+
+  const sectionId = typeof data.section_id === "number" ? data.section_id : undefined;
+  const majorId = typeof data.major_id === "number" ? data.major_id : undefined;
+  const hasSection = sectionId !== undefined && sectionId > 0;
+  const hasMajor = majorId !== undefined && majorId > 0;
+
+  if (hasSection && hasMajor) {
+    throw new BadRequestError('Provide either section_id or major_id (one must be > 0)');
+  }
+
+  if (hasSection) {
+    const sectionExists = await prisma.section.findUnique({
+      where: { id: sectionId },
+    });
+
+    if (!sectionExists) {
+      throw new NotFoundError('Section');
     }
 
-    if (hasSection) {
-      const sectionExists = await prisma.section.findUnique({
-        where: { id: sectionId },
-      });
+    updateData.section_id = sectionId;
+    updateData.major_id = null;
+  }
 
-      if (!sectionExists) {
-        return res.status(404).json({ error: "Section not found" });
-      }
+  if (hasMajor) {
+    const majorExists = await prisma.major.findUnique({
+      where: { id: majorId },
+    });
+
+    if (!majorExists) {
+      throw new NotFoundError('Major');
     }
 
-    if (hasMajor) {
-      const majorExists = await prisma.major.findUnique({
-        where: { id: majorId },
-      });
+    updateData.major_id = majorId;
+    updateData.section_id = null;
+  }
 
-      if (!majorExists) {
-        return res.status(404).json({ error: "Major not found" });
-      }
-    }
+  const checkName = data.name !== undefined ? data.name : existingGroup.name;
+  const checkSectionId = updateData.section_id !== undefined ? updateData.section_id : existingGroup.section_id;
+  const checkMajorId = updateData.major_id !== undefined ? updateData.major_id : existingGroup.major_id;
 
-    const duplicateWhere = hasSection
-      ? { name: data.name, section_id: sectionId, major_id: null }
-      : { name: data.name, major_id: majorId, section_id: null };
+  let duplicateWhere: Record<string, unknown> | null = null;
 
-    const existing = await prisma.group.findFirst({
+  if (checkSectionId !== null && checkSectionId !== undefined) {
+    duplicateWhere = {
+      name: checkName,
+      section_id: checkSectionId,
+      major_id: null,
+      id: { not: id },
+    };
+  } else if (checkMajorId !== null && checkMajorId !== undefined) {
+    duplicateWhere = {
+      name: checkName,
+      major_id: checkMajorId,
+      section_id: null,
+      id: { not: id },
+    };
+  }
+
+  if (duplicateWhere) {
+    const duplicate = await prisma.group.findFirst({
       where: duplicateWhere,
     });
 
-    if (existing) {
-      return res.status(409).json({
-        error: "Group with this name already exists in the selected scope",
-      });
+    if (duplicate) {
+      throw new ConflictError('Group with this name already exists in the selected scope');
     }
-
-    const createData: any = {
-      name: data.name,
-      section_id: hasSection ? sectionId : null,
-      major_id: hasMajor ? majorId : null,
-    };
-
-    const created = await prisma.group.create({
-      data: createData,
-      select: {
-        id: true,
-        name: true,
-        section_id: true,
-        major_id: true,
-        section: {
-          select: {
-            id: true,
-            name: true,
-            year_id: true,
-            year: {
-              select: {
-                id: true,
-                name: true,
-              },
-            },
-          },
-        },
-        major: {
-          select: {
-            id: true,
-            name: true,
-            year_id: true,
-            year: {
-              select: {
-                id: true,
-                name: true,
-              },
-            },
-          },
-        },
-        created_at: true,
-        updated_at: true,
-      },
-    });
-
-    return res.status(201).json(created);
-  } catch (err) {
-    if (err instanceof z.ZodError) {
-      return res.status(400).json({ error: err });
-    }
-    console.error("Create group error:", err);
-    return res.status(500).json({ error: "Internal server error" });
   }
-};
 
-export const updateGroup = async (req: Request, res: Response) => {
-  try {
-    const id = parseInt(req.params.id, 10);
-    const data = updateGroupSchema.parse(req.body);
-
-    // Check if group exists
-    const existingGroup = await prisma.group.findUnique({
-      where: { id },
-    });
-
-    if (!existingGroup) {
-      return res.status(404).json({ error: "Group not found" });
-    }
-
-    const updateData: {
-      name?: string;
-      section_id?: number | null;
-      major_id?: number | null;
-    } = {};
-
-    if (data.name !== undefined) updateData.name = data.name;
-
-    const sectionId =
-      typeof data.section_id === "number" ? data.section_id : undefined;
-    const majorId =
-      typeof data.major_id === "number" ? data.major_id : undefined;
-    const hasSection = sectionId !== undefined && sectionId > 0;
-    const hasMajor = majorId !== undefined && majorId > 0;
-
-    if (hasSection && hasMajor) {
-      return res
-        .status(400)
-        .json({
-          error: "Provide either section_id or major_id (one must be > 0)",
-        });
-    }
-
-    if (hasSection) {
-      const sectionExists = await prisma.section.findUnique({
-        where: { id: sectionId },
-      });
-
-      if (!sectionExists) {
-        return res.status(404).json({ error: "Section not found" });
-      }
-
-      updateData.section_id = sectionId;
-      updateData.major_id = null;
-    }
-
-    if (hasMajor) {
-      const majorExists = await prisma.major.findUnique({
-        where: { id: majorId },
-      });
-
-      if (!majorExists) {
-        return res.status(404).json({ error: "Major not found" });
-      }
-
-      updateData.major_id = majorId;
-      updateData.section_id = null;
-    }
-
-    const checkName = data.name !== undefined ? data.name : existingGroup.name;
-    const checkSectionId =
-      updateData.section_id !== undefined
-        ? updateData.section_id
-        : existingGroup.section_id;
-    const checkMajorId =
-      updateData.major_id !== undefined
-        ? updateData.major_id
-        : existingGroup.major_id;
-
-    let duplicateWhere: Record<string, unknown> | null = null;
-
-    if (checkSectionId !== null && checkSectionId !== undefined) {
-      duplicateWhere = {
-        name: checkName,
-        section_id: checkSectionId,
-        major_id: null,
-        id: { not: id },
-      };
-    } else if (checkMajorId !== null && checkMajorId !== undefined) {
-      duplicateWhere = {
-        name: checkName,
-        major_id: checkMajorId,
-        section_id: null,
-        id: { not: id },
-      };
-    }
-
-    if (duplicateWhere) {
-      const duplicate = await prisma.group.findFirst({
-        where: duplicateWhere,
-      });
-
-      if (duplicate) {
-        return res.status(409).json({
-          error: "Group with this name already exists in the selected scope",
-        });
-      }
-    }
-
-    const updated = await prisma.group.update({
-      where: { id },
-      data: updateData,
-      select: {
-        id: true,
-        name: true,
-        section_id: true,
-        major_id: true,
-        section: {
-          select: {
-            id: true,
-            name: true,
-            year_id: true,
-            year: {
-              select: {
-                id: true,
-                name: true,
-              },
+  const updated = await prisma.group.update({
+    where: { id },
+    data: updateData,
+    select: {
+      id: true,
+      name: true,
+      section_id: true,
+      major_id: true,
+      section: {
+        select: {
+          id: true,
+          name: true,
+          year_id: true,
+          year: {
+            select: {
+              id: true,
+              name: true,
             },
           },
         },
-        major: {
-          select: {
-            id: true,
-            name: true,
-            year_id: true,
-            year: {
-              select: {
-                id: true,
-                name: true,
-              },
+      },
+      major: {
+        select: {
+          id: true,
+          name: true,
+          year_id: true,
+          year: {
+            select: {
+              id: true,
+              name: true,
             },
           },
         },
-        created_at: true,
-        updated_at: true,
       },
-    });
+      created_at: true,
+      updated_at: true,
+    },
+  });
 
-    return res.status(200).json(updated);
-  } catch (err) {
-    if (err instanceof z.ZodError) {
-      return res.status(400).json({ error: err });
-    }
-    console.error("Update group error:", err);
-    return res.status(500).json({ error: "Internal server error" });
+  return res.status(200).json({
+    success: true,
+    message: 'Group updated successfully',
+    data: updated
+  });
+});
+
+export const deleteGroup = asyncHandler(async (req: Request, res: Response) => {
+  const id = parseInt(req.params.id as string, 10);
+  
+  if (isNaN(id)) {
+    throw new BadRequestError('Invalid group ID');
   }
-};
 
-export const deleteGroup = async (req: Request, res: Response) => {
-  try {
-    const id = parseInt(req.params.id, 10);
+  const existingGroup = await prisma.group.findUnique({
+    where: { id },
+  });
 
-    const existingGroup = await prisma.group.findUnique({
-      where: { id },
-    });
-
-    if (!existingGroup) {
-      return res.status(404).json({ error: "Group not found" });
-    }
-
-    const deleted = await prisma.group.delete({
-      where: { id },
-      select: {
-        id: true,
-        name: true,
-        section_id: true,
-        major_id: true,
-      },
-    });
-
-    return res.status(200).json(deleted);
-  } catch (err) {
-    console.error("Delete group error:", err);
-    return res.status(400).json({ error: err });
+  if (!existingGroup) {
+    throw new NotFoundError('Group');
   }
-};
+
+  const deleted = await prisma.group.delete({
+    where: { id },
+    select: {
+      id: true,
+      name: true,
+      section_id: true,
+      major_id: true,
+    },
+  });
+
+  return res.status(200).json({
+    success: true,
+    message: 'Group deleted successfully',
+    data: deleted
+  });
+});
 
 // Get groups by section
-export const getGroupsBySection = async (req: Request, res: Response) => {
-  try {
-    const section_id = parseInt(req.params.section_id, 10);
-
-    const groups = await prisma.group.findMany({
-      where: { section_id },
-      select: {
-        id: true,
-        name: true,
-        section_id: true,
-        major_id: true,
-        major: {
-          select: {
-            id: true,
-            name: true,
-            year_id: true,
-          },
-        },
-        created_at: true,
-        updated_at: true,
-      },
-      orderBy: {
-        name: "asc",
-      },
-    });
-
-    const parsed = z.array(getGroupsSchema).parse(groups);
-    return res.status(200).json(parsed);
-  } catch (err) {
-    if (err instanceof z.ZodError) {
-      return res.status(400).json({ error: "Validation failed" });
-    }
-    return res.status(400).json({ error: err });
+export const getGroupsBySection = asyncHandler(async (req: Request, res: Response) => {
+  const section_id = parseInt(req.params.section_id as string, 10);
+  
+  if (isNaN(section_id)) {
+    throw new BadRequestError('Invalid section ID');
   }
-};
+
+  const groups = await prisma.group.findMany({
+    where: { section_id },
+    select: {
+      id: true,
+      name: true,
+      section_id: true,
+      major_id: true,
+      major: {
+        select: {
+          id: true,
+          name: true,
+          year_id: true,
+        },
+      },
+      created_at: true,
+      updated_at: true,
+    },
+    orderBy: {
+      name: "asc",
+    },
+  });
+
+  const parsed = z.array(getGroupsSchema).parse(groups);
+  
+  return res.status(200).json({
+    success: true,
+    data: parsed,
+    count: parsed.length
+  });
+});
 
 // Get groups by major
-export const getGroupsByMajor = async (req: Request, res: Response) => {
-  try {
-    const major_id = parseInt(req.params.major_id, 10);
-
-    const groups = await prisma.group.findMany({
-      where: { major_id },
-      select: {
-        id: true,
-        name: true,
-        section_id: true,
-        major_id: true,
-        section: {
-          select: {
-            id: true,
-            name: true,
-            year_id: true,
-          },
-        },
-        created_at: true,
-        updated_at: true,
-      },
-      orderBy: {
-        name: "asc",
-      },
-    });
-
-    const parsed = z.array(getGroupsSchema).parse(groups);
-    return res.status(200).json(parsed);
-  } catch (err) {
-    if (err instanceof z.ZodError) {
-      return res.status(400).json({ error: "Validation failed" });
-    }
-    return res.status(400).json({ error: err });
+export const getGroupsByMajor = asyncHandler(async (req: Request, res: Response) => {
+  const major_id = parseInt(req.params.major_id as string, 10);
+  
+  if (isNaN(major_id)) {
+    throw new BadRequestError('Invalid major ID');
   }
-};
+
+  const groups = await prisma.group.findMany({
+    where: { major_id },
+    select: {
+      id: true,
+      name: true,
+      section_id: true,
+      major_id: true,
+      section: {
+        select: {
+          id: true,
+          name: true,
+          year_id: true,
+        },
+      },
+      created_at: true,
+      updated_at: true,
+    },
+    orderBy: {
+      name: "asc",
+    },
+  });
+
+  const parsed = z.array(getGroupsSchema).parse(groups);
+  
+  return res.status(200).json({
+    success: true,
+    data: parsed,
+    count: parsed.length
+  });
+});

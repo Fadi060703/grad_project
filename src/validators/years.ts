@@ -1,22 +1,27 @@
+// validators/years.ts
+
 import { z } from "zod";
 import { getSectionsSchema } from "./sections";
 
 export const yearSchema = z.object({
   id: z.number(),
   name: z.string(),
+  order: z.number().int().positive(),
   has_majors: z.boolean(),
-  sections: z.array(getSectionsSchema).optional(), // Made optional to match frontend
-  majors: z.array(z.any()).optional(), // Added to match frontend Year interface
+  sections: z.array(getSectionsSchema).optional(),
+  majors: z.array(z.any()).optional(),
 });
 
 export const createYearSchema = z.object({
-  name: z.string(),
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  order: z.number().int().positive("Order must be a positive integer"),
   has_majors: z.boolean().default(false),
 });
 
 export const updateYearSchema = z.object({
-  name: z.string(),
-  has_majors: z.boolean(),
+  name: z.string().min(2, "Name must be at least 2 characters").optional(),
+  order: z.number().int().positive("Order must be a positive integer").optional(),
+  has_majors: z.boolean().optional(),
 });
 
 // Export types

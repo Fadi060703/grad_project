@@ -1,62 +1,630 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>WebSocket Test Client</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Fun Zone 🎮</title>
     <script src="https://cdn.socket.io/4.5.0/socket.io.min.js"></script>
     <style>
-        body { font-family: Arial; padding: 20px; }
-        .message { margin: 5px 0; padding: 5px; border-bottom: 1px solid #ccc; }
-        .connected { color: green; }
-        .disconnected { color: red; }
-        input, button { margin: 5px; padding: 8px; }
-        textarea { width: 100%; height: 100px; margin: 10px 0; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Neue', 'Comic Neue', 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', cursive, sans-serif;
+            background: linear-gradient(135deg, #ffd89b 0%, #ffb347 100%);
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="27" viewBox="0 0 24 27"><polygon points="2,2 22,13 2,25" fill="%23FFD700" stroke="%23FF8C00" stroke-width="2"/><circle cx="8" cy="13" r="2" fill="black"/></svg>') 8 13, auto;
+        }
+
+        /* Floating emojis background */
+        .floating-emoji {
+            position: fixed;
+            font-size: 30px;
+            pointer-events: none;
+            animation: float 6s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, #ffe6b3 0%, #ffcc80 100%);
+            border-radius: 30px;
+            padding: 20px 30px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 0 #cc7a00;
+            border: 3px solid #ff9933;
+            transform: rotate(-0.5deg);
+        }
+
+        .header h1 {
+            color: #cc7a00;
+            font-size: 32px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-shadow: 2px 2px 0 #ffe6b3;
+        }
+
+        .subtitle {
+            color: #996600;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        /* Status Badge */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-left: 16px;
+            animation: bounce 1s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+
+        .status-badge.connected {
+            background: #90ee90;
+            color: #006400;
+            border: 2px solid #00ff00;
+        }
+
+        .status-badge.disconnected {
+            background: #ffb6c1;
+            color: #8b0000;
+            border: 2px solid #ff4444;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        /* Card Styles - Like sticky notes! */
+        .card {
+            background: #fffef7;
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.1);
+            border: 3px solid #ffcc66;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .card::before {
+            content: "📌";
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            font-size: 30px;
+            transform: rotate(-15deg);
+        }
+
+        .card:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 12px 12px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        .card-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #cc7a00;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 3px dotted #ffcc66;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #996600;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px 15px;
+            border: 2px solid #ffcc66;
+            border-radius: 15px;
+            font-size: 14px;
+            font-family: 'Comic Neue', 'Comic Sans MS', cursive;
+            background: #fffff0;
+            transition: all 0.2s ease;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #ff9933;
+            background: #ffffff;
+            transform: scale(1.02);
+        }
+
+        /* Button Styles - Super colorful! */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            font-family: 'Comic Neue', 'Comic Sans MS', cursive;
+            box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff4757 100%);
+            color: white;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ffa502 0%, #ff6348 100%);
+            color: white;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #7bed9f 0%, #2ed573 100%);
+            color: #2f3542;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #70a1ff 0%, #1e90ff 100%);
+            color: white;
+        }
+
+        .btn-sm {
+            padding: 6px 15px;
+            font-size: 12px;
+        }
+
+        /* Messages Container */
+        .messages-container {
+            height: 400px;
+            overflow-y: auto;
+            background: #fffff0;
+            border-radius: 20px;
+            padding: 15px;
+            font-family: 'Comic Neue', 'Comic Sans MS', monospace;
+            font-size: 13px;
+            border: 3px solid #ffcc66;
+        }
+
+        .message {
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            border-radius: 20px;
+            animation: slideIn 0.3s ease;
+            position: relative;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px) rotate(-5deg);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0) rotate(0deg);
+            }
+        }
+
+        .message-system {
+            background: #e0f7fa;
+            border-left: 8px solid #00bcd4;
+            color: #006064;
+        }
+
+        .message-emitted {
+            background: #fff9c4;
+            border-left: 8px solid #ffc107;
+            color: #f57f17;
+        }
+
+        .message-received {
+            background: #c8e6c9;
+            border-left: 8px solid #4caf50;
+            color: #1b5e20;
+        }
+
+        .message-error {
+            background: #ffcdd2;
+            border-left: 8px solid #f44336;
+            color: #b71c1c;
+        }
+
+        .message-timestamp {
+            font-size: 10px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .message-content pre {
+            margin-top: 5px;
+            padding: 5px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+            overflow-x: auto;
+        }
+
+        /* Stats Panel */
+        .stats-panel {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #ffe6b3 0%, #ffcc80 100%);
+            padding: 12px;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid #ff9933;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .stat-card:hover {
+            transform: scale(1.05);
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #cc7a00;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: #996600;
+            margin-top: 4px;
+            font-weight: bold;
+        }
+
+        /* Event Tags - Like candy! */
+        .event-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #ffb347 0%, #ffcc33 100%);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: bold;
+            color: #663300;
+            border: 1px solid #ff9933;
+        }
+
+        .event-tag:hover {
+            transform: scale(1.1) rotate(2deg);
+            background: linear-gradient(135deg, #ffcc33 0%, #ffdd66 100%);
+        }
+
+        .event-tag.active {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff4757 100%);
+            color: white;
+        }
+
+        /* Code Block */
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 12px;
+            border-radius: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            overflow-x: auto;
+            margin-top: 12px;
+        }
+
+        .code-block code {
+            cursor: pointer;
+            display: inline-block;
+            padding: 3px 8px;
+            background: #3d3d3d;
+            border-radius: 10px;
+            margin: 2px;
+        }
+
+        .code-block code:hover {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #ffe6b3;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ff9933;
+            border-radius: 10px;
+            border: 2px solid #ffcc66;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff6b6b;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+
+        /* Silly animations */
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(3deg); }
+            75% { transform: rotate(-3deg); }
+        }
+
+        .card-title span:first-child {
+            display: inline-block;
+            animation: wiggle 2s ease-in-out infinite;
+        }
     </style>
 </head>
 <body>
-    <h2>WebSocket/Socket.IO Test Client</h2>
-    
-    <div>
-        <label>Server URL: </label>
-        <input type="text" id="serverUrl" value="http://localhost:8000" size="40">
-        <label>Token: </label>
-        <input type="text" id="token" placeholder="JWT Token" size="30">
-        <button onclick="connect()">Connect</button>
-        <button onclick="disconnect()">Disconnect</button>
-    </div>
-    
-    <div>
-        <h3>Status: <span id="status" class="disconnected">Disconnected</span></h3>
-    </div>
-    
-    <div>
-        <h3>Emit Event:</h3>
-        <input type="text" id="eventName" placeholder="Event name (e.g., join-room)" size="20">
-        <input type="text" id="eventData" placeholder='Event data (e.g., "year:1")' size="40">
-        <button onclick="emitEvent()">Emit</button>
-    </div>
-    
-    <div>
-        <h3>Listen to Event:</h3>
-        <input type="text" id="listenEvent" placeholder="Event to listen (e.g., new-announcement)" size="30">
-        <button onclick="addListener()">Add Listener</button>
-        <button onclick="removeListener()">Remove Listener</button>
-    </div>
-    
-    <div>
-        <h3>Messages:</h3>
-        <button onclick="clearMessages()">Clear</button>
-        <div id="messages" style="border:1px solid #ccc; height:300px; overflow-y:auto; padding:10px;"></div>
+    <!-- Floating emojis -->
+    <div class="floating-emoji" style="top: 10%; left: 5%; animation-duration: 4s;">🐸</div>
+    <div class="floating-emoji" style="top: 20%; right: 3%; animation-duration: 5s;">🦄</div>
+    <div class="floating-emoji" style="bottom: 15%; left: 8%; animation-duration: 6s;">🍕</div>
+    <div class="floating-emoji" style="bottom: 25%; right: 10%; animation-duration: 4.5s;">🎈</div>
+    <div class="floating-emoji" style="top: 50%; left: 2%; animation-duration: 7s;">🤪</div>
+    <div class="floating-emoji" style="top: 60%; right: 5%; animation-duration: 5.5s;">🐧</div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>
+                🎮 WebSocket Fun Zone 🎮
+                <span id="statusBadge" class="status-badge disconnected">
+                    <span class="status-dot disconnected"></span>
+                    😴 Disconnected
+                </span>
+            </h1>
+            <p class="subtitle">✨ Where real-time communication meets silliness! ✨</p>
+        </div>
+
+        <div class="grid">
+            <!-- Connection Panel -->
+            <div class="card">
+                <div class="card-title">
+                    <span>🔌</span> 🎪 Connect Your Magic Wire 🎪
+                </div>
+                <div class="form-group">
+                    <label>🌐 Server URL (where the magic happens)</label>
+                    <input type="text" id="serverUrl" value="http://localhost:8000" placeholder="http://localhost:8000">
+                </div>
+                <div class="form-group">
+                    <label>🔑 Secret Password Token (shhh! 🤫)</label>
+                    <input type="password" id="token" placeholder="Your super secret token here...">
+                </div>
+                <div class="form-group">
+                    <label>🚗 Transport Method (how we travel)</label>
+                    <select id="transport">
+                        <option value="websocket">🪄 WebSocket (fast like a rocket!)</option>
+                        <option value="polling">🐢 HTTP Polling (slow like a turtle)</option>
+                    </select>
+                </div>
+                <div>
+                    <button class="btn btn-primary" onclick="connect()">🔌 Connect! 🚀</button>
+                    <button class="btn btn-danger" onclick="disconnect()">🔌 Bye Bye! 👋</button>
+                </div>
+
+                <div class="stats-panel">
+                    <div class="stat-card">
+                        <div class="stat-value" id="connectionCount">0</div>
+                        <div class="stat-label">👥 Buddies Online</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="messageCount">0</div>
+                        <div class="stat-label">📬 Messages Caught</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="emitCount">0</div>
+                        <div class="stat-label">✉️ Messages Sent</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Emit Event Panel -->
+            <div class="card">
+                <div class="card-title">
+                    <span>📤</span> 🗣️ Shout Into The Void 🗣️
+                </div>
+                <div class="form-group">
+                    <label>🎯 What's the event name?</label>
+                    <input type="text" id="eventName" placeholder="e.g., make-me-laugh, send-pizza">
+                </div>
+                <div class="form-group">
+                    <label>📦 What's in the box? (JSON format)</label>
+                    <textarea id="eventData" rows="4" placeholder='{"message": "Hello from the silly side! 🎉"}'></textarea>
+                </div>
+                <div>
+                    <button class="btn btn-success" onclick="emitEvent()">📨 SEND IT! 🎯</button>
+                </div>
+                <div class="code-block">
+                    <strong>🍕 Try these silly examples:</strong><br>
+                    <code onclick="setExample('join-party', 'year:1')">🎉 join-party: "year:1"</code><br>
+                    <code onclick="setExample('send-meme', '🐸 funny-frog.jpg')">🐸 send-meme: "funny-frog.jpg"</code><br>
+                    <code onclick="setExample('ping', '🍕')">🍕 ping: "I want pizza!"</code>
+                </div>
+            </div>
+
+            <!-- Listen Events Panel -->
+            <div class="card">
+                <div class="card-title">
+                    <span>👂</span> 👂 Eavesdropping Mode 👂
+                </div>
+                <div class="form-group">
+                    <label>🎧 What are we listening for?</label>
+                    <input type="text" id="listenEvent" placeholder="e.g., secret-message, pizza-time">
+                </div>
+                <div>
+                    <button class="btn btn-primary btn-sm" onclick="addListener()">➕ Listen! 👂</button>
+                    <button class="btn btn-secondary btn-sm" onclick="removeListener()">➖ Stop Listening! 🙉</button>
+                </div>
+                <div class="form-group" style="margin-top: 16px;">
+                    <label>👀 What we're spying on:</label>
+                    <div id="activeListeners"></div>
+                </div>
+                <div class="form-group">
+                    <label>🎲 Click any to start listening:</label>
+                    <div>
+                        <span class="event-tag" onclick="quickAddListener('new-announcement')">📢 new-announcement</span>
+                        <span class="event-tag" onclick="quickAddListener('pizza-ready')">🍕 pizza-ready</span>
+                        <span class="event-tag" onclick="quickAddListener('dance-party')">💃 dance-party</span>
+                        <span class="event-tag" onclick="quickAddListener('user-status')">👤 user-status</span>
+                        <span class="event-tag" onclick="quickAddListener('secret-message')">🤫 secret-message</span>
+                        <span class="event-tag" onclick="quickAddListener('emergency')">🚨 emergency</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Messages Panel -->
+        <div class="card">
+            <div class="card-title">
+                <span>💬</span> 📝 Chat Log (read all the drama!) 📝
+                <button class="btn btn-secondary btn-sm" onclick="clearMessages()" style="margin-left: auto;">🧹 Clean Up! 🧹</button>
+            </div>
+            <div id="messages" class="messages-container"></div>
+        </div>
     </div>
 
     <script>
         let socket = null;
         let listeners = [];
+        let messageCount = 0;
+        let emitCount = 0;
 
-        function addMessage(type, data) {
+        // Random funny messages
+        const funnyMessages = [
+            "A wild message appears! 🐉",
+            "You've got mail! 📧 (just kidding, it's WebSocket)",
+            "Beep boop! Message incoming! 🤖",
+            "Someone did a thing! 🎉",
+            "Data packet delivered by flying monkeys! 🐒",
+            "Message arrived via carrier pigeon! 🕊️",
+            "WebSocket go brrrrr! 💨"
+        ];
+
+        function getRandomFunnyMessage() {
+            return funnyMessages[Math.floor(Math.random() * funnyMessages.length)];
+        }
+
+        function addMessage(type, event, data, isEmitted = false) {
+            messageCount++;
+            document.getElementById('messageCount').textContent = messageCount;
+            
             const messagesDiv = document.getElementById('messages');
             const messageDiv = document.createElement('div');
-            messageDiv.className = 'message';
-            messageDiv.innerHTML = `<strong>${type}:</strong> ${JSON.stringify(data, null, 2)}`;
+            const timestamp = new Date().toLocaleTimeString();
+            
+            let className = '';
+            let icon = '';
+            
+            switch(type) {
+                case 'system':
+                    className = 'message-system';
+                    icon = '🤖';
+                    break;
+                case 'emitted':
+                    className = 'message-emitted';
+                    icon = '✈️';
+                    if (isEmitted) emitCount++;
+                    document.getElementById('emitCount').textContent = emitCount;
+                    break;
+                case 'received':
+                    className = 'message-received';
+                    icon = '🎁';
+                    break;
+                case 'error':
+                    className = 'message-error';
+                    icon = '💥';
+                    break;
+            }
+            
+            const funnyNote = type === 'received' ? ` ${getRandomFunnyMessage()}` : '';
+            
+            messageDiv.className = `message ${className}`;
+            messageDiv.innerHTML = `
+                <div class="message-timestamp">${icon} ${timestamp}${funnyNote}</div>
+                <div class="message-content">
+                    <strong>📢 ${event}:</strong><br>
+                    <pre style="margin-top: 4px; white-space: pre-wrap; word-wrap: break-word;">${JSON.stringify(data, null, 2)}</pre>
+                </div>
+            `;
+            
             messagesDiv.appendChild(messageDiv);
             messagesDiv.scrollTop = messagesDiv.scrollHeight;
         }
@@ -64,111 +632,187 @@
         function connect() {
             const url = document.getElementById('serverUrl').value;
             const token = document.getElementById('token').value;
+            const transport = document.getElementById('transport').value;
+            
+            if (!url) {
+                addMessage('error', 'Connection Error', 'Hey! You forgot the server URL! 🎪');
+                return;
+            }
+            
+            addMessage('system', 'Connecting', `🧸 Connecting to ${url}... Hold onto your socks! 🧦`);
             
             socket = io(url, {
-                auth: { token: token },
-                transports: ['websocket']
+                auth: { token: token || undefined },
+                transports: [transport],
+                reconnection: true,
+                reconnectionAttempts: 5,
+                reconnectionDelay: 1000
             });
             
             socket.on('connect', () => {
-                addMessage('System', 'Connected to server');
-                document.getElementById('status').className = 'connected';
-                document.getElementById('status').textContent = 'Connected';
+                addMessage('system', 'Connected', `🎉 Woohoo! Connected with ID: ${socket.id} 🎉`);
+                updateStatus(true);
+                updateConnectionCount();
             });
             
             socket.on('disconnect', () => {
-                addMessage('System', 'Disconnected from server');
-                document.getElementById('status').className = 'disconnected';
-                document.getElementById('status').textContent = 'Disconnected';
+                addMessage('system', 'Disconnected', '😢 Aww... We got disconnected. Bye bye! 👋');
+                updateStatus(false);
             });
             
-            // Add default listeners
-            socket.on('new-announcement', (data) => {
-                addMessage('📢 New Announcement', data);
+            socket.on('connect_error', (error) => {
+                addMessage('error', 'Connection Error', `💔 Oopsie! ${error.message} 😭`);
+                updateStatus(false);
             });
             
-            socket.on('announcement-updated', (data) => {
-                addMessage('✏️ Announcement Updated', data);
+            // Auto-add default listeners
+            const defaultEvents = ['new-announcement', 'announcement-updated', 'announcement-deleted', 'user-status'];
+            defaultEvents.forEach(event => {
+                socket.on(event, (data) => {
+                    addMessage('received', event, data);
+                });
             });
             
-            socket.on('announcement-deleted', (data) => {
-                addMessage('🗑️ Announcement Deleted', data);
-            });
-            
-            socket.on('user-status', (data) => {
-                addMessage('👤 User Status', data);
-            });
+            listeners = defaultEvents.map(event => ({ eventName: event, auto: true }));
+            updateActiveListeners();
         }
         
         function disconnect() {
             if (socket) {
                 socket.disconnect();
                 socket = null;
-                addMessage('System', 'Disconnected manually');
+                addMessage('system', 'Disconnected', '👋 Ta-ta! See you later, alligator! 🐊');
+                updateStatus(false);
+                listeners = listeners.filter(l => !l.auto);
+                updateActiveListeners();
             }
         }
         
         function emitEvent() {
             if (!socket) {
-                addMessage('Error', 'Not connected to server');
+                addMessage('error', 'Emit Failed', '🤔 You need to connect first, silly! Click Connect! 🎮');
                 return;
             }
             
             const eventName = document.getElementById('eventName').value;
-            const eventData = document.getElementById('eventData').value;
+            const eventDataStr = document.getElementById('eventData').value;
             
             if (!eventName) {
-                addMessage('Error', 'Event name is required');
+                addMessage('error', 'Emit Failed', '🎯 Give your event a name! Anything! "flying-potato" works! 🥔');
                 return;
             }
             
-            let data = null;
-            try {
-                data = eventData ? JSON.parse(eventData) : {};
-            } catch (e) {
-                data = eventData;
+            let eventData = {};
+            if (eventDataStr) {
+                try {
+                    eventData = JSON.parse(eventDataStr);
+                } catch (e) {
+                    eventData = eventDataStr;
+                }
             }
             
-            socket.emit(eventName, data);
-            addMessage('Emitted', `${eventName}: ${JSON.stringify(data)}`);
+            socket.emit(eventName, eventData);
+            addMessage('emitted', eventName, eventData, true);
         }
         
         function addListener() {
             if (!socket) {
-                addMessage('Error', 'Not connected to server');
+                addMessage('error', 'Listener Failed', '🔌 Connect first! We can\'t listen to nothing! 🙉');
                 return;
             }
             
             const eventName = document.getElementById('listenEvent').value;
             if (!eventName) {
-                addMessage('Error', 'Event name is required');
+                addMessage('error', 'Listener Failed', '🎧 What should we listen to? Pick an event name! 🎤');
+                return;
+            }
+            
+            if (listeners.some(l => l.eventName === eventName)) {
+                addMessage('system', 'Listener Exists', `👂 We're already listening to "${eventName}"! Eavesdropping much? 🙈`);
                 return;
             }
             
             const handler = (data) => {
-                addMessage(`📡 ${eventName}`, data);
+                addMessage('received', eventName, data);
             };
             
             socket.on(eventName, handler);
             listeners.push({ eventName, handler });
-            addMessage('System', `Now listening to: ${eventName}`);
+            updateActiveListeners();
+            addMessage('system', 'Listener Added', `👂 Now spying on: ${eventName} (don't tell anyone! 🤫)`);
         }
         
         function removeListener() {
             const eventName = document.getElementById('listenEvent').value;
             if (!eventName || !socket) return;
             
-            const toRemove = listeners.filter(l => l.eventName === eventName);
+            const toRemove = listeners.filter(l => l.eventName === eventName && !l.auto);
             toRemove.forEach(({ eventName, handler }) => {
                 socket.off(eventName, handler);
             });
-            listeners = listeners.filter(l => l.eventName !== eventName);
-            addMessage('System', `Stopped listening to: ${eventName}`);
+            listeners = listeners.filter(l => l.eventName !== eventName || l.auto);
+            updateActiveListeners();
+            addMessage('system', 'Listener Removed', `🙈 Stopped listening to: ${eventName} (goodbye, secrets!) 🤐`);
+        }
+        
+        function quickAddListener(eventName) {
+            document.getElementById('listenEvent').value = eventName;
+            addListener();
+        }
+        
+        function setExample(eventName, eventData) {
+            document.getElementById('eventName').value = eventName;
+            document.getElementById('eventData').value = JSON.stringify(eventData);
+            addMessage('system', 'Ready', `🎮 Ready to send: ${eventName}! Click "SEND IT!" 🚀`);
+        }
+        
+        function updateStatus(connected) {
+            const badge = document.getElementById('statusBadge');
+            const dot = badge.querySelector('.status-dot');
+            if (connected) {
+                badge.className = 'status-badge connected';
+                dot.className = 'status-dot connected';
+                badge.innerHTML = '<span class="status-dot connected"></span> 🎉 Connected! Party time! 🎉';
+            } else {
+                badge.className = 'status-badge disconnected';
+                dot.className = 'status-dot disconnected';
+                badge.innerHTML = '<span class="status-dot disconnected"></span> 😴 Zzz... Disconnected 😴';
+            }
+        }
+        
+        function updateConnectionCount() {
+            if (socket && socket.connected) {
+                document.getElementById('connectionCount').textContent = '1';
+            } else {
+                document.getElementById('connectionCount').textContent = '0';
+            }
+        }
+        
+        function updateActiveListeners() {
+            const container = document.getElementById('activeListeners');
+            if (listeners.length === 0) {
+                container.innerHTML = '<span style="color: #999;">🤷 No one\'s listening... crickets... 🦗</span>';
+                return;
+            }
+            container.innerHTML = listeners.map(l => 
+                `<span class="event-tag ${l.auto ? 'active' : ''}">👂 ${l.eventName}${l.auto ? ' (auto)' : ''}</span>`
+            ).join('');
         }
         
         function clearMessages() {
             document.getElementById('messages').innerHTML = '';
+            messageCount = 0;
+            emitCount = 0;
+            document.getElementById('messageCount').textContent = '0';
+            document.getElementById('emitCount').textContent = '0';
+            addMessage('system', 'Cleared', '🧹 Phew! Clean slate! Time for new adventures! 🎉');
         }
+        
+        setInterval(() => {
+            if (socket && socket.connected) {
+                updateConnectionCount();
+            }
+        }, 1000);
     </script>
 </body>
 </html>
