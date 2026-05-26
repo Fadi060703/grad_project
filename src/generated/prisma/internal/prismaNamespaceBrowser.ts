@@ -61,6 +61,8 @@ export const ModelName = {
   Group: 'Group',
   UniversityLocation: 'UniversityLocation',
   Course: 'Course',
+  SectionCourse: 'SectionCourse',
+  MajorCourse: 'MajorCourse',
   CourseFile: 'CourseFile',
   MarksCourse: 'MarksCourse',
   Mark: 'Mark',
@@ -218,14 +220,31 @@ export const CourseScalarFieldEnum = {
   exam_type: 'exam_type',
   theoretical_grade: 'theoretical_grade',
   practical_grade: 'practical_grade',
+  year_id: 'year_id',
   marks_course_id: 'marks_course_id',
-  major_id: 'major_id',
-  section_id: 'section_id',
   created_at: 'created_at',
   updated_at: 'updated_at'
 } as const
 
 export type CourseScalarFieldEnum = (typeof CourseScalarFieldEnum)[keyof typeof CourseScalarFieldEnum]
+
+
+export const SectionCourseScalarFieldEnum = {
+  id: 'id',
+  course_id: 'course_id',
+  section_id: 'section_id'
+} as const
+
+export type SectionCourseScalarFieldEnum = (typeof SectionCourseScalarFieldEnum)[keyof typeof SectionCourseScalarFieldEnum]
+
+
+export const MajorCourseScalarFieldEnum = {
+  id: 'id',
+  course_id: 'course_id',
+  major_id: 'major_id'
+} as const
+
+export type MajorCourseScalarFieldEnum = (typeof MajorCourseScalarFieldEnum)[keyof typeof MajorCourseScalarFieldEnum]
 
 
 export const CourseFileScalarFieldEnum = {

@@ -4,32 +4,86 @@ import bcrypt from "bcrypt";
 
 // Arabic first names and last names pool
 const firstNames = [
-  "أحمد", "محمد", "علي", "عمر", "خالد", "يوسف", "إبراهيم", "سعد", "فيصل", "طارق",
-  "فاطمة", "مريم", "سارة", "نورة", "هدى", "ريم", "لمى", "دينا", "غادة", "أميرة",
-  "عبدالله", "عبدالرحمن", "ناصر", "منصور", "بندر", "زياد", "وليد", "راشد", "سلطان", "تركي",
+  "أحمد",
+  "محمد",
+  "علي",
+  "عمر",
+  "خالد",
+  "يوسف",
+  "إبراهيم",
+  "سعد",
+  "فيصل",
+  "طارق",
+  "فاطمة",
+  "مريم",
+  "سارة",
+  "نورة",
+  "هدى",
+  "ريم",
+  "لمى",
+  "دينا",
+  "غادة",
+  "أميرة",
+  "عبدالله",
+  "عبدالرحمن",
+  "ناصر",
+  "منصور",
+  "بندر",
+  "زياد",
+  "وليد",
+  "راشد",
+  "سلطان",
+  "تركي",
 ];
 
 const lastNames = [
-  "العلي", "الزهراني", "النجار", "الغامدي", "الشمري", "المطيري", "القحطاني", "الحربي", "العمري", "الدوسري",
-  "العتيبي", "البقمي", "الرشيدي", "الجهني", "العصيمي", "السبيعي", "الصاعدي", "العجمي", "العنزي", "الأسمري",
+  "العلي",
+  "الزهراني",
+  "النجار",
+  "الغامدي",
+  "الشمري",
+  "المطيري",
+  "القحطاني",
+  "الحربي",
+  "العمري",
+  "الدوسري",
+  "العتيبي",
+  "البقمي",
+  "الرشيدي",
+  "الجهني",
+  "العصيمي",
+  "السبيعي",
+  "الصاعدي",
+  "العجمي",
+  "العنزي",
+  "الأسمري",
 ];
 
 function studentName(index: number): string {
   return `${firstNames[index % firstNames.length]} ${lastNames[Math.floor(index / firstNames.length) % lastNames.length]}`;
 }
 
-export async function seedStudents(prisma: PrismaClient, structure: SeedStructure) {
+export async function seedStudents(
+  prisma: PrismaClient,
+  structure: SeedStructure,
+) {
   console.log("🎓 Seeding students and enrollments...");
 
   const hashedPassword = await bcrypt.hash("Password@123", 10);
-  const { years, sectionsByYear, majorsByYear, groupsBySection, groupsByMajor } = structure;
+  const {
+    years,
+    sectionsByYear,
+    majorsByYear,
+    groupsBySection,
+    groupsByMajor,
+  } = structure;
 
   let studentCount = 0;
   let globalStudentIndex = 0;
 
   for (let yi = 0; yi < years.length; yi++) {
     const year = years[yi];
-    const isSection = yi < 3;
+    const isSection = !year.has_majors;
 
     const containers = isSection
       ? (sectionsByYear.get(year.id) ?? [])
@@ -44,8 +98,8 @@ export async function seedStudents(prisma: PrismaClient, structure: SeedStructur
       // Get courses for this container
       const courses = await prisma.course.findMany({
         where: isSection
-          ? { section_id: container.id }
-          : { major_id: container.id },
+          ? { sectionCourses: { some: { section_id: container.id } } }
+          : { majorCourses: { some: { major_id: container.id } } },
       });
 
       for (const group of groups) {
@@ -118,5 +172,7 @@ export async function seedStudents(prisma: PrismaClient, structure: SeedStructur
     }
   }
 
-  console.log(`   ✔ ${studentCount} students created and enrolled in their courses.`);
+  console.log(
+    `   ✔ ${studentCount} students created and enrolled in their courses.`,
+  );
 }
