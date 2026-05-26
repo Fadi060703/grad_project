@@ -71,6 +71,7 @@ export const getAllCourses = createListHandler({
         select: {
           id: true,
           name: true,
+          has_majors: true,
         },
       },
       majorCourses: {

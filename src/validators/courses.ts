@@ -14,6 +14,7 @@ export const getCoursesSchema = z.object({
     .object({
       id: z.number().positive(),
       name: z.string(),
+      has_majors: z.boolean(),
     })
     .optional(),
   majors: z
