@@ -97,6 +97,7 @@ import {
   updateCourseFile,
   uploadCourseFile,
 } from "../controllers/courseFilesController";
+import { createLecture, deleteLecture, getLecturesSchedule, updateLecture } from "../controllers/lectureController";
 
 const router = express.Router();
 const upload = multer({
@@ -184,5 +185,10 @@ router.put("/marks/:id", updateMark);
 router.delete("/marks/bulk-delete", bulkDeleteMarks);
 
 router.post("/file/upload", upload.single("file"), uploadFile);
+
+router.get("/lectures", getLecturesSchedule);
+router.post("/lectures", createLecture);
+router.put("/lectures/:id", updateLecture);
+router.delete("/lectures/:id", deleteLecture);
 
 export default router;

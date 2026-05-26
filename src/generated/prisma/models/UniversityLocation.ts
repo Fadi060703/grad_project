@@ -353,9 +353,9 @@ export type UniversityLocationSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
 }
 
-export type UniversityLocationNullableScalarRelationFilter = {
-  is?: Prisma.UniversityLocationWhereInput | null
-  isNot?: Prisma.UniversityLocationWhereInput | null
+export type UniversityLocationScalarRelationFilter = {
+  is?: Prisma.UniversityLocationWhereInput
+  isNot?: Prisma.UniversityLocationWhereInput
 }
 
 export type UniversityLocationCreateNestedOneWithoutLecturesInput = {
@@ -364,12 +364,10 @@ export type UniversityLocationCreateNestedOneWithoutLecturesInput = {
   connect?: Prisma.UniversityLocationWhereUniqueInput
 }
 
-export type UniversityLocationUpdateOneWithoutLecturesNestedInput = {
+export type UniversityLocationUpdateOneRequiredWithoutLecturesNestedInput = {
   create?: Prisma.XOR<Prisma.UniversityLocationCreateWithoutLecturesInput, Prisma.UniversityLocationUncheckedCreateWithoutLecturesInput>
   connectOrCreate?: Prisma.UniversityLocationCreateOrConnectWithoutLecturesInput
   upsert?: Prisma.UniversityLocationUpsertWithoutLecturesInput
-  disconnect?: Prisma.UniversityLocationWhereInput | boolean
-  delete?: Prisma.UniversityLocationWhereInput | boolean
   connect?: Prisma.UniversityLocationWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UniversityLocationUpdateToOneWithWhereWithoutLecturesInput, Prisma.UniversityLocationUpdateWithoutLecturesInput>, Prisma.UniversityLocationUncheckedUpdateWithoutLecturesInput>
 }

@@ -52,6 +52,17 @@ export const LectureType = {
 export type LectureType = (typeof LectureType)[keyof typeof LectureType]
 
 
+export const WeekDay = {
+  SUNDAY: 'SUNDAY',
+  MONDAY: 'MONDAY',
+  TUESDAY: 'TUESDAY',
+  WEDNESDAY: 'WEDNESDAY',
+  THURSDAY: 'THURSDAY'
+} as const
+
+export type WeekDay = (typeof WeekDay)[keyof typeof WeekDay]
+
+
 export const AnnouncementType = {
   REGULAR: 'REGULAR',
   IMPORTANT: 'IMPORTANT',

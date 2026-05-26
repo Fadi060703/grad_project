@@ -331,15 +331,15 @@ export type ExamGuidelineScalarFieldEnum = (typeof ExamGuidelineScalarFieldEnum)
 
 export const LectureScalarFieldEnum = {
   id: 'id',
-  title: 'title',
-  description: 'description',
-  date: 'date',
-  location_id: 'location_id',
-  course_id: 'course_id',
+  day: 'day',
+  time_box_order: 'time_box_order',
   lecture_type: 'lecture_type',
-  major_id: 'major_id',
-  section_id: 'section_id',
+  course_id: 'course_id',
+  location_id: 'location_id',
+  instructor_id: 'instructor_id',
   group_id: 'group_id',
+  section_id: 'section_id',
+  major_id: 'major_id',
   created_at: 'created_at',
   updated_at: 'updated_at'
 } as const

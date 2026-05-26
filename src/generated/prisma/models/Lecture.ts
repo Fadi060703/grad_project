@@ -28,63 +28,67 @@ export type AggregateLecture = {
 
 export type LectureAvgAggregateOutputType = {
   id: number | null
-  location_id: number | null
+  time_box_order: number | null
   course_id: number | null
-  major_id: number | null
-  section_id: number | null
+  location_id: number | null
+  instructor_id: number | null
   group_id: number | null
+  section_id: number | null
+  major_id: number | null
 }
 
 export type LectureSumAggregateOutputType = {
   id: number | null
-  location_id: number | null
+  time_box_order: number | null
   course_id: number | null
-  major_id: number | null
-  section_id: number | null
+  location_id: number | null
+  instructor_id: number | null
   group_id: number | null
+  section_id: number | null
+  major_id: number | null
 }
 
 export type LectureMinAggregateOutputType = {
   id: number | null
-  title: string | null
-  description: string | null
-  date: Date | null
-  location_id: number | null
-  course_id: number | null
+  day: $Enums.WeekDay | null
+  time_box_order: number | null
   lecture_type: $Enums.LectureType | null
-  major_id: number | null
-  section_id: number | null
+  course_id: number | null
+  location_id: number | null
+  instructor_id: number | null
   group_id: number | null
+  section_id: number | null
+  major_id: number | null
   created_at: Date | null
   updated_at: Date | null
 }
 
 export type LectureMaxAggregateOutputType = {
   id: number | null
-  title: string | null
-  description: string | null
-  date: Date | null
-  location_id: number | null
-  course_id: number | null
+  day: $Enums.WeekDay | null
+  time_box_order: number | null
   lecture_type: $Enums.LectureType | null
-  major_id: number | null
-  section_id: number | null
+  course_id: number | null
+  location_id: number | null
+  instructor_id: number | null
   group_id: number | null
+  section_id: number | null
+  major_id: number | null
   created_at: Date | null
   updated_at: Date | null
 }
 
 export type LectureCountAggregateOutputType = {
   id: number
-  title: number
-  description: number
-  date: number
-  location_id: number
-  course_id: number
+  day: number
+  time_box_order: number
   lecture_type: number
-  major_id: number
-  section_id: number
+  course_id: number
+  location_id: number
+  instructor_id: number
   group_id: number
+  section_id: number
+  major_id: number
   created_at: number
   updated_at: number
   _all: number
@@ -93,63 +97,67 @@ export type LectureCountAggregateOutputType = {
 
 export type LectureAvgAggregateInputType = {
   id?: true
-  location_id?: true
+  time_box_order?: true
   course_id?: true
-  major_id?: true
-  section_id?: true
+  location_id?: true
+  instructor_id?: true
   group_id?: true
+  section_id?: true
+  major_id?: true
 }
 
 export type LectureSumAggregateInputType = {
   id?: true
-  location_id?: true
+  time_box_order?: true
   course_id?: true
-  major_id?: true
-  section_id?: true
+  location_id?: true
+  instructor_id?: true
   group_id?: true
+  section_id?: true
+  major_id?: true
 }
 
 export type LectureMinAggregateInputType = {
   id?: true
-  title?: true
-  description?: true
-  date?: true
-  location_id?: true
-  course_id?: true
+  day?: true
+  time_box_order?: true
   lecture_type?: true
-  major_id?: true
-  section_id?: true
+  course_id?: true
+  location_id?: true
+  instructor_id?: true
   group_id?: true
+  section_id?: true
+  major_id?: true
   created_at?: true
   updated_at?: true
 }
 
 export type LectureMaxAggregateInputType = {
   id?: true
-  title?: true
-  description?: true
-  date?: true
-  location_id?: true
-  course_id?: true
+  day?: true
+  time_box_order?: true
   lecture_type?: true
-  major_id?: true
-  section_id?: true
+  course_id?: true
+  location_id?: true
+  instructor_id?: true
   group_id?: true
+  section_id?: true
+  major_id?: true
   created_at?: true
   updated_at?: true
 }
 
 export type LectureCountAggregateInputType = {
   id?: true
-  title?: true
-  description?: true
-  date?: true
-  location_id?: true
-  course_id?: true
+  day?: true
+  time_box_order?: true
   lecture_type?: true
-  major_id?: true
-  section_id?: true
+  course_id?: true
+  location_id?: true
+  instructor_id?: true
   group_id?: true
+  section_id?: true
+  major_id?: true
   created_at?: true
   updated_at?: true
   _all?: true
@@ -243,15 +251,15 @@ export type LectureGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 
 export type LectureGroupByOutputType = {
   id: number
-  title: string
-  description: string | null
-  date: Date
-  location_id: number | null
-  course_id: number
+  day: $Enums.WeekDay
+  time_box_order: number
   lecture_type: $Enums.LectureType
-  major_id: number | null
-  section_id: number | null
+  course_id: number
+  location_id: number
+  instructor_id: number
   group_id: number | null
+  section_id: number | null
+  major_id: number | null
   created_at: Date
   updated_at: Date
   _count: LectureCountAggregateOutputType | null
@@ -281,42 +289,44 @@ export type LectureWhereInput = {
   OR?: Prisma.LectureWhereInput[]
   NOT?: Prisma.LectureWhereInput | Prisma.LectureWhereInput[]
   id?: Prisma.IntFilter<"Lecture"> | number
-  title?: Prisma.StringFilter<"Lecture"> | string
-  description?: Prisma.StringNullableFilter<"Lecture"> | string | null
-  date?: Prisma.DateTimeFilter<"Lecture"> | Date | string
-  location_id?: Prisma.IntNullableFilter<"Lecture"> | number | null
-  course_id?: Prisma.IntFilter<"Lecture"> | number
+  day?: Prisma.EnumWeekDayFilter<"Lecture"> | $Enums.WeekDay
+  time_box_order?: Prisma.IntFilter<"Lecture"> | number
   lecture_type?: Prisma.EnumLectureTypeFilter<"Lecture"> | $Enums.LectureType
-  major_id?: Prisma.IntNullableFilter<"Lecture"> | number | null
-  section_id?: Prisma.IntNullableFilter<"Lecture"> | number | null
+  course_id?: Prisma.IntFilter<"Lecture"> | number
+  location_id?: Prisma.IntFilter<"Lecture"> | number
+  instructor_id?: Prisma.IntFilter<"Lecture"> | number
   group_id?: Prisma.IntNullableFilter<"Lecture"> | number | null
+  section_id?: Prisma.IntNullableFilter<"Lecture"> | number | null
+  major_id?: Prisma.IntNullableFilter<"Lecture"> | number | null
   created_at?: Prisma.DateTimeFilter<"Lecture"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Lecture"> | Date | string
-  location?: Prisma.XOR<Prisma.UniversityLocationNullableScalarRelationFilter, Prisma.UniversityLocationWhereInput> | null
   course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>
-  major?: Prisma.XOR<Prisma.MajorNullableScalarRelationFilter, Prisma.MajorWhereInput> | null
-  section?: Prisma.XOR<Prisma.SectionNullableScalarRelationFilter, Prisma.SectionWhereInput> | null
+  location?: Prisma.XOR<Prisma.UniversityLocationScalarRelationFilter, Prisma.UniversityLocationWhereInput>
+  instructor?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   group?: Prisma.XOR<Prisma.GroupNullableScalarRelationFilter, Prisma.GroupWhereInput> | null
+  section?: Prisma.XOR<Prisma.SectionNullableScalarRelationFilter, Prisma.SectionWhereInput> | null
+  major?: Prisma.XOR<Prisma.MajorNullableScalarRelationFilter, Prisma.MajorWhereInput> | null
 }
 
 export type LectureOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  title?: Prisma.SortOrder
-  description?: Prisma.SortOrderInput | Prisma.SortOrder
-  date?: Prisma.SortOrder
-  location_id?: Prisma.SortOrderInput | Prisma.SortOrder
-  course_id?: Prisma.SortOrder
+  day?: Prisma.SortOrder
+  time_box_order?: Prisma.SortOrder
   lecture_type?: Prisma.SortOrder
-  major_id?: Prisma.SortOrderInput | Prisma.SortOrder
-  section_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  course_id?: Prisma.SortOrder
+  location_id?: Prisma.SortOrder
+  instructor_id?: Prisma.SortOrder
   group_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  section_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  major_id?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
-  location?: Prisma.UniversityLocationOrderByWithRelationInput
   course?: Prisma.CourseOrderByWithRelationInput
-  major?: Prisma.MajorOrderByWithRelationInput
-  section?: Prisma.SectionOrderByWithRelationInput
+  location?: Prisma.UniversityLocationOrderByWithRelationInput
+  instructor?: Prisma.UserOrderByWithRelationInput
   group?: Prisma.GroupOrderByWithRelationInput
+  section?: Prisma.SectionOrderByWithRelationInput
+  major?: Prisma.MajorOrderByWithRelationInput
 }
 
 export type LectureWhereUniqueInput = Prisma.AtLeast<{
@@ -324,35 +334,36 @@ export type LectureWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.LectureWhereInput | Prisma.LectureWhereInput[]
   OR?: Prisma.LectureWhereInput[]
   NOT?: Prisma.LectureWhereInput | Prisma.LectureWhereInput[]
-  title?: Prisma.StringFilter<"Lecture"> | string
-  description?: Prisma.StringNullableFilter<"Lecture"> | string | null
-  date?: Prisma.DateTimeFilter<"Lecture"> | Date | string
-  location_id?: Prisma.IntNullableFilter<"Lecture"> | number | null
-  course_id?: Prisma.IntFilter<"Lecture"> | number
+  day?: Prisma.EnumWeekDayFilter<"Lecture"> | $Enums.WeekDay
+  time_box_order?: Prisma.IntFilter<"Lecture"> | number
   lecture_type?: Prisma.EnumLectureTypeFilter<"Lecture"> | $Enums.LectureType
-  major_id?: Prisma.IntNullableFilter<"Lecture"> | number | null
-  section_id?: Prisma.IntNullableFilter<"Lecture"> | number | null
+  course_id?: Prisma.IntFilter<"Lecture"> | number
+  location_id?: Prisma.IntFilter<"Lecture"> | number
+  instructor_id?: Prisma.IntFilter<"Lecture"> | number
   group_id?: Prisma.IntNullableFilter<"Lecture"> | number | null
+  section_id?: Prisma.IntNullableFilter<"Lecture"> | number | null
+  major_id?: Prisma.IntNullableFilter<"Lecture"> | number | null
   created_at?: Prisma.DateTimeFilter<"Lecture"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Lecture"> | Date | string
-  location?: Prisma.XOR<Prisma.UniversityLocationNullableScalarRelationFilter, Prisma.UniversityLocationWhereInput> | null
   course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>
-  major?: Prisma.XOR<Prisma.MajorNullableScalarRelationFilter, Prisma.MajorWhereInput> | null
-  section?: Prisma.XOR<Prisma.SectionNullableScalarRelationFilter, Prisma.SectionWhereInput> | null
+  location?: Prisma.XOR<Prisma.UniversityLocationScalarRelationFilter, Prisma.UniversityLocationWhereInput>
+  instructor?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   group?: Prisma.XOR<Prisma.GroupNullableScalarRelationFilter, Prisma.GroupWhereInput> | null
+  section?: Prisma.XOR<Prisma.SectionNullableScalarRelationFilter, Prisma.SectionWhereInput> | null
+  major?: Prisma.XOR<Prisma.MajorNullableScalarRelationFilter, Prisma.MajorWhereInput> | null
 }, "id">
 
 export type LectureOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  title?: Prisma.SortOrder
-  description?: Prisma.SortOrderInput | Prisma.SortOrder
-  date?: Prisma.SortOrder
-  location_id?: Prisma.SortOrderInput | Prisma.SortOrder
-  course_id?: Prisma.SortOrder
+  day?: Prisma.SortOrder
+  time_box_order?: Prisma.SortOrder
   lecture_type?: Prisma.SortOrder
-  major_id?: Prisma.SortOrderInput | Prisma.SortOrder
-  section_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  course_id?: Prisma.SortOrder
+  location_id?: Prisma.SortOrder
+  instructor_id?: Prisma.SortOrder
   group_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  section_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  major_id?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   _count?: Prisma.LectureCountOrderByAggregateInput
@@ -367,96 +378,95 @@ export type LectureScalarWhereWithAggregatesInput = {
   OR?: Prisma.LectureScalarWhereWithAggregatesInput[]
   NOT?: Prisma.LectureScalarWhereWithAggregatesInput | Prisma.LectureScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Lecture"> | number
-  title?: Prisma.StringWithAggregatesFilter<"Lecture"> | string
-  description?: Prisma.StringNullableWithAggregatesFilter<"Lecture"> | string | null
-  date?: Prisma.DateTimeWithAggregatesFilter<"Lecture"> | Date | string
-  location_id?: Prisma.IntNullableWithAggregatesFilter<"Lecture"> | number | null
-  course_id?: Prisma.IntWithAggregatesFilter<"Lecture"> | number
+  day?: Prisma.EnumWeekDayWithAggregatesFilter<"Lecture"> | $Enums.WeekDay
+  time_box_order?: Prisma.IntWithAggregatesFilter<"Lecture"> | number
   lecture_type?: Prisma.EnumLectureTypeWithAggregatesFilter<"Lecture"> | $Enums.LectureType
-  major_id?: Prisma.IntNullableWithAggregatesFilter<"Lecture"> | number | null
-  section_id?: Prisma.IntNullableWithAggregatesFilter<"Lecture"> | number | null
+  course_id?: Prisma.IntWithAggregatesFilter<"Lecture"> | number
+  location_id?: Prisma.IntWithAggregatesFilter<"Lecture"> | number
+  instructor_id?: Prisma.IntWithAggregatesFilter<"Lecture"> | number
   group_id?: Prisma.IntNullableWithAggregatesFilter<"Lecture"> | number | null
+  section_id?: Prisma.IntNullableWithAggregatesFilter<"Lecture"> | number | null
+  major_id?: Prisma.IntNullableWithAggregatesFilter<"Lecture"> | number | null
   created_at?: Prisma.DateTimeWithAggregatesFilter<"Lecture"> | Date | string
   updated_at?: Prisma.DateTimeWithAggregatesFilter<"Lecture"> | Date | string
 }
 
 export type LectureCreateInput = {
-  title: string
-  description?: string | null
-  date?: Date | string
-  lecture_type?: $Enums.LectureType
+  day: $Enums.WeekDay
+  time_box_order: number
+  lecture_type: $Enums.LectureType
   created_at?: Date | string
   updated_at?: Date | string
-  location?: Prisma.UniversityLocationCreateNestedOneWithoutLecturesInput
   course: Prisma.CourseCreateNestedOneWithoutLecturesInput
-  major?: Prisma.MajorCreateNestedOneWithoutLecturesInput
-  section?: Prisma.SectionCreateNestedOneWithoutLecturesInput
+  location: Prisma.UniversityLocationCreateNestedOneWithoutLecturesInput
+  instructor: Prisma.UserCreateNestedOneWithoutTeachingLecturesInput
   group?: Prisma.GroupCreateNestedOneWithoutLectureInput
+  section?: Prisma.SectionCreateNestedOneWithoutLecturesInput
+  major?: Prisma.MajorCreateNestedOneWithoutLecturesInput
 }
 
 export type LectureUncheckedCreateInput = {
   id?: number
-  title: string
-  description?: string | null
-  date?: Date | string
-  location_id?: number | null
+  day: $Enums.WeekDay
+  time_box_order: number
+  lecture_type: $Enums.LectureType
   course_id: number
-  lecture_type?: $Enums.LectureType
-  major_id?: number | null
-  section_id?: number | null
+  location_id: number
+  instructor_id: number
   group_id?: number | null
+  section_id?: number | null
+  major_id?: number | null
   created_at?: Date | string
   updated_at?: Date | string
 }
 
 export type LectureUpdateInput = {
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  day?: Prisma.EnumWeekDayFieldUpdateOperationsInput | $Enums.WeekDay
+  time_box_order?: Prisma.IntFieldUpdateOperationsInput | number
   lecture_type?: Prisma.EnumLectureTypeFieldUpdateOperationsInput | $Enums.LectureType
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  location?: Prisma.UniversityLocationUpdateOneWithoutLecturesNestedInput
   course?: Prisma.CourseUpdateOneRequiredWithoutLecturesNestedInput
-  major?: Prisma.MajorUpdateOneWithoutLecturesNestedInput
-  section?: Prisma.SectionUpdateOneWithoutLecturesNestedInput
+  location?: Prisma.UniversityLocationUpdateOneRequiredWithoutLecturesNestedInput
+  instructor?: Prisma.UserUpdateOneRequiredWithoutTeachingLecturesNestedInput
   group?: Prisma.GroupUpdateOneWithoutLectureNestedInput
+  section?: Prisma.SectionUpdateOneWithoutLecturesNestedInput
+  major?: Prisma.MajorUpdateOneWithoutLecturesNestedInput
 }
 
 export type LectureUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  location_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  course_id?: Prisma.IntFieldUpdateOperationsInput | number
+  day?: Prisma.EnumWeekDayFieldUpdateOperationsInput | $Enums.WeekDay
+  time_box_order?: Prisma.IntFieldUpdateOperationsInput | number
   lecture_type?: Prisma.EnumLectureTypeFieldUpdateOperationsInput | $Enums.LectureType
-  major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  section_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  course_id?: Prisma.IntFieldUpdateOperationsInput | number
+  location_id?: Prisma.IntFieldUpdateOperationsInput | number
+  instructor_id?: Prisma.IntFieldUpdateOperationsInput | number
   group_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  section_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type LectureCreateManyInput = {
   id?: number
-  title: string
-  description?: string | null
-  date?: Date | string
-  location_id?: number | null
+  day: $Enums.WeekDay
+  time_box_order: number
+  lecture_type: $Enums.LectureType
   course_id: number
-  lecture_type?: $Enums.LectureType
-  major_id?: number | null
-  section_id?: number | null
+  location_id: number
+  instructor_id: number
   group_id?: number | null
+  section_id?: number | null
+  major_id?: number | null
   created_at?: Date | string
   updated_at?: Date | string
 }
 
 export type LectureUpdateManyMutationInput = {
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  day?: Prisma.EnumWeekDayFieldUpdateOperationsInput | $Enums.WeekDay
+  time_box_order?: Prisma.IntFieldUpdateOperationsInput | number
   lecture_type?: Prisma.EnumLectureTypeFieldUpdateOperationsInput | $Enums.LectureType
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -464,15 +474,15 @@ export type LectureUpdateManyMutationInput = {
 
 export type LectureUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  location_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  course_id?: Prisma.IntFieldUpdateOperationsInput | number
+  day?: Prisma.EnumWeekDayFieldUpdateOperationsInput | $Enums.WeekDay
+  time_box_order?: Prisma.IntFieldUpdateOperationsInput | number
   lecture_type?: Prisma.EnumLectureTypeFieldUpdateOperationsInput | $Enums.LectureType
-  major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  section_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  course_id?: Prisma.IntFieldUpdateOperationsInput | number
+  location_id?: Prisma.IntFieldUpdateOperationsInput | number
+  instructor_id?: Prisma.IntFieldUpdateOperationsInput | number
   group_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  section_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -489,65 +499,111 @@ export type LectureOrderByRelationAggregateInput = {
 
 export type LectureCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  title?: Prisma.SortOrder
-  description?: Prisma.SortOrder
-  date?: Prisma.SortOrder
-  location_id?: Prisma.SortOrder
-  course_id?: Prisma.SortOrder
+  day?: Prisma.SortOrder
+  time_box_order?: Prisma.SortOrder
   lecture_type?: Prisma.SortOrder
-  major_id?: Prisma.SortOrder
-  section_id?: Prisma.SortOrder
+  course_id?: Prisma.SortOrder
+  location_id?: Prisma.SortOrder
+  instructor_id?: Prisma.SortOrder
   group_id?: Prisma.SortOrder
+  section_id?: Prisma.SortOrder
+  major_id?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
 
 export type LectureAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  location_id?: Prisma.SortOrder
+  time_box_order?: Prisma.SortOrder
   course_id?: Prisma.SortOrder
-  major_id?: Prisma.SortOrder
-  section_id?: Prisma.SortOrder
+  location_id?: Prisma.SortOrder
+  instructor_id?: Prisma.SortOrder
   group_id?: Prisma.SortOrder
+  section_id?: Prisma.SortOrder
+  major_id?: Prisma.SortOrder
 }
 
 export type LectureMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  title?: Prisma.SortOrder
-  description?: Prisma.SortOrder
-  date?: Prisma.SortOrder
-  location_id?: Prisma.SortOrder
-  course_id?: Prisma.SortOrder
+  day?: Prisma.SortOrder
+  time_box_order?: Prisma.SortOrder
   lecture_type?: Prisma.SortOrder
-  major_id?: Prisma.SortOrder
-  section_id?: Prisma.SortOrder
+  course_id?: Prisma.SortOrder
+  location_id?: Prisma.SortOrder
+  instructor_id?: Prisma.SortOrder
   group_id?: Prisma.SortOrder
+  section_id?: Prisma.SortOrder
+  major_id?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
 
 export type LectureMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  title?: Prisma.SortOrder
-  description?: Prisma.SortOrder
-  date?: Prisma.SortOrder
-  location_id?: Prisma.SortOrder
-  course_id?: Prisma.SortOrder
+  day?: Prisma.SortOrder
+  time_box_order?: Prisma.SortOrder
   lecture_type?: Prisma.SortOrder
-  major_id?: Prisma.SortOrder
-  section_id?: Prisma.SortOrder
+  course_id?: Prisma.SortOrder
+  location_id?: Prisma.SortOrder
+  instructor_id?: Prisma.SortOrder
   group_id?: Prisma.SortOrder
+  section_id?: Prisma.SortOrder
+  major_id?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
 
 export type LectureSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  location_id?: Prisma.SortOrder
+  time_box_order?: Prisma.SortOrder
   course_id?: Prisma.SortOrder
-  major_id?: Prisma.SortOrder
-  section_id?: Prisma.SortOrder
+  location_id?: Prisma.SortOrder
+  instructor_id?: Prisma.SortOrder
   group_id?: Prisma.SortOrder
+  section_id?: Prisma.SortOrder
+  major_id?: Prisma.SortOrder
+}
+
+export type LectureCreateNestedManyWithoutInstructorInput = {
+  create?: Prisma.XOR<Prisma.LectureCreateWithoutInstructorInput, Prisma.LectureUncheckedCreateWithoutInstructorInput> | Prisma.LectureCreateWithoutInstructorInput[] | Prisma.LectureUncheckedCreateWithoutInstructorInput[]
+  connectOrCreate?: Prisma.LectureCreateOrConnectWithoutInstructorInput | Prisma.LectureCreateOrConnectWithoutInstructorInput[]
+  createMany?: Prisma.LectureCreateManyInstructorInputEnvelope
+  connect?: Prisma.LectureWhereUniqueInput | Prisma.LectureWhereUniqueInput[]
+}
+
+export type LectureUncheckedCreateNestedManyWithoutInstructorInput = {
+  create?: Prisma.XOR<Prisma.LectureCreateWithoutInstructorInput, Prisma.LectureUncheckedCreateWithoutInstructorInput> | Prisma.LectureCreateWithoutInstructorInput[] | Prisma.LectureUncheckedCreateWithoutInstructorInput[]
+  connectOrCreate?: Prisma.LectureCreateOrConnectWithoutInstructorInput | Prisma.LectureCreateOrConnectWithoutInstructorInput[]
+  createMany?: Prisma.LectureCreateManyInstructorInputEnvelope
+  connect?: Prisma.LectureWhereUniqueInput | Prisma.LectureWhereUniqueInput[]
+}
+
+export type LectureUpdateManyWithoutInstructorNestedInput = {
+  create?: Prisma.XOR<Prisma.LectureCreateWithoutInstructorInput, Prisma.LectureUncheckedCreateWithoutInstructorInput> | Prisma.LectureCreateWithoutInstructorInput[] | Prisma.LectureUncheckedCreateWithoutInstructorInput[]
+  connectOrCreate?: Prisma.LectureCreateOrConnectWithoutInstructorInput | Prisma.LectureCreateOrConnectWithoutInstructorInput[]
+  upsert?: Prisma.LectureUpsertWithWhereUniqueWithoutInstructorInput | Prisma.LectureUpsertWithWhereUniqueWithoutInstructorInput[]
+  createMany?: Prisma.LectureCreateManyInstructorInputEnvelope
+  set?: Prisma.LectureWhereUniqueInput | Prisma.LectureWhereUniqueInput[]
+  disconnect?: Prisma.LectureWhereUniqueInput | Prisma.LectureWhereUniqueInput[]
+  delete?: Prisma.LectureWhereUniqueInput | Prisma.LectureWhereUniqueInput[]
+  connect?: Prisma.LectureWhereUniqueInput | Prisma.LectureWhereUniqueInput[]
+  update?: Prisma.LectureUpdateWithWhereUniqueWithoutInstructorInput | Prisma.LectureUpdateWithWhereUniqueWithoutInstructorInput[]
+  updateMany?: Prisma.LectureUpdateManyWithWhereWithoutInstructorInput | Prisma.LectureUpdateManyWithWhereWithoutInstructorInput[]
+  deleteMany?: Prisma.LectureScalarWhereInput | Prisma.LectureScalarWhereInput[]
+}
+
+export type LectureUncheckedUpdateManyWithoutInstructorNestedInput = {
+  create?: Prisma.XOR<Prisma.LectureCreateWithoutInstructorInput, Prisma.LectureUncheckedCreateWithoutInstructorInput> | Prisma.LectureCreateWithoutInstructorInput[] | Prisma.LectureUncheckedCreateWithoutInstructorInput[]
+  connectOrCreate?: Prisma.LectureCreateOrConnectWithoutInstructorInput | Prisma.LectureCreateOrConnectWithoutInstructorInput[]
+  upsert?: Prisma.LectureUpsertWithWhereUniqueWithoutInstructorInput | Prisma.LectureUpsertWithWhereUniqueWithoutInstructorInput[]
+  createMany?: Prisma.LectureCreateManyInstructorInputEnvelope
+  set?: Prisma.LectureWhereUniqueInput | Prisma.LectureWhereUniqueInput[]
+  disconnect?: Prisma.LectureWhereUniqueInput | Prisma.LectureWhereUniqueInput[]
+  delete?: Prisma.LectureWhereUniqueInput | Prisma.LectureWhereUniqueInput[]
+  connect?: Prisma.LectureWhereUniqueInput | Prisma.LectureWhereUniqueInput[]
+  update?: Prisma.LectureUpdateWithWhereUniqueWithoutInstructorInput | Prisma.LectureUpdateWithWhereUniqueWithoutInstructorInput[]
+  updateMany?: Prisma.LectureUpdateManyWithWhereWithoutInstructorInput | Prisma.LectureUpdateManyWithWhereWithoutInstructorInput[]
+  deleteMany?: Prisma.LectureScalarWhereInput | Prisma.LectureScalarWhereInput[]
 }
 
 export type LectureCreateNestedManyWithoutSectionInput = {
@@ -760,29 +816,104 @@ export type LectureUncheckedUpdateManyWithoutCourseNestedInput = {
   deleteMany?: Prisma.LectureScalarWhereInput | Prisma.LectureScalarWhereInput[]
 }
 
-export type LectureCreateWithoutSectionInput = {
-  title: string
-  description?: string | null
-  date?: Date | string
-  lecture_type?: $Enums.LectureType
+export type EnumWeekDayFieldUpdateOperationsInput = {
+  set?: $Enums.WeekDay
+}
+
+export type LectureCreateWithoutInstructorInput = {
+  day: $Enums.WeekDay
+  time_box_order: number
+  lecture_type: $Enums.LectureType
   created_at?: Date | string
   updated_at?: Date | string
-  location?: Prisma.UniversityLocationCreateNestedOneWithoutLecturesInput
   course: Prisma.CourseCreateNestedOneWithoutLecturesInput
-  major?: Prisma.MajorCreateNestedOneWithoutLecturesInput
+  location: Prisma.UniversityLocationCreateNestedOneWithoutLecturesInput
   group?: Prisma.GroupCreateNestedOneWithoutLectureInput
+  section?: Prisma.SectionCreateNestedOneWithoutLecturesInput
+  major?: Prisma.MajorCreateNestedOneWithoutLecturesInput
+}
+
+export type LectureUncheckedCreateWithoutInstructorInput = {
+  id?: number
+  day: $Enums.WeekDay
+  time_box_order: number
+  lecture_type: $Enums.LectureType
+  course_id: number
+  location_id: number
+  group_id?: number | null
+  section_id?: number | null
+  major_id?: number | null
+  created_at?: Date | string
+  updated_at?: Date | string
+}
+
+export type LectureCreateOrConnectWithoutInstructorInput = {
+  where: Prisma.LectureWhereUniqueInput
+  create: Prisma.XOR<Prisma.LectureCreateWithoutInstructorInput, Prisma.LectureUncheckedCreateWithoutInstructorInput>
+}
+
+export type LectureCreateManyInstructorInputEnvelope = {
+  data: Prisma.LectureCreateManyInstructorInput | Prisma.LectureCreateManyInstructorInput[]
+  skipDuplicates?: boolean
+}
+
+export type LectureUpsertWithWhereUniqueWithoutInstructorInput = {
+  where: Prisma.LectureWhereUniqueInput
+  update: Prisma.XOR<Prisma.LectureUpdateWithoutInstructorInput, Prisma.LectureUncheckedUpdateWithoutInstructorInput>
+  create: Prisma.XOR<Prisma.LectureCreateWithoutInstructorInput, Prisma.LectureUncheckedCreateWithoutInstructorInput>
+}
+
+export type LectureUpdateWithWhereUniqueWithoutInstructorInput = {
+  where: Prisma.LectureWhereUniqueInput
+  data: Prisma.XOR<Prisma.LectureUpdateWithoutInstructorInput, Prisma.LectureUncheckedUpdateWithoutInstructorInput>
+}
+
+export type LectureUpdateManyWithWhereWithoutInstructorInput = {
+  where: Prisma.LectureScalarWhereInput
+  data: Prisma.XOR<Prisma.LectureUpdateManyMutationInput, Prisma.LectureUncheckedUpdateManyWithoutInstructorInput>
+}
+
+export type LectureScalarWhereInput = {
+  AND?: Prisma.LectureScalarWhereInput | Prisma.LectureScalarWhereInput[]
+  OR?: Prisma.LectureScalarWhereInput[]
+  NOT?: Prisma.LectureScalarWhereInput | Prisma.LectureScalarWhereInput[]
+  id?: Prisma.IntFilter<"Lecture"> | number
+  day?: Prisma.EnumWeekDayFilter<"Lecture"> | $Enums.WeekDay
+  time_box_order?: Prisma.IntFilter<"Lecture"> | number
+  lecture_type?: Prisma.EnumLectureTypeFilter<"Lecture"> | $Enums.LectureType
+  course_id?: Prisma.IntFilter<"Lecture"> | number
+  location_id?: Prisma.IntFilter<"Lecture"> | number
+  instructor_id?: Prisma.IntFilter<"Lecture"> | number
+  group_id?: Prisma.IntNullableFilter<"Lecture"> | number | null
+  section_id?: Prisma.IntNullableFilter<"Lecture"> | number | null
+  major_id?: Prisma.IntNullableFilter<"Lecture"> | number | null
+  created_at?: Prisma.DateTimeFilter<"Lecture"> | Date | string
+  updated_at?: Prisma.DateTimeFilter<"Lecture"> | Date | string
+}
+
+export type LectureCreateWithoutSectionInput = {
+  day: $Enums.WeekDay
+  time_box_order: number
+  lecture_type: $Enums.LectureType
+  created_at?: Date | string
+  updated_at?: Date | string
+  course: Prisma.CourseCreateNestedOneWithoutLecturesInput
+  location: Prisma.UniversityLocationCreateNestedOneWithoutLecturesInput
+  instructor: Prisma.UserCreateNestedOneWithoutTeachingLecturesInput
+  group?: Prisma.GroupCreateNestedOneWithoutLectureInput
+  major?: Prisma.MajorCreateNestedOneWithoutLecturesInput
 }
 
 export type LectureUncheckedCreateWithoutSectionInput = {
   id?: number
-  title: string
-  description?: string | null
-  date?: Date | string
-  location_id?: number | null
+  day: $Enums.WeekDay
+  time_box_order: number
+  lecture_type: $Enums.LectureType
   course_id: number
-  lecture_type?: $Enums.LectureType
-  major_id?: number | null
+  location_id: number
+  instructor_id: number
   group_id?: number | null
+  major_id?: number | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -813,47 +944,29 @@ export type LectureUpdateManyWithWhereWithoutSectionInput = {
   data: Prisma.XOR<Prisma.LectureUpdateManyMutationInput, Prisma.LectureUncheckedUpdateManyWithoutSectionInput>
 }
 
-export type LectureScalarWhereInput = {
-  AND?: Prisma.LectureScalarWhereInput | Prisma.LectureScalarWhereInput[]
-  OR?: Prisma.LectureScalarWhereInput[]
-  NOT?: Prisma.LectureScalarWhereInput | Prisma.LectureScalarWhereInput[]
-  id?: Prisma.IntFilter<"Lecture"> | number
-  title?: Prisma.StringFilter<"Lecture"> | string
-  description?: Prisma.StringNullableFilter<"Lecture"> | string | null
-  date?: Prisma.DateTimeFilter<"Lecture"> | Date | string
-  location_id?: Prisma.IntNullableFilter<"Lecture"> | number | null
-  course_id?: Prisma.IntFilter<"Lecture"> | number
-  lecture_type?: Prisma.EnumLectureTypeFilter<"Lecture"> | $Enums.LectureType
-  major_id?: Prisma.IntNullableFilter<"Lecture"> | number | null
-  section_id?: Prisma.IntNullableFilter<"Lecture"> | number | null
-  group_id?: Prisma.IntNullableFilter<"Lecture"> | number | null
-  created_at?: Prisma.DateTimeFilter<"Lecture"> | Date | string
-  updated_at?: Prisma.DateTimeFilter<"Lecture"> | Date | string
-}
-
 export type LectureCreateWithoutMajorInput = {
-  title: string
-  description?: string | null
-  date?: Date | string
-  lecture_type?: $Enums.LectureType
+  day: $Enums.WeekDay
+  time_box_order: number
+  lecture_type: $Enums.LectureType
   created_at?: Date | string
   updated_at?: Date | string
-  location?: Prisma.UniversityLocationCreateNestedOneWithoutLecturesInput
   course: Prisma.CourseCreateNestedOneWithoutLecturesInput
-  section?: Prisma.SectionCreateNestedOneWithoutLecturesInput
+  location: Prisma.UniversityLocationCreateNestedOneWithoutLecturesInput
+  instructor: Prisma.UserCreateNestedOneWithoutTeachingLecturesInput
   group?: Prisma.GroupCreateNestedOneWithoutLectureInput
+  section?: Prisma.SectionCreateNestedOneWithoutLecturesInput
 }
 
 export type LectureUncheckedCreateWithoutMajorInput = {
   id?: number
-  title: string
-  description?: string | null
-  date?: Date | string
-  location_id?: number | null
+  day: $Enums.WeekDay
+  time_box_order: number
+  lecture_type: $Enums.LectureType
   course_id: number
-  lecture_type?: $Enums.LectureType
-  section_id?: number | null
+  location_id: number
+  instructor_id: number
   group_id?: number | null
+  section_id?: number | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -885,28 +998,28 @@ export type LectureUpdateManyWithWhereWithoutMajorInput = {
 }
 
 export type LectureCreateWithoutGroupInput = {
-  title: string
-  description?: string | null
-  date?: Date | string
-  lecture_type?: $Enums.LectureType
+  day: $Enums.WeekDay
+  time_box_order: number
+  lecture_type: $Enums.LectureType
   created_at?: Date | string
   updated_at?: Date | string
-  location?: Prisma.UniversityLocationCreateNestedOneWithoutLecturesInput
   course: Prisma.CourseCreateNestedOneWithoutLecturesInput
-  major?: Prisma.MajorCreateNestedOneWithoutLecturesInput
+  location: Prisma.UniversityLocationCreateNestedOneWithoutLecturesInput
+  instructor: Prisma.UserCreateNestedOneWithoutTeachingLecturesInput
   section?: Prisma.SectionCreateNestedOneWithoutLecturesInput
+  major?: Prisma.MajorCreateNestedOneWithoutLecturesInput
 }
 
 export type LectureUncheckedCreateWithoutGroupInput = {
   id?: number
-  title: string
-  description?: string | null
-  date?: Date | string
-  location_id?: number | null
+  day: $Enums.WeekDay
+  time_box_order: number
+  lecture_type: $Enums.LectureType
   course_id: number
-  lecture_type?: $Enums.LectureType
-  major_id?: number | null
+  location_id: number
+  instructor_id: number
   section_id?: number | null
+  major_id?: number | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -938,28 +1051,28 @@ export type LectureUpdateManyWithWhereWithoutGroupInput = {
 }
 
 export type LectureCreateWithoutLocationInput = {
-  title: string
-  description?: string | null
-  date?: Date | string
-  lecture_type?: $Enums.LectureType
+  day: $Enums.WeekDay
+  time_box_order: number
+  lecture_type: $Enums.LectureType
   created_at?: Date | string
   updated_at?: Date | string
   course: Prisma.CourseCreateNestedOneWithoutLecturesInput
-  major?: Prisma.MajorCreateNestedOneWithoutLecturesInput
-  section?: Prisma.SectionCreateNestedOneWithoutLecturesInput
+  instructor: Prisma.UserCreateNestedOneWithoutTeachingLecturesInput
   group?: Prisma.GroupCreateNestedOneWithoutLectureInput
+  section?: Prisma.SectionCreateNestedOneWithoutLecturesInput
+  major?: Prisma.MajorCreateNestedOneWithoutLecturesInput
 }
 
 export type LectureUncheckedCreateWithoutLocationInput = {
   id?: number
-  title: string
-  description?: string | null
-  date?: Date | string
+  day: $Enums.WeekDay
+  time_box_order: number
+  lecture_type: $Enums.LectureType
   course_id: number
-  lecture_type?: $Enums.LectureType
-  major_id?: number | null
-  section_id?: number | null
+  instructor_id: number
   group_id?: number | null
+  section_id?: number | null
+  major_id?: number | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -991,28 +1104,28 @@ export type LectureUpdateManyWithWhereWithoutLocationInput = {
 }
 
 export type LectureCreateWithoutCourseInput = {
-  title: string
-  description?: string | null
-  date?: Date | string
-  lecture_type?: $Enums.LectureType
+  day: $Enums.WeekDay
+  time_box_order: number
+  lecture_type: $Enums.LectureType
   created_at?: Date | string
   updated_at?: Date | string
-  location?: Prisma.UniversityLocationCreateNestedOneWithoutLecturesInput
-  major?: Prisma.MajorCreateNestedOneWithoutLecturesInput
-  section?: Prisma.SectionCreateNestedOneWithoutLecturesInput
+  location: Prisma.UniversityLocationCreateNestedOneWithoutLecturesInput
+  instructor: Prisma.UserCreateNestedOneWithoutTeachingLecturesInput
   group?: Prisma.GroupCreateNestedOneWithoutLectureInput
+  section?: Prisma.SectionCreateNestedOneWithoutLecturesInput
+  major?: Prisma.MajorCreateNestedOneWithoutLecturesInput
 }
 
 export type LectureUncheckedCreateWithoutCourseInput = {
   id?: number
-  title: string
-  description?: string | null
-  date?: Date | string
-  location_id?: number | null
-  lecture_type?: $Enums.LectureType
-  major_id?: number | null
-  section_id?: number | null
+  day: $Enums.WeekDay
+  time_box_order: number
+  lecture_type: $Enums.LectureType
+  location_id: number
+  instructor_id: number
   group_id?: number | null
+  section_id?: number | null
+  major_id?: number | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -1043,277 +1156,332 @@ export type LectureUpdateManyWithWhereWithoutCourseInput = {
   data: Prisma.XOR<Prisma.LectureUpdateManyMutationInput, Prisma.LectureUncheckedUpdateManyWithoutCourseInput>
 }
 
+export type LectureCreateManyInstructorInput = {
+  id?: number
+  day: $Enums.WeekDay
+  time_box_order: number
+  lecture_type: $Enums.LectureType
+  course_id: number
+  location_id: number
+  group_id?: number | null
+  section_id?: number | null
+  major_id?: number | null
+  created_at?: Date | string
+  updated_at?: Date | string
+}
+
+export type LectureUpdateWithoutInstructorInput = {
+  day?: Prisma.EnumWeekDayFieldUpdateOperationsInput | $Enums.WeekDay
+  time_box_order?: Prisma.IntFieldUpdateOperationsInput | number
+  lecture_type?: Prisma.EnumLectureTypeFieldUpdateOperationsInput | $Enums.LectureType
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  course?: Prisma.CourseUpdateOneRequiredWithoutLecturesNestedInput
+  location?: Prisma.UniversityLocationUpdateOneRequiredWithoutLecturesNestedInput
+  group?: Prisma.GroupUpdateOneWithoutLectureNestedInput
+  section?: Prisma.SectionUpdateOneWithoutLecturesNestedInput
+  major?: Prisma.MajorUpdateOneWithoutLecturesNestedInput
+}
+
+export type LectureUncheckedUpdateWithoutInstructorInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  day?: Prisma.EnumWeekDayFieldUpdateOperationsInput | $Enums.WeekDay
+  time_box_order?: Prisma.IntFieldUpdateOperationsInput | number
+  lecture_type?: Prisma.EnumLectureTypeFieldUpdateOperationsInput | $Enums.LectureType
+  course_id?: Prisma.IntFieldUpdateOperationsInput | number
+  location_id?: Prisma.IntFieldUpdateOperationsInput | number
+  group_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  section_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type LectureUncheckedUpdateManyWithoutInstructorInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  day?: Prisma.EnumWeekDayFieldUpdateOperationsInput | $Enums.WeekDay
+  time_box_order?: Prisma.IntFieldUpdateOperationsInput | number
+  lecture_type?: Prisma.EnumLectureTypeFieldUpdateOperationsInput | $Enums.LectureType
+  course_id?: Prisma.IntFieldUpdateOperationsInput | number
+  location_id?: Prisma.IntFieldUpdateOperationsInput | number
+  group_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  section_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type LectureCreateManySectionInput = {
   id?: number
-  title: string
-  description?: string | null
-  date?: Date | string
-  location_id?: number | null
+  day: $Enums.WeekDay
+  time_box_order: number
+  lecture_type: $Enums.LectureType
   course_id: number
-  lecture_type?: $Enums.LectureType
-  major_id?: number | null
+  location_id: number
+  instructor_id: number
   group_id?: number | null
+  major_id?: number | null
   created_at?: Date | string
   updated_at?: Date | string
 }
 
 export type LectureUpdateWithoutSectionInput = {
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  day?: Prisma.EnumWeekDayFieldUpdateOperationsInput | $Enums.WeekDay
+  time_box_order?: Prisma.IntFieldUpdateOperationsInput | number
   lecture_type?: Prisma.EnumLectureTypeFieldUpdateOperationsInput | $Enums.LectureType
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  location?: Prisma.UniversityLocationUpdateOneWithoutLecturesNestedInput
   course?: Prisma.CourseUpdateOneRequiredWithoutLecturesNestedInput
-  major?: Prisma.MajorUpdateOneWithoutLecturesNestedInput
+  location?: Prisma.UniversityLocationUpdateOneRequiredWithoutLecturesNestedInput
+  instructor?: Prisma.UserUpdateOneRequiredWithoutTeachingLecturesNestedInput
   group?: Prisma.GroupUpdateOneWithoutLectureNestedInput
+  major?: Prisma.MajorUpdateOneWithoutLecturesNestedInput
 }
 
 export type LectureUncheckedUpdateWithoutSectionInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  location_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  course_id?: Prisma.IntFieldUpdateOperationsInput | number
+  day?: Prisma.EnumWeekDayFieldUpdateOperationsInput | $Enums.WeekDay
+  time_box_order?: Prisma.IntFieldUpdateOperationsInput | number
   lecture_type?: Prisma.EnumLectureTypeFieldUpdateOperationsInput | $Enums.LectureType
-  major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  course_id?: Prisma.IntFieldUpdateOperationsInput | number
+  location_id?: Prisma.IntFieldUpdateOperationsInput | number
+  instructor_id?: Prisma.IntFieldUpdateOperationsInput | number
   group_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type LectureUncheckedUpdateManyWithoutSectionInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  location_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  course_id?: Prisma.IntFieldUpdateOperationsInput | number
+  day?: Prisma.EnumWeekDayFieldUpdateOperationsInput | $Enums.WeekDay
+  time_box_order?: Prisma.IntFieldUpdateOperationsInput | number
   lecture_type?: Prisma.EnumLectureTypeFieldUpdateOperationsInput | $Enums.LectureType
-  major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  course_id?: Prisma.IntFieldUpdateOperationsInput | number
+  location_id?: Prisma.IntFieldUpdateOperationsInput | number
+  instructor_id?: Prisma.IntFieldUpdateOperationsInput | number
   group_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type LectureCreateManyMajorInput = {
   id?: number
-  title: string
-  description?: string | null
-  date?: Date | string
-  location_id?: number | null
+  day: $Enums.WeekDay
+  time_box_order: number
+  lecture_type: $Enums.LectureType
   course_id: number
-  lecture_type?: $Enums.LectureType
-  section_id?: number | null
+  location_id: number
+  instructor_id: number
   group_id?: number | null
+  section_id?: number | null
   created_at?: Date | string
   updated_at?: Date | string
 }
 
 export type LectureUpdateWithoutMajorInput = {
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  day?: Prisma.EnumWeekDayFieldUpdateOperationsInput | $Enums.WeekDay
+  time_box_order?: Prisma.IntFieldUpdateOperationsInput | number
   lecture_type?: Prisma.EnumLectureTypeFieldUpdateOperationsInput | $Enums.LectureType
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  location?: Prisma.UniversityLocationUpdateOneWithoutLecturesNestedInput
   course?: Prisma.CourseUpdateOneRequiredWithoutLecturesNestedInput
-  section?: Prisma.SectionUpdateOneWithoutLecturesNestedInput
+  location?: Prisma.UniversityLocationUpdateOneRequiredWithoutLecturesNestedInput
+  instructor?: Prisma.UserUpdateOneRequiredWithoutTeachingLecturesNestedInput
   group?: Prisma.GroupUpdateOneWithoutLectureNestedInput
+  section?: Prisma.SectionUpdateOneWithoutLecturesNestedInput
 }
 
 export type LectureUncheckedUpdateWithoutMajorInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  location_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  course_id?: Prisma.IntFieldUpdateOperationsInput | number
+  day?: Prisma.EnumWeekDayFieldUpdateOperationsInput | $Enums.WeekDay
+  time_box_order?: Prisma.IntFieldUpdateOperationsInput | number
   lecture_type?: Prisma.EnumLectureTypeFieldUpdateOperationsInput | $Enums.LectureType
-  section_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  course_id?: Prisma.IntFieldUpdateOperationsInput | number
+  location_id?: Prisma.IntFieldUpdateOperationsInput | number
+  instructor_id?: Prisma.IntFieldUpdateOperationsInput | number
   group_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  section_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type LectureUncheckedUpdateManyWithoutMajorInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  location_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  course_id?: Prisma.IntFieldUpdateOperationsInput | number
+  day?: Prisma.EnumWeekDayFieldUpdateOperationsInput | $Enums.WeekDay
+  time_box_order?: Prisma.IntFieldUpdateOperationsInput | number
   lecture_type?: Prisma.EnumLectureTypeFieldUpdateOperationsInput | $Enums.LectureType
-  section_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  course_id?: Prisma.IntFieldUpdateOperationsInput | number
+  location_id?: Prisma.IntFieldUpdateOperationsInput | number
+  instructor_id?: Prisma.IntFieldUpdateOperationsInput | number
   group_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  section_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type LectureCreateManyGroupInput = {
   id?: number
-  title: string
-  description?: string | null
-  date?: Date | string
-  location_id?: number | null
+  day: $Enums.WeekDay
+  time_box_order: number
+  lecture_type: $Enums.LectureType
   course_id: number
-  lecture_type?: $Enums.LectureType
-  major_id?: number | null
+  location_id: number
+  instructor_id: number
   section_id?: number | null
+  major_id?: number | null
   created_at?: Date | string
   updated_at?: Date | string
 }
 
 export type LectureUpdateWithoutGroupInput = {
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  day?: Prisma.EnumWeekDayFieldUpdateOperationsInput | $Enums.WeekDay
+  time_box_order?: Prisma.IntFieldUpdateOperationsInput | number
   lecture_type?: Prisma.EnumLectureTypeFieldUpdateOperationsInput | $Enums.LectureType
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  location?: Prisma.UniversityLocationUpdateOneWithoutLecturesNestedInput
   course?: Prisma.CourseUpdateOneRequiredWithoutLecturesNestedInput
-  major?: Prisma.MajorUpdateOneWithoutLecturesNestedInput
+  location?: Prisma.UniversityLocationUpdateOneRequiredWithoutLecturesNestedInput
+  instructor?: Prisma.UserUpdateOneRequiredWithoutTeachingLecturesNestedInput
   section?: Prisma.SectionUpdateOneWithoutLecturesNestedInput
+  major?: Prisma.MajorUpdateOneWithoutLecturesNestedInput
 }
 
 export type LectureUncheckedUpdateWithoutGroupInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  location_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  course_id?: Prisma.IntFieldUpdateOperationsInput | number
+  day?: Prisma.EnumWeekDayFieldUpdateOperationsInput | $Enums.WeekDay
+  time_box_order?: Prisma.IntFieldUpdateOperationsInput | number
   lecture_type?: Prisma.EnumLectureTypeFieldUpdateOperationsInput | $Enums.LectureType
-  major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  course_id?: Prisma.IntFieldUpdateOperationsInput | number
+  location_id?: Prisma.IntFieldUpdateOperationsInput | number
+  instructor_id?: Prisma.IntFieldUpdateOperationsInput | number
   section_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type LectureUncheckedUpdateManyWithoutGroupInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  location_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  course_id?: Prisma.IntFieldUpdateOperationsInput | number
+  day?: Prisma.EnumWeekDayFieldUpdateOperationsInput | $Enums.WeekDay
+  time_box_order?: Prisma.IntFieldUpdateOperationsInput | number
   lecture_type?: Prisma.EnumLectureTypeFieldUpdateOperationsInput | $Enums.LectureType
-  major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  course_id?: Prisma.IntFieldUpdateOperationsInput | number
+  location_id?: Prisma.IntFieldUpdateOperationsInput | number
+  instructor_id?: Prisma.IntFieldUpdateOperationsInput | number
   section_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type LectureCreateManyLocationInput = {
   id?: number
-  title: string
-  description?: string | null
-  date?: Date | string
+  day: $Enums.WeekDay
+  time_box_order: number
+  lecture_type: $Enums.LectureType
   course_id: number
-  lecture_type?: $Enums.LectureType
-  major_id?: number | null
-  section_id?: number | null
+  instructor_id: number
   group_id?: number | null
+  section_id?: number | null
+  major_id?: number | null
   created_at?: Date | string
   updated_at?: Date | string
 }
 
 export type LectureUpdateWithoutLocationInput = {
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  day?: Prisma.EnumWeekDayFieldUpdateOperationsInput | $Enums.WeekDay
+  time_box_order?: Prisma.IntFieldUpdateOperationsInput | number
   lecture_type?: Prisma.EnumLectureTypeFieldUpdateOperationsInput | $Enums.LectureType
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   course?: Prisma.CourseUpdateOneRequiredWithoutLecturesNestedInput
-  major?: Prisma.MajorUpdateOneWithoutLecturesNestedInput
-  section?: Prisma.SectionUpdateOneWithoutLecturesNestedInput
+  instructor?: Prisma.UserUpdateOneRequiredWithoutTeachingLecturesNestedInput
   group?: Prisma.GroupUpdateOneWithoutLectureNestedInput
+  section?: Prisma.SectionUpdateOneWithoutLecturesNestedInput
+  major?: Prisma.MajorUpdateOneWithoutLecturesNestedInput
 }
 
 export type LectureUncheckedUpdateWithoutLocationInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  course_id?: Prisma.IntFieldUpdateOperationsInput | number
+  day?: Prisma.EnumWeekDayFieldUpdateOperationsInput | $Enums.WeekDay
+  time_box_order?: Prisma.IntFieldUpdateOperationsInput | number
   lecture_type?: Prisma.EnumLectureTypeFieldUpdateOperationsInput | $Enums.LectureType
-  major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  section_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  course_id?: Prisma.IntFieldUpdateOperationsInput | number
+  instructor_id?: Prisma.IntFieldUpdateOperationsInput | number
   group_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  section_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type LectureUncheckedUpdateManyWithoutLocationInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  course_id?: Prisma.IntFieldUpdateOperationsInput | number
+  day?: Prisma.EnumWeekDayFieldUpdateOperationsInput | $Enums.WeekDay
+  time_box_order?: Prisma.IntFieldUpdateOperationsInput | number
   lecture_type?: Prisma.EnumLectureTypeFieldUpdateOperationsInput | $Enums.LectureType
-  major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  section_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  course_id?: Prisma.IntFieldUpdateOperationsInput | number
+  instructor_id?: Prisma.IntFieldUpdateOperationsInput | number
   group_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  section_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type LectureCreateManyCourseInput = {
   id?: number
-  title: string
-  description?: string | null
-  date?: Date | string
-  location_id?: number | null
-  lecture_type?: $Enums.LectureType
-  major_id?: number | null
-  section_id?: number | null
+  day: $Enums.WeekDay
+  time_box_order: number
+  lecture_type: $Enums.LectureType
+  location_id: number
+  instructor_id: number
   group_id?: number | null
+  section_id?: number | null
+  major_id?: number | null
   created_at?: Date | string
   updated_at?: Date | string
 }
 
 export type LectureUpdateWithoutCourseInput = {
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  day?: Prisma.EnumWeekDayFieldUpdateOperationsInput | $Enums.WeekDay
+  time_box_order?: Prisma.IntFieldUpdateOperationsInput | number
   lecture_type?: Prisma.EnumLectureTypeFieldUpdateOperationsInput | $Enums.LectureType
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  location?: Prisma.UniversityLocationUpdateOneWithoutLecturesNestedInput
-  major?: Prisma.MajorUpdateOneWithoutLecturesNestedInput
-  section?: Prisma.SectionUpdateOneWithoutLecturesNestedInput
+  location?: Prisma.UniversityLocationUpdateOneRequiredWithoutLecturesNestedInput
+  instructor?: Prisma.UserUpdateOneRequiredWithoutTeachingLecturesNestedInput
   group?: Prisma.GroupUpdateOneWithoutLectureNestedInput
+  section?: Prisma.SectionUpdateOneWithoutLecturesNestedInput
+  major?: Prisma.MajorUpdateOneWithoutLecturesNestedInput
 }
 
 export type LectureUncheckedUpdateWithoutCourseInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  location_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  day?: Prisma.EnumWeekDayFieldUpdateOperationsInput | $Enums.WeekDay
+  time_box_order?: Prisma.IntFieldUpdateOperationsInput | number
   lecture_type?: Prisma.EnumLectureTypeFieldUpdateOperationsInput | $Enums.LectureType
-  major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  section_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  location_id?: Prisma.IntFieldUpdateOperationsInput | number
+  instructor_id?: Prisma.IntFieldUpdateOperationsInput | number
   group_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  section_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type LectureUncheckedUpdateManyWithoutCourseInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  location_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  day?: Prisma.EnumWeekDayFieldUpdateOperationsInput | $Enums.WeekDay
+  time_box_order?: Prisma.IntFieldUpdateOperationsInput | number
   lecture_type?: Prisma.EnumLectureTypeFieldUpdateOperationsInput | $Enums.LectureType
-  major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  section_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  location_id?: Prisma.IntFieldUpdateOperationsInput | number
+  instructor_id?: Prisma.IntFieldUpdateOperationsInput | number
   group_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  section_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1322,122 +1490,129 @@ export type LectureUncheckedUpdateManyWithoutCourseInput = {
 
 export type LectureSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  title?: boolean
-  description?: boolean
-  date?: boolean
-  location_id?: boolean
-  course_id?: boolean
+  day?: boolean
+  time_box_order?: boolean
   lecture_type?: boolean
-  major_id?: boolean
-  section_id?: boolean
+  course_id?: boolean
+  location_id?: boolean
+  instructor_id?: boolean
   group_id?: boolean
+  section_id?: boolean
+  major_id?: boolean
   created_at?: boolean
   updated_at?: boolean
-  location?: boolean | Prisma.Lecture$locationArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
-  major?: boolean | Prisma.Lecture$majorArgs<ExtArgs>
-  section?: boolean | Prisma.Lecture$sectionArgs<ExtArgs>
+  location?: boolean | Prisma.UniversityLocationDefaultArgs<ExtArgs>
+  instructor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   group?: boolean | Prisma.Lecture$groupArgs<ExtArgs>
+  section?: boolean | Prisma.Lecture$sectionArgs<ExtArgs>
+  major?: boolean | Prisma.Lecture$majorArgs<ExtArgs>
 }, ExtArgs["result"]["lecture"]>
 
 export type LectureSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  title?: boolean
-  description?: boolean
-  date?: boolean
-  location_id?: boolean
-  course_id?: boolean
+  day?: boolean
+  time_box_order?: boolean
   lecture_type?: boolean
-  major_id?: boolean
-  section_id?: boolean
+  course_id?: boolean
+  location_id?: boolean
+  instructor_id?: boolean
   group_id?: boolean
+  section_id?: boolean
+  major_id?: boolean
   created_at?: boolean
   updated_at?: boolean
-  location?: boolean | Prisma.Lecture$locationArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
-  major?: boolean | Prisma.Lecture$majorArgs<ExtArgs>
-  section?: boolean | Prisma.Lecture$sectionArgs<ExtArgs>
+  location?: boolean | Prisma.UniversityLocationDefaultArgs<ExtArgs>
+  instructor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   group?: boolean | Prisma.Lecture$groupArgs<ExtArgs>
+  section?: boolean | Prisma.Lecture$sectionArgs<ExtArgs>
+  major?: boolean | Prisma.Lecture$majorArgs<ExtArgs>
 }, ExtArgs["result"]["lecture"]>
 
 export type LectureSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  title?: boolean
-  description?: boolean
-  date?: boolean
-  location_id?: boolean
-  course_id?: boolean
+  day?: boolean
+  time_box_order?: boolean
   lecture_type?: boolean
-  major_id?: boolean
-  section_id?: boolean
+  course_id?: boolean
+  location_id?: boolean
+  instructor_id?: boolean
   group_id?: boolean
+  section_id?: boolean
+  major_id?: boolean
   created_at?: boolean
   updated_at?: boolean
-  location?: boolean | Prisma.Lecture$locationArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
-  major?: boolean | Prisma.Lecture$majorArgs<ExtArgs>
-  section?: boolean | Prisma.Lecture$sectionArgs<ExtArgs>
+  location?: boolean | Prisma.UniversityLocationDefaultArgs<ExtArgs>
+  instructor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   group?: boolean | Prisma.Lecture$groupArgs<ExtArgs>
+  section?: boolean | Prisma.Lecture$sectionArgs<ExtArgs>
+  major?: boolean | Prisma.Lecture$majorArgs<ExtArgs>
 }, ExtArgs["result"]["lecture"]>
 
 export type LectureSelectScalar = {
   id?: boolean
-  title?: boolean
-  description?: boolean
-  date?: boolean
-  location_id?: boolean
-  course_id?: boolean
+  day?: boolean
+  time_box_order?: boolean
   lecture_type?: boolean
-  major_id?: boolean
-  section_id?: boolean
+  course_id?: boolean
+  location_id?: boolean
+  instructor_id?: boolean
   group_id?: boolean
+  section_id?: boolean
+  major_id?: boolean
   created_at?: boolean
   updated_at?: boolean
 }
 
-export type LectureOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "date" | "location_id" | "course_id" | "lecture_type" | "major_id" | "section_id" | "group_id" | "created_at" | "updated_at", ExtArgs["result"]["lecture"]>
+export type LectureOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "day" | "time_box_order" | "lecture_type" | "course_id" | "location_id" | "instructor_id" | "group_id" | "section_id" | "major_id" | "created_at" | "updated_at", ExtArgs["result"]["lecture"]>
 export type LectureInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  location?: boolean | Prisma.Lecture$locationArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
-  major?: boolean | Prisma.Lecture$majorArgs<ExtArgs>
-  section?: boolean | Prisma.Lecture$sectionArgs<ExtArgs>
+  location?: boolean | Prisma.UniversityLocationDefaultArgs<ExtArgs>
+  instructor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   group?: boolean | Prisma.Lecture$groupArgs<ExtArgs>
+  section?: boolean | Prisma.Lecture$sectionArgs<ExtArgs>
+  major?: boolean | Prisma.Lecture$majorArgs<ExtArgs>
 }
 export type LectureIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  location?: boolean | Prisma.Lecture$locationArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
-  major?: boolean | Prisma.Lecture$majorArgs<ExtArgs>
-  section?: boolean | Prisma.Lecture$sectionArgs<ExtArgs>
+  location?: boolean | Prisma.UniversityLocationDefaultArgs<ExtArgs>
+  instructor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   group?: boolean | Prisma.Lecture$groupArgs<ExtArgs>
+  section?: boolean | Prisma.Lecture$sectionArgs<ExtArgs>
+  major?: boolean | Prisma.Lecture$majorArgs<ExtArgs>
 }
 export type LectureIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  location?: boolean | Prisma.Lecture$locationArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
-  major?: boolean | Prisma.Lecture$majorArgs<ExtArgs>
-  section?: boolean | Prisma.Lecture$sectionArgs<ExtArgs>
+  location?: boolean | Prisma.UniversityLocationDefaultArgs<ExtArgs>
+  instructor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   group?: boolean | Prisma.Lecture$groupArgs<ExtArgs>
+  section?: boolean | Prisma.Lecture$sectionArgs<ExtArgs>
+  major?: boolean | Prisma.Lecture$majorArgs<ExtArgs>
 }
 
 export type $LecturePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Lecture"
   objects: {
-    location: Prisma.$UniversityLocationPayload<ExtArgs> | null
     course: Prisma.$CoursePayload<ExtArgs>
-    major: Prisma.$MajorPayload<ExtArgs> | null
-    section: Prisma.$SectionPayload<ExtArgs> | null
+    location: Prisma.$UniversityLocationPayload<ExtArgs>
+    instructor: Prisma.$UserPayload<ExtArgs>
     group: Prisma.$GroupPayload<ExtArgs> | null
+    section: Prisma.$SectionPayload<ExtArgs> | null
+    major: Prisma.$MajorPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
-    title: string
-    description: string | null
-    date: Date
-    location_id: number | null
-    course_id: number
+    day: $Enums.WeekDay
+    time_box_order: number
     lecture_type: $Enums.LectureType
-    major_id: number | null
-    section_id: number | null
+    course_id: number
+    location_id: number
+    instructor_id: number
     group_id: number | null
+    section_id: number | null
+    major_id: number | null
     created_at: Date
     updated_at: Date
   }, ExtArgs["result"]["lecture"]>
@@ -1834,11 +2009,12 @@ readonly fields: LectureFieldRefs;
  */
 export interface Prisma__LectureClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  location<T extends Prisma.Lecture$locationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Lecture$locationArgs<ExtArgs>>): Prisma.Prisma__UniversityLocationClient<runtime.Types.Result.GetResult<Prisma.$UniversityLocationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   course<T extends Prisma.CourseDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CourseDefaultArgs<ExtArgs>>): Prisma.Prisma__CourseClient<runtime.Types.Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  major<T extends Prisma.Lecture$majorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Lecture$majorArgs<ExtArgs>>): Prisma.Prisma__MajorClient<runtime.Types.Result.GetResult<Prisma.$MajorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  section<T extends Prisma.Lecture$sectionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Lecture$sectionArgs<ExtArgs>>): Prisma.Prisma__SectionClient<runtime.Types.Result.GetResult<Prisma.$SectionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  location<T extends Prisma.UniversityLocationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UniversityLocationDefaultArgs<ExtArgs>>): Prisma.Prisma__UniversityLocationClient<runtime.Types.Result.GetResult<Prisma.$UniversityLocationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  instructor<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   group<T extends Prisma.Lecture$groupArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Lecture$groupArgs<ExtArgs>>): Prisma.Prisma__GroupClient<runtime.Types.Result.GetResult<Prisma.$GroupPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  section<T extends Prisma.Lecture$sectionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Lecture$sectionArgs<ExtArgs>>): Prisma.Prisma__SectionClient<runtime.Types.Result.GetResult<Prisma.$SectionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  major<T extends Prisma.Lecture$majorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Lecture$majorArgs<ExtArgs>>): Prisma.Prisma__MajorClient<runtime.Types.Result.GetResult<Prisma.$MajorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1869,15 +2045,15 @@ export interface Prisma__LectureClient<T, Null = never, ExtArgs extends runtime.
  */
 export interface LectureFieldRefs {
   readonly id: Prisma.FieldRef<"Lecture", 'Int'>
-  readonly title: Prisma.FieldRef<"Lecture", 'String'>
-  readonly description: Prisma.FieldRef<"Lecture", 'String'>
-  readonly date: Prisma.FieldRef<"Lecture", 'DateTime'>
-  readonly location_id: Prisma.FieldRef<"Lecture", 'Int'>
-  readonly course_id: Prisma.FieldRef<"Lecture", 'Int'>
+  readonly day: Prisma.FieldRef<"Lecture", 'WeekDay'>
+  readonly time_box_order: Prisma.FieldRef<"Lecture", 'Int'>
   readonly lecture_type: Prisma.FieldRef<"Lecture", 'LectureType'>
-  readonly major_id: Prisma.FieldRef<"Lecture", 'Int'>
-  readonly section_id: Prisma.FieldRef<"Lecture", 'Int'>
+  readonly course_id: Prisma.FieldRef<"Lecture", 'Int'>
+  readonly location_id: Prisma.FieldRef<"Lecture", 'Int'>
+  readonly instructor_id: Prisma.FieldRef<"Lecture", 'Int'>
   readonly group_id: Prisma.FieldRef<"Lecture", 'Int'>
+  readonly section_id: Prisma.FieldRef<"Lecture", 'Int'>
+  readonly major_id: Prisma.FieldRef<"Lecture", 'Int'>
   readonly created_at: Prisma.FieldRef<"Lecture", 'DateTime'>
   readonly updated_at: Prisma.FieldRef<"Lecture", 'DateTime'>
 }
@@ -2281,41 +2457,22 @@ export type LectureDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
 }
 
 /**
- * Lecture.location
+ * Lecture.group
  */
-export type Lecture$locationArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Lecture$groupArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the UniversityLocation
+   * Select specific fields to fetch from the Group
    */
-  select?: Prisma.UniversityLocationSelect<ExtArgs> | null
+  select?: Prisma.GroupSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the UniversityLocation
+   * Omit specific fields from the Group
    */
-  omit?: Prisma.UniversityLocationOmit<ExtArgs> | null
+  omit?: Prisma.GroupOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.UniversityLocationInclude<ExtArgs> | null
-  where?: Prisma.UniversityLocationWhereInput
-}
-
-/**
- * Lecture.major
- */
-export type Lecture$majorArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Major
-   */
-  select?: Prisma.MajorSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Major
-   */
-  omit?: Prisma.MajorOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.MajorInclude<ExtArgs> | null
-  where?: Prisma.MajorWhereInput
+  include?: Prisma.GroupInclude<ExtArgs> | null
+  where?: Prisma.GroupWhereInput
 }
 
 /**
@@ -2338,22 +2495,22 @@ export type Lecture$sectionArgs<ExtArgs extends runtime.Types.Extensions.Interna
 }
 
 /**
- * Lecture.group
+ * Lecture.major
  */
-export type Lecture$groupArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Lecture$majorArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the Group
+   * Select specific fields to fetch from the Major
    */
-  select?: Prisma.GroupSelect<ExtArgs> | null
+  select?: Prisma.MajorSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the Group
+   * Omit specific fields from the Major
    */
-  omit?: Prisma.GroupOmit<ExtArgs> | null
+  omit?: Prisma.MajorOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.GroupInclude<ExtArgs> | null
-  where?: Prisma.GroupWhereInput
+  include?: Prisma.MajorInclude<ExtArgs> | null
+  where?: Prisma.MajorWhereInput
 }
 
 /**
