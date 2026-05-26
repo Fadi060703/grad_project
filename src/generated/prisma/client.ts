@@ -47,6 +47,11 @@ export { Prisma }
  */
 export type SystemSettings = Prisma.SystemSettingsModel
 /**
+ * Model FaculityInfo
+ * 
+ */
+export type FaculityInfo = Prisma.FaculityInfoModel
+/**
  * Model User
  * 
  */
@@ -86,6 +91,11 @@ export type UniversityLocation = Prisma.UniversityLocationModel
  * 
  */
 export type Course = Prisma.CourseModel
+/**
+ * Model CourseFile
+ * 
+ */
+export type CourseFile = Prisma.CourseFileModel
 /**
  * Model MarksCourse
  * 

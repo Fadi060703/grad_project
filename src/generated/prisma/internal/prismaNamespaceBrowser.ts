@@ -52,6 +52,7 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   SystemSettings: 'SystemSettings',
+  FaculityInfo: 'FaculityInfo',
   User: 'User',
   Student: 'Student',
   Year: 'Year',
@@ -60,6 +61,7 @@ export const ModelName = {
   Group: 'Group',
   UniversityLocation: 'UniversityLocation',
   Course: 'Course',
+  CourseFile: 'CourseFile',
   MarksCourse: 'MarksCourse',
   Mark: 'Mark',
   StudentCourse: 'StudentCourse',
@@ -99,6 +101,27 @@ export const SystemSettingsScalarFieldEnum = {
 } as const
 
 export type SystemSettingsScalarFieldEnum = (typeof SystemSettingsScalarFieldEnum)[keyof typeof SystemSettingsScalarFieldEnum]
+
+
+export const FaculityInfoScalarFieldEnum = {
+  id: 'id',
+  telegram_url: 'telegram_url',
+  facebook_url: 'facebook_url',
+  instagram_url: 'instagram_url',
+  linkedin_url: 'linkedin_url',
+  website_url: 'website_url',
+  university_name: 'university_name',
+  faculity_name: 'faculity_name',
+  faculity_picture_url: 'faculity_picture_url',
+  support_email: 'support_email',
+  lectures_schedule_url: 'lectures_schedule_url',
+  theoritical_exam_schedule_url: 'theoritical_exam_schedule_url',
+  practical_exam_schedule_url: 'practical_exam_schedule_url',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type FaculityInfoScalarFieldEnum = (typeof FaculityInfoScalarFieldEnum)[keyof typeof FaculityInfoScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {
@@ -203,6 +226,21 @@ export const CourseScalarFieldEnum = {
 } as const
 
 export type CourseScalarFieldEnum = (typeof CourseScalarFieldEnum)[keyof typeof CourseScalarFieldEnum]
+
+
+export const CourseFileScalarFieldEnum = {
+  id: 'id',
+  course_id: 'course_id',
+  type: 'type',
+  file: 'file',
+  size: 'size',
+  title: 'title',
+  mime_type: 'mime_type',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type CourseFileScalarFieldEnum = (typeof CourseFileScalarFieldEnum)[keyof typeof CourseFileScalarFieldEnum]
 
 
 export const MarksCourseScalarFieldEnum = {

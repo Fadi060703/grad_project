@@ -17,6 +17,26 @@ export async function seedSystem(prisma: PrismaClient) {
     },
   });
 
+  // SystemSettings - single record
+  await prisma.faculityInfo.upsert({
+    where: { id: 1 },
+    update: {},
+    create: {
+      website_url: "https://www.exampleuniversity.edu",
+      telegram_url: "https://www.telegram.com/exampleuniversity",
+      facebook_url: "https://www.facebook.com/exampleuniversity",
+      instagram_url: "https://www.instagram.com/exampleuniversity",
+      linkedin_url: "https://www.linkedin.com/school/exampleuniversity",
+      university_name: "Example University",
+      faculity_name: "Faculty of Computer Science",
+      faculity_picture_url: "https://www.exampleuniversity.edu/faculity-picture.jpg",
+      support_email: "hani2003s@gmail.com",
+      lectures_schedule_url: "https://www.exampleuniversity.edu/lectures-schedule.pdf",
+      theoritical_exam_schedule_url: "https://www.exampleuniversity.edu/theoretical-exam-schedule.pdf",
+      practical_exam_schedule_url: "https://www.exampleuniversity.edu/practical-exam-schedule.pdf",
+    },
+  });
+
   // FAQs
   const faqs = [
     {

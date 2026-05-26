@@ -760,10 +760,6 @@ export type LectureUncheckedUpdateManyWithoutCourseNestedInput = {
   deleteMany?: Prisma.LectureScalarWhereInput | Prisma.LectureScalarWhereInput[]
 }
 
-export type EnumLectureTypeFieldUpdateOperationsInput = {
-  set?: $Enums.LectureType
-}
-
 export type LectureCreateWithoutSectionInput = {
   title: string
   description?: string | null
