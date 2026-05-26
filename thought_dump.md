@@ -12,7 +12,7 @@
 2. **(Hani)** create the seed files and test them
 3. **(Fadi)** proper error handling (class) (used like: throw new UnauthError(message)) **Done**
 4. **(Fadi)** announecements from backend (all logic handled)                           **Done**
-5. **(Fadi)** notification service ( single | announcement )                            **In Progress**
+5. **(Fadi)** notification service ( single | announcement )                            **Done**
 3. **(Both)** go to الامتحانات in the uni and ask about ترفع فصلي
 
 

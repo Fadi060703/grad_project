@@ -7,9 +7,12 @@ import { createYear, deleteYear, getAllYears, getYearById, updateYear } from '..
 import { createSection, deleteSection, getAllSections, updateSection } from '../controllers/sectionController';
 import { createGroup, deleteGroup, getAllGroups, updateGroup } from '../controllers/groupController';
 import { createUniversityLocation, deleteUniversityLocation, getAllUniversityLocations, updateUniversityLocation } from '../controllers/locationsController';
+import { createAnnouncement, getAllAnnouncements } from '../controllers/announcementController';
 
 const router = express.Router() ;
-
+router.get( '/announcements' , getAllAnnouncements ) ;
+router.post( '/announcements' , createAnnouncement ) ;
+router.get( '/announcements' , getAllAnnouncements ) ;
 router.get( '/users' , getAllnonStudentUsers ) ; 
 router.put( '/users/toggle-active/:id' , toggleUserActivity ) ; 
 router.get( '/students' , getAllStudentUsers ) ;
@@ -38,5 +41,6 @@ router.get( '/locations' , getAllUniversityLocations ) ;
 router.post( '/locations' , createUniversityLocation ) ;
 router.put( '/locations/:id' , updateUniversityLocation ) ;
 router.delete( '/locations/:id' , deleteUniversityLocation ) ;
+
 
 export default router ; 

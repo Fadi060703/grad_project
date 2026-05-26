@@ -1,4 +1,4 @@
-// controllers/announcementController.ts
+
 
 import { Request, Response } from 'express';
 import { asyncHandler } from '../utils/asyncHandler';
@@ -11,6 +11,7 @@ import {
   getAnnouncementsQuerySchema 
 } from '../validators/announcements';
 import { z } from 'zod';
+import { emitNewAnnouncement, emitAnnouncementUpdate, emitAnnouncementDelete } from '../websocket/event';
 
 // Create announcement
 export const createAnnouncement = asyncHandler(async (req: Request, res: Response) => {
@@ -79,6 +80,9 @@ export const createAnnouncement = asyncHandler(async (req: Request, res: Respons
       student: { select: { id: true, full_name: true } },
     }
   });
+  
+  // 🔹 EMIT WEBSOCKET EVENT
+  emitNewAnnouncement(announcement);
   
   return res.status(201).json({
     success: true,
@@ -253,6 +257,9 @@ export const updateAnnouncement = asyncHandler(async (req: Request, res: Respons
     }
   });
   
+  // 🔹 EMIT WEBSOCKET EVENT
+  emitAnnouncementUpdate(id, updated);
+  
   return res.status(200).json({
     success: true,
     message: 'Announcement updated successfully',
@@ -268,6 +275,7 @@ export const deleteAnnouncement = asyncHandler(async (req: Request, res: Respons
     throw new BadRequestError('Invalid announcement ID');
   }
   
+  // Get announcement before deleting (for WebSocket targets)
   const existingAnnouncement = await prisma.announcement.findUnique({
     where: { id }
   });
@@ -279,6 +287,9 @@ export const deleteAnnouncement = asyncHandler(async (req: Request, res: Respons
   await prisma.announcement.delete({
     where: { id }
   });
+  
+  // 🔹 EMIT WEBSOCKET EVENT
+  emitAnnouncementDelete(id, existingAnnouncement);
   
   return res.status(200).json({
     success: true,
@@ -381,11 +392,11 @@ export const getUserAnnouncements = asyncHandler(async (req: Request, res: Respo
 
 // Get announcements by type
 export const getAnnouncementsByType = asyncHandler(async (req: Request, res: Response) => {
-  const { type } = req.params;
+  const type = req.params.type as string;
   const query = getAnnouncementsQuerySchema.parse(req.query);
   const { page, pageSize } = query;
   
-  if (!['REGULAR', 'IMPORTANT', 'EMERGENCY'].includes(type as string)) {
+  if (!['REGULAR', 'IMPORTANT', 'EMERGENCY'].includes(type)) {
     throw new BadRequestError('Invalid announcement type');
   }
   
