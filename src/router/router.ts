@@ -1,51 +1,3 @@
-<<<<<<< HEAD
-import express from 'express' ; 
-import { createStudent, createUser, deleteUser, getAllnonStudentUsers, getAllStudentUsers, getUserById, toggleUserActivity, updateStudent, updateUser } from '../controllers/userController';
-import { login, me } from '../controllers/auth/auth';
-import { authMiddleware } from '../middlewares/auth';
-import { check } from '../middlewares/check-permission';
-import { createYear, deleteYear, getAllYears, getYearById, updateYear } from '../controllers/yearController';
-import { createSection, deleteSection, getAllSections, updateSection } from '../controllers/sectionController';
-import { createGroup, deleteGroup, getAllGroups, updateGroup } from '../controllers/groupController';
-import { createUniversityLocation, deleteUniversityLocation, getAllUniversityLocations, updateUniversityLocation } from '../controllers/locationsController';
-import { createAnnouncement, getAllAnnouncements } from '../controllers/announcementController';
-
-const router = express.Router() ;
-router.get( '/announcements' , getAllAnnouncements ) ;
-router.post( '/announcements' , createAnnouncement ) ;
-router.get( '/announcements' , getAllAnnouncements ) ;
-router.get( '/users' , getAllnonStudentUsers ) ; 
-router.put( '/users/toggle-active/:id' , toggleUserActivity ) ; 
-router.get( '/students' , getAllStudentUsers ) ;
-router.post( '/students' , createStudent ) ;  
-router.put( '/students/:id' , updateStudent ) ;
-router.get( '/users/:id' , getUserById ) ;
-router.post( '/users' , createUser ) ; 
-router.put( '/users/:id' , updateUser ) ;
-router.delete( '/users/:id' , deleteUser ) ; 
-router.post( '/auth/login' , login ) ;
-router.get( '/auth/me' , authMiddleware , me ) ; 
-router.get( '/years' , getAllYears ) ; 
-router.get( '/years/:id' , getYearById ) ;
-router.post( '/years' , createYear ) ; 
-router.put( '/years/:id', updateYear) ; 
-router.delete( '/years/:id' , deleteYear ) ;
-router.get( '/sections' , getAllSections ) ; 
-router.post( '/sections' , createSection ) ; 
-router.put( '/sections/:id' , updateSection ) ; 
-router.delete( '/sections/:id' , deleteSection ) ; 
-router.get( '/groups' , getAllGroups ) ; 
-router.post( '/groups' , createGroup ) ;
-router.put( '/groups/:id' , updateGroup ) ;
-router.delete( '/groups/:id' , deleteGroup ) ;
-router.get( '/locations' , getAllUniversityLocations ) ; 
-router.post( '/locations' , createUniversityLocation ) ;
-router.put( '/locations/:id' , updateUniversityLocation ) ;
-router.delete( '/locations/:id' , deleteUniversityLocation ) ;
-
-
-export default router ; 
-=======
 import express from "express";
 import multer from "multer";
 import {
@@ -234,4 +186,3 @@ router.delete("/marks/bulk-delete", bulkDeleteMarks);
 router.post("/file/upload", upload.single("file"), uploadFile);
 
 export default router;
->>>>>>> c23daf6605b76712c4a7ad85e1a0bc818fb4ffe4
