@@ -99,6 +99,9 @@ import {
 } from "../controllers/courseFilesController";
 import { createLecture, deleteLecture, getLecturesSchedule, updateLecture } from "../controllers/lectureController";
 import { createAnnouncement, deleteAnnouncement, getAllAnnouncements, updateAnnouncement } from "../controllers/announcementController";
+import { getNextLectureForDoctor, getNextLectureForStudent, getNextLectureForTeacher, manualGenerateWeeklyLectures, publishWeeklyLecture, toggleCancelWeeklyLecture } from "../controllers/weeklyLecturesController";
+import { markAttendance } from "../controllers/attendanceController";
+import path from "path";
 
 const router = express.Router();
 const upload = multer({
@@ -196,5 +199,18 @@ router.get("/announcements", getAllAnnouncements);
 router.post("/announcements", createAnnouncement);
 router.put("/announcements/:id", updateAnnouncement);
 router.delete("/announcements/:id", deleteAnnouncement);
+
+router.post("/cron/generate-weekly-lectures", manualGenerateWeeklyLectures);
+router.get("/weekly-lectures/next/student", getNextLectureForStudent);
+router.get("/weekly-lectures/next/teacher", getNextLectureForTeacher);
+router.get("/weekly-lectures/next/doctor", getNextLectureForDoctor);
+router.post("/weekly-lectures/:id/publish", publishWeeklyLecture);
+router.post("/weekly-lectures/:id/toggle-cancel", toggleCancelWeeklyLecture);
+
+router.post("/attendance/mark", markAttendance);
+
+// router.get("/test", (req, res) => {
+//   res.sendFile(path.resolve(process.cwd(), "src/router/attendance-test.html"));
+// });
 
 export default router;

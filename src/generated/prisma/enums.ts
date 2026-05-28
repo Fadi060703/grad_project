@@ -63,6 +63,15 @@ export const WeekDay = {
 export type WeekDay = (typeof WeekDay)[keyof typeof WeekDay]
 
 
+export const WeeklyLectureStatus = {
+  DRAFT: 'DRAFT',
+  PUBLISHED: 'PUBLISHED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type WeeklyLectureStatus = (typeof WeeklyLectureStatus)[keyof typeof WeeklyLectureStatus]
+
+
 export const AnnouncementType = {
   REGULAR: 'REGULAR',
   IMPORTANT: 'IMPORTANT',
@@ -70,3 +79,19 @@ export const AnnouncementType = {
 } as const
 
 export type AnnouncementType = (typeof AnnouncementType)[keyof typeof AnnouncementType]
+
+
+export const ExamCategory = {
+  THEORETICAL: 'THEORETICAL',
+  PRACTICAL: 'PRACTICAL'
+} as const
+
+export type ExamCategory = (typeof ExamCategory)[keyof typeof ExamCategory]
+
+
+export const AttendanceStatus = {
+  ABSENT: 'ABSENT',
+  PRESENT: 'PRESENT'
+} as const
+
+export type AttendanceStatus = (typeof AttendanceStatus)[keyof typeof AttendanceStatus]

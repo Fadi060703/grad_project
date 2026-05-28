@@ -99,6 +99,7 @@ model Student {
   group Group @relation(fields: [group_id], references: [id], onDelete: Cascade)
   courses StudentCourse[]
   marks Mark[]
+  attendances LectureAttendance[]
   examHallStudents ExamHallStudent[]
 }
 
@@ -352,6 +353,7 @@ model Lecture {
   section        Section?    @relation(fields: [section_id], references: [id], onDelete: Cascade)
   major_id       Int?
   major          Major?      @relation(fields: [major_id], references: [id], onDelete: Cascade)
+  weeklyLectures WeeklyLecture[]
   created_at     DateTime    @default(now())
   updated_at     DateTime    @updatedAt
 
@@ -361,6 +363,46 @@ model Lecture {
   @@index([course_id])
   @@index([instructor_id])
   @@map("lectures")
+}
+
+enum WeeklyLectureStatus {
+  DRAFT
+  PUBLISHED
+  CANCELLED
+}
+
+model WeeklyLecture {
+  id           Int                  @id @default(autoincrement())
+  lecture_id   Int
+  lecture      Lecture              @relation(fields: [lecture_id], references: [id], onDelete: Cascade)
+  lecture_date DateTime             @db.Date
+  status       WeeklyLectureStatus  @default(DRAFT)
+  qr_string    String?
+  published_at DateTime?
+  attendances  LectureAttendance[]
+  created_at   DateTime             @default(now())
+  updated_at   DateTime             @updatedAt
+
+  @@unique([lecture_id, lecture_date])
+  @@index([lecture_date])
+  @@index([status])
+  @@map("weekly_lectures")
+}
+
+model LectureAttendance {
+  id                Int           @id @default(autoincrement())
+  weekly_lecture_id Int
+  weekly_lecture    WeeklyLecture @relation(fields: [weekly_lecture_id], references: [id], onDelete: Cascade)
+  student_id        Int
+  student           Student       @relation(fields: [student_id], references: [student_id], onDelete: Cascade)
+  has_attended      Boolean       @default(false)
+  created_at        DateTime      @default(now())
+  updated_at        DateTime      @updatedAt
+
+  @@unique([weekly_lecture_id, student_id])
+  @@index([weekly_lecture_id])
+  @@index([student_id])
+  @@map("lecture_attendances")
 }
 
 enum AnnouncementType {
