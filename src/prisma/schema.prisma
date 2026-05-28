@@ -98,6 +98,7 @@ model Student {
   group Group @relation(fields: [group_id], references: [id], onDelete: Cascade)
   courses StudentCourse[]
   marks Mark[]
+  examHallStudents ExamHallStudent[]
 }
 
 model Year {
@@ -170,7 +171,7 @@ model UniversityLocation {
   created_at           DateTime  @default(now())
   updated_at           DateTime? @updatedAt
   lectures             Lecture[]
-
+  examSettings         ExamSettings[]
   @@map("university_locations")
 }
 
@@ -203,6 +204,7 @@ model Course {
   courseFiles         CourseFile[]
   students            StudentCourse[]
   announcements       Announcement[]
+  exams               Exam[]
   created_at          DateTime @default(now())
   updated_at          DateTime? @updatedAt
 
@@ -365,4 +367,69 @@ model Announcement {
   @@index([type])
   @@index([created_at])
   @@map("announcements")
+}
+
+enum ExamCategory {
+  THEORETICAL
+  PRACTICAL
+}
+
+model Exam {
+  id          Int           @id @default(autoincrement())
+  course_id   Int
+  course      Course        @relation(fields: [course_id], references: [id], onDelete: Cascade)
+  type        ExamCategory
+  settings    ExamSettings[]
+  created_at  DateTime      @default(now())
+  updated_at  DateTime      @updatedAt
+
+  @@unique([course_id, type]) // max one exam per type per course
+  @@map("exams")
+}
+
+model ExamSettings {
+  id          Int       @id @default(autoincrement())
+  exam_id     Int
+  exam        Exam      @relation(fields: [exam_id], references: [id], onDelete: Cascade)
+  location_id Int?
+  location    UniversityLocation? @relation(fields: [location_id], references: [id], onDelete: SetNull)
+  date        DateTime  // holds both date + time
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+  exam_halls  ExamHall[]
+  @@map("exam_settings")
+}
+
+model ExamHall {
+  id               Int              @id @default(autoincrement())
+  exam_settings_id Int
+  exam_settings    ExamSettings     @relation(fields: [exam_settings_id], references: [id], onDelete: Cascade)
+  name             String
+  capacity         Int?
+  students         ExamHallStudent[]
+  created_at       DateTime         @default(now())
+  updated_at       DateTime         @updatedAt
+
+  @@map("exam_halls")
+}
+
+enum AttendanceStatus {
+  ABSENT
+  PRESENT
+}
+
+model ExamHallStudent {
+  id           Int              @id @default(autoincrement())
+  hall_id      Int
+  hall         ExamHall         @relation(fields: [hall_id], references: [id], onDelete: Cascade)
+  student_id   Int
+  student      Student          @relation(fields: [student_id], references: [student_id], onDelete: Cascade)
+  seat_number  String
+  attendance   AttendanceStatus @default(ABSENT)
+  created_at   DateTime         @default(now())
+  updated_at   DateTime         @updatedAt
+
+  @@unique([hall_id, seat_number])  // no two students on the same seat in the same hall
+  @@unique([hall_id, student_id])   // student can't appear twice in the same hall
+  @@map("exam_hall_students")
 }
