@@ -53,10 +53,7 @@ export const getAllMarksCourses = createListHandler({
           {
             courses: {
               some: {
-                OR: [
-                  { section: { year_id: query.year_id } },
-                  { major: { year_id: query.year_id } },
-                ],
+                year_id: query.year_id,
               },
             },
           },

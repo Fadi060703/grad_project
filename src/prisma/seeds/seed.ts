@@ -1,3 +1,5 @@
+// seeds/seed.ts
+
 import "dotenv/config";
 import { Pool } from "pg";
 import { PrismaPg } from "@prisma/adapter-pg";
@@ -8,10 +10,7 @@ import { seedUsers } from "./02_users.seed";
 import { seedStructure } from "./03_structure.seed";
 import { seedCourses } from "./04_courses.seed";
 import { seedStudents } from "./05_students.seed";
-
-// TODO: remember to fix this seed (it is affecting the courses seed)
-// import { seedMarksCourses } from "./06_marks_courses.seed";
-
+import { seedLectures } from "./07_lectures.seed";
 
 const connectionString = `${process.env.DATABASE_URL}`;
 const pool = new Pool({ connectionString });
@@ -26,6 +25,7 @@ async function main() {
   const structure = await seedStructure(prisma);
   await seedCourses(prisma, structure, doctors, teachers);
   await seedStudents(prisma, structure);
+  await seedLectures(prisma, structure, doctors, teachers);
 
   console.log("\n✅ Seed completed successfully.");
 }

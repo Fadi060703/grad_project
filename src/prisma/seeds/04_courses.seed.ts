@@ -2,8 +2,8 @@ import { PrismaClient, User } from "../../generated/prisma/client";
 import { SeedStructure } from "./03_structure.seed";
 
 // 5 courses per year, gradually increasing in complexity
-// Each set of courses is shared by name across sections in same year,
-// but each section/major gets its own DB record.
+// Each course is created once per year and linked to all sections/majors
+// in that year.
 
 const coursesByYear: {
   name: string;
@@ -229,52 +229,51 @@ export async function seedCourses(
   for (let yi = 0; yi < years.length; yi++) {
     const year = years[yi];
     const templates = coursesByYear[yi];
-    const isSection = yi < 3;
+    const hasMajors = year.has_majors;
+    const sections = sectionsByYear.get(year.id) ?? [];
+    const majors = majorsByYear.get(year.id) ?? [];
+    const sectionIds = hasMajors ? [] : sections.map((section) => section.id);
+    const majorIds = hasMajors ? majors.map((major) => major.id) : [];
 
-    const containers = isSection
-      ? (sectionsByYear.get(year.id) ?? [])
-      : (majorsByYear.get(year.id) ?? []);
+    for (const template of templates) {
+      // Assign 1-2 doctors, 2-3 teachers per course (cyclic distribution)
+      const assignedDoctors = pickCyclic(
+        doctors,
+        doctorOffset % 2 === 0 ? 1 : 2,
+        doctorOffset,
+      );
+      const assignedTeachers = pickCyclic(
+        teachers,
+        teacherOffset % 3 === 0 ? 2 : 3,
+        teacherOffset,
+      );
+      doctorOffset++;
+      teacherOffset++;
 
-    for (const container of containers) {
-      for (const template of templates) {
-        const createData = isSection
-          ? { ...template, section_id: container.id, major_id: null }
-          : { ...template, section_id: null, major_id: container.id };
+      const course = await prisma.course.findUnique({
+        where: {
+          name: template.name,
+        },
+      });
 
-        // Assign 1-2 doctors, 2-3 teachers per course (cyclic distribution)
-        const assignedDoctors = pickCyclic(
-          doctors,
-          doctorOffset % 2 === 0 ? 1 : 2,
-          doctorOffset,
-        );
-        const assignedTeachers = pickCyclic(
-          teachers,
-          teacherOffset % 3 === 0 ? 2 : 3,
-          teacherOffset,
-        );
-        doctorOffset++;
-        teacherOffset++;
-
-        const course = await prisma.course.findFirst({
-          where: {
-            name: template.name,
-            section_id: isSection ? container.id : null,
-            major_id: isSection ? null : container.id,
+      if (!course) {
+        await prisma.course.create({
+          data: {
+            ...template,
+            year_id: year.id,
+            sectionCourses: sectionIds.length
+              ? { create: sectionIds.map((section_id) => ({ section_id })) }
+              : undefined,
+            majorCourses: majorIds.length
+              ? { create: majorIds.map((major_id) => ({ major_id })) }
+              : undefined,
+            doctors: { connect: assignedDoctors.map((d) => ({ id: d.id })) },
+            teachers: {
+              connect: assignedTeachers.map((t) => ({ id: t.id })),
+            },
           },
         });
-
-        if (!course) {
-          await prisma.course.create({
-            data: {
-              ...createData,
-              doctors: { connect: assignedDoctors.map((d) => ({ id: d.id })) },
-              teachers: {
-                connect: assignedTeachers.map((t) => ({ id: t.id })),
-              },
-            },
-          });
-          courseCount++;
-        }
+        courseCount++;
       }
     }
   }

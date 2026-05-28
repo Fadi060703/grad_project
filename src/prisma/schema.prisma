@@ -67,6 +67,7 @@ model User {
   updated_at   DateTime? @updatedAt
   student      Student?
   permissions  String[]  @default([])
+  teachingLectures Lecture[] @relation("LectureInstructor")
 
   // Course relations
   teachingCourses Course[] @relation("CourseTeachers")
@@ -108,6 +109,7 @@ model Year {
   has_majors Boolean @default(false)
   sections Section[]
   majors Major[]
+  courses Course[]
   students Student[]
   announcements Announcement[]
   created_at          DateTime @default(now())
@@ -120,7 +122,7 @@ model Section {
   year_id Int
   year Year @relation(fields: [year_id], references: [id], onDelete: Cascade)
   groups Group[]
-  courses Course[]
+  sectionCourses SectionCourse[]
   lectures Lecture[]
   students Student[]
   announcements Announcement[]
@@ -136,7 +138,7 @@ model Major {
   year_id Int
   year    Year    @relation(fields: [year_id], references: [id], onDelete: Cascade)
   groups  Group[]
-  courses Course[]
+  majorCourses MajorCourse[]
   lectures Lecture[]
   students Student[]
   announcements Announcement[]
@@ -187,17 +189,17 @@ enum ExamType {
 
 model Course {
   id                  Int      @id @default(autoincrement())
-  name                String
+  name                String   @unique
   course_type         CourseType
   exam_type           ExamType
   theoretical_grade   Int
   practical_grade     Int
+  year_id             Int
+  year                Year     @relation(fields: [year_id], references: [id], onDelete: Cascade)
   marks_course_id     Int?
   marks_course        MarksCourse? @relation(fields: [marks_course_id], references: [id], onDelete: SetNull)
-  major_id             Int?
-  major               Major?   @relation(fields: [major_id], references: [id], onDelete: SetNull)
-  section_id           Int?
-  section             Section? @relation(fields: [section_id], references: [id], onDelete: SetNull)
+  sectionCourses      SectionCourse[]
+  majorCourses        MajorCourse[]
   doctors             User[]   @relation("CourseDoctors")
   teachers            User[]   @relation("CourseTeachers")
   lectures            Lecture[]
@@ -207,9 +209,33 @@ model Course {
   exams               Exam[]
   created_at          DateTime @default(now())
   updated_at          DateTime? @updatedAt
-
-  @@unique([name, major_id, section_id])
   @@map("courses")
+}
+
+model SectionCourse {
+  id         Int     @id @default(autoincrement())
+  course_id  Int
+  course     Course  @relation(fields: [course_id], references: [id], onDelete: Cascade)
+  section_id Int
+  section    Section @relation(fields: [section_id], references: [id], onDelete: Cascade)
+
+  @@unique([course_id, section_id])
+  @@index([course_id])
+  @@index([section_id])
+  @@map("section_courses")
+}
+
+model MajorCourse {
+  id        Int    @id @default(autoincrement())
+  course_id Int
+  course    Course @relation(fields: [course_id], references: [id], onDelete: Cascade)
+  major_id  Int
+  major     Major  @relation(fields: [major_id], references: [id], onDelete: Cascade)
+
+  @@unique([course_id, major_id])
+  @@index([course_id])
+  @@index([major_id])
+  @@map("major_courses")
 }
 
 model CourseFile {
@@ -301,30 +327,39 @@ enum LectureType {
   PRACTICAL
 }
 
-model Lecture {
-  id           Int                 @id @default(autoincrement())
-  title        String
-  description  String?
-  date         DateTime            @default(now())
-  location_id  Int? // Reference to UniversityLocation
-  location     UniversityLocation? @relation(fields: [location_id], references: [id], onDelete: SetNull)
-  course_id    Int
-  course       Course              @relation(fields: [course_id], references: [id], onDelete: Cascade)
-  lecture_type LectureType         @default(THEORETICAL)
-  major_id     Int?
-  major        Major?              @relation(fields: [major_id], references: [id], onDelete: SetNull)
-  section_id   Int?
-  section      Section?            @relation(fields: [section_id], references: [id], onDelete: SetNull)
-  group_id     Int?
-  group        Group?              @relation(fields: [group_id], references: [id], onDelete: SetNull)
-  created_at   DateTime            @default(now())
-  updated_at   DateTime            @updatedAt
+enum WeekDay {
+  SUNDAY
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+}
 
-  @@index([course_id])
-  @@index([date])
-  @@index([major_id])
+model Lecture {
+  id             Int         @id @default(autoincrement())
+  day            WeekDay
+  time_box_order Int
+  lecture_type   LectureType
+  course_id      Int
+  course         Course      @relation(fields: [course_id], references: [id], onDelete: Cascade)
+  location_id    Int
+  location       UniversityLocation @relation(fields: [location_id], references: [id], onDelete: Restrict)
+  instructor_id  Int
+  instructor     User        @relation("LectureInstructor", fields: [instructor_id], references: [id], onDelete: Restrict)
+  group_id       Int?
+  group          Group?      @relation(fields: [group_id], references: [id], onDelete: SetNull)
+  section_id     Int?
+  section        Section?    @relation(fields: [section_id], references: [id], onDelete: Cascade)
+  major_id       Int?
+  major          Major?      @relation(fields: [major_id], references: [id], onDelete: Cascade)
+  created_at     DateTime    @default(now())
+  updated_at     DateTime    @updatedAt
+
+  @@index([day, time_box_order])
   @@index([section_id])
-  @@index([group_id])
+  @@index([major_id])
+  @@index([course_id])
+  @@index([instructor_id])
   @@map("lectures")
 }
 

@@ -118,6 +118,7 @@ export const uploadCourseFile = async (req: Request, res: Response) => {
       process.cwd(),
       "public",
       "uploads",
+      "courses_files",
       `course_${courseId}`,
     );
     await mkdir(uploadDir, { recursive: true });
@@ -133,7 +134,7 @@ export const uploadCourseFile = async (req: Request, res: Response) => {
       filename: uniqueFilename,
       mimetype: file.mimetype,
       size: buffer.length,
-      path: `/uploads/course_${courseId}/${uniqueFilename}`,
+      path: `/uploads/courses_files/course_${courseId}/${uniqueFilename}`,
     });
   } catch (err) {
     console.error("Upload course file error:", err);
