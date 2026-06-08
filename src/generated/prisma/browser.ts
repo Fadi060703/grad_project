@@ -118,6 +118,16 @@ export type ExamGuideline = Prisma.ExamGuidelineModel
  */
 export type Lecture = Prisma.LectureModel
 /**
+ * Model WeeklyLecture
+ * 
+ */
+export type WeeklyLecture = Prisma.WeeklyLectureModel
+/**
+ * Model LectureAttendance
+ * 
+ */
+export type LectureAttendance = Prisma.LectureAttendanceModel
+/**
  * Model Announcement
  * 
  */

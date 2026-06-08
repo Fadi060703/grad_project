@@ -304,6 +304,23 @@ export type EnumWeekDayWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumWeekDayFilter<$PrismaModel>
 }
 
+export type EnumWeeklyLectureStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.WeeklyLectureStatus | Prisma.EnumWeeklyLectureStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.WeeklyLectureStatus[] | Prisma.ListEnumWeeklyLectureStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.WeeklyLectureStatus[] | Prisma.ListEnumWeeklyLectureStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumWeeklyLectureStatusFilter<$PrismaModel> | $Enums.WeeklyLectureStatus
+}
+
+export type EnumWeeklyLectureStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.WeeklyLectureStatus | Prisma.EnumWeeklyLectureStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.WeeklyLectureStatus[] | Prisma.ListEnumWeeklyLectureStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.WeeklyLectureStatus[] | Prisma.ListEnumWeeklyLectureStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumWeeklyLectureStatusWithAggregatesFilter<$PrismaModel> | $Enums.WeeklyLectureStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumWeeklyLectureStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumWeeklyLectureStatusFilter<$PrismaModel>
+}
+
 export type EnumAnnouncementTypeFilter<$PrismaModel = never> = {
   equals?: $Enums.AnnouncementType | Prisma.EnumAnnouncementTypeFieldRefInput<$PrismaModel>
   in?: $Enums.AnnouncementType[] | Prisma.ListEnumAnnouncementTypeFieldRefInput<$PrismaModel>
@@ -656,6 +673,23 @@ export type NestedEnumWeekDayWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumWeekDayFilter<$PrismaModel>
   _max?: Prisma.NestedEnumWeekDayFilter<$PrismaModel>
+}
+
+export type NestedEnumWeeklyLectureStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.WeeklyLectureStatus | Prisma.EnumWeeklyLectureStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.WeeklyLectureStatus[] | Prisma.ListEnumWeeklyLectureStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.WeeklyLectureStatus[] | Prisma.ListEnumWeeklyLectureStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumWeeklyLectureStatusFilter<$PrismaModel> | $Enums.WeeklyLectureStatus
+}
+
+export type NestedEnumWeeklyLectureStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.WeeklyLectureStatus | Prisma.EnumWeeklyLectureStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.WeeklyLectureStatus[] | Prisma.ListEnumWeeklyLectureStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.WeeklyLectureStatus[] | Prisma.ListEnumWeeklyLectureStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumWeeklyLectureStatusWithAggregatesFilter<$PrismaModel> | $Enums.WeeklyLectureStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumWeeklyLectureStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumWeeklyLectureStatusFilter<$PrismaModel>
 }
 
 export type NestedEnumAnnouncementTypeFilter<$PrismaModel = never> = {

@@ -404,6 +404,8 @@ export const ModelName = {
   Blog: 'Blog',
   ExamGuideline: 'ExamGuideline',
   Lecture: 'Lecture',
+  WeeklyLecture: 'WeeklyLecture',
+  LectureAttendance: 'LectureAttendance',
   Announcement: 'Announcement',
   Exam: 'Exam',
   ExamSettings: 'ExamSettings',
@@ -424,7 +426,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "systemSettings" | "faculityInfo" | "user" | "student" | "year" | "section" | "major" | "group" | "universityLocation" | "course" | "sectionCourse" | "majorCourse" | "courseFile" | "marksCourse" | "mark" | "studentCourse" | "fAQ" | "blog" | "examGuideline" | "lecture" | "announcement" | "exam" | "examSettings" | "examHall" | "examHallStudent"
+    modelProps: "systemSettings" | "faculityInfo" | "user" | "student" | "year" | "section" | "major" | "group" | "universityLocation" | "course" | "sectionCourse" | "majorCourse" | "courseFile" | "marksCourse" | "mark" | "studentCourse" | "fAQ" | "blog" | "examGuideline" | "lecture" | "weeklyLecture" | "lectureAttendance" | "announcement" | "exam" | "examSettings" | "examHall" | "examHallStudent"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1908,6 +1910,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    WeeklyLecture: {
+      payload: Prisma.$WeeklyLecturePayload<ExtArgs>
+      fields: Prisma.WeeklyLectureFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.WeeklyLectureFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WeeklyLecturePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.WeeklyLectureFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WeeklyLecturePayload>
+        }
+        findFirst: {
+          args: Prisma.WeeklyLectureFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WeeklyLecturePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.WeeklyLectureFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WeeklyLecturePayload>
+        }
+        findMany: {
+          args: Prisma.WeeklyLectureFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WeeklyLecturePayload>[]
+        }
+        create: {
+          args: Prisma.WeeklyLectureCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WeeklyLecturePayload>
+        }
+        createMany: {
+          args: Prisma.WeeklyLectureCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.WeeklyLectureCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WeeklyLecturePayload>[]
+        }
+        delete: {
+          args: Prisma.WeeklyLectureDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WeeklyLecturePayload>
+        }
+        update: {
+          args: Prisma.WeeklyLectureUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WeeklyLecturePayload>
+        }
+        deleteMany: {
+          args: Prisma.WeeklyLectureDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.WeeklyLectureUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.WeeklyLectureUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WeeklyLecturePayload>[]
+        }
+        upsert: {
+          args: Prisma.WeeklyLectureUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WeeklyLecturePayload>
+        }
+        aggregate: {
+          args: Prisma.WeeklyLectureAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateWeeklyLecture>
+        }
+        groupBy: {
+          args: Prisma.WeeklyLectureGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WeeklyLectureGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.WeeklyLectureCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WeeklyLectureCountAggregateOutputType> | number
+        }
+      }
+    }
+    LectureAttendance: {
+      payload: Prisma.$LectureAttendancePayload<ExtArgs>
+      fields: Prisma.LectureAttendanceFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LectureAttendanceFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LectureAttendancePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LectureAttendanceFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LectureAttendancePayload>
+        }
+        findFirst: {
+          args: Prisma.LectureAttendanceFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LectureAttendancePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LectureAttendanceFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LectureAttendancePayload>
+        }
+        findMany: {
+          args: Prisma.LectureAttendanceFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LectureAttendancePayload>[]
+        }
+        create: {
+          args: Prisma.LectureAttendanceCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LectureAttendancePayload>
+        }
+        createMany: {
+          args: Prisma.LectureAttendanceCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LectureAttendanceCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LectureAttendancePayload>[]
+        }
+        delete: {
+          args: Prisma.LectureAttendanceDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LectureAttendancePayload>
+        }
+        update: {
+          args: Prisma.LectureAttendanceUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LectureAttendancePayload>
+        }
+        deleteMany: {
+          args: Prisma.LectureAttendanceDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LectureAttendanceUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LectureAttendanceUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LectureAttendancePayload>[]
+        }
+        upsert: {
+          args: Prisma.LectureAttendanceUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LectureAttendancePayload>
+        }
+        aggregate: {
+          args: Prisma.LectureAttendanceAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLectureAttendance>
+        }
+        groupBy: {
+          args: Prisma.LectureAttendanceGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LectureAttendanceGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LectureAttendanceCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LectureAttendanceCountAggregateOutputType> | number
+        }
+      }
+    }
     Announcement: {
       payload: Prisma.$AnnouncementPayload<ExtArgs>
       fields: Prisma.AnnouncementFieldRefs
@@ -2574,6 +2724,32 @@ export const LectureScalarFieldEnum = {
 export type LectureScalarFieldEnum = (typeof LectureScalarFieldEnum)[keyof typeof LectureScalarFieldEnum]
 
 
+export const WeeklyLectureScalarFieldEnum = {
+  id: 'id',
+  lecture_id: 'lecture_id',
+  lecture_date: 'lecture_date',
+  status: 'status',
+  qr_string: 'qr_string',
+  published_at: 'published_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type WeeklyLectureScalarFieldEnum = (typeof WeeklyLectureScalarFieldEnum)[keyof typeof WeeklyLectureScalarFieldEnum]
+
+
+export const LectureAttendanceScalarFieldEnum = {
+  id: 'id',
+  weekly_lecture_id: 'weekly_lecture_id',
+  student_id: 'student_id',
+  has_attended: 'has_attended',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type LectureAttendanceScalarFieldEnum = (typeof LectureAttendanceScalarFieldEnum)[keyof typeof LectureAttendanceScalarFieldEnum]
+
+
 export const AnnouncementScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -2805,6 +2981,20 @@ export type ListEnumWeekDayFieldRefInput<$PrismaModel> = FieldRefInputType<$Pris
 
 
 /**
+ * Reference to a field of type 'WeeklyLectureStatus'
+ */
+export type EnumWeeklyLectureStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WeeklyLectureStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'WeeklyLectureStatus[]'
+ */
+export type ListEnumWeeklyLectureStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WeeklyLectureStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'AnnouncementType'
  */
 export type EnumAnnouncementTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AnnouncementType'>
@@ -2989,6 +3179,8 @@ export type GlobalOmitConfig = {
   blog?: Prisma.BlogOmit
   examGuideline?: Prisma.ExamGuidelineOmit
   lecture?: Prisma.LectureOmit
+  weeklyLecture?: Prisma.WeeklyLectureOmit
+  lectureAttendance?: Prisma.LectureAttendanceOmit
   announcement?: Prisma.AnnouncementOmit
   exam?: Prisma.ExamOmit
   examSettings?: Prisma.ExamSettingsOmit

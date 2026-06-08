@@ -71,6 +71,11 @@ export const ModelName = {
   Blog: 'Blog',
   ExamGuideline: 'ExamGuideline',
   Lecture: 'Lecture',
+<<<<<<< HEAD
+=======
+  WeeklyLecture: 'WeeklyLecture',
+  LectureAttendance: 'LectureAttendance',
+>>>>>>> f1aedd03f4353191ab60d56b51b2463c07e4cd96
   Announcement: 'Announcement',
   Exam: 'Exam',
   ExamSettings: 'ExamSettings',
@@ -349,6 +354,32 @@ export const LectureScalarFieldEnum = {
 } as const
 
 export type LectureScalarFieldEnum = (typeof LectureScalarFieldEnum)[keyof typeof LectureScalarFieldEnum]
+
+
+export const WeeklyLectureScalarFieldEnum = {
+  id: 'id',
+  lecture_id: 'lecture_id',
+  lecture_date: 'lecture_date',
+  status: 'status',
+  qr_string: 'qr_string',
+  published_at: 'published_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type WeeklyLectureScalarFieldEnum = (typeof WeeklyLectureScalarFieldEnum)[keyof typeof WeeklyLectureScalarFieldEnum]
+
+
+export const LectureAttendanceScalarFieldEnum = {
+  id: 'id',
+  weekly_lecture_id: 'weekly_lecture_id',
+  student_id: 'student_id',
+  has_attended: 'has_attended',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type LectureAttendanceScalarFieldEnum = (typeof LectureAttendanceScalarFieldEnum)[keyof typeof LectureAttendanceScalarFieldEnum]
 
 
 export const AnnouncementScalarFieldEnum = {

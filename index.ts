@@ -8,6 +8,7 @@ import { logger } from './src/middlewares/logger';
 import { notFound } from './src/middlewares/404';
 import { errorHandler } from './src/middlewares/errorHandler';
 import { initializeWebSocket } from './src/websocket/server';
+import { initCron } from './src/lib/cron';
 
 const app: Application = express();
 const path = '0.0.0.0';
@@ -32,6 +33,9 @@ const server = createServer(app);
 
 // Initialize WebSocket on the same server
 initializeWebSocket(server);
+
+// Initialize cron jobs
+initCron();
 
 // Start both HTTP and WebSocket on the same port
 server.listen(port, path, () => {

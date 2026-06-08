@@ -63,6 +63,15 @@ export const WeekDay = {
 export type WeekDay = (typeof WeekDay)[keyof typeof WeekDay]
 
 
+export const WeeklyLectureStatus = {
+  DRAFT: 'DRAFT',
+  PUBLISHED: 'PUBLISHED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type WeeklyLectureStatus = (typeof WeeklyLectureStatus)[keyof typeof WeeklyLectureStatus]
+
+
 export const AnnouncementType = {
   REGULAR: 'REGULAR',
   IMPORTANT: 'IMPORTANT',
