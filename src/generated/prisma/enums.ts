@@ -70,3 +70,19 @@ export const AnnouncementType = {
 } as const
 
 export type AnnouncementType = (typeof AnnouncementType)[keyof typeof AnnouncementType]
+
+
+export const ExamCategory = {
+  THEORETICAL: 'THEORETICAL',
+  PRACTICAL: 'PRACTICAL'
+} as const
+
+export type ExamCategory = (typeof ExamCategory)[keyof typeof ExamCategory]
+
+
+export const AttendanceStatus = {
+  ABSENT: 'ABSENT',
+  PRESENT: 'PRESENT'
+} as const
+
+export type AttendanceStatus = (typeof AttendanceStatus)[keyof typeof AttendanceStatus]

@@ -84,6 +84,7 @@ model User {
 // - Student-course enrollment is many-to-many via StudentCourse, with enrollment_date and status.
 // - Only allow enrollment in courses that match the student's year/section/major.
 // - These rules are enforced in app logic .
+
 model Student {
   student_id  Int    @id @default(autoincrement())
   userId      Int    @unique

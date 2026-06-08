@@ -71,7 +71,11 @@ export const ModelName = {
   Blog: 'Blog',
   ExamGuideline: 'ExamGuideline',
   Lecture: 'Lecture',
-  Announcement: 'Announcement'
+  Announcement: 'Announcement',
+  Exam: 'Exam',
+  ExamSettings: 'ExamSettings',
+  ExamHall: 'ExamHall',
+  ExamHallStudent: 'ExamHallStudent'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -364,6 +368,54 @@ export const AnnouncementScalarFieldEnum = {
 } as const
 
 export type AnnouncementScalarFieldEnum = (typeof AnnouncementScalarFieldEnum)[keyof typeof AnnouncementScalarFieldEnum]
+
+
+export const ExamScalarFieldEnum = {
+  id: 'id',
+  course_id: 'course_id',
+  type: 'type',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type ExamScalarFieldEnum = (typeof ExamScalarFieldEnum)[keyof typeof ExamScalarFieldEnum]
+
+
+export const ExamSettingsScalarFieldEnum = {
+  id: 'id',
+  exam_id: 'exam_id',
+  location_id: 'location_id',
+  date: 'date',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type ExamSettingsScalarFieldEnum = (typeof ExamSettingsScalarFieldEnum)[keyof typeof ExamSettingsScalarFieldEnum]
+
+
+export const ExamHallScalarFieldEnum = {
+  id: 'id',
+  exam_settings_id: 'exam_settings_id',
+  name: 'name',
+  capacity: 'capacity',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type ExamHallScalarFieldEnum = (typeof ExamHallScalarFieldEnum)[keyof typeof ExamHallScalarFieldEnum]
+
+
+export const ExamHallStudentScalarFieldEnum = {
+  id: 'id',
+  hall_id: 'hall_id',
+  student_id: 'student_id',
+  seat_number: 'seat_number',
+  attendance: 'attendance',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type ExamHallStudentScalarFieldEnum = (typeof ExamHallStudentScalarFieldEnum)[keyof typeof ExamHallStudentScalarFieldEnum]
 
 
 export const SortOrder = {
