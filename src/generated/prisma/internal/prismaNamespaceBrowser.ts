@@ -71,11 +71,8 @@ export const ModelName = {
   Blog: 'Blog',
   ExamGuideline: 'ExamGuideline',
   Lecture: 'Lecture',
-<<<<<<< HEAD
-=======
   WeeklyLecture: 'WeeklyLecture',
   LectureAttendance: 'LectureAttendance',
->>>>>>> f1aedd03f4353191ab60d56b51b2463c07e4cd96
   Announcement: 'Announcement',
   Exam: 'Exam',
   ExamSettings: 'ExamSettings',

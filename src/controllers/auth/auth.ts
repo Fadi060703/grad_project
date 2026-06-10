@@ -4,67 +4,65 @@ import { loginSchema } from "../../validators/login";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { JWT_EXPIRES_IN, JWT_SECRET } from "../../config/auth";
-export const login = async (req: Request, res: Response) => {
-  try {
+import { permissions, Role } from "../../lib/permissions";
+import { asyncHandler } from "../../utils/asyncHandler";
+import { BadRequestError, UnauthorizedError, NotFoundError } from "../../errors";
+
+export const login = asyncHandler(async (req: Request, res: Response) => {
     const data = loginSchema.parse(req.body);
-    const user = await prisma.user.findUnique({
-      where: {
-        username: data.userName,
-      },
-    });
-    if (!user) {
-      return res.status(400).json({ ERROR: "Wrong Credentials" });
-    }
+
+    const user = await prisma.user.findUnique({ where: { username: data.userName } });
+    if (!user) throw new BadRequestError("Wrong Credentials");
+
     const matched = await bcrypt.compare(data.password, user.password);
-    if (!matched) {
-      return res.status(400).json({ ERROR: "Wrong Password" });
-    }
+    if (!matched) throw new BadRequestError("Wrong Password");
 
     const token = jwt.sign({ id: user.id, role: user.role }, JWT_SECRET, {
-      expiresIn: JWT_EXPIRES_IN,
+        expiresIn: JWT_EXPIRES_IN,
     });
 
-    return res.status(200).json({ access: token, expires_in: JWT_EXPIRES_IN });
-  } catch (err) {
-    return res.status(400).json({ ERROR: err });
-  }
-};
+    return res.status(200).json({
+        success: true,
+        data: { access: token, expires_in: JWT_EXPIRES_IN },
+    });
+});
 
-export const me = async (req: Request, res: Response) => {
-  try {
-    const authHeader = req.headers.authorization;
+export const me = asyncHandler(async (req: Request, res: Response) => {
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) throw new UnauthorizedError("No token provided");
 
-    if (!authHeader) {
-      return res.status(401).json({ ERROR: "No token provided" });
+    let decoded: { id: string; role: string };
+    try {
+        decoded = jwt.verify(token, JWT_SECRET) as { id: string; role: string };
+    } catch {
+        throw new UnauthorizedError("Token is invalid or expired");
     }
 
-    const token = authHeader.split(" ")[1];
-
-    if (!token) {
-      return res.status(401).json({ ERROR: "Invalid token format" });
-    }
-
-    // verify token
-    const decoded = jwt.verify(token, JWT_SECRET) as any;
-
-    // get user from DB
     const user = await prisma.user.findUnique({
-      where: { id: decoded.id },
-      select: {
-        id: true,
-        username: true,
-        email: true,
-        role: true,
-        is_active: true,
-      },
+        where: { id: Number(decoded.id) },
+        select: { id: true, username: true, email: true, role: true, is_active: true },
     });
 
-    if (!user) {
-      return res.status(404).json({ ERROR: "User not found" });
-    }
+    if (!user) throw new NotFoundError("User");
 
-    return res.status(200).json(user);
-  } catch (err) {
-    return res.status(401).json({ ERROR: err });
-  }
-};
+    return res.status(200).json({
+        success: true,
+        data: {
+            ...user,
+            permissions: permissions[user.role as Role] ?? [],
+        },
+    });
+});
+
+
+// TODO: we can later implement token blacklisting to invalidate tokens on logout
+
+// export const logout = asyncHandler(async (_req: Request, res: Response) => {
+//     return res.status(200).json({ success: true, message: "Logged out successfully" });
+// });
+
+export const getAllPermissions = asyncHandler(async (_req: Request, res: Response) => {
+    const unique = [...new Set(Object.values(permissions).flat())];
+
+    return res.status(200).json({ success: true, data: unique });
+});
