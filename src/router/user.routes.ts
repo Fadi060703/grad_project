@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  bulkCreateStudents,
   createStudent,
   createUser,
   deleteUser,
@@ -32,6 +33,7 @@ router.post("/users", authMiddleware, check("users:add"), createUser);
 router.put("/users/:id", authMiddleware, check("users:update"), updateUser);
 router.delete("/users/:id", authMiddleware, check("users:delete"), deleteUser);
 
+router.post("/students/bulk", authMiddleware, check("users:add"), bulkCreateStudents);
 router.get(
   "/students",
   authMiddleware,
