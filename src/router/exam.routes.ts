@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  bulkAddStudentsToExamSetting,
   createExam,
   deleteExam,
   getAllExams,
@@ -34,6 +35,7 @@ router.get("/exams/:id", authMiddleware, check("exams:read"), getExamById);
 router.post("/exams", authMiddleware, check("exams:add"), createExam);
 router.put("/exams/:id", authMiddleware, check("exams:update"), updateExam);
 router.delete("/exams/:id", authMiddleware, check("exams:delete"), deleteExam);
+router.post("/exam-settings/:id/students", authMiddleware, check("exams:update"), bulkAddStudentsToExamSetting);
 
 router.get("/marks", authMiddleware, check("marks:read"), getAllMarks);
 router.post(

@@ -66,8 +66,15 @@ export const examResponseSchema = z.object({
   updated_at: z.string().optional(),
 });
 
+// ─── Bulk Add Students ────────────────────────────────────────────────────────
+
+export const bulkAddStudentsSchema = z.object({
+  student_ids: z.array(z.number().int().positive()).min(1, "At least one student_id is required"),
+});
+
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 export type CreateExamInput = z.infer<typeof createExamSchema>;
 export type UpdateExamInput = z.infer<typeof updateExamSchema>;
 export type ExamResponse = z.infer<typeof examResponseSchema>;
+export type BulkAddStudentsInput = z.infer<typeof bulkAddStudentsSchema>;

@@ -6,8 +6,10 @@ import {
   createExamSchema,
   updateExamSchema,
   examResponseSchema,
+  bulkAddStudentsSchema,
 } from "../validators/exams";
 import { z } from "zod";
+import { createListHandler } from "../lib/express-prisma-query";
 
 // ─── Shared select shape ──────────────────────────────────────────────────────
 
@@ -45,18 +47,33 @@ const examSelect = {
 
 // ─── GET /exams ───────────────────────────────────────────────────────────────
 
-export const getAllExams = asyncHandler(async (req: Request, res: Response) => {
-  const exams = await prisma.exam.findMany({
+// export const getAllExams = asyncHandler(async (req: Request, res: Response) => {
+//   const exams = await prisma.exam.findMany({
+//     select: examSelect,
+//     orderBy: { created_at: "desc" },
+//   });
+
+//   const parsed = z.array(examResponseSchema).parse(exams);
+
+//   return res.status(200).json({
+//     success: true,
+//     data: parsed,
+//   });
+// });
+
+export const getAllExams = createListHandler({
+  prisma: prisma.exam,
+  allowedSortFields: ["id", "created_at"],
+  fieldTypes: {
+    id: "number",
+    course_id: "number",
+    type: "text",
+  },
+  searchableFields: [],
+  findManyArgs: {
     select: examSelect,
-    orderBy: { created_at: "desc" },
-  });
-
-  const parsed = z.array(examResponseSchema).parse(exams);
-
-  return res.status(200).json({
-    success: true,
-    data: parsed,
-  });
+  } as any,
+  mapResult: ({ data }) => z.array(examResponseSchema).parse(data),
 });
 
 // ─── GET /exams/:id ───────────────────────────────────────────────────────────
@@ -279,5 +296,53 @@ export const deleteExam = asyncHandler(async (req: Request, res: Response) => {
     success: true,
     message: "Exam deleted successfully",
     data: deleted,
+  });
+});
+
+
+// ─── POST /exam-settings/:id/students ────────────────────────────────────────
+
+export const bulkAddStudentsToExamSetting = asyncHandler(async (req: Request, res: Response) => {
+  const examSettingId = parseInt(req.params.id as string, 10);
+
+  if (isNaN(examSettingId)) {
+    throw new BadRequestError("Invalid exam setting ID");
+  }
+
+  const { student_ids } = bulkAddStudentsSchema.parse(req.body);
+
+  // Validate exam setting exists
+  const examSetting = await prisma.examSettings.findUnique({
+    where: { id: examSettingId },
+  });
+
+  if (!examSetting) {
+    throw new NotFoundError("Exam setting");
+  }
+
+  // Validate all students exist
+  const students = await prisma.student.findMany({
+    where: { student_id: { in: student_ids } },
+    select: { student_id: true },
+  });
+
+  if (students.length !== student_ids.length) {
+    throw new NotFoundError("One or more students");
+  }
+
+  // Connect students (skip already connected ones)
+  const result = await prisma.examSettings.update({
+    where: { id: examSettingId },
+    data: {
+      students: {
+        connect: student_ids.map((id) => ({ student_id: id })),
+      },
+    },
+  });
+
+  return res.status(200).json({
+    success: true,
+    count: student_ids.length,
+    message: "Students added successfully",
   });
 });
