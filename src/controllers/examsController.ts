@@ -13,7 +13,7 @@ import { z } from "zod";
 
 const examSelect = {
   id: true,
-  exam_type: true,
+  type: true,
   course_id: true,
   course: {
     select: {
@@ -270,7 +270,7 @@ export const deleteExam = asyncHandler(async (req: Request, res: Response) => {
     where: { id },
     select: {
       id: true,
-      exam_type: true,
+      type: true,
       course_id: true,
     },
   });

@@ -234,7 +234,7 @@ export type ExamSettingsWhereInput = {
   updated_at?: Prisma.DateTimeFilter<"ExamSettings"> | Date | string
   exam?: Prisma.XOR<Prisma.ExamScalarRelationFilter, Prisma.ExamWhereInput>
   location?: Prisma.XOR<Prisma.UniversityLocationNullableScalarRelationFilter, Prisma.UniversityLocationWhereInput> | null
-  exam_halls?: Prisma.ExamHallListRelationFilter
+  students?: Prisma.StudentListRelationFilter
 }
 
 export type ExamSettingsOrderByWithRelationInput = {
@@ -246,7 +246,7 @@ export type ExamSettingsOrderByWithRelationInput = {
   updated_at?: Prisma.SortOrder
   exam?: Prisma.ExamOrderByWithRelationInput
   location?: Prisma.UniversityLocationOrderByWithRelationInput
-  exam_halls?: Prisma.ExamHallOrderByRelationAggregateInput
+  students?: Prisma.StudentOrderByRelationAggregateInput
 }
 
 export type ExamSettingsWhereUniqueInput = Prisma.AtLeast<{
@@ -261,7 +261,7 @@ export type ExamSettingsWhereUniqueInput = Prisma.AtLeast<{
   updated_at?: Prisma.DateTimeFilter<"ExamSettings"> | Date | string
   exam?: Prisma.XOR<Prisma.ExamScalarRelationFilter, Prisma.ExamWhereInput>
   location?: Prisma.XOR<Prisma.UniversityLocationNullableScalarRelationFilter, Prisma.UniversityLocationWhereInput> | null
-  exam_halls?: Prisma.ExamHallListRelationFilter
+  students?: Prisma.StudentListRelationFilter
 }, "id">
 
 export type ExamSettingsOrderByWithAggregationInput = {
@@ -296,7 +296,7 @@ export type ExamSettingsCreateInput = {
   updated_at?: Date | string
   exam: Prisma.ExamCreateNestedOneWithoutSettingsInput
   location?: Prisma.UniversityLocationCreateNestedOneWithoutExamSettingsInput
-  exam_halls?: Prisma.ExamHallCreateNestedManyWithoutExam_settingsInput
+  students?: Prisma.StudentCreateNestedManyWithoutExam_settingsInput
 }
 
 export type ExamSettingsUncheckedCreateInput = {
@@ -306,7 +306,7 @@ export type ExamSettingsUncheckedCreateInput = {
   date: Date | string
   created_at?: Date | string
   updated_at?: Date | string
-  exam_halls?: Prisma.ExamHallUncheckedCreateNestedManyWithoutExam_settingsInput
+  students?: Prisma.StudentUncheckedCreateNestedManyWithoutExam_settingsInput
 }
 
 export type ExamSettingsUpdateInput = {
@@ -315,7 +315,7 @@ export type ExamSettingsUpdateInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   exam?: Prisma.ExamUpdateOneRequiredWithoutSettingsNestedInput
   location?: Prisma.UniversityLocationUpdateOneWithoutExamSettingsNestedInput
-  exam_halls?: Prisma.ExamHallUpdateManyWithoutExam_settingsNestedInput
+  students?: Prisma.StudentUpdateManyWithoutExam_settingsNestedInput
 }
 
 export type ExamSettingsUncheckedUpdateInput = {
@@ -325,7 +325,7 @@ export type ExamSettingsUncheckedUpdateInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  exam_halls?: Prisma.ExamHallUncheckedUpdateManyWithoutExam_settingsNestedInput
+  students?: Prisma.StudentUncheckedUpdateManyWithoutExam_settingsNestedInput
 }
 
 export type ExamSettingsCreateManyInput = {
@@ -401,9 +401,42 @@ export type ExamSettingsSumOrderByAggregateInput = {
   location_id?: Prisma.SortOrder
 }
 
-export type ExamSettingsScalarRelationFilter = {
-  is?: Prisma.ExamSettingsWhereInput
-  isNot?: Prisma.ExamSettingsWhereInput
+export type ExamSettingsCreateNestedManyWithoutStudentsInput = {
+  create?: Prisma.XOR<Prisma.ExamSettingsCreateWithoutStudentsInput, Prisma.ExamSettingsUncheckedCreateWithoutStudentsInput> | Prisma.ExamSettingsCreateWithoutStudentsInput[] | Prisma.ExamSettingsUncheckedCreateWithoutStudentsInput[]
+  connectOrCreate?: Prisma.ExamSettingsCreateOrConnectWithoutStudentsInput | Prisma.ExamSettingsCreateOrConnectWithoutStudentsInput[]
+  connect?: Prisma.ExamSettingsWhereUniqueInput | Prisma.ExamSettingsWhereUniqueInput[]
+}
+
+export type ExamSettingsUncheckedCreateNestedManyWithoutStudentsInput = {
+  create?: Prisma.XOR<Prisma.ExamSettingsCreateWithoutStudentsInput, Prisma.ExamSettingsUncheckedCreateWithoutStudentsInput> | Prisma.ExamSettingsCreateWithoutStudentsInput[] | Prisma.ExamSettingsUncheckedCreateWithoutStudentsInput[]
+  connectOrCreate?: Prisma.ExamSettingsCreateOrConnectWithoutStudentsInput | Prisma.ExamSettingsCreateOrConnectWithoutStudentsInput[]
+  connect?: Prisma.ExamSettingsWhereUniqueInput | Prisma.ExamSettingsWhereUniqueInput[]
+}
+
+export type ExamSettingsUpdateManyWithoutStudentsNestedInput = {
+  create?: Prisma.XOR<Prisma.ExamSettingsCreateWithoutStudentsInput, Prisma.ExamSettingsUncheckedCreateWithoutStudentsInput> | Prisma.ExamSettingsCreateWithoutStudentsInput[] | Prisma.ExamSettingsUncheckedCreateWithoutStudentsInput[]
+  connectOrCreate?: Prisma.ExamSettingsCreateOrConnectWithoutStudentsInput | Prisma.ExamSettingsCreateOrConnectWithoutStudentsInput[]
+  upsert?: Prisma.ExamSettingsUpsertWithWhereUniqueWithoutStudentsInput | Prisma.ExamSettingsUpsertWithWhereUniqueWithoutStudentsInput[]
+  set?: Prisma.ExamSettingsWhereUniqueInput | Prisma.ExamSettingsWhereUniqueInput[]
+  disconnect?: Prisma.ExamSettingsWhereUniqueInput | Prisma.ExamSettingsWhereUniqueInput[]
+  delete?: Prisma.ExamSettingsWhereUniqueInput | Prisma.ExamSettingsWhereUniqueInput[]
+  connect?: Prisma.ExamSettingsWhereUniqueInput | Prisma.ExamSettingsWhereUniqueInput[]
+  update?: Prisma.ExamSettingsUpdateWithWhereUniqueWithoutStudentsInput | Prisma.ExamSettingsUpdateWithWhereUniqueWithoutStudentsInput[]
+  updateMany?: Prisma.ExamSettingsUpdateManyWithWhereWithoutStudentsInput | Prisma.ExamSettingsUpdateManyWithWhereWithoutStudentsInput[]
+  deleteMany?: Prisma.ExamSettingsScalarWhereInput | Prisma.ExamSettingsScalarWhereInput[]
+}
+
+export type ExamSettingsUncheckedUpdateManyWithoutStudentsNestedInput = {
+  create?: Prisma.XOR<Prisma.ExamSettingsCreateWithoutStudentsInput, Prisma.ExamSettingsUncheckedCreateWithoutStudentsInput> | Prisma.ExamSettingsCreateWithoutStudentsInput[] | Prisma.ExamSettingsUncheckedCreateWithoutStudentsInput[]
+  connectOrCreate?: Prisma.ExamSettingsCreateOrConnectWithoutStudentsInput | Prisma.ExamSettingsCreateOrConnectWithoutStudentsInput[]
+  upsert?: Prisma.ExamSettingsUpsertWithWhereUniqueWithoutStudentsInput | Prisma.ExamSettingsUpsertWithWhereUniqueWithoutStudentsInput[]
+  set?: Prisma.ExamSettingsWhereUniqueInput | Prisma.ExamSettingsWhereUniqueInput[]
+  disconnect?: Prisma.ExamSettingsWhereUniqueInput | Prisma.ExamSettingsWhereUniqueInput[]
+  delete?: Prisma.ExamSettingsWhereUniqueInput | Prisma.ExamSettingsWhereUniqueInput[]
+  connect?: Prisma.ExamSettingsWhereUniqueInput | Prisma.ExamSettingsWhereUniqueInput[]
+  update?: Prisma.ExamSettingsUpdateWithWhereUniqueWithoutStudentsInput | Prisma.ExamSettingsUpdateWithWhereUniqueWithoutStudentsInput[]
+  updateMany?: Prisma.ExamSettingsUpdateManyWithWhereWithoutStudentsInput | Prisma.ExamSettingsUpdateManyWithWhereWithoutStudentsInput[]
+  deleteMany?: Prisma.ExamSettingsScalarWhereInput | Prisma.ExamSettingsScalarWhereInput[]
 }
 
 export type ExamSettingsCreateNestedManyWithoutLocationInput = {
@@ -490,18 +523,54 @@ export type ExamSettingsUncheckedUpdateManyWithoutExamNestedInput = {
   deleteMany?: Prisma.ExamSettingsScalarWhereInput | Prisma.ExamSettingsScalarWhereInput[]
 }
 
-export type ExamSettingsCreateNestedOneWithoutExam_hallsInput = {
-  create?: Prisma.XOR<Prisma.ExamSettingsCreateWithoutExam_hallsInput, Prisma.ExamSettingsUncheckedCreateWithoutExam_hallsInput>
-  connectOrCreate?: Prisma.ExamSettingsCreateOrConnectWithoutExam_hallsInput
-  connect?: Prisma.ExamSettingsWhereUniqueInput
+export type ExamSettingsCreateWithoutStudentsInput = {
+  date: Date | string
+  created_at?: Date | string
+  updated_at?: Date | string
+  exam: Prisma.ExamCreateNestedOneWithoutSettingsInput
+  location?: Prisma.UniversityLocationCreateNestedOneWithoutExamSettingsInput
 }
 
-export type ExamSettingsUpdateOneRequiredWithoutExam_hallsNestedInput = {
-  create?: Prisma.XOR<Prisma.ExamSettingsCreateWithoutExam_hallsInput, Prisma.ExamSettingsUncheckedCreateWithoutExam_hallsInput>
-  connectOrCreate?: Prisma.ExamSettingsCreateOrConnectWithoutExam_hallsInput
-  upsert?: Prisma.ExamSettingsUpsertWithoutExam_hallsInput
-  connect?: Prisma.ExamSettingsWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ExamSettingsUpdateToOneWithWhereWithoutExam_hallsInput, Prisma.ExamSettingsUpdateWithoutExam_hallsInput>, Prisma.ExamSettingsUncheckedUpdateWithoutExam_hallsInput>
+export type ExamSettingsUncheckedCreateWithoutStudentsInput = {
+  id?: number
+  exam_id: number
+  location_id?: number | null
+  date: Date | string
+  created_at?: Date | string
+  updated_at?: Date | string
+}
+
+export type ExamSettingsCreateOrConnectWithoutStudentsInput = {
+  where: Prisma.ExamSettingsWhereUniqueInput
+  create: Prisma.XOR<Prisma.ExamSettingsCreateWithoutStudentsInput, Prisma.ExamSettingsUncheckedCreateWithoutStudentsInput>
+}
+
+export type ExamSettingsUpsertWithWhereUniqueWithoutStudentsInput = {
+  where: Prisma.ExamSettingsWhereUniqueInput
+  update: Prisma.XOR<Prisma.ExamSettingsUpdateWithoutStudentsInput, Prisma.ExamSettingsUncheckedUpdateWithoutStudentsInput>
+  create: Prisma.XOR<Prisma.ExamSettingsCreateWithoutStudentsInput, Prisma.ExamSettingsUncheckedCreateWithoutStudentsInput>
+}
+
+export type ExamSettingsUpdateWithWhereUniqueWithoutStudentsInput = {
+  where: Prisma.ExamSettingsWhereUniqueInput
+  data: Prisma.XOR<Prisma.ExamSettingsUpdateWithoutStudentsInput, Prisma.ExamSettingsUncheckedUpdateWithoutStudentsInput>
+}
+
+export type ExamSettingsUpdateManyWithWhereWithoutStudentsInput = {
+  where: Prisma.ExamSettingsScalarWhereInput
+  data: Prisma.XOR<Prisma.ExamSettingsUpdateManyMutationInput, Prisma.ExamSettingsUncheckedUpdateManyWithoutStudentsInput>
+}
+
+export type ExamSettingsScalarWhereInput = {
+  AND?: Prisma.ExamSettingsScalarWhereInput | Prisma.ExamSettingsScalarWhereInput[]
+  OR?: Prisma.ExamSettingsScalarWhereInput[]
+  NOT?: Prisma.ExamSettingsScalarWhereInput | Prisma.ExamSettingsScalarWhereInput[]
+  id?: Prisma.IntFilter<"ExamSettings"> | number
+  exam_id?: Prisma.IntFilter<"ExamSettings"> | number
+  location_id?: Prisma.IntNullableFilter<"ExamSettings"> | number | null
+  date?: Prisma.DateTimeFilter<"ExamSettings"> | Date | string
+  created_at?: Prisma.DateTimeFilter<"ExamSettings"> | Date | string
+  updated_at?: Prisma.DateTimeFilter<"ExamSettings"> | Date | string
 }
 
 export type ExamSettingsCreateWithoutLocationInput = {
@@ -509,7 +578,7 @@ export type ExamSettingsCreateWithoutLocationInput = {
   created_at?: Date | string
   updated_at?: Date | string
   exam: Prisma.ExamCreateNestedOneWithoutSettingsInput
-  exam_halls?: Prisma.ExamHallCreateNestedManyWithoutExam_settingsInput
+  students?: Prisma.StudentCreateNestedManyWithoutExam_settingsInput
 }
 
 export type ExamSettingsUncheckedCreateWithoutLocationInput = {
@@ -518,7 +587,7 @@ export type ExamSettingsUncheckedCreateWithoutLocationInput = {
   date: Date | string
   created_at?: Date | string
   updated_at?: Date | string
-  exam_halls?: Prisma.ExamHallUncheckedCreateNestedManyWithoutExam_settingsInput
+  students?: Prisma.StudentUncheckedCreateNestedManyWithoutExam_settingsInput
 }
 
 export type ExamSettingsCreateOrConnectWithoutLocationInput = {
@@ -547,24 +616,12 @@ export type ExamSettingsUpdateManyWithWhereWithoutLocationInput = {
   data: Prisma.XOR<Prisma.ExamSettingsUpdateManyMutationInput, Prisma.ExamSettingsUncheckedUpdateManyWithoutLocationInput>
 }
 
-export type ExamSettingsScalarWhereInput = {
-  AND?: Prisma.ExamSettingsScalarWhereInput | Prisma.ExamSettingsScalarWhereInput[]
-  OR?: Prisma.ExamSettingsScalarWhereInput[]
-  NOT?: Prisma.ExamSettingsScalarWhereInput | Prisma.ExamSettingsScalarWhereInput[]
-  id?: Prisma.IntFilter<"ExamSettings"> | number
-  exam_id?: Prisma.IntFilter<"ExamSettings"> | number
-  location_id?: Prisma.IntNullableFilter<"ExamSettings"> | number | null
-  date?: Prisma.DateTimeFilter<"ExamSettings"> | Date | string
-  created_at?: Prisma.DateTimeFilter<"ExamSettings"> | Date | string
-  updated_at?: Prisma.DateTimeFilter<"ExamSettings"> | Date | string
-}
-
 export type ExamSettingsCreateWithoutExamInput = {
   date: Date | string
   created_at?: Date | string
   updated_at?: Date | string
   location?: Prisma.UniversityLocationCreateNestedOneWithoutExamSettingsInput
-  exam_halls?: Prisma.ExamHallCreateNestedManyWithoutExam_settingsInput
+  students?: Prisma.StudentCreateNestedManyWithoutExam_settingsInput
 }
 
 export type ExamSettingsUncheckedCreateWithoutExamInput = {
@@ -573,7 +630,7 @@ export type ExamSettingsUncheckedCreateWithoutExamInput = {
   date: Date | string
   created_at?: Date | string
   updated_at?: Date | string
-  exam_halls?: Prisma.ExamHallUncheckedCreateNestedManyWithoutExam_settingsInput
+  students?: Prisma.StudentUncheckedCreateNestedManyWithoutExam_settingsInput
 }
 
 export type ExamSettingsCreateOrConnectWithoutExamInput = {
@@ -602,40 +659,7 @@ export type ExamSettingsUpdateManyWithWhereWithoutExamInput = {
   data: Prisma.XOR<Prisma.ExamSettingsUpdateManyMutationInput, Prisma.ExamSettingsUncheckedUpdateManyWithoutExamInput>
 }
 
-export type ExamSettingsCreateWithoutExam_hallsInput = {
-  date: Date | string
-  created_at?: Date | string
-  updated_at?: Date | string
-  exam: Prisma.ExamCreateNestedOneWithoutSettingsInput
-  location?: Prisma.UniversityLocationCreateNestedOneWithoutExamSettingsInput
-}
-
-export type ExamSettingsUncheckedCreateWithoutExam_hallsInput = {
-  id?: number
-  exam_id: number
-  location_id?: number | null
-  date: Date | string
-  created_at?: Date | string
-  updated_at?: Date | string
-}
-
-export type ExamSettingsCreateOrConnectWithoutExam_hallsInput = {
-  where: Prisma.ExamSettingsWhereUniqueInput
-  create: Prisma.XOR<Prisma.ExamSettingsCreateWithoutExam_hallsInput, Prisma.ExamSettingsUncheckedCreateWithoutExam_hallsInput>
-}
-
-export type ExamSettingsUpsertWithoutExam_hallsInput = {
-  update: Prisma.XOR<Prisma.ExamSettingsUpdateWithoutExam_hallsInput, Prisma.ExamSettingsUncheckedUpdateWithoutExam_hallsInput>
-  create: Prisma.XOR<Prisma.ExamSettingsCreateWithoutExam_hallsInput, Prisma.ExamSettingsUncheckedCreateWithoutExam_hallsInput>
-  where?: Prisma.ExamSettingsWhereInput
-}
-
-export type ExamSettingsUpdateToOneWithWhereWithoutExam_hallsInput = {
-  where?: Prisma.ExamSettingsWhereInput
-  data: Prisma.XOR<Prisma.ExamSettingsUpdateWithoutExam_hallsInput, Prisma.ExamSettingsUncheckedUpdateWithoutExam_hallsInput>
-}
-
-export type ExamSettingsUpdateWithoutExam_hallsInput = {
+export type ExamSettingsUpdateWithoutStudentsInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -643,7 +667,16 @@ export type ExamSettingsUpdateWithoutExam_hallsInput = {
   location?: Prisma.UniversityLocationUpdateOneWithoutExamSettingsNestedInput
 }
 
-export type ExamSettingsUncheckedUpdateWithoutExam_hallsInput = {
+export type ExamSettingsUncheckedUpdateWithoutStudentsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  exam_id?: Prisma.IntFieldUpdateOperationsInput | number
+  location_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ExamSettingsUncheckedUpdateManyWithoutStudentsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   exam_id?: Prisma.IntFieldUpdateOperationsInput | number
   location_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -665,7 +698,7 @@ export type ExamSettingsUpdateWithoutLocationInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   exam?: Prisma.ExamUpdateOneRequiredWithoutSettingsNestedInput
-  exam_halls?: Prisma.ExamHallUpdateManyWithoutExam_settingsNestedInput
+  students?: Prisma.StudentUpdateManyWithoutExam_settingsNestedInput
 }
 
 export type ExamSettingsUncheckedUpdateWithoutLocationInput = {
@@ -674,7 +707,7 @@ export type ExamSettingsUncheckedUpdateWithoutLocationInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  exam_halls?: Prisma.ExamHallUncheckedUpdateManyWithoutExam_settingsNestedInput
+  students?: Prisma.StudentUncheckedUpdateManyWithoutExam_settingsNestedInput
 }
 
 export type ExamSettingsUncheckedUpdateManyWithoutLocationInput = {
@@ -698,7 +731,7 @@ export type ExamSettingsUpdateWithoutExamInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   location?: Prisma.UniversityLocationUpdateOneWithoutExamSettingsNestedInput
-  exam_halls?: Prisma.ExamHallUpdateManyWithoutExam_settingsNestedInput
+  students?: Prisma.StudentUpdateManyWithoutExam_settingsNestedInput
 }
 
 export type ExamSettingsUncheckedUpdateWithoutExamInput = {
@@ -707,7 +740,7 @@ export type ExamSettingsUncheckedUpdateWithoutExamInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  exam_halls?: Prisma.ExamHallUncheckedUpdateManyWithoutExam_settingsNestedInput
+  students?: Prisma.StudentUncheckedUpdateManyWithoutExam_settingsNestedInput
 }
 
 export type ExamSettingsUncheckedUpdateManyWithoutExamInput = {
@@ -724,11 +757,11 @@ export type ExamSettingsUncheckedUpdateManyWithoutExamInput = {
  */
 
 export type ExamSettingsCountOutputType = {
-  exam_halls: number
+  students: number
 }
 
 export type ExamSettingsCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  exam_halls?: boolean | ExamSettingsCountOutputTypeCountExam_hallsArgs
+  students?: boolean | ExamSettingsCountOutputTypeCountStudentsArgs
 }
 
 /**
@@ -744,8 +777,8 @@ export type ExamSettingsCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types
 /**
  * ExamSettingsCountOutputType without action
  */
-export type ExamSettingsCountOutputTypeCountExam_hallsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ExamHallWhereInput
+export type ExamSettingsCountOutputTypeCountStudentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.StudentWhereInput
 }
 
 
@@ -758,7 +791,7 @@ export type ExamSettingsSelect<ExtArgs extends runtime.Types.Extensions.Internal
   updated_at?: boolean
   exam?: boolean | Prisma.ExamDefaultArgs<ExtArgs>
   location?: boolean | Prisma.ExamSettings$locationArgs<ExtArgs>
-  exam_halls?: boolean | Prisma.ExamSettings$exam_hallsArgs<ExtArgs>
+  students?: boolean | Prisma.ExamSettings$studentsArgs<ExtArgs>
   _count?: boolean | Prisma.ExamSettingsCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["examSettings"]>
 
@@ -797,7 +830,7 @@ export type ExamSettingsOmit<ExtArgs extends runtime.Types.Extensions.InternalAr
 export type ExamSettingsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   exam?: boolean | Prisma.ExamDefaultArgs<ExtArgs>
   location?: boolean | Prisma.ExamSettings$locationArgs<ExtArgs>
-  exam_halls?: boolean | Prisma.ExamSettings$exam_hallsArgs<ExtArgs>
+  students?: boolean | Prisma.ExamSettings$studentsArgs<ExtArgs>
   _count?: boolean | Prisma.ExamSettingsCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ExamSettingsIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -814,7 +847,7 @@ export type $ExamSettingsPayload<ExtArgs extends runtime.Types.Extensions.Intern
   objects: {
     exam: Prisma.$ExamPayload<ExtArgs>
     location: Prisma.$UniversityLocationPayload<ExtArgs> | null
-    exam_halls: Prisma.$ExamHallPayload<ExtArgs>[]
+    students: Prisma.$StudentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1219,7 +1252,7 @@ export interface Prisma__ExamSettingsClient<T, Null = never, ExtArgs extends run
   readonly [Symbol.toStringTag]: "PrismaPromise"
   exam<T extends Prisma.ExamDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ExamDefaultArgs<ExtArgs>>): Prisma.Prisma__ExamClient<runtime.Types.Result.GetResult<Prisma.$ExamPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   location<T extends Prisma.ExamSettings$locationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ExamSettings$locationArgs<ExtArgs>>): Prisma.Prisma__UniversityLocationClient<runtime.Types.Result.GetResult<Prisma.$UniversityLocationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  exam_halls<T extends Prisma.ExamSettings$exam_hallsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ExamSettings$exam_hallsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ExamHallPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  students<T extends Prisma.ExamSettings$studentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ExamSettings$studentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1675,27 +1708,27 @@ export type ExamSettings$locationArgs<ExtArgs extends runtime.Types.Extensions.I
 }
 
 /**
- * ExamSettings.exam_halls
+ * ExamSettings.students
  */
-export type ExamSettings$exam_hallsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ExamSettings$studentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the ExamHall
+   * Select specific fields to fetch from the Student
    */
-  select?: Prisma.ExamHallSelect<ExtArgs> | null
+  select?: Prisma.StudentSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the ExamHall
+   * Omit specific fields from the Student
    */
-  omit?: Prisma.ExamHallOmit<ExtArgs> | null
+  omit?: Prisma.StudentOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.ExamHallInclude<ExtArgs> | null
-  where?: Prisma.ExamHallWhereInput
-  orderBy?: Prisma.ExamHallOrderByWithRelationInput | Prisma.ExamHallOrderByWithRelationInput[]
-  cursor?: Prisma.ExamHallWhereUniqueInput
+  include?: Prisma.StudentInclude<ExtArgs> | null
+  where?: Prisma.StudentWhereInput
+  orderBy?: Prisma.StudentOrderByWithRelationInput | Prisma.StudentOrderByWithRelationInput[]
+  cursor?: Prisma.StudentWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.ExamHallScalarFieldEnum | Prisma.ExamHallScalarFieldEnum[]
+  distinct?: Prisma.StudentScalarFieldEnum | Prisma.StudentScalarFieldEnum[]
 }
 
 /**

@@ -408,9 +408,7 @@ export const ModelName = {
   LectureAttendance: 'LectureAttendance',
   Announcement: 'Announcement',
   Exam: 'Exam',
-  ExamSettings: 'ExamSettings',
-  ExamHall: 'ExamHall',
-  ExamHallStudent: 'ExamHallStudent'
+  ExamSettings: 'ExamSettings'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -426,7 +424,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "systemSettings" | "faculityInfo" | "user" | "student" | "year" | "section" | "major" | "group" | "universityLocation" | "course" | "sectionCourse" | "majorCourse" | "courseFile" | "marksCourse" | "mark" | "studentCourse" | "fAQ" | "blog" | "examGuideline" | "lecture" | "weeklyLecture" | "lectureAttendance" | "announcement" | "exam" | "examSettings" | "examHall" | "examHallStudent"
+    modelProps: "systemSettings" | "faculityInfo" | "user" | "student" | "year" | "section" | "major" | "group" | "universityLocation" | "course" | "sectionCourse" | "majorCourse" | "courseFile" | "marksCourse" | "mark" | "studentCourse" | "fAQ" | "blog" | "examGuideline" | "lecture" | "weeklyLecture" | "lectureAttendance" | "announcement" | "exam" | "examSettings"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2280,154 +2278,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    ExamHall: {
-      payload: Prisma.$ExamHallPayload<ExtArgs>
-      fields: Prisma.ExamHallFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.ExamHallFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamHallPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.ExamHallFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamHallPayload>
-        }
-        findFirst: {
-          args: Prisma.ExamHallFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamHallPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.ExamHallFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamHallPayload>
-        }
-        findMany: {
-          args: Prisma.ExamHallFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamHallPayload>[]
-        }
-        create: {
-          args: Prisma.ExamHallCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamHallPayload>
-        }
-        createMany: {
-          args: Prisma.ExamHallCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.ExamHallCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamHallPayload>[]
-        }
-        delete: {
-          args: Prisma.ExamHallDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamHallPayload>
-        }
-        update: {
-          args: Prisma.ExamHallUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamHallPayload>
-        }
-        deleteMany: {
-          args: Prisma.ExamHallDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.ExamHallUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.ExamHallUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamHallPayload>[]
-        }
-        upsert: {
-          args: Prisma.ExamHallUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamHallPayload>
-        }
-        aggregate: {
-          args: Prisma.ExamHallAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateExamHall>
-        }
-        groupBy: {
-          args: Prisma.ExamHallGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ExamHallGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.ExamHallCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ExamHallCountAggregateOutputType> | number
-        }
-      }
-    }
-    ExamHallStudent: {
-      payload: Prisma.$ExamHallStudentPayload<ExtArgs>
-      fields: Prisma.ExamHallStudentFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.ExamHallStudentFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamHallStudentPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.ExamHallStudentFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamHallStudentPayload>
-        }
-        findFirst: {
-          args: Prisma.ExamHallStudentFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamHallStudentPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.ExamHallStudentFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamHallStudentPayload>
-        }
-        findMany: {
-          args: Prisma.ExamHallStudentFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamHallStudentPayload>[]
-        }
-        create: {
-          args: Prisma.ExamHallStudentCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamHallStudentPayload>
-        }
-        createMany: {
-          args: Prisma.ExamHallStudentCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.ExamHallStudentCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamHallStudentPayload>[]
-        }
-        delete: {
-          args: Prisma.ExamHallStudentDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamHallStudentPayload>
-        }
-        update: {
-          args: Prisma.ExamHallStudentUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamHallStudentPayload>
-        }
-        deleteMany: {
-          args: Prisma.ExamHallStudentDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.ExamHallStudentUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.ExamHallStudentUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamHallStudentPayload>[]
-        }
-        upsert: {
-          args: Prisma.ExamHallStudentUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExamHallStudentPayload>
-        }
-        aggregate: {
-          args: Prisma.ExamHallStudentAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateExamHallStudent>
-        }
-        groupBy: {
-          args: Prisma.ExamHallStudentGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ExamHallStudentGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.ExamHallStudentCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ExamHallStudentCountAggregateOutputType> | number
-        }
-      }
-    }
   }
 } & {
   other: {
@@ -2792,31 +2642,6 @@ export const ExamSettingsScalarFieldEnum = {
 export type ExamSettingsScalarFieldEnum = (typeof ExamSettingsScalarFieldEnum)[keyof typeof ExamSettingsScalarFieldEnum]
 
 
-export const ExamHallScalarFieldEnum = {
-  id: 'id',
-  exam_settings_id: 'exam_settings_id',
-  name: 'name',
-  capacity: 'capacity',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-} as const
-
-export type ExamHallScalarFieldEnum = (typeof ExamHallScalarFieldEnum)[keyof typeof ExamHallScalarFieldEnum]
-
-
-export const ExamHallStudentScalarFieldEnum = {
-  id: 'id',
-  hall_id: 'hall_id',
-  student_id: 'student_id',
-  seat_number: 'seat_number',
-  attendance: 'attendance',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-} as const
-
-export type ExamHallStudentScalarFieldEnum = (typeof ExamHallStudentScalarFieldEnum)[keyof typeof ExamHallStudentScalarFieldEnum]
-
-
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -3023,20 +2848,6 @@ export type ListEnumExamCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<
 
 
 /**
- * Reference to a field of type 'AttendanceStatus'
- */
-export type EnumAttendanceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AttendanceStatus'>
-    
-
-
-/**
- * Reference to a field of type 'AttendanceStatus[]'
- */
-export type ListEnumAttendanceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AttendanceStatus[]'>
-    
-
-
-/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -3184,8 +2995,6 @@ export type GlobalOmitConfig = {
   announcement?: Prisma.AnnouncementOmit
   exam?: Prisma.ExamOmit
   examSettings?: Prisma.ExamSettingsOmit
-  examHall?: Prisma.ExamHallOmit
-  examHallStudent?: Prisma.ExamHallStudentOmit
 }
 
 /* Types for Logging */

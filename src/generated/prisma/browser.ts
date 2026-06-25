@@ -142,13 +142,3 @@ export type Exam = Prisma.ExamModel
  * 
  */
 export type ExamSettings = Prisma.ExamSettingsModel
-/**
- * Model ExamHall
- * 
- */
-export type ExamHall = Prisma.ExamHallModel
-/**
- * Model ExamHallStudent
- * 
- */
-export type ExamHallStudent = Prisma.ExamHallStudentModel

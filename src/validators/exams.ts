@@ -54,7 +54,8 @@ export const examSettingsResponseSchema = z.object({
 
 export const examResponseSchema = z.object({
   id: z.number(),
-  exam_type: examTypeSchema,
+  // exam_type: examTypeSchema,
+  type: examTypeSchema,
   course_id: z.number(),
   course: z.object({
     id: z.number(),

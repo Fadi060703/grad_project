@@ -101,7 +101,7 @@ model Student {
   courses StudentCourse[]
   marks Mark[]
   attendances LectureAttendance[]
-  examHallStudents ExamHallStudent[]
+  exam_settings  ExamSettings[]  @relation("ExamSettingsStudents")
 }
 
 model Year {
@@ -472,42 +472,9 @@ model ExamSettings {
   location_id Int?
   location    UniversityLocation? @relation(fields: [location_id], references: [id], onDelete: SetNull)
   date        DateTime  // holds both date + time
+  students    Student[] @relation("ExamSettingsStudents")
+
   created_at  DateTime  @default(now())
   updated_at  DateTime  @updatedAt
-  exam_halls  ExamHall[]
   @@map("exam_settings")
-}
-
-model ExamHall {
-  id               Int              @id @default(autoincrement())
-  exam_settings_id Int
-  exam_settings    ExamSettings     @relation(fields: [exam_settings_id], references: [id], onDelete: Cascade)
-  name             String
-  capacity         Int?
-  students         ExamHallStudent[]
-  created_at       DateTime         @default(now())
-  updated_at       DateTime         @updatedAt
-
-  @@map("exam_halls")
-}
-
-enum AttendanceStatus {
-  ABSENT
-  PRESENT
-}
-
-model ExamHallStudent {
-  id           Int              @id @default(autoincrement())
-  hall_id      Int
-  hall         ExamHall         @relation(fields: [hall_id], references: [id], onDelete: Cascade)
-  student_id   Int
-  student      Student          @relation(fields: [student_id], references: [student_id], onDelete: Cascade)
-  seat_number  String
-  attendance   AttendanceStatus @default(ABSENT)
-  created_at   DateTime         @default(now())
-  updated_at   DateTime         @updatedAt
-
-  @@unique([hall_id, seat_number])  // no two students on the same seat in the same hall
-  @@unique([hall_id, student_id])   // student can't appear twice in the same hall
-  @@map("exam_hall_students")
 }
