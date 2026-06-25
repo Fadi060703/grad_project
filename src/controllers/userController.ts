@@ -2,6 +2,7 @@
 
 import { Request, Response } from "express";
 import {
+  bulkCreateStudentsSchema,
   createStudentSchema,
   createUserSchema,
   getAllStudentsSchema,
@@ -638,5 +639,119 @@ export const updateStudent = asyncHandler(async (req: Request, res: Response) =>
       ...updatedStudent.user,
       student: updatedStudent.student,
     },
+  });
+});
+
+export const bulkCreateStudents = asyncHandler(async (req: Request, res: Response) => {
+  const raw = bulkCreateStudentsSchema.parse(req.body);
+
+  // Deduplicate by username, keep first occurrence
+  const seen = new Set<string>();
+  const students = raw.filter((s) => {
+    if (seen.has(s.username)) return false;
+    seen.add(s.username);
+    return true;
+  });
+
+  // Validate section/major mutual exclusivity for each entry
+  for (let i = 0; i < students.length; i++) {
+    const s = students[i];
+    if (s.section_id && s.major_id) {
+      throw new BadRequestError(`Student at index ${i} (username: ${s.username}): provide either section_id or major_id, not both`);
+    }
+    if (!s.section_id && !s.major_id) {
+      throw new BadRequestError(`Student at index ${i} (username: ${s.username}): either section_id or major_id must be provided`);
+    }
+  }
+
+  // Check for duplicate usernames in DB
+  const usernames = students.map((s) => s.username);
+  const emails = students.filter((s) => s.email).map((s) => s.email as string);
+
+  const existingUsers = await prisma.user.findMany({
+    where: {
+      OR: [
+        { username: { in: usernames } },
+        ...(emails.length > 0 ? [{ email: { in: emails } }] : []),
+      ],
+    },
+    select: { username: true, email: true },
+  });
+
+  if (existingUsers.length > 0) {
+    const conflictUsernames = existingUsers.map((u) => u.username).filter(Boolean);
+    const conflictEmails = existingUsers.map((u) => u.email).filter(Boolean);
+    throw new ConflictError(
+      `The following already exist — usernames: [${conflictUsernames.join(", ")}]${conflictEmails.length > 0 ? `, emails: [${conflictEmails.join(", ")}]` : ""}`
+    );
+  }
+
+  // Validate all related entity IDs exist
+  const yearIds = [...new Set(students.map((s) => s.year_id))];
+  const groupIds = [...new Set(students.map((s) => s.group_id))];
+  const sectionIds = [...new Set(students.filter((s) => s.section_id).map((s) => s.section_id as number))];
+  const majorIds = [...new Set(students.filter((s) => s.major_id).map((s) => s.major_id as number))];
+
+  const [years, groups, sections, majors] = await Promise.all([
+    prisma.year.findMany({ where: { id: { in: yearIds } }, select: { id: true } }),
+    prisma.group.findMany({ where: { id: { in: groupIds } }, select: { id: true } }),
+    sectionIds.length > 0
+      ? prisma.section.findMany({ where: { id: { in: sectionIds } }, select: { id: true } })
+      : Promise.resolve([]),
+    majorIds.length > 0
+      ? prisma.major.findMany({ where: { id: { in: majorIds } }, select: { id: true } })
+      : Promise.resolve([]),
+  ]);
+
+  const foundYearIds = new Set(years.map((y) => y.id));
+  const foundGroupIds = new Set(groups.map((g) => g.id));
+  const foundSectionIds = new Set(sections.map((s) => s.id));
+  const foundMajorIds = new Set(majors.map((m) => m.id));
+
+  const missingYears = yearIds.filter((id) => !foundYearIds.has(id));
+  const missingGroups = groupIds.filter((id) => !foundGroupIds.has(id));
+  const missingSections = sectionIds.filter((id) => !foundSectionIds.has(id));
+  const missingMajors = majorIds.filter((id) => !foundMajorIds.has(id));
+
+  if (missingYears.length > 0) throw new NotFoundError(`Years with IDs: [${missingYears.join(", ")}]`);
+  if (missingGroups.length > 0) throw new NotFoundError(`Groups with IDs: [${missingGroups.join(", ")}]`);
+  if (missingSections.length > 0) throw new NotFoundError(`Sections with IDs: [${missingSections.join(", ")}]`);
+  if (missingMajors.length > 0) throw new NotFoundError(`Majors with IDs: [${missingMajors.join(", ")}]`);
+
+  // Hash all passwords
+  const hashed = await Promise.all(students.map((s) => bcrypt.hash(s.password, 10)));
+
+  // Create all in one transaction
+  await prisma.$transaction(
+    students.map((s, i) =>
+      prisma.user.create({
+        data: {
+          email: s.email || null,
+          username: s.username,
+          full_name: s.full_name,
+          phone_number: s.phone_number || null,
+          role: s.role,
+          is_active: s.is_active ?? true,
+          password: hashed[i],
+          permissions: s.permissions || [],
+          student: {
+            create: {
+              student_id: s.student_id,
+              mother_name: s.mother_name,
+              year_id: s.year_id,
+              section_id: s.section_id || null,
+              major_id: s.major_id || null,
+              group_id: s.group_id,
+            },
+          },
+        },
+      })
+    )
+  );
+
+  return res.status(201).json({
+    success: true,
+    count: students.length,
+    message: "Students created successfully",
   });
 });

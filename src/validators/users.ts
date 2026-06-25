@@ -116,9 +116,12 @@ export const updateStudentSchema = z.object({
   }),
 });
 
+export const bulkCreateStudentsSchema = z.array(createStudentSchema).min(1, "At least one student is required");
+
 // Export types
 export type getUsersDTO = z.infer<typeof getAllUsersSchema>;
 export type createUserDTO = z.infer<typeof createUserSchema>;
 export type createStudentDTO = z.infer<typeof createStudentSchema>;
 export type updateUserDTO = z.infer<typeof updateUserSchema>;
 export type updateStudentDTO = z.infer<typeof updateStudentSchema>;
+export type BulkCreateStudentsInput = z.infer<typeof bulkCreateStudentsSchema>;
