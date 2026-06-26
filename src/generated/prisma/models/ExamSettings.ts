@@ -43,6 +43,8 @@ export type ExamSettingsMinAggregateOutputType = {
   exam_id: number | null
   location_id: number | null
   date: Date | null
+  start_time: string | null
+  end_time: string | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -52,6 +54,8 @@ export type ExamSettingsMaxAggregateOutputType = {
   exam_id: number | null
   location_id: number | null
   date: Date | null
+  start_time: string | null
+  end_time: string | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -61,6 +65,8 @@ export type ExamSettingsCountAggregateOutputType = {
   exam_id: number
   location_id: number
   date: number
+  start_time: number
+  end_time: number
   created_at: number
   updated_at: number
   _all: number
@@ -84,6 +90,8 @@ export type ExamSettingsMinAggregateInputType = {
   exam_id?: true
   location_id?: true
   date?: true
+  start_time?: true
+  end_time?: true
   created_at?: true
   updated_at?: true
 }
@@ -93,6 +101,8 @@ export type ExamSettingsMaxAggregateInputType = {
   exam_id?: true
   location_id?: true
   date?: true
+  start_time?: true
+  end_time?: true
   created_at?: true
   updated_at?: true
 }
@@ -102,6 +112,8 @@ export type ExamSettingsCountAggregateInputType = {
   exam_id?: true
   location_id?: true
   date?: true
+  start_time?: true
+  end_time?: true
   created_at?: true
   updated_at?: true
   _all?: true
@@ -198,6 +210,8 @@ export type ExamSettingsGroupByOutputType = {
   exam_id: number
   location_id: number | null
   date: Date
+  start_time: string
+  end_time: string
   created_at: Date
   updated_at: Date
   _count: ExamSettingsCountAggregateOutputType | null
@@ -230,6 +244,8 @@ export type ExamSettingsWhereInput = {
   exam_id?: Prisma.IntFilter<"ExamSettings"> | number
   location_id?: Prisma.IntNullableFilter<"ExamSettings"> | number | null
   date?: Prisma.DateTimeFilter<"ExamSettings"> | Date | string
+  start_time?: Prisma.StringFilter<"ExamSettings"> | string
+  end_time?: Prisma.StringFilter<"ExamSettings"> | string
   created_at?: Prisma.DateTimeFilter<"ExamSettings"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"ExamSettings"> | Date | string
   exam?: Prisma.XOR<Prisma.ExamScalarRelationFilter, Prisma.ExamWhereInput>
@@ -242,6 +258,8 @@ export type ExamSettingsOrderByWithRelationInput = {
   exam_id?: Prisma.SortOrder
   location_id?: Prisma.SortOrderInput | Prisma.SortOrder
   date?: Prisma.SortOrder
+  start_time?: Prisma.SortOrder
+  end_time?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   exam?: Prisma.ExamOrderByWithRelationInput
@@ -257,6 +275,8 @@ export type ExamSettingsWhereUniqueInput = Prisma.AtLeast<{
   exam_id?: Prisma.IntFilter<"ExamSettings"> | number
   location_id?: Prisma.IntNullableFilter<"ExamSettings"> | number | null
   date?: Prisma.DateTimeFilter<"ExamSettings"> | Date | string
+  start_time?: Prisma.StringFilter<"ExamSettings"> | string
+  end_time?: Prisma.StringFilter<"ExamSettings"> | string
   created_at?: Prisma.DateTimeFilter<"ExamSettings"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"ExamSettings"> | Date | string
   exam?: Prisma.XOR<Prisma.ExamScalarRelationFilter, Prisma.ExamWhereInput>
@@ -269,6 +289,8 @@ export type ExamSettingsOrderByWithAggregationInput = {
   exam_id?: Prisma.SortOrder
   location_id?: Prisma.SortOrderInput | Prisma.SortOrder
   date?: Prisma.SortOrder
+  start_time?: Prisma.SortOrder
+  end_time?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   _count?: Prisma.ExamSettingsCountOrderByAggregateInput
@@ -286,12 +308,16 @@ export type ExamSettingsScalarWhereWithAggregatesInput = {
   exam_id?: Prisma.IntWithAggregatesFilter<"ExamSettings"> | number
   location_id?: Prisma.IntNullableWithAggregatesFilter<"ExamSettings"> | number | null
   date?: Prisma.DateTimeWithAggregatesFilter<"ExamSettings"> | Date | string
+  start_time?: Prisma.StringWithAggregatesFilter<"ExamSettings"> | string
+  end_time?: Prisma.StringWithAggregatesFilter<"ExamSettings"> | string
   created_at?: Prisma.DateTimeWithAggregatesFilter<"ExamSettings"> | Date | string
   updated_at?: Prisma.DateTimeWithAggregatesFilter<"ExamSettings"> | Date | string
 }
 
 export type ExamSettingsCreateInput = {
   date: Date | string
+  start_time: string
+  end_time: string
   created_at?: Date | string
   updated_at?: Date | string
   exam: Prisma.ExamCreateNestedOneWithoutSettingsInput
@@ -304,6 +330,8 @@ export type ExamSettingsUncheckedCreateInput = {
   exam_id: number
   location_id?: number | null
   date: Date | string
+  start_time: string
+  end_time: string
   created_at?: Date | string
   updated_at?: Date | string
   students?: Prisma.StudentUncheckedCreateNestedManyWithoutExam_settingsInput
@@ -311,6 +339,8 @@ export type ExamSettingsUncheckedCreateInput = {
 
 export type ExamSettingsUpdateInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  start_time?: Prisma.StringFieldUpdateOperationsInput | string
+  end_time?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   exam?: Prisma.ExamUpdateOneRequiredWithoutSettingsNestedInput
@@ -323,6 +353,8 @@ export type ExamSettingsUncheckedUpdateInput = {
   exam_id?: Prisma.IntFieldUpdateOperationsInput | number
   location_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  start_time?: Prisma.StringFieldUpdateOperationsInput | string
+  end_time?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   students?: Prisma.StudentUncheckedUpdateManyWithoutExam_settingsNestedInput
@@ -333,12 +365,16 @@ export type ExamSettingsCreateManyInput = {
   exam_id: number
   location_id?: number | null
   date: Date | string
+  start_time: string
+  end_time: string
   created_at?: Date | string
   updated_at?: Date | string
 }
 
 export type ExamSettingsUpdateManyMutationInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  start_time?: Prisma.StringFieldUpdateOperationsInput | string
+  end_time?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -348,6 +384,8 @@ export type ExamSettingsUncheckedUpdateManyInput = {
   exam_id?: Prisma.IntFieldUpdateOperationsInput | number
   location_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  start_time?: Prisma.StringFieldUpdateOperationsInput | string
+  end_time?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -367,6 +405,8 @@ export type ExamSettingsCountOrderByAggregateInput = {
   exam_id?: Prisma.SortOrder
   location_id?: Prisma.SortOrder
   date?: Prisma.SortOrder
+  start_time?: Prisma.SortOrder
+  end_time?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -382,6 +422,8 @@ export type ExamSettingsMaxOrderByAggregateInput = {
   exam_id?: Prisma.SortOrder
   location_id?: Prisma.SortOrder
   date?: Prisma.SortOrder
+  start_time?: Prisma.SortOrder
+  end_time?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -391,6 +433,8 @@ export type ExamSettingsMinOrderByAggregateInput = {
   exam_id?: Prisma.SortOrder
   location_id?: Prisma.SortOrder
   date?: Prisma.SortOrder
+  start_time?: Prisma.SortOrder
+  end_time?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -525,6 +569,8 @@ export type ExamSettingsUncheckedUpdateManyWithoutExamNestedInput = {
 
 export type ExamSettingsCreateWithoutStudentsInput = {
   date: Date | string
+  start_time: string
+  end_time: string
   created_at?: Date | string
   updated_at?: Date | string
   exam: Prisma.ExamCreateNestedOneWithoutSettingsInput
@@ -536,6 +582,8 @@ export type ExamSettingsUncheckedCreateWithoutStudentsInput = {
   exam_id: number
   location_id?: number | null
   date: Date | string
+  start_time: string
+  end_time: string
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -569,12 +617,16 @@ export type ExamSettingsScalarWhereInput = {
   exam_id?: Prisma.IntFilter<"ExamSettings"> | number
   location_id?: Prisma.IntNullableFilter<"ExamSettings"> | number | null
   date?: Prisma.DateTimeFilter<"ExamSettings"> | Date | string
+  start_time?: Prisma.StringFilter<"ExamSettings"> | string
+  end_time?: Prisma.StringFilter<"ExamSettings"> | string
   created_at?: Prisma.DateTimeFilter<"ExamSettings"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"ExamSettings"> | Date | string
 }
 
 export type ExamSettingsCreateWithoutLocationInput = {
   date: Date | string
+  start_time: string
+  end_time: string
   created_at?: Date | string
   updated_at?: Date | string
   exam: Prisma.ExamCreateNestedOneWithoutSettingsInput
@@ -585,6 +637,8 @@ export type ExamSettingsUncheckedCreateWithoutLocationInput = {
   id?: number
   exam_id: number
   date: Date | string
+  start_time: string
+  end_time: string
   created_at?: Date | string
   updated_at?: Date | string
   students?: Prisma.StudentUncheckedCreateNestedManyWithoutExam_settingsInput
@@ -618,6 +672,8 @@ export type ExamSettingsUpdateManyWithWhereWithoutLocationInput = {
 
 export type ExamSettingsCreateWithoutExamInput = {
   date: Date | string
+  start_time: string
+  end_time: string
   created_at?: Date | string
   updated_at?: Date | string
   location?: Prisma.UniversityLocationCreateNestedOneWithoutExamSettingsInput
@@ -628,6 +684,8 @@ export type ExamSettingsUncheckedCreateWithoutExamInput = {
   id?: number
   location_id?: number | null
   date: Date | string
+  start_time: string
+  end_time: string
   created_at?: Date | string
   updated_at?: Date | string
   students?: Prisma.StudentUncheckedCreateNestedManyWithoutExam_settingsInput
@@ -661,6 +719,8 @@ export type ExamSettingsUpdateManyWithWhereWithoutExamInput = {
 
 export type ExamSettingsUpdateWithoutStudentsInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  start_time?: Prisma.StringFieldUpdateOperationsInput | string
+  end_time?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   exam?: Prisma.ExamUpdateOneRequiredWithoutSettingsNestedInput
@@ -672,6 +732,8 @@ export type ExamSettingsUncheckedUpdateWithoutStudentsInput = {
   exam_id?: Prisma.IntFieldUpdateOperationsInput | number
   location_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  start_time?: Prisma.StringFieldUpdateOperationsInput | string
+  end_time?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -681,6 +743,8 @@ export type ExamSettingsUncheckedUpdateManyWithoutStudentsInput = {
   exam_id?: Prisma.IntFieldUpdateOperationsInput | number
   location_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  start_time?: Prisma.StringFieldUpdateOperationsInput | string
+  end_time?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -689,12 +753,16 @@ export type ExamSettingsCreateManyLocationInput = {
   id?: number
   exam_id: number
   date: Date | string
+  start_time: string
+  end_time: string
   created_at?: Date | string
   updated_at?: Date | string
 }
 
 export type ExamSettingsUpdateWithoutLocationInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  start_time?: Prisma.StringFieldUpdateOperationsInput | string
+  end_time?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   exam?: Prisma.ExamUpdateOneRequiredWithoutSettingsNestedInput
@@ -705,6 +773,8 @@ export type ExamSettingsUncheckedUpdateWithoutLocationInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   exam_id?: Prisma.IntFieldUpdateOperationsInput | number
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  start_time?: Prisma.StringFieldUpdateOperationsInput | string
+  end_time?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   students?: Prisma.StudentUncheckedUpdateManyWithoutExam_settingsNestedInput
@@ -714,6 +784,8 @@ export type ExamSettingsUncheckedUpdateManyWithoutLocationInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   exam_id?: Prisma.IntFieldUpdateOperationsInput | number
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  start_time?: Prisma.StringFieldUpdateOperationsInput | string
+  end_time?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -722,12 +794,16 @@ export type ExamSettingsCreateManyExamInput = {
   id?: number
   location_id?: number | null
   date: Date | string
+  start_time: string
+  end_time: string
   created_at?: Date | string
   updated_at?: Date | string
 }
 
 export type ExamSettingsUpdateWithoutExamInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  start_time?: Prisma.StringFieldUpdateOperationsInput | string
+  end_time?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   location?: Prisma.UniversityLocationUpdateOneWithoutExamSettingsNestedInput
@@ -738,6 +814,8 @@ export type ExamSettingsUncheckedUpdateWithoutExamInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   location_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  start_time?: Prisma.StringFieldUpdateOperationsInput | string
+  end_time?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   students?: Prisma.StudentUncheckedUpdateManyWithoutExam_settingsNestedInput
@@ -747,6 +825,8 @@ export type ExamSettingsUncheckedUpdateManyWithoutExamInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   location_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  start_time?: Prisma.StringFieldUpdateOperationsInput | string
+  end_time?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -787,6 +867,8 @@ export type ExamSettingsSelect<ExtArgs extends runtime.Types.Extensions.Internal
   exam_id?: boolean
   location_id?: boolean
   date?: boolean
+  start_time?: boolean
+  end_time?: boolean
   created_at?: boolean
   updated_at?: boolean
   exam?: boolean | Prisma.ExamDefaultArgs<ExtArgs>
@@ -800,6 +882,8 @@ export type ExamSettingsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   exam_id?: boolean
   location_id?: boolean
   date?: boolean
+  start_time?: boolean
+  end_time?: boolean
   created_at?: boolean
   updated_at?: boolean
   exam?: boolean | Prisma.ExamDefaultArgs<ExtArgs>
@@ -811,6 +895,8 @@ export type ExamSettingsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   exam_id?: boolean
   location_id?: boolean
   date?: boolean
+  start_time?: boolean
+  end_time?: boolean
   created_at?: boolean
   updated_at?: boolean
   exam?: boolean | Prisma.ExamDefaultArgs<ExtArgs>
@@ -822,11 +908,13 @@ export type ExamSettingsSelectScalar = {
   exam_id?: boolean
   location_id?: boolean
   date?: boolean
+  start_time?: boolean
+  end_time?: boolean
   created_at?: boolean
   updated_at?: boolean
 }
 
-export type ExamSettingsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "exam_id" | "location_id" | "date" | "created_at" | "updated_at", ExtArgs["result"]["examSettings"]>
+export type ExamSettingsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "exam_id" | "location_id" | "date" | "start_time" | "end_time" | "created_at" | "updated_at", ExtArgs["result"]["examSettings"]>
 export type ExamSettingsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   exam?: boolean | Prisma.ExamDefaultArgs<ExtArgs>
   location?: boolean | Prisma.ExamSettings$locationArgs<ExtArgs>
@@ -854,6 +942,8 @@ export type $ExamSettingsPayload<ExtArgs extends runtime.Types.Extensions.Intern
     exam_id: number
     location_id: number | null
     date: Date
+    start_time: string
+    end_time: string
     created_at: Date
     updated_at: Date
   }, ExtArgs["result"]["examSettings"]>
@@ -1286,6 +1376,8 @@ export interface ExamSettingsFieldRefs {
   readonly exam_id: Prisma.FieldRef<"ExamSettings", 'Int'>
   readonly location_id: Prisma.FieldRef<"ExamSettings", 'Int'>
   readonly date: Prisma.FieldRef<"ExamSettings", 'DateTime'>
+  readonly start_time: Prisma.FieldRef<"ExamSettings", 'String'>
+  readonly end_time: Prisma.FieldRef<"ExamSettings", 'String'>
   readonly created_at: Prisma.FieldRef<"ExamSettings", 'DateTime'>
   readonly updated_at: Prisma.FieldRef<"ExamSettings", 'DateTime'>
 }

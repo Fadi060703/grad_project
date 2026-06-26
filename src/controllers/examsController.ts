@@ -7,6 +7,7 @@ import {
   updateExamSchema,
   examResponseSchema,
   bulkAddStudentsSchema,
+  examSettingResponseSchema,
 } from "../validators/exams";
 import { z } from "zod";
 import { createListHandler } from "../lib/express-prisma-query";
@@ -79,7 +80,7 @@ export const getAllExams = createListHandler({
 // ─── GET /exams/:id ───────────────────────────────────────────────────────────
 
 export const getExamById = asyncHandler(async (req: Request, res: Response) => {
-  const id = parseInt(req.params.id as string , 10);
+  const id = parseInt(req.params.id as string, 10);
 
   if (isNaN(id)) {
     throw new BadRequestError("Invalid exam ID");
@@ -101,6 +102,109 @@ export const getExamById = asyncHandler(async (req: Request, res: Response) => {
     data: parsed,
   });
 });
+
+// ─── GET /exam-settings/:id ───────────────────────────────────────────────────────────
+
+export const getExamSettingById = asyncHandler(
+  async (req: Request, res: Response) => {
+    const id = parseInt(req.params.id as string, 10);
+
+    if (isNaN(id)) {
+      throw new BadRequestError("Invalid exam setting ID");
+    }
+
+    const examSetting = await prisma.examSettings.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        date: true,
+        start_time: true,
+        end_time: true,
+        location_id: true,
+        location: true,
+        exam: true,
+        exam_id: true,
+        students: {
+          select: {
+            student_id: true,
+            mother_name: true,
+            year_id: true,
+            section_id: true,
+            major_id: true,
+            group_id: true,
+            userId: true,
+            user: {
+              select: {
+                id: true,
+                full_name: true,
+                username: true,
+                email: true,
+              },
+            },
+          },
+        },
+        created_at: true,
+        updated_at: true,
+      },
+    });
+
+    if (!examSetting) {
+      throw new NotFoundError("Exam Setting");
+    }
+
+    const parsed = examSettingResponseSchema.parse(examSetting);
+
+    return res.status(200).json({
+      success: true,
+      data: parsed,
+    });
+  },
+);
+
+// __ Post /exam-settings/delete-student/:id
+export const deleteStudentFromExamSetting = asyncHandler(
+  async (req: Request, res: Response) => {
+    const examSettingId = parseInt(req.params.id as string, 10);
+    const studentId = parseInt(req.body.student_id as string, 10);
+
+    if (isNaN(examSettingId) || isNaN(studentId)) {
+      throw new BadRequestError("Invalid exam setting ID or student ID");
+    }
+
+    // Validate exam setting exists and student is assigned to it
+    const examSetting = await prisma.examSettings.findUnique({
+      where: { id: examSettingId },
+      include: {
+        students: {
+          where: { student_id: studentId },
+          select: { student_id: true },
+        },
+      },
+    });
+
+    if (!examSetting) {
+      throw new NotFoundError("Exam setting");
+    }
+
+    if (examSetting.students.length === 0) {
+      throw new NotFoundError("Student is not assigned to this exam setting");
+    }
+
+    await prisma.examSettings.update({
+      where: { id: examSettingId },
+      data: {
+        students: {
+          disconnect: { student_id: studentId },
+        },
+      },
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Student removed from exam setting successfully",
+    });
+  },
+);
 
 // ─── POST /exams ──────────────────────────────────────────────────────────────
 
@@ -128,7 +232,7 @@ export const createExam = asyncHandler(async (req: Request, res: Response) => {
 
   if (existing) {
     throw new ConflictError(
-      `A ${data.exam_type.toLowerCase()} exam already exists for this course`
+      `A ${data.exam_type.toLowerCase()} exam already exists for this course`,
     );
   }
 
@@ -150,7 +254,8 @@ export const createExam = asyncHandler(async (req: Request, res: Response) => {
       type: data.exam_type,
       settings: {
         create: data.settings.map((s) => ({
-          location_id: s.location_id,
+          // location_id: s.location_id,
+          location: { connect: { id: s.location_id } },
           date: new Date(s.date),
           start_time: s.start_time,
           end_time: s.end_time,
@@ -212,7 +317,7 @@ export const updateExam = asyncHandler(async (req: Request, res: Response) => {
 
     if (duplicate && duplicate.id !== id) {
       throw new ConflictError(
-        `A ${checkType.toLowerCase()} exam already exists for this course`
+        `A ${checkType.toLowerCase()} exam already exists for this course`,
       );
     }
   }
@@ -244,7 +349,8 @@ export const updateExam = asyncHandler(async (req: Request, res: Response) => {
         ...(data.settings !== undefined && {
           settings: {
             create: data.settings.map((s) => ({
-              location_id: s.location_id,
+              // location_id: s.location_id,
+              location: { connect: { id: s.location_id } },
               date: new Date(s.date),
               start_time: s.start_time,
               end_time: s.end_time,
@@ -268,7 +374,7 @@ export const updateExam = asyncHandler(async (req: Request, res: Response) => {
 // ─── DELETE /exams/:id ────────────────────────────────────────────────────────
 
 export const deleteExam = asyncHandler(async (req: Request, res: Response) => {
-  const id = parseInt(req.params.id as string , 10);
+  const id = parseInt(req.params.id as string, 10);
 
   if (isNaN(id)) {
     throw new BadRequestError("Invalid exam ID");
@@ -299,50 +405,51 @@ export const deleteExam = asyncHandler(async (req: Request, res: Response) => {
   });
 });
 
-
 // ─── POST /exam-settings/:id/students ────────────────────────────────────────
 
-export const bulkAddStudentsToExamSetting = asyncHandler(async (req: Request, res: Response) => {
-  const examSettingId = parseInt(req.params.id as string, 10);
+export const bulkAddStudentsToExamSetting = asyncHandler(
+  async (req: Request, res: Response) => {
+    const examSettingId = parseInt(req.params.id as string, 10);
 
-  if (isNaN(examSettingId)) {
-    throw new BadRequestError("Invalid exam setting ID");
-  }
+    if (isNaN(examSettingId)) {
+      throw new BadRequestError("Invalid exam setting ID");
+    }
 
-  const { student_ids } = bulkAddStudentsSchema.parse(req.body);
+    const { student_ids } = bulkAddStudentsSchema.parse(req.body);
 
-  // Validate exam setting exists
-  const examSetting = await prisma.examSettings.findUnique({
-    where: { id: examSettingId },
-  });
+    // Validate exam setting exists
+    const examSetting = await prisma.examSettings.findUnique({
+      where: { id: examSettingId },
+    });
 
-  if (!examSetting) {
-    throw new NotFoundError("Exam setting");
-  }
+    if (!examSetting) {
+      throw new NotFoundError("Exam setting");
+    }
 
-  // Validate all students exist
-  const students = await prisma.student.findMany({
-    where: { student_id: { in: student_ids } },
-    select: { student_id: true },
-  });
+    // Validate all students exist
+    const students = await prisma.student.findMany({
+      where: { student_id: { in: student_ids } },
+      select: { student_id: true },
+    });
 
-  if (students.length !== student_ids.length) {
-    throw new NotFoundError("One or more students");
-  }
+    if (students.length !== student_ids.length) {
+      throw new NotFoundError("One or more students");
+    }
 
-  // Connect students (skip already connected ones)
-  const result = await prisma.examSettings.update({
-    where: { id: examSettingId },
-    data: {
-      students: {
-        connect: student_ids.map((id) => ({ student_id: id })),
+    // Connect students (skip already connected ones)
+    const result = await prisma.examSettings.update({
+      where: { id: examSettingId },
+      data: {
+        students: {
+          connect: student_ids.map((id) => ({ student_id: id })),
+        },
       },
-    },
-  });
+    });
 
-  return res.status(200).json({
-    success: true,
-    count: student_ids.length,
-    message: "Students added successfully",
-  });
-});
+    return res.status(200).json({
+      success: true,
+      count: student_ids.length,
+      message: "Students added successfully",
+    });
+  },
+);

@@ -472,6 +472,8 @@ model ExamSettings {
   location_id Int?
   location    UniversityLocation? @relation(fields: [location_id], references: [id], onDelete: SetNull)
   date        DateTime  // holds both date + time
+  start_time  String
+  end_time    String
   students    Student[] @relation("ExamSettingsStudents")
 
   created_at  DateTime  @default(now())

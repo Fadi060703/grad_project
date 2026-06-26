@@ -412,6 +412,8 @@ export const ExamSettingsScalarFieldEnum = {
   exam_id: 'exam_id',
   location_id: 'location_id',
   date: 'date',
+  start_time: 'start_time',
+  end_time: 'end_time',
   created_at: 'created_at',
   updated_at: 'updated_at'
 } as const

@@ -8,7 +8,7 @@ export const examTypeSchema = z.enum(["THEORETICAL", "PRACTICAL"]);
 
 const examSettingsInputSchema = z.object({
   location_id: z.number().int().positive(),
-  date: z.string(),
+  date: z.coerce.string(),
   start_time: z.string(),
   end_time: z.string(),
 });
@@ -40,7 +40,7 @@ export const updateExamSchema = z
 export const examSettingsResponseSchema = z.object({
   id: z.number(),
   exam_id: z.number(),
-  date: z.string(),
+  date: z.coerce.string(),
   start_time: z.string(),
   end_time: z.string(),
   location: z.object({
@@ -48,8 +48,8 @@ export const examSettingsResponseSchema = z.object({
     name: z.string(),
     reaching_description: z.string().nullable(),
   }),
-  created_at: z.string().optional(),
-  updated_at: z.string().optional(),
+  created_at: z.coerce.string().optional(),
+  updated_at: z.coerce.string().optional(),
 });
 
 export const examResponseSchema = z.object({
@@ -62,14 +62,53 @@ export const examResponseSchema = z.object({
     name: z.string(),
   }),
   settings: z.array(examSettingsResponseSchema),
-  created_at: z.string().optional(),
-  updated_at: z.string().optional(),
+  created_at: z.coerce.string().optional(),
+  updated_at: z.coerce.string().optional(),
+});
+
+export const examSettingResponseSchema = z.object({
+  id: z.number(),
+  location_id: z.number().int().positive(),
+  date: z.coerce.string(),
+  start_time: z.string(),
+  end_time: z.string(),
+  location: z.object({
+    id: z.number(),
+    name: z.string(),
+  }),
+  exam_id: z.number(),
+  exam: z.object({
+    id: z.number(),
+    type: examTypeSchema,
+    course_id: z.number(),
+  }),
+  students: z.array(
+    z.object({
+      student_id: z.number(),
+      mother_name: z.string(),
+      year_id: z.number(),
+      section_id: z.number().nullable(),
+      major_id: z.number().nullable(),
+      group_id: z.number(),
+      userId: z.number(),
+      user: z.object({
+        id: z.number(),
+        full_name: z.string(),
+        username: z.string(),
+        email: z.string().nullable(),
+      }),
+    }),
+  ),
+  created_at: z.coerce.string().optional(),
+  updated_at: z.coerce.string().optional(),
 });
 
 // ─── Bulk Add Students ────────────────────────────────────────────────────────
 
 export const bulkAddStudentsSchema = z.object({
-  student_ids: z.array(z.number().int().positive()).min(1, "At least one student_id is required"),
+  student_ids: z
+    .array(z.number().int().positive())
+    .min(1, "At least one student_id is required"),
 });
 
 // ─── Types ────────────────────────────────────────────────────────────────────
