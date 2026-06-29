@@ -4,6 +4,7 @@ import {
   createCourse,
   deleteCourse,
   getAllCourses,
+  getMyCourses,
   updateCourse,
 } from "../controllers/coursesController";
 import {
@@ -23,6 +24,7 @@ const upload = multer({
 });
 
 router.get("/courses", authMiddleware, check("courses:read"), getAllCourses);
+router.get("/my-courses", authMiddleware, check("my-courses:read"), getMyCourses);
 router.post("/courses", authMiddleware, check("courses:add"), createCourse);
 router.put(
   "/courses/:id",
