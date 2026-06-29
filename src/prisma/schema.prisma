@@ -68,6 +68,7 @@ model User {
   student      Student?
   permissions  String[]  @default([])
   teachingLectures Lecture[] @relation("LectureInstructor")
+  createdAnnouncements Announcement[] @relation("AnnouncementCreator")
 
   // Course relations
   teachingCourses Course[] @relation("CourseTeachers")
@@ -433,6 +434,9 @@ model Announcement {
   student_id  Int?
   student     User?    @relation(fields: [student_id], references: [id], onDelete: SetNull)
   
+  created_by  Int?
+  creator     User?    @relation("AnnouncementCreator", fields: [created_by], references: [id], onDelete: SetNull)
+
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
 
@@ -444,6 +448,7 @@ model Announcement {
   @@index([student_id])
   @@index([type])
   @@index([created_at])
+  @@index([created_by])
   @@map("announcements")
 }
 

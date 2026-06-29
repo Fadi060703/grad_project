@@ -34,6 +34,7 @@ export type AnnouncementAvgAggregateOutputType = {
   group_id: number | null
   course_id: number | null
   student_id: number | null
+  created_by: number | null
 }
 
 export type AnnouncementSumAggregateOutputType = {
@@ -44,6 +45,7 @@ export type AnnouncementSumAggregateOutputType = {
   group_id: number | null
   course_id: number | null
   student_id: number | null
+  created_by: number | null
 }
 
 export type AnnouncementMinAggregateOutputType = {
@@ -57,6 +59,7 @@ export type AnnouncementMinAggregateOutputType = {
   group_id: number | null
   course_id: number | null
   student_id: number | null
+  created_by: number | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -72,6 +75,7 @@ export type AnnouncementMaxAggregateOutputType = {
   group_id: number | null
   course_id: number | null
   student_id: number | null
+  created_by: number | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -88,6 +92,7 @@ export type AnnouncementCountAggregateOutputType = {
   group_id: number
   course_id: number
   student_id: number
+  created_by: number
   created_at: number
   updated_at: number
   _all: number
@@ -102,6 +107,7 @@ export type AnnouncementAvgAggregateInputType = {
   group_id?: true
   course_id?: true
   student_id?: true
+  created_by?: true
 }
 
 export type AnnouncementSumAggregateInputType = {
@@ -112,6 +118,7 @@ export type AnnouncementSumAggregateInputType = {
   group_id?: true
   course_id?: true
   student_id?: true
+  created_by?: true
 }
 
 export type AnnouncementMinAggregateInputType = {
@@ -125,6 +132,7 @@ export type AnnouncementMinAggregateInputType = {
   group_id?: true
   course_id?: true
   student_id?: true
+  created_by?: true
   created_at?: true
   updated_at?: true
 }
@@ -140,6 +148,7 @@ export type AnnouncementMaxAggregateInputType = {
   group_id?: true
   course_id?: true
   student_id?: true
+  created_by?: true
   created_at?: true
   updated_at?: true
 }
@@ -156,6 +165,7 @@ export type AnnouncementCountAggregateInputType = {
   group_id?: true
   course_id?: true
   student_id?: true
+  created_by?: true
   created_at?: true
   updated_at?: true
   _all?: true
@@ -259,6 +269,7 @@ export type AnnouncementGroupByOutputType = {
   group_id: number | null
   course_id: number | null
   student_id: number | null
+  created_by: number | null
   created_at: Date
   updated_at: Date
   _count: AnnouncementCountAggregateOutputType | null
@@ -298,6 +309,7 @@ export type AnnouncementWhereInput = {
   group_id?: Prisma.IntNullableFilter<"Announcement"> | number | null
   course_id?: Prisma.IntNullableFilter<"Announcement"> | number | null
   student_id?: Prisma.IntNullableFilter<"Announcement"> | number | null
+  created_by?: Prisma.IntNullableFilter<"Announcement"> | number | null
   created_at?: Prisma.DateTimeFilter<"Announcement"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Announcement"> | Date | string
   year?: Prisma.XOR<Prisma.YearNullableScalarRelationFilter, Prisma.YearWhereInput> | null
@@ -306,6 +318,7 @@ export type AnnouncementWhereInput = {
   group?: Prisma.XOR<Prisma.GroupNullableScalarRelationFilter, Prisma.GroupWhereInput> | null
   course?: Prisma.XOR<Prisma.CourseNullableScalarRelationFilter, Prisma.CourseWhereInput> | null
   student?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  creator?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
 export type AnnouncementOrderByWithRelationInput = {
@@ -320,6 +333,7 @@ export type AnnouncementOrderByWithRelationInput = {
   group_id?: Prisma.SortOrderInput | Prisma.SortOrder
   course_id?: Prisma.SortOrderInput | Prisma.SortOrder
   student_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  created_by?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   year?: Prisma.YearOrderByWithRelationInput
@@ -328,6 +342,7 @@ export type AnnouncementOrderByWithRelationInput = {
   group?: Prisma.GroupOrderByWithRelationInput
   course?: Prisma.CourseOrderByWithRelationInput
   student?: Prisma.UserOrderByWithRelationInput
+  creator?: Prisma.UserOrderByWithRelationInput
 }
 
 export type AnnouncementWhereUniqueInput = Prisma.AtLeast<{
@@ -345,6 +360,7 @@ export type AnnouncementWhereUniqueInput = Prisma.AtLeast<{
   group_id?: Prisma.IntNullableFilter<"Announcement"> | number | null
   course_id?: Prisma.IntNullableFilter<"Announcement"> | number | null
   student_id?: Prisma.IntNullableFilter<"Announcement"> | number | null
+  created_by?: Prisma.IntNullableFilter<"Announcement"> | number | null
   created_at?: Prisma.DateTimeFilter<"Announcement"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Announcement"> | Date | string
   year?: Prisma.XOR<Prisma.YearNullableScalarRelationFilter, Prisma.YearWhereInput> | null
@@ -353,6 +369,7 @@ export type AnnouncementWhereUniqueInput = Prisma.AtLeast<{
   group?: Prisma.XOR<Prisma.GroupNullableScalarRelationFilter, Prisma.GroupWhereInput> | null
   course?: Prisma.XOR<Prisma.CourseNullableScalarRelationFilter, Prisma.CourseWhereInput> | null
   student?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  creator?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id">
 
 export type AnnouncementOrderByWithAggregationInput = {
@@ -367,6 +384,7 @@ export type AnnouncementOrderByWithAggregationInput = {
   group_id?: Prisma.SortOrderInput | Prisma.SortOrder
   course_id?: Prisma.SortOrderInput | Prisma.SortOrder
   student_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  created_by?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   _count?: Prisma.AnnouncementCountOrderByAggregateInput
@@ -391,6 +409,7 @@ export type AnnouncementScalarWhereWithAggregatesInput = {
   group_id?: Prisma.IntNullableWithAggregatesFilter<"Announcement"> | number | null
   course_id?: Prisma.IntNullableWithAggregatesFilter<"Announcement"> | number | null
   student_id?: Prisma.IntNullableWithAggregatesFilter<"Announcement"> | number | null
+  created_by?: Prisma.IntNullableWithAggregatesFilter<"Announcement"> | number | null
   created_at?: Prisma.DateTimeWithAggregatesFilter<"Announcement"> | Date | string
   updated_at?: Prisma.DateTimeWithAggregatesFilter<"Announcement"> | Date | string
 }
@@ -408,6 +427,7 @@ export type AnnouncementCreateInput = {
   group?: Prisma.GroupCreateNestedOneWithoutAnnouncementsInput
   course?: Prisma.CourseCreateNestedOneWithoutAnnouncementsInput
   student?: Prisma.UserCreateNestedOneWithoutAnnouncementsInput
+  creator?: Prisma.UserCreateNestedOneWithoutCreatedAnnouncementsInput
 }
 
 export type AnnouncementUncheckedCreateInput = {
@@ -422,6 +442,7 @@ export type AnnouncementUncheckedCreateInput = {
   group_id?: number | null
   course_id?: number | null
   student_id?: number | null
+  created_by?: number | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -439,6 +460,7 @@ export type AnnouncementUpdateInput = {
   group?: Prisma.GroupUpdateOneWithoutAnnouncementsNestedInput
   course?: Prisma.CourseUpdateOneWithoutAnnouncementsNestedInput
   student?: Prisma.UserUpdateOneWithoutAnnouncementsNestedInput
+  creator?: Prisma.UserUpdateOneWithoutCreatedAnnouncementsNestedInput
 }
 
 export type AnnouncementUncheckedUpdateInput = {
@@ -453,6 +475,7 @@ export type AnnouncementUncheckedUpdateInput = {
   group_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   course_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   student_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  created_by?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -469,6 +492,7 @@ export type AnnouncementCreateManyInput = {
   group_id?: number | null
   course_id?: number | null
   student_id?: number | null
+  created_by?: number | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -494,6 +518,7 @@ export type AnnouncementUncheckedUpdateManyInput = {
   group_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   course_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   student_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  created_by?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -520,6 +545,7 @@ export type AnnouncementCountOrderByAggregateInput = {
   group_id?: Prisma.SortOrder
   course_id?: Prisma.SortOrder
   student_id?: Prisma.SortOrder
+  created_by?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -532,6 +558,7 @@ export type AnnouncementAvgOrderByAggregateInput = {
   group_id?: Prisma.SortOrder
   course_id?: Prisma.SortOrder
   student_id?: Prisma.SortOrder
+  created_by?: Prisma.SortOrder
 }
 
 export type AnnouncementMaxOrderByAggregateInput = {
@@ -545,6 +572,7 @@ export type AnnouncementMaxOrderByAggregateInput = {
   group_id?: Prisma.SortOrder
   course_id?: Prisma.SortOrder
   student_id?: Prisma.SortOrder
+  created_by?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -560,6 +588,7 @@ export type AnnouncementMinOrderByAggregateInput = {
   group_id?: Prisma.SortOrder
   course_id?: Prisma.SortOrder
   student_id?: Prisma.SortOrder
+  created_by?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -572,6 +601,14 @@ export type AnnouncementSumOrderByAggregateInput = {
   group_id?: Prisma.SortOrder
   course_id?: Prisma.SortOrder
   student_id?: Prisma.SortOrder
+  created_by?: Prisma.SortOrder
+}
+
+export type AnnouncementCreateNestedManyWithoutCreatorInput = {
+  create?: Prisma.XOR<Prisma.AnnouncementCreateWithoutCreatorInput, Prisma.AnnouncementUncheckedCreateWithoutCreatorInput> | Prisma.AnnouncementCreateWithoutCreatorInput[] | Prisma.AnnouncementUncheckedCreateWithoutCreatorInput[]
+  connectOrCreate?: Prisma.AnnouncementCreateOrConnectWithoutCreatorInput | Prisma.AnnouncementCreateOrConnectWithoutCreatorInput[]
+  createMany?: Prisma.AnnouncementCreateManyCreatorInputEnvelope
+  connect?: Prisma.AnnouncementWhereUniqueInput | Prisma.AnnouncementWhereUniqueInput[]
 }
 
 export type AnnouncementCreateNestedManyWithoutStudentInput = {
@@ -581,11 +618,32 @@ export type AnnouncementCreateNestedManyWithoutStudentInput = {
   connect?: Prisma.AnnouncementWhereUniqueInput | Prisma.AnnouncementWhereUniqueInput[]
 }
 
+export type AnnouncementUncheckedCreateNestedManyWithoutCreatorInput = {
+  create?: Prisma.XOR<Prisma.AnnouncementCreateWithoutCreatorInput, Prisma.AnnouncementUncheckedCreateWithoutCreatorInput> | Prisma.AnnouncementCreateWithoutCreatorInput[] | Prisma.AnnouncementUncheckedCreateWithoutCreatorInput[]
+  connectOrCreate?: Prisma.AnnouncementCreateOrConnectWithoutCreatorInput | Prisma.AnnouncementCreateOrConnectWithoutCreatorInput[]
+  createMany?: Prisma.AnnouncementCreateManyCreatorInputEnvelope
+  connect?: Prisma.AnnouncementWhereUniqueInput | Prisma.AnnouncementWhereUniqueInput[]
+}
+
 export type AnnouncementUncheckedCreateNestedManyWithoutStudentInput = {
   create?: Prisma.XOR<Prisma.AnnouncementCreateWithoutStudentInput, Prisma.AnnouncementUncheckedCreateWithoutStudentInput> | Prisma.AnnouncementCreateWithoutStudentInput[] | Prisma.AnnouncementUncheckedCreateWithoutStudentInput[]
   connectOrCreate?: Prisma.AnnouncementCreateOrConnectWithoutStudentInput | Prisma.AnnouncementCreateOrConnectWithoutStudentInput[]
   createMany?: Prisma.AnnouncementCreateManyStudentInputEnvelope
   connect?: Prisma.AnnouncementWhereUniqueInput | Prisma.AnnouncementWhereUniqueInput[]
+}
+
+export type AnnouncementUpdateManyWithoutCreatorNestedInput = {
+  create?: Prisma.XOR<Prisma.AnnouncementCreateWithoutCreatorInput, Prisma.AnnouncementUncheckedCreateWithoutCreatorInput> | Prisma.AnnouncementCreateWithoutCreatorInput[] | Prisma.AnnouncementUncheckedCreateWithoutCreatorInput[]
+  connectOrCreate?: Prisma.AnnouncementCreateOrConnectWithoutCreatorInput | Prisma.AnnouncementCreateOrConnectWithoutCreatorInput[]
+  upsert?: Prisma.AnnouncementUpsertWithWhereUniqueWithoutCreatorInput | Prisma.AnnouncementUpsertWithWhereUniqueWithoutCreatorInput[]
+  createMany?: Prisma.AnnouncementCreateManyCreatorInputEnvelope
+  set?: Prisma.AnnouncementWhereUniqueInput | Prisma.AnnouncementWhereUniqueInput[]
+  disconnect?: Prisma.AnnouncementWhereUniqueInput | Prisma.AnnouncementWhereUniqueInput[]
+  delete?: Prisma.AnnouncementWhereUniqueInput | Prisma.AnnouncementWhereUniqueInput[]
+  connect?: Prisma.AnnouncementWhereUniqueInput | Prisma.AnnouncementWhereUniqueInput[]
+  update?: Prisma.AnnouncementUpdateWithWhereUniqueWithoutCreatorInput | Prisma.AnnouncementUpdateWithWhereUniqueWithoutCreatorInput[]
+  updateMany?: Prisma.AnnouncementUpdateManyWithWhereWithoutCreatorInput | Prisma.AnnouncementUpdateManyWithWhereWithoutCreatorInput[]
+  deleteMany?: Prisma.AnnouncementScalarWhereInput | Prisma.AnnouncementScalarWhereInput[]
 }
 
 export type AnnouncementUpdateManyWithoutStudentNestedInput = {
@@ -599,6 +657,20 @@ export type AnnouncementUpdateManyWithoutStudentNestedInput = {
   connect?: Prisma.AnnouncementWhereUniqueInput | Prisma.AnnouncementWhereUniqueInput[]
   update?: Prisma.AnnouncementUpdateWithWhereUniqueWithoutStudentInput | Prisma.AnnouncementUpdateWithWhereUniqueWithoutStudentInput[]
   updateMany?: Prisma.AnnouncementUpdateManyWithWhereWithoutStudentInput | Prisma.AnnouncementUpdateManyWithWhereWithoutStudentInput[]
+  deleteMany?: Prisma.AnnouncementScalarWhereInput | Prisma.AnnouncementScalarWhereInput[]
+}
+
+export type AnnouncementUncheckedUpdateManyWithoutCreatorNestedInput = {
+  create?: Prisma.XOR<Prisma.AnnouncementCreateWithoutCreatorInput, Prisma.AnnouncementUncheckedCreateWithoutCreatorInput> | Prisma.AnnouncementCreateWithoutCreatorInput[] | Prisma.AnnouncementUncheckedCreateWithoutCreatorInput[]
+  connectOrCreate?: Prisma.AnnouncementCreateOrConnectWithoutCreatorInput | Prisma.AnnouncementCreateOrConnectWithoutCreatorInput[]
+  upsert?: Prisma.AnnouncementUpsertWithWhereUniqueWithoutCreatorInput | Prisma.AnnouncementUpsertWithWhereUniqueWithoutCreatorInput[]
+  createMany?: Prisma.AnnouncementCreateManyCreatorInputEnvelope
+  set?: Prisma.AnnouncementWhereUniqueInput | Prisma.AnnouncementWhereUniqueInput[]
+  disconnect?: Prisma.AnnouncementWhereUniqueInput | Prisma.AnnouncementWhereUniqueInput[]
+  delete?: Prisma.AnnouncementWhereUniqueInput | Prisma.AnnouncementWhereUniqueInput[]
+  connect?: Prisma.AnnouncementWhereUniqueInput | Prisma.AnnouncementWhereUniqueInput[]
+  update?: Prisma.AnnouncementUpdateWithWhereUniqueWithoutCreatorInput | Prisma.AnnouncementUpdateWithWhereUniqueWithoutCreatorInput[]
+  updateMany?: Prisma.AnnouncementUpdateManyWithWhereWithoutCreatorInput | Prisma.AnnouncementUpdateManyWithWhereWithoutCreatorInput[]
   deleteMany?: Prisma.AnnouncementScalarWhereInput | Prisma.AnnouncementScalarWhereInput[]
 }
 
@@ -839,6 +911,47 @@ export type AnnouncementUpdateattachmentsInput = {
   push?: string | string[]
 }
 
+export type AnnouncementCreateWithoutCreatorInput = {
+  title: string
+  content: string
+  type?: $Enums.AnnouncementType
+  attachments?: Prisma.AnnouncementCreateattachmentsInput | string[]
+  created_at?: Date | string
+  updated_at?: Date | string
+  year?: Prisma.YearCreateNestedOneWithoutAnnouncementsInput
+  section?: Prisma.SectionCreateNestedOneWithoutAnnouncementsInput
+  major?: Prisma.MajorCreateNestedOneWithoutAnnouncementsInput
+  group?: Prisma.GroupCreateNestedOneWithoutAnnouncementsInput
+  course?: Prisma.CourseCreateNestedOneWithoutAnnouncementsInput
+  student?: Prisma.UserCreateNestedOneWithoutAnnouncementsInput
+}
+
+export type AnnouncementUncheckedCreateWithoutCreatorInput = {
+  id?: number
+  title: string
+  content: string
+  type?: $Enums.AnnouncementType
+  attachments?: Prisma.AnnouncementCreateattachmentsInput | string[]
+  year_id?: number | null
+  section_id?: number | null
+  major_id?: number | null
+  group_id?: number | null
+  course_id?: number | null
+  student_id?: number | null
+  created_at?: Date | string
+  updated_at?: Date | string
+}
+
+export type AnnouncementCreateOrConnectWithoutCreatorInput = {
+  where: Prisma.AnnouncementWhereUniqueInput
+  create: Prisma.XOR<Prisma.AnnouncementCreateWithoutCreatorInput, Prisma.AnnouncementUncheckedCreateWithoutCreatorInput>
+}
+
+export type AnnouncementCreateManyCreatorInputEnvelope = {
+  data: Prisma.AnnouncementCreateManyCreatorInput | Prisma.AnnouncementCreateManyCreatorInput[]
+  skipDuplicates?: boolean
+}
+
 export type AnnouncementCreateWithoutStudentInput = {
   title: string
   content: string
@@ -851,6 +964,7 @@ export type AnnouncementCreateWithoutStudentInput = {
   major?: Prisma.MajorCreateNestedOneWithoutAnnouncementsInput
   group?: Prisma.GroupCreateNestedOneWithoutAnnouncementsInput
   course?: Prisma.CourseCreateNestedOneWithoutAnnouncementsInput
+  creator?: Prisma.UserCreateNestedOneWithoutCreatedAnnouncementsInput
 }
 
 export type AnnouncementUncheckedCreateWithoutStudentInput = {
@@ -864,6 +978,7 @@ export type AnnouncementUncheckedCreateWithoutStudentInput = {
   major_id?: number | null
   group_id?: number | null
   course_id?: number | null
+  created_by?: number | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -876,6 +991,42 @@ export type AnnouncementCreateOrConnectWithoutStudentInput = {
 export type AnnouncementCreateManyStudentInputEnvelope = {
   data: Prisma.AnnouncementCreateManyStudentInput | Prisma.AnnouncementCreateManyStudentInput[]
   skipDuplicates?: boolean
+}
+
+export type AnnouncementUpsertWithWhereUniqueWithoutCreatorInput = {
+  where: Prisma.AnnouncementWhereUniqueInput
+  update: Prisma.XOR<Prisma.AnnouncementUpdateWithoutCreatorInput, Prisma.AnnouncementUncheckedUpdateWithoutCreatorInput>
+  create: Prisma.XOR<Prisma.AnnouncementCreateWithoutCreatorInput, Prisma.AnnouncementUncheckedCreateWithoutCreatorInput>
+}
+
+export type AnnouncementUpdateWithWhereUniqueWithoutCreatorInput = {
+  where: Prisma.AnnouncementWhereUniqueInput
+  data: Prisma.XOR<Prisma.AnnouncementUpdateWithoutCreatorInput, Prisma.AnnouncementUncheckedUpdateWithoutCreatorInput>
+}
+
+export type AnnouncementUpdateManyWithWhereWithoutCreatorInput = {
+  where: Prisma.AnnouncementScalarWhereInput
+  data: Prisma.XOR<Prisma.AnnouncementUpdateManyMutationInput, Prisma.AnnouncementUncheckedUpdateManyWithoutCreatorInput>
+}
+
+export type AnnouncementScalarWhereInput = {
+  AND?: Prisma.AnnouncementScalarWhereInput | Prisma.AnnouncementScalarWhereInput[]
+  OR?: Prisma.AnnouncementScalarWhereInput[]
+  NOT?: Prisma.AnnouncementScalarWhereInput | Prisma.AnnouncementScalarWhereInput[]
+  id?: Prisma.IntFilter<"Announcement"> | number
+  title?: Prisma.StringFilter<"Announcement"> | string
+  content?: Prisma.StringFilter<"Announcement"> | string
+  type?: Prisma.EnumAnnouncementTypeFilter<"Announcement"> | $Enums.AnnouncementType
+  attachments?: Prisma.StringNullableListFilter<"Announcement">
+  year_id?: Prisma.IntNullableFilter<"Announcement"> | number | null
+  section_id?: Prisma.IntNullableFilter<"Announcement"> | number | null
+  major_id?: Prisma.IntNullableFilter<"Announcement"> | number | null
+  group_id?: Prisma.IntNullableFilter<"Announcement"> | number | null
+  course_id?: Prisma.IntNullableFilter<"Announcement"> | number | null
+  student_id?: Prisma.IntNullableFilter<"Announcement"> | number | null
+  created_by?: Prisma.IntNullableFilter<"Announcement"> | number | null
+  created_at?: Prisma.DateTimeFilter<"Announcement"> | Date | string
+  updated_at?: Prisma.DateTimeFilter<"Announcement"> | Date | string
 }
 
 export type AnnouncementUpsertWithWhereUniqueWithoutStudentInput = {
@@ -894,25 +1045,6 @@ export type AnnouncementUpdateManyWithWhereWithoutStudentInput = {
   data: Prisma.XOR<Prisma.AnnouncementUpdateManyMutationInput, Prisma.AnnouncementUncheckedUpdateManyWithoutStudentInput>
 }
 
-export type AnnouncementScalarWhereInput = {
-  AND?: Prisma.AnnouncementScalarWhereInput | Prisma.AnnouncementScalarWhereInput[]
-  OR?: Prisma.AnnouncementScalarWhereInput[]
-  NOT?: Prisma.AnnouncementScalarWhereInput | Prisma.AnnouncementScalarWhereInput[]
-  id?: Prisma.IntFilter<"Announcement"> | number
-  title?: Prisma.StringFilter<"Announcement"> | string
-  content?: Prisma.StringFilter<"Announcement"> | string
-  type?: Prisma.EnumAnnouncementTypeFilter<"Announcement"> | $Enums.AnnouncementType
-  attachments?: Prisma.StringNullableListFilter<"Announcement">
-  year_id?: Prisma.IntNullableFilter<"Announcement"> | number | null
-  section_id?: Prisma.IntNullableFilter<"Announcement"> | number | null
-  major_id?: Prisma.IntNullableFilter<"Announcement"> | number | null
-  group_id?: Prisma.IntNullableFilter<"Announcement"> | number | null
-  course_id?: Prisma.IntNullableFilter<"Announcement"> | number | null
-  student_id?: Prisma.IntNullableFilter<"Announcement"> | number | null
-  created_at?: Prisma.DateTimeFilter<"Announcement"> | Date | string
-  updated_at?: Prisma.DateTimeFilter<"Announcement"> | Date | string
-}
-
 export type AnnouncementCreateWithoutYearInput = {
   title: string
   content: string
@@ -925,6 +1057,7 @@ export type AnnouncementCreateWithoutYearInput = {
   group?: Prisma.GroupCreateNestedOneWithoutAnnouncementsInput
   course?: Prisma.CourseCreateNestedOneWithoutAnnouncementsInput
   student?: Prisma.UserCreateNestedOneWithoutAnnouncementsInput
+  creator?: Prisma.UserCreateNestedOneWithoutCreatedAnnouncementsInput
 }
 
 export type AnnouncementUncheckedCreateWithoutYearInput = {
@@ -938,6 +1071,7 @@ export type AnnouncementUncheckedCreateWithoutYearInput = {
   group_id?: number | null
   course_id?: number | null
   student_id?: number | null
+  created_by?: number | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -980,6 +1114,7 @@ export type AnnouncementCreateWithoutSectionInput = {
   group?: Prisma.GroupCreateNestedOneWithoutAnnouncementsInput
   course?: Prisma.CourseCreateNestedOneWithoutAnnouncementsInput
   student?: Prisma.UserCreateNestedOneWithoutAnnouncementsInput
+  creator?: Prisma.UserCreateNestedOneWithoutCreatedAnnouncementsInput
 }
 
 export type AnnouncementUncheckedCreateWithoutSectionInput = {
@@ -993,6 +1128,7 @@ export type AnnouncementUncheckedCreateWithoutSectionInput = {
   group_id?: number | null
   course_id?: number | null
   student_id?: number | null
+  created_by?: number | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -1035,6 +1171,7 @@ export type AnnouncementCreateWithoutMajorInput = {
   group?: Prisma.GroupCreateNestedOneWithoutAnnouncementsInput
   course?: Prisma.CourseCreateNestedOneWithoutAnnouncementsInput
   student?: Prisma.UserCreateNestedOneWithoutAnnouncementsInput
+  creator?: Prisma.UserCreateNestedOneWithoutCreatedAnnouncementsInput
 }
 
 export type AnnouncementUncheckedCreateWithoutMajorInput = {
@@ -1048,6 +1185,7 @@ export type AnnouncementUncheckedCreateWithoutMajorInput = {
   group_id?: number | null
   course_id?: number | null
   student_id?: number | null
+  created_by?: number | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -1090,6 +1228,7 @@ export type AnnouncementCreateWithoutGroupInput = {
   major?: Prisma.MajorCreateNestedOneWithoutAnnouncementsInput
   course?: Prisma.CourseCreateNestedOneWithoutAnnouncementsInput
   student?: Prisma.UserCreateNestedOneWithoutAnnouncementsInput
+  creator?: Prisma.UserCreateNestedOneWithoutCreatedAnnouncementsInput
 }
 
 export type AnnouncementUncheckedCreateWithoutGroupInput = {
@@ -1103,6 +1242,7 @@ export type AnnouncementUncheckedCreateWithoutGroupInput = {
   major_id?: number | null
   course_id?: number | null
   student_id?: number | null
+  created_by?: number | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -1145,6 +1285,7 @@ export type AnnouncementCreateWithoutCourseInput = {
   major?: Prisma.MajorCreateNestedOneWithoutAnnouncementsInput
   group?: Prisma.GroupCreateNestedOneWithoutAnnouncementsInput
   student?: Prisma.UserCreateNestedOneWithoutAnnouncementsInput
+  creator?: Prisma.UserCreateNestedOneWithoutCreatedAnnouncementsInput
 }
 
 export type AnnouncementUncheckedCreateWithoutCourseInput = {
@@ -1158,6 +1299,7 @@ export type AnnouncementUncheckedCreateWithoutCourseInput = {
   major_id?: number | null
   group_id?: number | null
   student_id?: number | null
+  created_by?: number | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -1188,6 +1330,22 @@ export type AnnouncementUpdateManyWithWhereWithoutCourseInput = {
   data: Prisma.XOR<Prisma.AnnouncementUpdateManyMutationInput, Prisma.AnnouncementUncheckedUpdateManyWithoutCourseInput>
 }
 
+export type AnnouncementCreateManyCreatorInput = {
+  id?: number
+  title: string
+  content: string
+  type?: $Enums.AnnouncementType
+  attachments?: Prisma.AnnouncementCreateattachmentsInput | string[]
+  year_id?: number | null
+  section_id?: number | null
+  major_id?: number | null
+  group_id?: number | null
+  course_id?: number | null
+  student_id?: number | null
+  created_at?: Date | string
+  updated_at?: Date | string
+}
+
 export type AnnouncementCreateManyStudentInput = {
   id?: number
   title: string
@@ -1199,8 +1357,56 @@ export type AnnouncementCreateManyStudentInput = {
   major_id?: number | null
   group_id?: number | null
   course_id?: number | null
+  created_by?: number | null
   created_at?: Date | string
   updated_at?: Date | string
+}
+
+export type AnnouncementUpdateWithoutCreatorInput = {
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAnnouncementTypeFieldUpdateOperationsInput | $Enums.AnnouncementType
+  attachments?: Prisma.AnnouncementUpdateattachmentsInput | string[]
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  year?: Prisma.YearUpdateOneWithoutAnnouncementsNestedInput
+  section?: Prisma.SectionUpdateOneWithoutAnnouncementsNestedInput
+  major?: Prisma.MajorUpdateOneWithoutAnnouncementsNestedInput
+  group?: Prisma.GroupUpdateOneWithoutAnnouncementsNestedInput
+  course?: Prisma.CourseUpdateOneWithoutAnnouncementsNestedInput
+  student?: Prisma.UserUpdateOneWithoutAnnouncementsNestedInput
+}
+
+export type AnnouncementUncheckedUpdateWithoutCreatorInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAnnouncementTypeFieldUpdateOperationsInput | $Enums.AnnouncementType
+  attachments?: Prisma.AnnouncementUpdateattachmentsInput | string[]
+  year_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  section_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  group_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  course_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  student_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type AnnouncementUncheckedUpdateManyWithoutCreatorInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAnnouncementTypeFieldUpdateOperationsInput | $Enums.AnnouncementType
+  attachments?: Prisma.AnnouncementUpdateattachmentsInput | string[]
+  year_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  section_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  group_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  course_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  student_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AnnouncementUpdateWithoutStudentInput = {
@@ -1215,6 +1421,7 @@ export type AnnouncementUpdateWithoutStudentInput = {
   major?: Prisma.MajorUpdateOneWithoutAnnouncementsNestedInput
   group?: Prisma.GroupUpdateOneWithoutAnnouncementsNestedInput
   course?: Prisma.CourseUpdateOneWithoutAnnouncementsNestedInput
+  creator?: Prisma.UserUpdateOneWithoutCreatedAnnouncementsNestedInput
 }
 
 export type AnnouncementUncheckedUpdateWithoutStudentInput = {
@@ -1228,6 +1435,7 @@ export type AnnouncementUncheckedUpdateWithoutStudentInput = {
   major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   group_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   course_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  created_by?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1243,6 +1451,7 @@ export type AnnouncementUncheckedUpdateManyWithoutStudentInput = {
   major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   group_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   course_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  created_by?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1258,6 +1467,7 @@ export type AnnouncementCreateManyYearInput = {
   group_id?: number | null
   course_id?: number | null
   student_id?: number | null
+  created_by?: number | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -1274,6 +1484,7 @@ export type AnnouncementUpdateWithoutYearInput = {
   group?: Prisma.GroupUpdateOneWithoutAnnouncementsNestedInput
   course?: Prisma.CourseUpdateOneWithoutAnnouncementsNestedInput
   student?: Prisma.UserUpdateOneWithoutAnnouncementsNestedInput
+  creator?: Prisma.UserUpdateOneWithoutCreatedAnnouncementsNestedInput
 }
 
 export type AnnouncementUncheckedUpdateWithoutYearInput = {
@@ -1287,6 +1498,7 @@ export type AnnouncementUncheckedUpdateWithoutYearInput = {
   group_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   course_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   student_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  created_by?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1302,6 +1514,7 @@ export type AnnouncementUncheckedUpdateManyWithoutYearInput = {
   group_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   course_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   student_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  created_by?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1317,6 +1530,7 @@ export type AnnouncementCreateManySectionInput = {
   group_id?: number | null
   course_id?: number | null
   student_id?: number | null
+  created_by?: number | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -1333,6 +1547,7 @@ export type AnnouncementUpdateWithoutSectionInput = {
   group?: Prisma.GroupUpdateOneWithoutAnnouncementsNestedInput
   course?: Prisma.CourseUpdateOneWithoutAnnouncementsNestedInput
   student?: Prisma.UserUpdateOneWithoutAnnouncementsNestedInput
+  creator?: Prisma.UserUpdateOneWithoutCreatedAnnouncementsNestedInput
 }
 
 export type AnnouncementUncheckedUpdateWithoutSectionInput = {
@@ -1346,6 +1561,7 @@ export type AnnouncementUncheckedUpdateWithoutSectionInput = {
   group_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   course_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   student_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  created_by?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1361,6 +1577,7 @@ export type AnnouncementUncheckedUpdateManyWithoutSectionInput = {
   group_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   course_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   student_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  created_by?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1376,6 +1593,7 @@ export type AnnouncementCreateManyMajorInput = {
   group_id?: number | null
   course_id?: number | null
   student_id?: number | null
+  created_by?: number | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -1392,6 +1610,7 @@ export type AnnouncementUpdateWithoutMajorInput = {
   group?: Prisma.GroupUpdateOneWithoutAnnouncementsNestedInput
   course?: Prisma.CourseUpdateOneWithoutAnnouncementsNestedInput
   student?: Prisma.UserUpdateOneWithoutAnnouncementsNestedInput
+  creator?: Prisma.UserUpdateOneWithoutCreatedAnnouncementsNestedInput
 }
 
 export type AnnouncementUncheckedUpdateWithoutMajorInput = {
@@ -1405,6 +1624,7 @@ export type AnnouncementUncheckedUpdateWithoutMajorInput = {
   group_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   course_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   student_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  created_by?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1420,6 +1640,7 @@ export type AnnouncementUncheckedUpdateManyWithoutMajorInput = {
   group_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   course_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   student_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  created_by?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1435,6 +1656,7 @@ export type AnnouncementCreateManyGroupInput = {
   major_id?: number | null
   course_id?: number | null
   student_id?: number | null
+  created_by?: number | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -1451,6 +1673,7 @@ export type AnnouncementUpdateWithoutGroupInput = {
   major?: Prisma.MajorUpdateOneWithoutAnnouncementsNestedInput
   course?: Prisma.CourseUpdateOneWithoutAnnouncementsNestedInput
   student?: Prisma.UserUpdateOneWithoutAnnouncementsNestedInput
+  creator?: Prisma.UserUpdateOneWithoutCreatedAnnouncementsNestedInput
 }
 
 export type AnnouncementUncheckedUpdateWithoutGroupInput = {
@@ -1464,6 +1687,7 @@ export type AnnouncementUncheckedUpdateWithoutGroupInput = {
   major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   course_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   student_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  created_by?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1479,6 +1703,7 @@ export type AnnouncementUncheckedUpdateManyWithoutGroupInput = {
   major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   course_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   student_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  created_by?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1494,6 +1719,7 @@ export type AnnouncementCreateManyCourseInput = {
   major_id?: number | null
   group_id?: number | null
   student_id?: number | null
+  created_by?: number | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -1510,6 +1736,7 @@ export type AnnouncementUpdateWithoutCourseInput = {
   major?: Prisma.MajorUpdateOneWithoutAnnouncementsNestedInput
   group?: Prisma.GroupUpdateOneWithoutAnnouncementsNestedInput
   student?: Prisma.UserUpdateOneWithoutAnnouncementsNestedInput
+  creator?: Prisma.UserUpdateOneWithoutCreatedAnnouncementsNestedInput
 }
 
 export type AnnouncementUncheckedUpdateWithoutCourseInput = {
@@ -1523,6 +1750,7 @@ export type AnnouncementUncheckedUpdateWithoutCourseInput = {
   major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   group_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   student_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  created_by?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1538,6 +1766,7 @@ export type AnnouncementUncheckedUpdateManyWithoutCourseInput = {
   major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   group_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   student_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  created_by?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1556,6 +1785,7 @@ export type AnnouncementSelect<ExtArgs extends runtime.Types.Extensions.Internal
   group_id?: boolean
   course_id?: boolean
   student_id?: boolean
+  created_by?: boolean
   created_at?: boolean
   updated_at?: boolean
   year?: boolean | Prisma.Announcement$yearArgs<ExtArgs>
@@ -1564,6 +1794,7 @@ export type AnnouncementSelect<ExtArgs extends runtime.Types.Extensions.Internal
   group?: boolean | Prisma.Announcement$groupArgs<ExtArgs>
   course?: boolean | Prisma.Announcement$courseArgs<ExtArgs>
   student?: boolean | Prisma.Announcement$studentArgs<ExtArgs>
+  creator?: boolean | Prisma.Announcement$creatorArgs<ExtArgs>
 }, ExtArgs["result"]["announcement"]>
 
 export type AnnouncementSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1578,6 +1809,7 @@ export type AnnouncementSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   group_id?: boolean
   course_id?: boolean
   student_id?: boolean
+  created_by?: boolean
   created_at?: boolean
   updated_at?: boolean
   year?: boolean | Prisma.Announcement$yearArgs<ExtArgs>
@@ -1586,6 +1818,7 @@ export type AnnouncementSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   group?: boolean | Prisma.Announcement$groupArgs<ExtArgs>
   course?: boolean | Prisma.Announcement$courseArgs<ExtArgs>
   student?: boolean | Prisma.Announcement$studentArgs<ExtArgs>
+  creator?: boolean | Prisma.Announcement$creatorArgs<ExtArgs>
 }, ExtArgs["result"]["announcement"]>
 
 export type AnnouncementSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1600,6 +1833,7 @@ export type AnnouncementSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   group_id?: boolean
   course_id?: boolean
   student_id?: boolean
+  created_by?: boolean
   created_at?: boolean
   updated_at?: boolean
   year?: boolean | Prisma.Announcement$yearArgs<ExtArgs>
@@ -1608,6 +1842,7 @@ export type AnnouncementSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   group?: boolean | Prisma.Announcement$groupArgs<ExtArgs>
   course?: boolean | Prisma.Announcement$courseArgs<ExtArgs>
   student?: boolean | Prisma.Announcement$studentArgs<ExtArgs>
+  creator?: boolean | Prisma.Announcement$creatorArgs<ExtArgs>
 }, ExtArgs["result"]["announcement"]>
 
 export type AnnouncementSelectScalar = {
@@ -1622,11 +1857,12 @@ export type AnnouncementSelectScalar = {
   group_id?: boolean
   course_id?: boolean
   student_id?: boolean
+  created_by?: boolean
   created_at?: boolean
   updated_at?: boolean
 }
 
-export type AnnouncementOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "content" | "type" | "attachments" | "year_id" | "section_id" | "major_id" | "group_id" | "course_id" | "student_id" | "created_at" | "updated_at", ExtArgs["result"]["announcement"]>
+export type AnnouncementOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "content" | "type" | "attachments" | "year_id" | "section_id" | "major_id" | "group_id" | "course_id" | "student_id" | "created_by" | "created_at" | "updated_at", ExtArgs["result"]["announcement"]>
 export type AnnouncementInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   year?: boolean | Prisma.Announcement$yearArgs<ExtArgs>
   section?: boolean | Prisma.Announcement$sectionArgs<ExtArgs>
@@ -1634,6 +1870,7 @@ export type AnnouncementInclude<ExtArgs extends runtime.Types.Extensions.Interna
   group?: boolean | Prisma.Announcement$groupArgs<ExtArgs>
   course?: boolean | Prisma.Announcement$courseArgs<ExtArgs>
   student?: boolean | Prisma.Announcement$studentArgs<ExtArgs>
+  creator?: boolean | Prisma.Announcement$creatorArgs<ExtArgs>
 }
 export type AnnouncementIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   year?: boolean | Prisma.Announcement$yearArgs<ExtArgs>
@@ -1642,6 +1879,7 @@ export type AnnouncementIncludeCreateManyAndReturn<ExtArgs extends runtime.Types
   group?: boolean | Prisma.Announcement$groupArgs<ExtArgs>
   course?: boolean | Prisma.Announcement$courseArgs<ExtArgs>
   student?: boolean | Prisma.Announcement$studentArgs<ExtArgs>
+  creator?: boolean | Prisma.Announcement$creatorArgs<ExtArgs>
 }
 export type AnnouncementIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   year?: boolean | Prisma.Announcement$yearArgs<ExtArgs>
@@ -1650,6 +1888,7 @@ export type AnnouncementIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types
   group?: boolean | Prisma.Announcement$groupArgs<ExtArgs>
   course?: boolean | Prisma.Announcement$courseArgs<ExtArgs>
   student?: boolean | Prisma.Announcement$studentArgs<ExtArgs>
+  creator?: boolean | Prisma.Announcement$creatorArgs<ExtArgs>
 }
 
 export type $AnnouncementPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1661,6 +1900,7 @@ export type $AnnouncementPayload<ExtArgs extends runtime.Types.Extensions.Intern
     group: Prisma.$GroupPayload<ExtArgs> | null
     course: Prisma.$CoursePayload<ExtArgs> | null
     student: Prisma.$UserPayload<ExtArgs> | null
+    creator: Prisma.$UserPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1674,6 +1914,7 @@ export type $AnnouncementPayload<ExtArgs extends runtime.Types.Extensions.Intern
     group_id: number | null
     course_id: number | null
     student_id: number | null
+    created_by: number | null
     created_at: Date
     updated_at: Date
   }, ExtArgs["result"]["announcement"]>
@@ -2076,6 +2317,7 @@ export interface Prisma__AnnouncementClient<T, Null = never, ExtArgs extends run
   group<T extends Prisma.Announcement$groupArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Announcement$groupArgs<ExtArgs>>): Prisma.Prisma__GroupClient<runtime.Types.Result.GetResult<Prisma.$GroupPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   course<T extends Prisma.Announcement$courseArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Announcement$courseArgs<ExtArgs>>): Prisma.Prisma__CourseClient<runtime.Types.Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   student<T extends Prisma.Announcement$studentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Announcement$studentArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  creator<T extends Prisma.Announcement$creatorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Announcement$creatorArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2116,6 +2358,7 @@ export interface AnnouncementFieldRefs {
   readonly group_id: Prisma.FieldRef<"Announcement", 'Int'>
   readonly course_id: Prisma.FieldRef<"Announcement", 'Int'>
   readonly student_id: Prisma.FieldRef<"Announcement", 'Int'>
+  readonly created_by: Prisma.FieldRef<"Announcement", 'Int'>
   readonly created_at: Prisma.FieldRef<"Announcement", 'DateTime'>
   readonly updated_at: Prisma.FieldRef<"Announcement", 'DateTime'>
 }
@@ -2617,6 +2860,25 @@ export type Announcement$courseArgs<ExtArgs extends runtime.Types.Extensions.Int
  * Announcement.student
  */
 export type Announcement$studentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
+}
+
+/**
+ * Announcement.creator
+ */
+export type Announcement$creatorArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the User
    */

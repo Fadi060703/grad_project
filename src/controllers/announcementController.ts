@@ -16,6 +16,8 @@ import { emitNewAnnouncement, emitAnnouncementUpdate, emitAnnouncementDelete } f
 // Create announcement
 export const createAnnouncement = asyncHandler(async (req: Request, res: Response) => {
   const data = createAnnouncementSchema.parse(req.body);
+  const { id: user_id } = req.user as { id: number; role: string };
+
   
   // Validate that at least one target is specified
   const hasTarget = data.year_id || data.section_id || data.major_id || 
@@ -70,6 +72,7 @@ export const createAnnouncement = asyncHandler(async (req: Request, res: Respons
       group_id: data.group_id || null,
       course_id: data.course_id || null,
       student_id: data.student_id || null,
+      created_by: user_id,
     },
     include: {
       year: { select: { id: true, name: true } },
@@ -420,6 +423,63 @@ export const getAnnouncementsByType = asyncHandler(async (req: Request, res: Res
     prisma.announcement.count({ where })
   ]);
   
+  return res.status(200).json({
+    success: true,
+    data: announcements,
+    meta: {
+      total,
+      page,
+      pageSize,
+      totalPages: Math.ceil(total / pageSize)
+    }
+  });
+});
+
+
+
+//doctor + teacher: get my own announcements
+export const getMyAnnouncements = asyncHandler(async (req: Request, res: Response) => {
+  const { id: user_id } = req.user as { id: number; role: string };
+
+  const query = getAnnouncementsQuerySchema.parse(req.query);
+  const { page, pageSize, type, course_id, search, startDate, endDate } = query;
+
+  const where: any = { created_by: user_id };
+
+  if (type) where.type = type;
+  if (course_id) where.course_id = course_id;
+
+  if (search) {
+    where.OR = [
+      { title: { contains: search, mode: 'insensitive' } },
+      { content: { contains: search, mode: 'insensitive' } },
+    ];
+  }
+
+  if (startDate || endDate) {
+    where.created_at = {};
+    if (startDate) where.created_at.gte = new Date(startDate);
+    if (endDate) where.created_at.lte = new Date(endDate);
+  }
+
+  const [announcements, total] = await Promise.all([
+    prisma.announcement.findMany({
+      where,
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+      orderBy: { created_at: 'desc' },
+      include: {
+        year: { select: { id: true, name: true } },
+        section: { select: { id: true, name: true } },
+        major: { select: { id: true, name: true } },
+        group: { select: { id: true, name: true } },
+        course: { select: { id: true, name: true } },
+        student: { select: { id: true, full_name: true } },
+      }
+    }),
+    prisma.announcement.count({ where })
+  ]);
+
   return res.status(200).json({
     success: true,
     data: announcements,

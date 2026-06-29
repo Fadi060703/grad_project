@@ -389,6 +389,7 @@ export const AnnouncementScalarFieldEnum = {
   group_id: 'group_id',
   course_id: 'course_id',
   student_id: 'student_id',
+  created_by: 'created_by',
   created_at: 'created_at',
   updated_at: 'updated_at'
 } as const
