@@ -4,7 +4,11 @@ import {
   createCourse,
   deleteCourse,
   getAllCourses,
+  getCourseGroups,
+  getCourseTargets,
+  getDoctorCourseStudents,
   getMyCourses,
+  getTeacherCourseStudents,
   updateCourse,
 } from "../controllers/coursesController";
 import {
@@ -23,8 +27,14 @@ const upload = multer({
   limits: { fileSize: 10 * 1024 * 1024 },
 });
 
-router.get("/courses", authMiddleware, check("courses:read"), getAllCourses);
 router.get("/my-courses", authMiddleware, check("my-courses:read"), getMyCourses);
+
+router.get("/courses/:course_id/targets",         authMiddleware, check("my-courses:read"), getCourseTargets);
+router.get("/courses/:course_id/groups",          authMiddleware, check("my-courses:read"), getCourseGroups);
+router.get("/courses/:course_id/doctor-students", authMiddleware, check("my-courses:read"), getDoctorCourseStudents);
+router.get("/courses/:course_id/teacher-students",authMiddleware, check("my-courses:read"), getTeacherCourseStudents);
+
+router.get("/courses", authMiddleware, check("courses:read"), getAllCourses);
 router.post("/courses", authMiddleware, check("courses:add"), createCourse);
 router.put(
   "/courses/:id",

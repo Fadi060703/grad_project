@@ -1050,3 +1050,132 @@ export const getMyCourses = createListHandler({
       .array(getCoursesSchema)
       .parse(data.map((course) => mapCourseLinks(course))),
 });
+
+
+// GET /courses/:course_id/targets — Doctor
+export const getCourseTargets = asyncHandler(async (req: Request, res: Response) => {
+  const { id: user_id } = req.user as { id: number; role: string };
+  //@ts-expect-error
+  const course_id = parseInt(req.params.course_id, 10);
+  if (isNaN(course_id)) throw new BadRequestError("Invalid course_id");
+
+  const course = await prisma.course.findUnique({
+    where: { id: course_id, doctors: { some: { id: user_id } } },
+    select: {
+      sectionCourses: { select: { section: { select: { id: true, name: true } } } },
+      majorCourses:   { select: { major:   { select: { id: true, name: true } } } },
+    },
+  });
+  if (!course) throw new NotFoundError("Course");
+
+  const sections = course.sectionCourses.map((sc) => sc.section);
+  const majors   = course.majorCourses.map((mc) => mc.major);
+
+  const type = sections.length > 0 ? "sections" : "majors";
+  const data = sections.length > 0 ? sections : majors;
+
+  return res.status(200).json({ success: true, data: { type, data } });
+});
+
+
+// GET /courses/:course_id/groups — Teacher
+export const getCourseGroups = asyncHandler(async (req: Request, res: Response) => {
+  const { id: user_id } = req.user as { id: number; role: string };
+  //@ts-expect-error
+  const course_id = parseInt(req.params.course_id, 10);
+  if (isNaN(course_id)) throw new BadRequestError("Invalid course_id");
+
+  const course = await prisma.course.findUnique({
+    where: { id: course_id, teachers: { some: { id: user_id } } },
+    select: {
+      students: {
+        select: {
+          student: {
+            select: {
+              group: { select: { id: true, name: true } },
+            },
+          },
+        },
+      },
+    },
+  });
+  if (!course) throw new NotFoundError("Course");
+
+  // Deduplicate groups
+  const groupMap = new Map<number, { id: number; name: string }>();
+  for (const { student } of course.students) {
+    if (!groupMap.has(student.group.id)) {
+      groupMap.set(student.group.id, student.group);
+    }
+  }
+
+  return res.status(200).json({ success: true, data: [...groupMap.values()] });
+});
+
+
+// GET /courses/:course_id/doctor-students — Doctor
+export const getDoctorCourseStudents = asyncHandler(async (req: Request, res: Response) => {
+  const { id: user_id } = req.user as { id: number; role: string };
+  //@ts-expect-error
+  const course_id = parseInt(req.params.course_id, 10);
+  if (isNaN(course_id)) throw new BadRequestError("Invalid course_id");
+
+  const section_id = req.query.section_id ? parseInt(req.query.section_id as string, 10) : undefined;
+  const major_id   = req.query.major_id   ? parseInt(req.query.major_id   as string, 10) : undefined;
+
+  const course = await prisma.course.findUnique({
+    where: { id: course_id, doctors: { some: { id: user_id } } },
+    select: { id: true },
+  });
+  if (!course) throw new NotFoundError("Course");
+
+  const studentWhere: any = { courses: { some: { course_id } } };
+  if (section_id) studentWhere.section_id = section_id;
+  if (major_id)   studentWhere.major_id   = major_id;
+
+  const students = await prisma.student.findMany({
+    where: studentWhere,
+    select: {
+      student_id:   true,
+      mother_name:  true,
+      user: { select: { username: true, full_name: true } },
+    },
+  });
+
+  const data = students.map(({ user, ...s }) => ({ ...s, ...user }));
+
+  return res.status(200).json({ success: true, data });
+});
+
+
+// GET /courses/:course_id/teacher-students — Teacher
+export const getTeacherCourseStudents = asyncHandler(async (req: Request, res: Response) => {
+  const { id: user_id } = req.user as { id: number; role: string };
+  //@ts-expect-error
+  const course_id = parseInt(req.params.course_id, 10);
+  if (isNaN(course_id)) throw new BadRequestError("Invalid course_id");
+
+  const group_id = req.query.group_id ? parseInt(req.query.group_id as string, 10) : undefined;
+
+  const course = await prisma.course.findUnique({
+    where: { id: course_id, teachers: { some: { id: user_id } } },
+    select: { id: true },
+  });
+  if (!course) throw new NotFoundError("Course");
+
+  const studentWhere: any = { courses: { some: { course_id } } };
+  if (group_id) studentWhere.group_id = group_id;
+
+  const students = await prisma.student.findMany({
+    where: studentWhere,
+    select: {
+      student_id:   true,
+      mother_name:  true,
+      user: { select: { username: true, full_name: true } },
+    },
+  });
+
+  const data = students.map(({ user, ...s }) => ({ ...s, ...user }));
+
+  return res.status(200).json({ success: true, data });
+});
