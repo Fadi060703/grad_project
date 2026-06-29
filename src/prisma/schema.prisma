@@ -52,6 +52,10 @@ enum Role {
   DOCTOR
   TEACHER
   STUDENT
+  CONTENT_DE
+  EXAMS_DE
+  LECTURES_SCHEDULE_DE
+  MARKS_DE
 }
 
 model User {
@@ -212,7 +216,7 @@ model Course {
   exams               Exam[]
   created_at          DateTime @default(now())
   updated_at          DateTime? @updatedAt
-  
+
   @@map("courses")
 }
 

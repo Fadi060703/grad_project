@@ -13,7 +13,11 @@ export const Role = {
   ADMIN: 'ADMIN',
   DOCTOR: 'DOCTOR',
   TEACHER: 'TEACHER',
-  STUDENT: 'STUDENT'
+  STUDENT: 'STUDENT',
+  CONTENT_DE: 'CONTENT_DE',
+  EXAMS_DE: 'EXAMS_DE',
+  LECTURES_SCHEDULE_DE: 'LECTURES_SCHEDULE_DE',
+  MARKS_DE: 'MARKS_DE'
 } as const
 
 export type Role = (typeof Role)[keyof typeof Role]
