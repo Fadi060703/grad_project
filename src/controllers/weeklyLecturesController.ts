@@ -110,14 +110,69 @@ export const manualGenerateWeeklyLectures = asyncHandler(
 );
 
 // GET /weekly-lectures/next/student?student_id=x
+// export const getNextLectureForStudent = asyncHandler(
+//   async (req: Request, res: Response) => {
+//     // TODO: replace student_id query param with token payload when auth is implemented
+//     const student_id = parseInt(req.query.student_id as string, 10);
+//     if (isNaN(student_id)) throw new BadRequestError("Invalid student_id");
+
+//     const student = await prisma.student.findUnique({
+//       where: { student_id },
+//       select: {
+//         student_id: true,
+//         section_id: true,
+//         major_id: true,
+//         group_id: true,
+//       },
+//     });
+//     if (!student) throw new NotFoundError("Student");
+
+//     const whereClause = student.section_id
+//       ? { lecture: { section_id: student.section_id } }
+//       : { lecture: { major_id: student.major_id } };
+
+//     const result = await findNextWeeklyLecture(whereClause);
+//     if (!result) {
+//       return res.status(200).json({ success: true, data: null });
+//     }
+
+//     const { weeklyLecture, isOngoing } = result;
+
+//     // Get has_attended for this student
+//     let has_attended: boolean | null = null;
+//     if (weeklyLecture.lecture.lecture_type === "PRACTICAL") {
+//       // Only practical lectures have attendance
+//       const attendance = await prisma.lectureAttendance.findUnique({
+//         where: {
+//           weekly_lecture_id_student_id: {
+//             weekly_lecture_id: weeklyLecture.id,
+//             student_id,
+//           },
+//         },
+//       });
+//       has_attended = attendance?.has_attended ?? false;
+//     }
+
+//     return res.status(200).json({
+//       success: true,
+//       data: {
+//         ...weeklyLecture,
+//         is_ongoing: isOngoing,
+//         has_attended,
+//       },
+//     });
+//   },
+// );
+
+// GET /weekly-lectures/next/student
 export const getNextLectureForStudent = asyncHandler(
   async (req: Request, res: Response) => {
-    // TODO: replace student_id query param with token payload when auth is implemented
-    const student_id = parseInt(req.query.student_id as string, 10);
-    if (isNaN(student_id)) throw new BadRequestError("Invalid student_id");
+    const { id: user_id, role } = req.user as { id: number; role: string };
+
+    if (role !== "STUDENT") throw new BadRequestError("User is not a student");
 
     const student = await prisma.student.findUnique({
-      where: { student_id },
+      where: { userId: user_id },
       select: {
         student_id: true,
         section_id: true,
@@ -138,15 +193,13 @@ export const getNextLectureForStudent = asyncHandler(
 
     const { weeklyLecture, isOngoing } = result;
 
-    // Get has_attended for this student
     let has_attended: boolean | null = null;
     if (weeklyLecture.lecture.lecture_type === "PRACTICAL") {
-      // Only practical lectures have attendance
       const attendance = await prisma.lectureAttendance.findUnique({
         where: {
           weekly_lecture_id_student_id: {
             weekly_lecture_id: weeklyLecture.id,
-            student_id,
+            student_id: student.student_id,
           },
         },
       });
@@ -164,20 +217,12 @@ export const getNextLectureForStudent = asyncHandler(
   },
 );
 
-// GET /weekly-lectures/next/teacher?teacher_id=x
+// GET /weekly-lectures/next/teacher
 export const getNextLectureForTeacher = asyncHandler(
   async (req: Request, res: Response) => {
-    // TODO: replace teacher_id query param with token payload when auth is implemented
-    const teacher_id = parseInt(req.query.teacher_id as string, 10);
-    if (isNaN(teacher_id)) throw new BadRequestError("Invalid teacher_id");
+    const { id: teacher_id, role } = req.user as { id: number; role: string };
 
-    const teacher = await prisma.user.findUnique({
-      where: { id: teacher_id },
-      select: { id: true, role: true },
-    });
-    if (!teacher) throw new NotFoundError("Teacher");
-    if (teacher.role !== "TEACHER")
-      throw new BadRequestError("User is not a teacher");
+    if (role !== "TEACHER") throw new BadRequestError("User is not a teacher");
 
     const result = await findNextWeeklyLecture({
       lecture: { instructor_id: teacher_id },
@@ -195,20 +240,12 @@ export const getNextLectureForTeacher = asyncHandler(
   },
 );
 
-// GET /weekly-lectures/next/doctor?doctor_id=x
+// GET /weekly-lectures/next/doctor
 export const getNextLectureForDoctor = asyncHandler(
   async (req: Request, res: Response) => {
-    // TODO: replace doctor_id query param with token payload when auth is implemented
-    const doctor_id = parseInt(req.query.doctor_id as string, 10);
-    if (isNaN(doctor_id)) throw new BadRequestError("Invalid doctor_id");
+    const { id: doctor_id, role } = req.user as { id: number; role: string };
 
-    const doctor = await prisma.user.findUnique({
-      where: { id: doctor_id },
-      select: { id: true, role: true },
-    });
-    if (!doctor) throw new NotFoundError("Doctor");
-    if (doctor.role !== "DOCTOR")
-      throw new BadRequestError("User is not a doctor");
+    if (role !== "DOCTOR") throw new BadRequestError("User is not a doctor");
 
     const result = await findNextWeeklyLecture({
       lecture: { instructor_id: doctor_id },

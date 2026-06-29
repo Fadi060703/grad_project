@@ -126,7 +126,10 @@ export const permissions: Record<string, string[]> = {
     "weekly-lectures:read",
     "exams:read",
   ],
-  STUDENT: [],
+  STUDENT: [
+    "lectures:read",
+    "weekly-lectures:read",
+  ],
 };
 
 export type Role = keyof typeof permissions;
