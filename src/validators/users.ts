@@ -17,7 +17,7 @@ export const getAllUsersSchema = z.object({
     username: z.string().min(3).max(20),
     full_name: z.string(),
     phone_number: z.string().optional().nullable(),
-    role: z.enum(['ADMIN', 'DOCTOR', 'TEACHER', 'STUDENT']),
+    role: z.enum(['ADMIN', 'DOCTOR', 'TEACHER', 'STUDENT', 'CONTENT_DE', 'EXAMS_DE', 'LECTURES_SCHEDULE_DE', 'MARKS_DE']),
     is_active: z.boolean(),
     student: studentSchema.optional().nullable(),
     permissions: z.array(z.string()).default([]),
@@ -44,7 +44,7 @@ export const createUserSchema = z.object({
     username: z.string().min(3).max(20),
     full_name: z.string().min(2).max(100),
     phone_number: z.string().optional().nullable(),
-    role: z.enum(['ADMIN', 'DOCTOR', 'TEACHER', 'STUDENT']),
+    role: z.enum(['ADMIN', 'DOCTOR', 'TEACHER', 'STUDENT', 'CONTENT_DE', 'EXAMS_DE', 'LECTURES_SCHEDULE_DE', 'MARKS_DE']),
     is_active: z.boolean().default(true).optional(),
     password: z.string()
         .min(8, "Password must be at least 8 characters")
@@ -82,7 +82,7 @@ export const updateUserSchema = z.object({
     username: z.string().min(3).max(20).optional(),
     full_name: z.string().min(2).max(100).optional(),
     phone_number: z.string().optional().nullable(),
-    role: z.enum(['ADMIN', 'DOCTOR', 'TEACHER', 'STUDENT']).optional(),
+    role: z.enum(['ADMIN', 'DOCTOR', 'TEACHER', 'STUDENT', 'CONTENT_DE', 'EXAMS_DE', 'LECTURES_SCHEDULE_DE', 'MARKS_DE']).optional(),
     is_active: z.boolean().optional(),
     password: z.string()
         .min(8, "Password must be at least 8 characters")

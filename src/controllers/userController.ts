@@ -365,7 +365,7 @@ export const updateUser = asyncHandler(async (req: Request, res: Response) => {
     username?: string;
     full_name?: string;
     phone_number?: string | null;
-    role?: "ADMIN" | "DOCTOR" | "TEACHER" | "STUDENT";
+    role?: "ADMIN" | "DOCTOR" | "TEACHER" | "STUDENT" | "CONTENT_DE" | "EXAMS_DE" | "LECTURES_SCHEDULE_DE" | "MARKS_DE";
     is_active?: boolean;
     password?: string;
     permissions?: string[];
