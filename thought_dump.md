@@ -3,6 +3,7 @@
 2. api that gets all the student's prev grades ever
 3. add website info model (createUpdate + get) { lecture_schedule, theoritical_exam_schedule, practical_exam_schedule, telegram_url, facebook_url, linkedin_url, instagram_url, support_email, website_url, university_name, faculity_name, faculity_picture_url }
 4. add the externals (+ filtering based on course type) { public/[course_id] : theoritical_lectures, practical_lectures, public/website_info }
+
 5. we need to think about the notification system (marks, announcements{group distripution, group change, ....}, next_exam_place)
 6. we need to think about how the logic will be to determine stuff related to that specific student (lecture, exam, marks, courses)
 

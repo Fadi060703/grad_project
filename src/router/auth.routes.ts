@@ -7,5 +7,6 @@ const router = Router();
 router.get("/auth/permissions", getAllPermissions);
 router.post("/auth/login", login);
 router.get("/auth/me", authMiddleware, me);
+router.get("", authMiddleware, me);
 
 export default router;

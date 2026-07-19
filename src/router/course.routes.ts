@@ -34,7 +34,7 @@ router.get("/courses/:course_id/groups",          authMiddleware, check("my-cour
 router.get("/courses/:course_id/doctor-students", authMiddleware, check("my-courses:read"), getDoctorCourseStudents);
 router.get("/courses/:course_id/teacher-students",authMiddleware, check("my-courses:read"), getTeacherCourseStudents);
 
-router.get("/courses", authMiddleware, check("courses:read"), getAllCourses);
+router.get("/courses", authMiddleware, check(["courses:read", "courses:read-one"]), getAllCourses);
 router.post("/courses", authMiddleware, check("courses:add"), createCourse);
 router.put(
   "/courses/:id",

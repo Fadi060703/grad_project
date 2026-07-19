@@ -12,7 +12,7 @@ import { initCron } from './src/lib/cron';
 
 const app: Application = express();
 const path = '0.0.0.0';
-const port = 8000;
+const port = 8001;
 
 // CORS middleware
 app.use(cors({
