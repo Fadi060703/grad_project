@@ -7,6 +7,8 @@ import {
   getAllExams,
   getExamById,
   getExamSettingById,
+  publishExam,
+  shuffleExamStudents,
   updateExam,
 } from "../controllers/examsController";
 import {
@@ -34,12 +36,39 @@ const router = Router();
 
 router.get("/exams", authMiddleware, check("exams:read"), getAllExams);
 router.get("/exams/:id", authMiddleware, check("exams:read"), getExamById);
-router.get("/exam-settings/:id", authMiddleware, check("exams:read"), getExamSettingById);
+router.get(
+  "/exam-settings/:id",
+  authMiddleware,
+  check("exams:read"),
+  getExamSettingById,
+);
 router.post("/exams", authMiddleware, check("exams:add"), createExam);
+router.post(
+  "/exams/:id/shuffle",
+  authMiddleware,
+  check("exams:update"),
+  shuffleExamStudents,
+);
+router.post(
+  "/exams/:id/publish",
+  authMiddleware,
+  check("exams:update"),
+  publishExam,
+);
 router.put("/exams/:id", authMiddleware, check("exams:update"), updateExam);
 router.delete("/exams/:id", authMiddleware, check("exams:delete"), deleteExam);
-router.post("/exam-settings/:id/students", authMiddleware, check("exams:update"), bulkAddStudentsToExamSetting);
-router.post("/exam-settings/:id/students/remove", authMiddleware, check("exams:update"), deleteStudentFromExamSetting);
+router.post(
+  "/exam-settings/:id/students",
+  authMiddleware,
+  check("exams:update"),
+  bulkAddStudentsToExamSetting,
+);
+router.post(
+  "/exam-settings/:id/students/remove",
+  authMiddleware,
+  check("exams:update"),
+  deleteStudentFromExamSetting,
+);
 
 router.get("/marks", authMiddleware, check("marks:read"), getAllMarks);
 router.post(

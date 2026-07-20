@@ -3,6 +3,13 @@ import { z } from "zod";
 // ─── Enums ────────────────────────────────────────────────────────────────────
 
 export const examTypeSchema = z.enum(["THEORETICAL", "PRACTICAL"]);
+export const examStatusSchema = z.enum(["NOT_READY", "READY", "PUBLISHED"]);
+
+// ─── Params ───────────────────────────────────────────────────────────────────
+
+export const examIdParamsSchema = z.object({
+  id: z.coerce.number().int().positive(),
+});
 
 // ─── ExamSettings ─────────────────────────────────────────────────────────────
 
@@ -56,6 +63,7 @@ export const examResponseSchema = z.object({
   id: z.number(),
   // exam_type: examTypeSchema,
   type: examTypeSchema,
+  status: examStatusSchema,
   course_id: z.number(),
   course: z.object({
     id: z.number(),
@@ -115,5 +123,6 @@ export const bulkAddStudentsSchema = z.object({
 
 export type CreateExamInput = z.infer<typeof createExamSchema>;
 export type UpdateExamInput = z.infer<typeof updateExamSchema>;
+export type ExamIdParams = z.infer<typeof examIdParamsSchema>;
 export type ExamResponse = z.infer<typeof examResponseSchema>;
 export type BulkAddStudentsInput = z.infer<typeof bulkAddStudentsSchema>;
