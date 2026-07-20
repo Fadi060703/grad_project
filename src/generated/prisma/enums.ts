@@ -91,3 +91,12 @@ export const ExamCategory = {
 } as const
 
 export type ExamCategory = (typeof ExamCategory)[keyof typeof ExamCategory]
+
+
+export const ExamStatus = {
+  NOT_READY: 'NOT_READY',
+  READY: 'READY',
+  PUBLISHED: 'PUBLISHED'
+} as const
+
+export type ExamStatus = (typeof ExamStatus)[keyof typeof ExamStatus]

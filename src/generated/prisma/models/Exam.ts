@@ -40,6 +40,7 @@ export type ExamMinAggregateOutputType = {
   id: number | null
   course_id: number | null
   type: $Enums.ExamCategory | null
+  status: $Enums.ExamStatus | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -48,6 +49,7 @@ export type ExamMaxAggregateOutputType = {
   id: number | null
   course_id: number | null
   type: $Enums.ExamCategory | null
+  status: $Enums.ExamStatus | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -56,6 +58,7 @@ export type ExamCountAggregateOutputType = {
   id: number
   course_id: number
   type: number
+  status: number
   created_at: number
   updated_at: number
   _all: number
@@ -76,6 +79,7 @@ export type ExamMinAggregateInputType = {
   id?: true
   course_id?: true
   type?: true
+  status?: true
   created_at?: true
   updated_at?: true
 }
@@ -84,6 +88,7 @@ export type ExamMaxAggregateInputType = {
   id?: true
   course_id?: true
   type?: true
+  status?: true
   created_at?: true
   updated_at?: true
 }
@@ -92,6 +97,7 @@ export type ExamCountAggregateInputType = {
   id?: true
   course_id?: true
   type?: true
+  status?: true
   created_at?: true
   updated_at?: true
   _all?: true
@@ -187,6 +193,7 @@ export type ExamGroupByOutputType = {
   id: number
   course_id: number
   type: $Enums.ExamCategory
+  status: $Enums.ExamStatus
   created_at: Date
   updated_at: Date
   _count: ExamCountAggregateOutputType | null
@@ -218,6 +225,7 @@ export type ExamWhereInput = {
   id?: Prisma.IntFilter<"Exam"> | number
   course_id?: Prisma.IntFilter<"Exam"> | number
   type?: Prisma.EnumExamCategoryFilter<"Exam"> | $Enums.ExamCategory
+  status?: Prisma.EnumExamStatusFilter<"Exam"> | $Enums.ExamStatus
   created_at?: Prisma.DateTimeFilter<"Exam"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Exam"> | Date | string
   course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>
@@ -228,6 +236,7 @@ export type ExamOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   course_id?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   course?: Prisma.CourseOrderByWithRelationInput
@@ -242,6 +251,7 @@ export type ExamWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.ExamWhereInput | Prisma.ExamWhereInput[]
   course_id?: Prisma.IntFilter<"Exam"> | number
   type?: Prisma.EnumExamCategoryFilter<"Exam"> | $Enums.ExamCategory
+  status?: Prisma.EnumExamStatusFilter<"Exam"> | $Enums.ExamStatus
   created_at?: Prisma.DateTimeFilter<"Exam"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Exam"> | Date | string
   course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>
@@ -252,6 +262,7 @@ export type ExamOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   course_id?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   _count?: Prisma.ExamCountOrderByAggregateInput
@@ -268,12 +279,14 @@ export type ExamScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"Exam"> | number
   course_id?: Prisma.IntWithAggregatesFilter<"Exam"> | number
   type?: Prisma.EnumExamCategoryWithAggregatesFilter<"Exam"> | $Enums.ExamCategory
+  status?: Prisma.EnumExamStatusWithAggregatesFilter<"Exam"> | $Enums.ExamStatus
   created_at?: Prisma.DateTimeWithAggregatesFilter<"Exam"> | Date | string
   updated_at?: Prisma.DateTimeWithAggregatesFilter<"Exam"> | Date | string
 }
 
 export type ExamCreateInput = {
   type: $Enums.ExamCategory
+  status?: $Enums.ExamStatus
   created_at?: Date | string
   updated_at?: Date | string
   course: Prisma.CourseCreateNestedOneWithoutExamsInput
@@ -284,6 +297,7 @@ export type ExamUncheckedCreateInput = {
   id?: number
   course_id: number
   type: $Enums.ExamCategory
+  status?: $Enums.ExamStatus
   created_at?: Date | string
   updated_at?: Date | string
   settings?: Prisma.ExamSettingsUncheckedCreateNestedManyWithoutExamInput
@@ -291,6 +305,7 @@ export type ExamUncheckedCreateInput = {
 
 export type ExamUpdateInput = {
   type?: Prisma.EnumExamCategoryFieldUpdateOperationsInput | $Enums.ExamCategory
+  status?: Prisma.EnumExamStatusFieldUpdateOperationsInput | $Enums.ExamStatus
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   course?: Prisma.CourseUpdateOneRequiredWithoutExamsNestedInput
@@ -301,6 +316,7 @@ export type ExamUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   course_id?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumExamCategoryFieldUpdateOperationsInput | $Enums.ExamCategory
+  status?: Prisma.EnumExamStatusFieldUpdateOperationsInput | $Enums.ExamStatus
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   settings?: Prisma.ExamSettingsUncheckedUpdateManyWithoutExamNestedInput
@@ -310,12 +326,14 @@ export type ExamCreateManyInput = {
   id?: number
   course_id: number
   type: $Enums.ExamCategory
+  status?: $Enums.ExamStatus
   created_at?: Date | string
   updated_at?: Date | string
 }
 
 export type ExamUpdateManyMutationInput = {
   type?: Prisma.EnumExamCategoryFieldUpdateOperationsInput | $Enums.ExamCategory
+  status?: Prisma.EnumExamStatusFieldUpdateOperationsInput | $Enums.ExamStatus
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -324,6 +342,7 @@ export type ExamUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   course_id?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumExamCategoryFieldUpdateOperationsInput | $Enums.ExamCategory
+  status?: Prisma.EnumExamStatusFieldUpdateOperationsInput | $Enums.ExamStatus
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -347,6 +366,7 @@ export type ExamCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   course_id?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -360,6 +380,7 @@ export type ExamMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   course_id?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -368,6 +389,7 @@ export type ExamMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   course_id?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -428,6 +450,10 @@ export type EnumExamCategoryFieldUpdateOperationsInput = {
   set?: $Enums.ExamCategory
 }
 
+export type EnumExamStatusFieldUpdateOperationsInput = {
+  set?: $Enums.ExamStatus
+}
+
 export type ExamCreateNestedOneWithoutSettingsInput = {
   create?: Prisma.XOR<Prisma.ExamCreateWithoutSettingsInput, Prisma.ExamUncheckedCreateWithoutSettingsInput>
   connectOrCreate?: Prisma.ExamCreateOrConnectWithoutSettingsInput
@@ -444,6 +470,7 @@ export type ExamUpdateOneRequiredWithoutSettingsNestedInput = {
 
 export type ExamCreateWithoutCourseInput = {
   type: $Enums.ExamCategory
+  status?: $Enums.ExamStatus
   created_at?: Date | string
   updated_at?: Date | string
   settings?: Prisma.ExamSettingsCreateNestedManyWithoutExamInput
@@ -452,6 +479,7 @@ export type ExamCreateWithoutCourseInput = {
 export type ExamUncheckedCreateWithoutCourseInput = {
   id?: number
   type: $Enums.ExamCategory
+  status?: $Enums.ExamStatus
   created_at?: Date | string
   updated_at?: Date | string
   settings?: Prisma.ExamSettingsUncheckedCreateNestedManyWithoutExamInput
@@ -490,12 +518,14 @@ export type ExamScalarWhereInput = {
   id?: Prisma.IntFilter<"Exam"> | number
   course_id?: Prisma.IntFilter<"Exam"> | number
   type?: Prisma.EnumExamCategoryFilter<"Exam"> | $Enums.ExamCategory
+  status?: Prisma.EnumExamStatusFilter<"Exam"> | $Enums.ExamStatus
   created_at?: Prisma.DateTimeFilter<"Exam"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Exam"> | Date | string
 }
 
 export type ExamCreateWithoutSettingsInput = {
   type: $Enums.ExamCategory
+  status?: $Enums.ExamStatus
   created_at?: Date | string
   updated_at?: Date | string
   course: Prisma.CourseCreateNestedOneWithoutExamsInput
@@ -505,6 +535,7 @@ export type ExamUncheckedCreateWithoutSettingsInput = {
   id?: number
   course_id: number
   type: $Enums.ExamCategory
+  status?: $Enums.ExamStatus
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -527,6 +558,7 @@ export type ExamUpdateToOneWithWhereWithoutSettingsInput = {
 
 export type ExamUpdateWithoutSettingsInput = {
   type?: Prisma.EnumExamCategoryFieldUpdateOperationsInput | $Enums.ExamCategory
+  status?: Prisma.EnumExamStatusFieldUpdateOperationsInput | $Enums.ExamStatus
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   course?: Prisma.CourseUpdateOneRequiredWithoutExamsNestedInput
@@ -536,6 +568,7 @@ export type ExamUncheckedUpdateWithoutSettingsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   course_id?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumExamCategoryFieldUpdateOperationsInput | $Enums.ExamCategory
+  status?: Prisma.EnumExamStatusFieldUpdateOperationsInput | $Enums.ExamStatus
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -543,12 +576,14 @@ export type ExamUncheckedUpdateWithoutSettingsInput = {
 export type ExamCreateManyCourseInput = {
   id?: number
   type: $Enums.ExamCategory
+  status?: $Enums.ExamStatus
   created_at?: Date | string
   updated_at?: Date | string
 }
 
 export type ExamUpdateWithoutCourseInput = {
   type?: Prisma.EnumExamCategoryFieldUpdateOperationsInput | $Enums.ExamCategory
+  status?: Prisma.EnumExamStatusFieldUpdateOperationsInput | $Enums.ExamStatus
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   settings?: Prisma.ExamSettingsUpdateManyWithoutExamNestedInput
@@ -557,6 +592,7 @@ export type ExamUpdateWithoutCourseInput = {
 export type ExamUncheckedUpdateWithoutCourseInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumExamCategoryFieldUpdateOperationsInput | $Enums.ExamCategory
+  status?: Prisma.EnumExamStatusFieldUpdateOperationsInput | $Enums.ExamStatus
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   settings?: Prisma.ExamSettingsUncheckedUpdateManyWithoutExamNestedInput
@@ -565,6 +601,7 @@ export type ExamUncheckedUpdateWithoutCourseInput = {
 export type ExamUncheckedUpdateManyWithoutCourseInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumExamCategoryFieldUpdateOperationsInput | $Enums.ExamCategory
+  status?: Prisma.EnumExamStatusFieldUpdateOperationsInput | $Enums.ExamStatus
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -604,6 +641,7 @@ export type ExamSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   id?: boolean
   course_id?: boolean
   type?: boolean
+  status?: boolean
   created_at?: boolean
   updated_at?: boolean
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
@@ -615,6 +653,7 @@ export type ExamSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   course_id?: boolean
   type?: boolean
+  status?: boolean
   created_at?: boolean
   updated_at?: boolean
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
@@ -624,6 +663,7 @@ export type ExamSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   course_id?: boolean
   type?: boolean
+  status?: boolean
   created_at?: boolean
   updated_at?: boolean
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
@@ -633,11 +673,12 @@ export type ExamSelectScalar = {
   id?: boolean
   course_id?: boolean
   type?: boolean
+  status?: boolean
   created_at?: boolean
   updated_at?: boolean
 }
 
-export type ExamOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "course_id" | "type" | "created_at" | "updated_at", ExtArgs["result"]["exam"]>
+export type ExamOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "course_id" | "type" | "status" | "created_at" | "updated_at", ExtArgs["result"]["exam"]>
 export type ExamInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
   settings?: boolean | Prisma.Exam$settingsArgs<ExtArgs>
@@ -660,6 +701,7 @@ export type $ExamPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     id: number
     course_id: number
     type: $Enums.ExamCategory
+    status: $Enums.ExamStatus
     created_at: Date
     updated_at: Date
   }, ExtArgs["result"]["exam"]>
@@ -1090,6 +1132,7 @@ export interface ExamFieldRefs {
   readonly id: Prisma.FieldRef<"Exam", 'Int'>
   readonly course_id: Prisma.FieldRef<"Exam", 'Int'>
   readonly type: Prisma.FieldRef<"Exam", 'ExamCategory'>
+  readonly status: Prisma.FieldRef<"Exam", 'ExamStatus'>
   readonly created_at: Prisma.FieldRef<"Exam", 'DateTime'>
   readonly updated_at: Prisma.FieldRef<"Exam", 'DateTime'>
 }

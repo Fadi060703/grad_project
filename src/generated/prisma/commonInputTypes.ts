@@ -345,6 +345,13 @@ export type EnumExamCategoryFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumExamCategoryFilter<$PrismaModel> | $Enums.ExamCategory
 }
 
+export type EnumExamStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.ExamStatus | Prisma.EnumExamStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ExamStatus[] | Prisma.ListEnumExamStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ExamStatus[] | Prisma.ListEnumExamStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumExamStatusFilter<$PrismaModel> | $Enums.ExamStatus
+}
+
 export type EnumExamCategoryWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.ExamCategory | Prisma.EnumExamCategoryFieldRefInput<$PrismaModel>
   in?: $Enums.ExamCategory[] | Prisma.ListEnumExamCategoryFieldRefInput<$PrismaModel>
@@ -353,6 +360,16 @@ export type EnumExamCategoryWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumExamCategoryFilter<$PrismaModel>
   _max?: Prisma.NestedEnumExamCategoryFilter<$PrismaModel>
+}
+
+export type EnumExamStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ExamStatus | Prisma.EnumExamStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ExamStatus[] | Prisma.ListEnumExamStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ExamStatus[] | Prisma.ListEnumExamStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumExamStatusWithAggregatesFilter<$PrismaModel> | $Enums.ExamStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumExamStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumExamStatusFilter<$PrismaModel>
 }
 
 export type NestedIntFilter<$PrismaModel = never> = {
@@ -699,6 +716,13 @@ export type NestedEnumExamCategoryFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumExamCategoryFilter<$PrismaModel> | $Enums.ExamCategory
 }
 
+export type NestedEnumExamStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.ExamStatus | Prisma.EnumExamStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ExamStatus[] | Prisma.ListEnumExamStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ExamStatus[] | Prisma.ListEnumExamStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumExamStatusFilter<$PrismaModel> | $Enums.ExamStatus
+}
+
 export type NestedEnumExamCategoryWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.ExamCategory | Prisma.EnumExamCategoryFieldRefInput<$PrismaModel>
   in?: $Enums.ExamCategory[] | Prisma.ListEnumExamCategoryFieldRefInput<$PrismaModel>
@@ -707,6 +731,16 @@ export type NestedEnumExamCategoryWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumExamCategoryFilter<$PrismaModel>
   _max?: Prisma.NestedEnumExamCategoryFilter<$PrismaModel>
+}
+
+export type NestedEnumExamStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ExamStatus | Prisma.EnumExamStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ExamStatus[] | Prisma.ListEnumExamStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ExamStatus[] | Prisma.ListEnumExamStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumExamStatusWithAggregatesFilter<$PrismaModel> | $Enums.ExamStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumExamStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumExamStatusFilter<$PrismaModel>
 }
 
 

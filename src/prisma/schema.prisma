@@ -95,6 +95,7 @@ model Student {
   userId      Int    @unique
   user        User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   mother_name String
+  exam_seat_number Int @default(0)
   year_id Int
   year Year @relation(fields: [year_id], references: [id], onDelete: Cascade)
   section_id Int?
@@ -462,11 +463,18 @@ enum ExamCategory {
   PRACTICAL
 }
 
+enum ExamStatus {
+  NOT_READY
+  READY
+  PUBLISHED
+}
+
 model Exam {
   id          Int           @id @default(autoincrement())
   course_id   Int
   course      Course        @relation(fields: [course_id], references: [id], onDelete: Cascade)
   type        ExamCategory
+  status      ExamStatus    @default(NOT_READY)
   settings    ExamSettings[]
   created_at  DateTime      @default(now())
   updated_at  DateTime      @updatedAt

@@ -29,6 +29,7 @@ export type AggregateStudent = {
 export type StudentAvgAggregateOutputType = {
   student_id: number | null
   userId: number | null
+  exam_seat_number: number | null
   year_id: number | null
   section_id: number | null
   major_id: number | null
@@ -38,6 +39,7 @@ export type StudentAvgAggregateOutputType = {
 export type StudentSumAggregateOutputType = {
   student_id: number | null
   userId: number | null
+  exam_seat_number: number | null
   year_id: number | null
   section_id: number | null
   major_id: number | null
@@ -48,6 +50,7 @@ export type StudentMinAggregateOutputType = {
   student_id: number | null
   userId: number | null
   mother_name: string | null
+  exam_seat_number: number | null
   year_id: number | null
   section_id: number | null
   major_id: number | null
@@ -58,6 +61,7 @@ export type StudentMaxAggregateOutputType = {
   student_id: number | null
   userId: number | null
   mother_name: string | null
+  exam_seat_number: number | null
   year_id: number | null
   section_id: number | null
   major_id: number | null
@@ -68,6 +72,7 @@ export type StudentCountAggregateOutputType = {
   student_id: number
   userId: number
   mother_name: number
+  exam_seat_number: number
   year_id: number
   section_id: number
   major_id: number
@@ -79,6 +84,7 @@ export type StudentCountAggregateOutputType = {
 export type StudentAvgAggregateInputType = {
   student_id?: true
   userId?: true
+  exam_seat_number?: true
   year_id?: true
   section_id?: true
   major_id?: true
@@ -88,6 +94,7 @@ export type StudentAvgAggregateInputType = {
 export type StudentSumAggregateInputType = {
   student_id?: true
   userId?: true
+  exam_seat_number?: true
   year_id?: true
   section_id?: true
   major_id?: true
@@ -98,6 +105,7 @@ export type StudentMinAggregateInputType = {
   student_id?: true
   userId?: true
   mother_name?: true
+  exam_seat_number?: true
   year_id?: true
   section_id?: true
   major_id?: true
@@ -108,6 +116,7 @@ export type StudentMaxAggregateInputType = {
   student_id?: true
   userId?: true
   mother_name?: true
+  exam_seat_number?: true
   year_id?: true
   section_id?: true
   major_id?: true
@@ -118,6 +127,7 @@ export type StudentCountAggregateInputType = {
   student_id?: true
   userId?: true
   mother_name?: true
+  exam_seat_number?: true
   year_id?: true
   section_id?: true
   major_id?: true
@@ -215,6 +225,7 @@ export type StudentGroupByOutputType = {
   student_id: number
   userId: number
   mother_name: string
+  exam_seat_number: number
   year_id: number
   section_id: number | null
   major_id: number | null
@@ -248,6 +259,7 @@ export type StudentWhereInput = {
   student_id?: Prisma.IntFilter<"Student"> | number
   userId?: Prisma.IntFilter<"Student"> | number
   mother_name?: Prisma.StringFilter<"Student"> | string
+  exam_seat_number?: Prisma.IntFilter<"Student"> | number
   year_id?: Prisma.IntFilter<"Student"> | number
   section_id?: Prisma.IntNullableFilter<"Student"> | number | null
   major_id?: Prisma.IntNullableFilter<"Student"> | number | null
@@ -267,6 +279,7 @@ export type StudentOrderByWithRelationInput = {
   student_id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   mother_name?: Prisma.SortOrder
+  exam_seat_number?: Prisma.SortOrder
   year_id?: Prisma.SortOrder
   section_id?: Prisma.SortOrderInput | Prisma.SortOrder
   major_id?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -289,6 +302,7 @@ export type StudentWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.StudentWhereInput[]
   NOT?: Prisma.StudentWhereInput | Prisma.StudentWhereInput[]
   mother_name?: Prisma.StringFilter<"Student"> | string
+  exam_seat_number?: Prisma.IntFilter<"Student"> | number
   year_id?: Prisma.IntFilter<"Student"> | number
   section_id?: Prisma.IntNullableFilter<"Student"> | number | null
   major_id?: Prisma.IntNullableFilter<"Student"> | number | null
@@ -308,6 +322,7 @@ export type StudentOrderByWithAggregationInput = {
   student_id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   mother_name?: Prisma.SortOrder
+  exam_seat_number?: Prisma.SortOrder
   year_id?: Prisma.SortOrder
   section_id?: Prisma.SortOrderInput | Prisma.SortOrder
   major_id?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -326,6 +341,7 @@ export type StudentScalarWhereWithAggregatesInput = {
   student_id?: Prisma.IntWithAggregatesFilter<"Student"> | number
   userId?: Prisma.IntWithAggregatesFilter<"Student"> | number
   mother_name?: Prisma.StringWithAggregatesFilter<"Student"> | string
+  exam_seat_number?: Prisma.IntWithAggregatesFilter<"Student"> | number
   year_id?: Prisma.IntWithAggregatesFilter<"Student"> | number
   section_id?: Prisma.IntNullableWithAggregatesFilter<"Student"> | number | null
   major_id?: Prisma.IntNullableWithAggregatesFilter<"Student"> | number | null
@@ -334,6 +350,7 @@ export type StudentScalarWhereWithAggregatesInput = {
 
 export type StudentCreateInput = {
   mother_name: string
+  exam_seat_number?: number
   user: Prisma.UserCreateNestedOneWithoutStudentInput
   year: Prisma.YearCreateNestedOneWithoutStudentsInput
   section?: Prisma.SectionCreateNestedOneWithoutStudentsInput
@@ -349,6 +366,7 @@ export type StudentUncheckedCreateInput = {
   student_id?: number
   userId: number
   mother_name: string
+  exam_seat_number?: number
   year_id: number
   section_id?: number | null
   major_id?: number | null
@@ -361,6 +379,7 @@ export type StudentUncheckedCreateInput = {
 
 export type StudentUpdateInput = {
   mother_name?: Prisma.StringFieldUpdateOperationsInput | string
+  exam_seat_number?: Prisma.IntFieldUpdateOperationsInput | number
   user?: Prisma.UserUpdateOneRequiredWithoutStudentNestedInput
   year?: Prisma.YearUpdateOneRequiredWithoutStudentsNestedInput
   section?: Prisma.SectionUpdateOneWithoutStudentsNestedInput
@@ -376,6 +395,7 @@ export type StudentUncheckedUpdateInput = {
   student_id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   mother_name?: Prisma.StringFieldUpdateOperationsInput | string
+  exam_seat_number?: Prisma.IntFieldUpdateOperationsInput | number
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
   section_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -390,6 +410,7 @@ export type StudentCreateManyInput = {
   student_id?: number
   userId: number
   mother_name: string
+  exam_seat_number?: number
   year_id: number
   section_id?: number | null
   major_id?: number | null
@@ -398,12 +419,14 @@ export type StudentCreateManyInput = {
 
 export type StudentUpdateManyMutationInput = {
   mother_name?: Prisma.StringFieldUpdateOperationsInput | string
+  exam_seat_number?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type StudentUncheckedUpdateManyInput = {
   student_id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   mother_name?: Prisma.StringFieldUpdateOperationsInput | string
+  exam_seat_number?: Prisma.IntFieldUpdateOperationsInput | number
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
   section_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -419,6 +442,7 @@ export type StudentCountOrderByAggregateInput = {
   student_id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   mother_name?: Prisma.SortOrder
+  exam_seat_number?: Prisma.SortOrder
   year_id?: Prisma.SortOrder
   section_id?: Prisma.SortOrder
   major_id?: Prisma.SortOrder
@@ -428,6 +452,7 @@ export type StudentCountOrderByAggregateInput = {
 export type StudentAvgOrderByAggregateInput = {
   student_id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  exam_seat_number?: Prisma.SortOrder
   year_id?: Prisma.SortOrder
   section_id?: Prisma.SortOrder
   major_id?: Prisma.SortOrder
@@ -438,6 +463,7 @@ export type StudentMaxOrderByAggregateInput = {
   student_id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   mother_name?: Prisma.SortOrder
+  exam_seat_number?: Prisma.SortOrder
   year_id?: Prisma.SortOrder
   section_id?: Prisma.SortOrder
   major_id?: Prisma.SortOrder
@@ -448,6 +474,7 @@ export type StudentMinOrderByAggregateInput = {
   student_id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   mother_name?: Prisma.SortOrder
+  exam_seat_number?: Prisma.SortOrder
   year_id?: Prisma.SortOrder
   section_id?: Prisma.SortOrder
   major_id?: Prisma.SortOrder
@@ -457,6 +484,7 @@ export type StudentMinOrderByAggregateInput = {
 export type StudentSumOrderByAggregateInput = {
   student_id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  exam_seat_number?: Prisma.SortOrder
   year_id?: Prisma.SortOrder
   section_id?: Prisma.SortOrder
   major_id?: Prisma.SortOrder
@@ -760,6 +788,7 @@ export type StudentUncheckedUpdateManyWithoutExam_settingsNestedInput = {
 
 export type StudentCreateWithoutUserInput = {
   mother_name: string
+  exam_seat_number?: number
   year: Prisma.YearCreateNestedOneWithoutStudentsInput
   section?: Prisma.SectionCreateNestedOneWithoutStudentsInput
   major?: Prisma.MajorCreateNestedOneWithoutStudentsInput
@@ -773,6 +802,7 @@ export type StudentCreateWithoutUserInput = {
 export type StudentUncheckedCreateWithoutUserInput = {
   student_id?: number
   mother_name: string
+  exam_seat_number?: number
   year_id: number
   section_id?: number | null
   major_id?: number | null
@@ -801,6 +831,7 @@ export type StudentUpdateToOneWithWhereWithoutUserInput = {
 
 export type StudentUpdateWithoutUserInput = {
   mother_name?: Prisma.StringFieldUpdateOperationsInput | string
+  exam_seat_number?: Prisma.IntFieldUpdateOperationsInput | number
   year?: Prisma.YearUpdateOneRequiredWithoutStudentsNestedInput
   section?: Prisma.SectionUpdateOneWithoutStudentsNestedInput
   major?: Prisma.MajorUpdateOneWithoutStudentsNestedInput
@@ -814,6 +845,7 @@ export type StudentUpdateWithoutUserInput = {
 export type StudentUncheckedUpdateWithoutUserInput = {
   student_id?: Prisma.IntFieldUpdateOperationsInput | number
   mother_name?: Prisma.StringFieldUpdateOperationsInput | string
+  exam_seat_number?: Prisma.IntFieldUpdateOperationsInput | number
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
   section_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -826,6 +858,7 @@ export type StudentUncheckedUpdateWithoutUserInput = {
 
 export type StudentCreateWithoutYearInput = {
   mother_name: string
+  exam_seat_number?: number
   user: Prisma.UserCreateNestedOneWithoutStudentInput
   section?: Prisma.SectionCreateNestedOneWithoutStudentsInput
   major?: Prisma.MajorCreateNestedOneWithoutStudentsInput
@@ -840,6 +873,7 @@ export type StudentUncheckedCreateWithoutYearInput = {
   student_id?: number
   userId: number
   mother_name: string
+  exam_seat_number?: number
   section_id?: number | null
   major_id?: number | null
   group_id: number
@@ -882,6 +916,7 @@ export type StudentScalarWhereInput = {
   student_id?: Prisma.IntFilter<"Student"> | number
   userId?: Prisma.IntFilter<"Student"> | number
   mother_name?: Prisma.StringFilter<"Student"> | string
+  exam_seat_number?: Prisma.IntFilter<"Student"> | number
   year_id?: Prisma.IntFilter<"Student"> | number
   section_id?: Prisma.IntNullableFilter<"Student"> | number | null
   major_id?: Prisma.IntNullableFilter<"Student"> | number | null
@@ -890,6 +925,7 @@ export type StudentScalarWhereInput = {
 
 export type StudentCreateWithoutSectionInput = {
   mother_name: string
+  exam_seat_number?: number
   user: Prisma.UserCreateNestedOneWithoutStudentInput
   year: Prisma.YearCreateNestedOneWithoutStudentsInput
   major?: Prisma.MajorCreateNestedOneWithoutStudentsInput
@@ -904,6 +940,7 @@ export type StudentUncheckedCreateWithoutSectionInput = {
   student_id?: number
   userId: number
   mother_name: string
+  exam_seat_number?: number
   year_id: number
   major_id?: number | null
   group_id: number
@@ -941,6 +978,7 @@ export type StudentUpdateManyWithWhereWithoutSectionInput = {
 
 export type StudentCreateWithoutMajorInput = {
   mother_name: string
+  exam_seat_number?: number
   user: Prisma.UserCreateNestedOneWithoutStudentInput
   year: Prisma.YearCreateNestedOneWithoutStudentsInput
   section?: Prisma.SectionCreateNestedOneWithoutStudentsInput
@@ -955,6 +993,7 @@ export type StudentUncheckedCreateWithoutMajorInput = {
   student_id?: number
   userId: number
   mother_name: string
+  exam_seat_number?: number
   year_id: number
   section_id?: number | null
   group_id: number
@@ -992,6 +1031,7 @@ export type StudentUpdateManyWithWhereWithoutMajorInput = {
 
 export type StudentCreateWithoutGroupInput = {
   mother_name: string
+  exam_seat_number?: number
   user: Prisma.UserCreateNestedOneWithoutStudentInput
   year: Prisma.YearCreateNestedOneWithoutStudentsInput
   section?: Prisma.SectionCreateNestedOneWithoutStudentsInput
@@ -1006,6 +1046,7 @@ export type StudentUncheckedCreateWithoutGroupInput = {
   student_id?: number
   userId: number
   mother_name: string
+  exam_seat_number?: number
   year_id: number
   section_id?: number | null
   major_id?: number | null
@@ -1043,6 +1084,7 @@ export type StudentUpdateManyWithWhereWithoutGroupInput = {
 
 export type StudentCreateWithoutMarksInput = {
   mother_name: string
+  exam_seat_number?: number
   user: Prisma.UserCreateNestedOneWithoutStudentInput
   year: Prisma.YearCreateNestedOneWithoutStudentsInput
   section?: Prisma.SectionCreateNestedOneWithoutStudentsInput
@@ -1057,6 +1099,7 @@ export type StudentUncheckedCreateWithoutMarksInput = {
   student_id?: number
   userId: number
   mother_name: string
+  exam_seat_number?: number
   year_id: number
   section_id?: number | null
   major_id?: number | null
@@ -1084,6 +1127,7 @@ export type StudentUpdateToOneWithWhereWithoutMarksInput = {
 
 export type StudentUpdateWithoutMarksInput = {
   mother_name?: Prisma.StringFieldUpdateOperationsInput | string
+  exam_seat_number?: Prisma.IntFieldUpdateOperationsInput | number
   user?: Prisma.UserUpdateOneRequiredWithoutStudentNestedInput
   year?: Prisma.YearUpdateOneRequiredWithoutStudentsNestedInput
   section?: Prisma.SectionUpdateOneWithoutStudentsNestedInput
@@ -1098,6 +1142,7 @@ export type StudentUncheckedUpdateWithoutMarksInput = {
   student_id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   mother_name?: Prisma.StringFieldUpdateOperationsInput | string
+  exam_seat_number?: Prisma.IntFieldUpdateOperationsInput | number
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
   section_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1109,6 +1154,7 @@ export type StudentUncheckedUpdateWithoutMarksInput = {
 
 export type StudentCreateWithoutCoursesInput = {
   mother_name: string
+  exam_seat_number?: number
   user: Prisma.UserCreateNestedOneWithoutStudentInput
   year: Prisma.YearCreateNestedOneWithoutStudentsInput
   section?: Prisma.SectionCreateNestedOneWithoutStudentsInput
@@ -1123,6 +1169,7 @@ export type StudentUncheckedCreateWithoutCoursesInput = {
   student_id?: number
   userId: number
   mother_name: string
+  exam_seat_number?: number
   year_id: number
   section_id?: number | null
   major_id?: number | null
@@ -1150,6 +1197,7 @@ export type StudentUpdateToOneWithWhereWithoutCoursesInput = {
 
 export type StudentUpdateWithoutCoursesInput = {
   mother_name?: Prisma.StringFieldUpdateOperationsInput | string
+  exam_seat_number?: Prisma.IntFieldUpdateOperationsInput | number
   user?: Prisma.UserUpdateOneRequiredWithoutStudentNestedInput
   year?: Prisma.YearUpdateOneRequiredWithoutStudentsNestedInput
   section?: Prisma.SectionUpdateOneWithoutStudentsNestedInput
@@ -1164,6 +1212,7 @@ export type StudentUncheckedUpdateWithoutCoursesInput = {
   student_id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   mother_name?: Prisma.StringFieldUpdateOperationsInput | string
+  exam_seat_number?: Prisma.IntFieldUpdateOperationsInput | number
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
   section_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1175,6 +1224,7 @@ export type StudentUncheckedUpdateWithoutCoursesInput = {
 
 export type StudentCreateWithoutAttendancesInput = {
   mother_name: string
+  exam_seat_number?: number
   user: Prisma.UserCreateNestedOneWithoutStudentInput
   year: Prisma.YearCreateNestedOneWithoutStudentsInput
   section?: Prisma.SectionCreateNestedOneWithoutStudentsInput
@@ -1189,6 +1239,7 @@ export type StudentUncheckedCreateWithoutAttendancesInput = {
   student_id?: number
   userId: number
   mother_name: string
+  exam_seat_number?: number
   year_id: number
   section_id?: number | null
   major_id?: number | null
@@ -1216,6 +1267,7 @@ export type StudentUpdateToOneWithWhereWithoutAttendancesInput = {
 
 export type StudentUpdateWithoutAttendancesInput = {
   mother_name?: Prisma.StringFieldUpdateOperationsInput | string
+  exam_seat_number?: Prisma.IntFieldUpdateOperationsInput | number
   user?: Prisma.UserUpdateOneRequiredWithoutStudentNestedInput
   year?: Prisma.YearUpdateOneRequiredWithoutStudentsNestedInput
   section?: Prisma.SectionUpdateOneWithoutStudentsNestedInput
@@ -1230,6 +1282,7 @@ export type StudentUncheckedUpdateWithoutAttendancesInput = {
   student_id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   mother_name?: Prisma.StringFieldUpdateOperationsInput | string
+  exam_seat_number?: Prisma.IntFieldUpdateOperationsInput | number
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
   section_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1241,6 +1294,7 @@ export type StudentUncheckedUpdateWithoutAttendancesInput = {
 
 export type StudentCreateWithoutExam_settingsInput = {
   mother_name: string
+  exam_seat_number?: number
   user: Prisma.UserCreateNestedOneWithoutStudentInput
   year: Prisma.YearCreateNestedOneWithoutStudentsInput
   section?: Prisma.SectionCreateNestedOneWithoutStudentsInput
@@ -1255,6 +1309,7 @@ export type StudentUncheckedCreateWithoutExam_settingsInput = {
   student_id?: number
   userId: number
   mother_name: string
+  exam_seat_number?: number
   year_id: number
   section_id?: number | null
   major_id?: number | null
@@ -1289,6 +1344,7 @@ export type StudentCreateManyYearInput = {
   student_id?: number
   userId: number
   mother_name: string
+  exam_seat_number?: number
   section_id?: number | null
   major_id?: number | null
   group_id: number
@@ -1296,6 +1352,7 @@ export type StudentCreateManyYearInput = {
 
 export type StudentUpdateWithoutYearInput = {
   mother_name?: Prisma.StringFieldUpdateOperationsInput | string
+  exam_seat_number?: Prisma.IntFieldUpdateOperationsInput | number
   user?: Prisma.UserUpdateOneRequiredWithoutStudentNestedInput
   section?: Prisma.SectionUpdateOneWithoutStudentsNestedInput
   major?: Prisma.MajorUpdateOneWithoutStudentsNestedInput
@@ -1310,6 +1367,7 @@ export type StudentUncheckedUpdateWithoutYearInput = {
   student_id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   mother_name?: Prisma.StringFieldUpdateOperationsInput | string
+  exam_seat_number?: Prisma.IntFieldUpdateOperationsInput | number
   section_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   group_id?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1323,6 +1381,7 @@ export type StudentUncheckedUpdateManyWithoutYearInput = {
   student_id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   mother_name?: Prisma.StringFieldUpdateOperationsInput | string
+  exam_seat_number?: Prisma.IntFieldUpdateOperationsInput | number
   section_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   group_id?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1332,6 +1391,7 @@ export type StudentCreateManySectionInput = {
   student_id?: number
   userId: number
   mother_name: string
+  exam_seat_number?: number
   year_id: number
   major_id?: number | null
   group_id: number
@@ -1339,6 +1399,7 @@ export type StudentCreateManySectionInput = {
 
 export type StudentUpdateWithoutSectionInput = {
   mother_name?: Prisma.StringFieldUpdateOperationsInput | string
+  exam_seat_number?: Prisma.IntFieldUpdateOperationsInput | number
   user?: Prisma.UserUpdateOneRequiredWithoutStudentNestedInput
   year?: Prisma.YearUpdateOneRequiredWithoutStudentsNestedInput
   major?: Prisma.MajorUpdateOneWithoutStudentsNestedInput
@@ -1353,6 +1414,7 @@ export type StudentUncheckedUpdateWithoutSectionInput = {
   student_id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   mother_name?: Prisma.StringFieldUpdateOperationsInput | string
+  exam_seat_number?: Prisma.IntFieldUpdateOperationsInput | number
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
   major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   group_id?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1366,6 +1428,7 @@ export type StudentUncheckedUpdateManyWithoutSectionInput = {
   student_id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   mother_name?: Prisma.StringFieldUpdateOperationsInput | string
+  exam_seat_number?: Prisma.IntFieldUpdateOperationsInput | number
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
   major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   group_id?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1375,6 +1438,7 @@ export type StudentCreateManyMajorInput = {
   student_id?: number
   userId: number
   mother_name: string
+  exam_seat_number?: number
   year_id: number
   section_id?: number | null
   group_id: number
@@ -1382,6 +1446,7 @@ export type StudentCreateManyMajorInput = {
 
 export type StudentUpdateWithoutMajorInput = {
   mother_name?: Prisma.StringFieldUpdateOperationsInput | string
+  exam_seat_number?: Prisma.IntFieldUpdateOperationsInput | number
   user?: Prisma.UserUpdateOneRequiredWithoutStudentNestedInput
   year?: Prisma.YearUpdateOneRequiredWithoutStudentsNestedInput
   section?: Prisma.SectionUpdateOneWithoutStudentsNestedInput
@@ -1396,6 +1461,7 @@ export type StudentUncheckedUpdateWithoutMajorInput = {
   student_id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   mother_name?: Prisma.StringFieldUpdateOperationsInput | string
+  exam_seat_number?: Prisma.IntFieldUpdateOperationsInput | number
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
   section_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   group_id?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1409,6 +1475,7 @@ export type StudentUncheckedUpdateManyWithoutMajorInput = {
   student_id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   mother_name?: Prisma.StringFieldUpdateOperationsInput | string
+  exam_seat_number?: Prisma.IntFieldUpdateOperationsInput | number
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
   section_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   group_id?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1418,6 +1485,7 @@ export type StudentCreateManyGroupInput = {
   student_id?: number
   userId: number
   mother_name: string
+  exam_seat_number?: number
   year_id: number
   section_id?: number | null
   major_id?: number | null
@@ -1425,6 +1493,7 @@ export type StudentCreateManyGroupInput = {
 
 export type StudentUpdateWithoutGroupInput = {
   mother_name?: Prisma.StringFieldUpdateOperationsInput | string
+  exam_seat_number?: Prisma.IntFieldUpdateOperationsInput | number
   user?: Prisma.UserUpdateOneRequiredWithoutStudentNestedInput
   year?: Prisma.YearUpdateOneRequiredWithoutStudentsNestedInput
   section?: Prisma.SectionUpdateOneWithoutStudentsNestedInput
@@ -1439,6 +1508,7 @@ export type StudentUncheckedUpdateWithoutGroupInput = {
   student_id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   mother_name?: Prisma.StringFieldUpdateOperationsInput | string
+  exam_seat_number?: Prisma.IntFieldUpdateOperationsInput | number
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
   section_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1452,6 +1522,7 @@ export type StudentUncheckedUpdateManyWithoutGroupInput = {
   student_id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   mother_name?: Prisma.StringFieldUpdateOperationsInput | string
+  exam_seat_number?: Prisma.IntFieldUpdateOperationsInput | number
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
   section_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1459,6 +1530,7 @@ export type StudentUncheckedUpdateManyWithoutGroupInput = {
 
 export type StudentUpdateWithoutExam_settingsInput = {
   mother_name?: Prisma.StringFieldUpdateOperationsInput | string
+  exam_seat_number?: Prisma.IntFieldUpdateOperationsInput | number
   user?: Prisma.UserUpdateOneRequiredWithoutStudentNestedInput
   year?: Prisma.YearUpdateOneRequiredWithoutStudentsNestedInput
   section?: Prisma.SectionUpdateOneWithoutStudentsNestedInput
@@ -1473,6 +1545,7 @@ export type StudentUncheckedUpdateWithoutExam_settingsInput = {
   student_id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   mother_name?: Prisma.StringFieldUpdateOperationsInput | string
+  exam_seat_number?: Prisma.IntFieldUpdateOperationsInput | number
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
   section_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1486,6 +1559,7 @@ export type StudentUncheckedUpdateManyWithoutExam_settingsInput = {
   student_id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   mother_name?: Prisma.StringFieldUpdateOperationsInput | string
+  exam_seat_number?: Prisma.IntFieldUpdateOperationsInput | number
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
   section_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1554,6 +1628,7 @@ export type StudentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   student_id?: boolean
   userId?: boolean
   mother_name?: boolean
+  exam_seat_number?: boolean
   year_id?: boolean
   section_id?: boolean
   major_id?: boolean
@@ -1574,6 +1649,7 @@ export type StudentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   student_id?: boolean
   userId?: boolean
   mother_name?: boolean
+  exam_seat_number?: boolean
   year_id?: boolean
   section_id?: boolean
   major_id?: boolean
@@ -1589,6 +1665,7 @@ export type StudentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   student_id?: boolean
   userId?: boolean
   mother_name?: boolean
+  exam_seat_number?: boolean
   year_id?: boolean
   section_id?: boolean
   major_id?: boolean
@@ -1604,13 +1681,14 @@ export type StudentSelectScalar = {
   student_id?: boolean
   userId?: boolean
   mother_name?: boolean
+  exam_seat_number?: boolean
   year_id?: boolean
   section_id?: boolean
   major_id?: boolean
   group_id?: boolean
 }
 
-export type StudentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"student_id" | "userId" | "mother_name" | "year_id" | "section_id" | "major_id" | "group_id", ExtArgs["result"]["student"]>
+export type StudentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"student_id" | "userId" | "mother_name" | "exam_seat_number" | "year_id" | "section_id" | "major_id" | "group_id", ExtArgs["result"]["student"]>
 export type StudentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   year?: boolean | Prisma.YearDefaultArgs<ExtArgs>
@@ -1655,6 +1733,7 @@ export type $StudentPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     student_id: number
     userId: number
     mother_name: string
+    exam_seat_number: number
     year_id: number
     section_id: number | null
     major_id: number | null
@@ -2094,6 +2173,7 @@ export interface StudentFieldRefs {
   readonly student_id: Prisma.FieldRef<"Student", 'Int'>
   readonly userId: Prisma.FieldRef<"Student", 'Int'>
   readonly mother_name: Prisma.FieldRef<"Student", 'String'>
+  readonly exam_seat_number: Prisma.FieldRef<"Student", 'Int'>
   readonly year_id: Prisma.FieldRef<"Student", 'Int'>
   readonly section_id: Prisma.FieldRef<"Student", 'Int'>
   readonly major_id: Prisma.FieldRef<"Student", 'Int'>
