@@ -96,6 +96,8 @@ model Student {
   user        User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   mother_name String
   exam_seat_number Int @default(0)
+  profile_picture String?
+  birthdate DateTime?
   year_id Int
   year Year @relation(fields: [year_id], references: [id], onDelete: Cascade)
   section_id Int?
@@ -178,6 +180,7 @@ model UniversityLocation {
   id                   Int       @id @default(autoincrement())
   name                 String    @unique
   reaching_description String?
+  photo_array          String[]  @default([])
   created_at           DateTime  @default(now())
   updated_at           DateTime? @updatedAt
   lectures             Lecture[]

@@ -2375,6 +2375,8 @@ export const StudentScalarFieldEnum = {
   userId: 'userId',
   mother_name: 'mother_name',
   exam_seat_number: 'exam_seat_number',
+  profile_picture: 'profile_picture',
+  birthdate: 'birthdate',
   year_id: 'year_id',
   section_id: 'section_id',
   major_id: 'major_id',
@@ -2434,6 +2436,7 @@ export const UniversityLocationScalarFieldEnum = {
   id: 'id',
   name: 'name',
   reaching_description: 'reaching_description',
+  photo_array: 'photo_array',
   created_at: 'created_at',
   updated_at: 'updated_at'
 } as const

@@ -184,6 +184,10 @@ export const permissions: Record<string, string[]> = {
   ],
   MARKS_DE: [],
   STUDENT: [
+    "student-profile:read",
+    "student-profile:update",
+    "student-profile:change-password",
+    "student-profile:upload-picture",
     "locations:read",
     "student-courses:read",
     "course-files:read",
