@@ -8,6 +8,7 @@ import {
   getCourseTargets,
   getDoctorCourseStudents,
   getMyCourses,
+  getMyStudentCourses,
   getTeacherCourseStudents,
   updateCourse,
 } from "../controllers/coursesController";
@@ -28,6 +29,12 @@ const upload = multer({
 });
 
 router.get("/my-courses", authMiddleware, check("my-courses:read"), getMyCourses);
+router.get(
+  "/my-student-courses",
+  authMiddleware,
+  check("student-courses:read"),
+  getMyStudentCourses,
+);
 
 router.get("/courses/:course_id/targets",         authMiddleware, check("my-courses:read"), getCourseTargets);
 router.get("/courses/:course_id/groups",          authMiddleware, check("my-courses:read"), getCourseGroups);

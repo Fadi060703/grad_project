@@ -10,7 +10,7 @@ import { prisma } from "../lib/prisma";
 import { createListHandler } from "../lib/express-prisma-query";
 import { z } from "zod";
 import { asyncHandler } from "../utils/asyncHandler";
-import { BadRequestError, NotFoundError, ConflictError } from "../errors";
+import { BadRequestError, NotFoundError, ConflictError, ForbiddenError } from "../errors";
 
 const mapCourseLinks = (course: any) => {
   const sections = Array.isArray(course.sectionCourses)
@@ -1041,6 +1041,142 @@ export const getMyCourses = createListHandler({
       where: {
         ...findManyArgs.where,
         ...relationFilter,
+      },
+    };
+  },
+
+  mapResult: ({ data }) =>
+    z
+      .array(getCoursesSchema)
+      .parse(data.map((course) => mapCourseLinks(course))),
+});
+
+// student: get enrolled courses
+export const getMyStudentCourses = createListHandler({
+  prisma: prisma.course,
+
+  allowedSortFields: [
+    "id",
+    "name",
+    "course_type",
+    "exam_type",
+    "theoretical_grade",
+    "practical_grade",
+    "created_at",
+    "updated_at",
+  ],
+
+  fieldTypes: {
+    id: "number",
+    name: "text",
+    course_type: "text",
+    exam_type: "text",
+    theoretical_grade: "number",
+    practical_grade: "number",
+    year_id: "number",
+    created_at: "date",
+    updated_at: "date",
+  },
+
+  searchableFields: ["name"],
+
+  findManyArgs: {
+    select: {
+      id: true,
+      name: true,
+      course_type: true,
+      exam_type: true,
+      theoretical_grade: true,
+      practical_grade: true,
+      year_id: true,
+      year: {
+        select: {
+          id: true,
+          name: true,
+          has_majors: true,
+        },
+      },
+      majorCourses: {
+        select: {
+          major: {
+            select: {
+              id: true,
+              name: true,
+              year_id: true,
+              year: {
+                select: {
+                  id: true,
+                  name: true,
+                },
+              },
+            },
+          },
+        },
+      },
+      sectionCourses: {
+        select: {
+          section: {
+            select: {
+              id: true,
+              name: true,
+              year_id: true,
+              year: {
+                select: {
+                  id: true,
+                  name: true,
+                },
+              },
+            },
+          },
+        },
+      },
+      doctors: {
+        select: {
+          id: true,
+          full_name: true,
+          username: true,
+          email: true,
+        },
+      },
+      teachers: {
+        select: {
+          id: true,
+          full_name: true,
+          username: true,
+          email: true,
+        },
+      },
+      created_at: true,
+      updated_at: true,
+    },
+  } as any,
+
+  handleFindArgs: async ({ req, findManyArgs }) => {
+    const { id: user_id, role } = req.user as { id: number; role: string };
+
+    if (role !== "STUDENT") {
+      throw new ForbiddenError("Only students can access enrolled courses");
+    }
+
+    const student = await prisma.student.findUnique({
+      where: { userId: user_id },
+      select: { student_id: true },
+    });
+
+    if (!student) {
+      throw new ForbiddenError("Student profile not found");
+    }
+
+    return {
+      ...findManyArgs,
+      where: {
+        ...findManyArgs.where,
+        students: {
+          some: {
+            student_id: student.student_id,
+            status: "ENROLLED",
+          },
+        },
       },
     };
   },

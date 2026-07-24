@@ -43,7 +43,7 @@ export type CreateListHandlerOptions<TResult = any> = {
     query: z.infer<typeof paginationSchema> & Record<string, any>;
     parsedFilters: Filter[];
     findManyArgs: any;
-  }) => any;
+  }) => any | Promise<any>;
 
   /**
    * Transform the rows before responding.
@@ -70,7 +70,8 @@ export function createListHandler<TResult = any>(
     : paginationSchema;
 
   return async (req: Request, res: Response) => {
-    const query = fullQuerySchema.parse(req.query);
+    const query = fullQuerySchema.parse(req.query) as z.infer<typeof paginationSchema> &
+      Record<string, any>;
     const { page, pagesize, filters, sort, search, joinOperator } = query;
 
     const parsedFiltersUnknown = safeJsonParse<unknown>(filters, []);
@@ -103,9 +104,11 @@ export function createListHandler<TResult = any>(
       orderBy,
     };
 
-    const finalArgs = handleFindArgs
-      ? { ...mergedArgs, ...handleFindArgs({ req, query, parsedFilters, findManyArgs: mergedArgs }) }
-      : mergedArgs;
+    const handledArgs = handleFindArgs
+      ? await handleFindArgs({ req, query, parsedFilters, findManyArgs: mergedArgs })
+      : null;
+
+    const finalArgs = handledArgs ? { ...mergedArgs, ...handledArgs } : mergedArgs;
 
     const [data, total] = await Promise.all([
       prisma.findMany(finalArgs),
