@@ -64,7 +64,6 @@ export const ModelName = {
   SectionCourse: 'SectionCourse',
   MajorCourse: 'MajorCourse',
   CourseFile: 'CourseFile',
-  MarksCourse: 'MarksCourse',
   Mark: 'Mark',
   StudentCourse: 'StudentCourse',
   FAQ: 'FAQ',
@@ -229,7 +228,6 @@ export const CourseScalarFieldEnum = {
   theoretical_grade: 'theoretical_grade',
   practical_grade: 'practical_grade',
   year_id: 'year_id',
-  marks_course_id: 'marks_course_id',
   created_at: 'created_at',
   updated_at: 'updated_at'
 } as const
@@ -270,19 +268,9 @@ export const CourseFileScalarFieldEnum = {
 export type CourseFileScalarFieldEnum = (typeof CourseFileScalarFieldEnum)[keyof typeof CourseFileScalarFieldEnum]
 
 
-export const MarksCourseScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-} as const
-
-export type MarksCourseScalarFieldEnum = (typeof MarksCourseScalarFieldEnum)[keyof typeof MarksCourseScalarFieldEnum]
-
-
 export const MarkScalarFieldEnum = {
   id: 'id',
-  marks_course_id: 'marks_course_id',
+  course_id: 'course_id',
   student_id: 'student_id',
   practical_grade: 'practical_grade',
   theoretical_grade: 'theoretical_grade',

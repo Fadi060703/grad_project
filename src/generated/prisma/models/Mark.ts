@@ -28,7 +28,7 @@ export type AggregateMark = {
 
 export type MarkAvgAggregateOutputType = {
   id: number | null
-  marks_course_id: number | null
+  course_id: number | null
   student_id: number | null
   practical_grade: number | null
   theoretical_grade: number | null
@@ -36,7 +36,7 @@ export type MarkAvgAggregateOutputType = {
 
 export type MarkSumAggregateOutputType = {
   id: number | null
-  marks_course_id: number | null
+  course_id: number | null
   student_id: number | null
   practical_grade: number | null
   theoretical_grade: number | null
@@ -44,7 +44,7 @@ export type MarkSumAggregateOutputType = {
 
 export type MarkMinAggregateOutputType = {
   id: number | null
-  marks_course_id: number | null
+  course_id: number | null
   student_id: number | null
   practical_grade: number | null
   theoretical_grade: number | null
@@ -54,7 +54,7 @@ export type MarkMinAggregateOutputType = {
 
 export type MarkMaxAggregateOutputType = {
   id: number | null
-  marks_course_id: number | null
+  course_id: number | null
   student_id: number | null
   practical_grade: number | null
   theoretical_grade: number | null
@@ -64,7 +64,7 @@ export type MarkMaxAggregateOutputType = {
 
 export type MarkCountAggregateOutputType = {
   id: number
-  marks_course_id: number
+  course_id: number
   student_id: number
   practical_grade: number
   theoretical_grade: number
@@ -76,7 +76,7 @@ export type MarkCountAggregateOutputType = {
 
 export type MarkAvgAggregateInputType = {
   id?: true
-  marks_course_id?: true
+  course_id?: true
   student_id?: true
   practical_grade?: true
   theoretical_grade?: true
@@ -84,7 +84,7 @@ export type MarkAvgAggregateInputType = {
 
 export type MarkSumAggregateInputType = {
   id?: true
-  marks_course_id?: true
+  course_id?: true
   student_id?: true
   practical_grade?: true
   theoretical_grade?: true
@@ -92,7 +92,7 @@ export type MarkSumAggregateInputType = {
 
 export type MarkMinAggregateInputType = {
   id?: true
-  marks_course_id?: true
+  course_id?: true
   student_id?: true
   practical_grade?: true
   theoretical_grade?: true
@@ -102,7 +102,7 @@ export type MarkMinAggregateInputType = {
 
 export type MarkMaxAggregateInputType = {
   id?: true
-  marks_course_id?: true
+  course_id?: true
   student_id?: true
   practical_grade?: true
   theoretical_grade?: true
@@ -112,7 +112,7 @@ export type MarkMaxAggregateInputType = {
 
 export type MarkCountAggregateInputType = {
   id?: true
-  marks_course_id?: true
+  course_id?: true
   student_id?: true
   practical_grade?: true
   theoretical_grade?: true
@@ -209,7 +209,7 @@ export type MarkGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 
 export type MarkGroupByOutputType = {
   id: number
-  marks_course_id: number
+  course_id: number
   student_id: number
   practical_grade: number
   theoretical_grade: number
@@ -242,47 +242,47 @@ export type MarkWhereInput = {
   OR?: Prisma.MarkWhereInput[]
   NOT?: Prisma.MarkWhereInput | Prisma.MarkWhereInput[]
   id?: Prisma.IntFilter<"Mark"> | number
-  marks_course_id?: Prisma.IntFilter<"Mark"> | number
+  course_id?: Prisma.IntFilter<"Mark"> | number
   student_id?: Prisma.IntFilter<"Mark"> | number
   practical_grade?: Prisma.IntFilter<"Mark"> | number
   theoretical_grade?: Prisma.IntFilter<"Mark"> | number
   created_at?: Prisma.DateTimeFilter<"Mark"> | Date | string
   updated_at?: Prisma.DateTimeNullableFilter<"Mark"> | Date | string | null
-  marks_course?: Prisma.XOR<Prisma.MarksCourseScalarRelationFilter, Prisma.MarksCourseWhereInput>
+  course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>
   student?: Prisma.XOR<Prisma.StudentScalarRelationFilter, Prisma.StudentWhereInput>
 }
 
 export type MarkOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  marks_course_id?: Prisma.SortOrder
+  course_id?: Prisma.SortOrder
   student_id?: Prisma.SortOrder
   practical_grade?: Prisma.SortOrder
   theoretical_grade?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrderInput | Prisma.SortOrder
-  marks_course?: Prisma.MarksCourseOrderByWithRelationInput
+  course?: Prisma.CourseOrderByWithRelationInput
   student?: Prisma.StudentOrderByWithRelationInput
 }
 
 export type MarkWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  marks_course_id_student_id?: Prisma.MarkMarks_course_idStudent_idCompoundUniqueInput
+  course_id_student_id?: Prisma.MarkCourse_idStudent_idCompoundUniqueInput
   AND?: Prisma.MarkWhereInput | Prisma.MarkWhereInput[]
   OR?: Prisma.MarkWhereInput[]
   NOT?: Prisma.MarkWhereInput | Prisma.MarkWhereInput[]
-  marks_course_id?: Prisma.IntFilter<"Mark"> | number
+  course_id?: Prisma.IntFilter<"Mark"> | number
   student_id?: Prisma.IntFilter<"Mark"> | number
   practical_grade?: Prisma.IntFilter<"Mark"> | number
   theoretical_grade?: Prisma.IntFilter<"Mark"> | number
   created_at?: Prisma.DateTimeFilter<"Mark"> | Date | string
   updated_at?: Prisma.DateTimeNullableFilter<"Mark"> | Date | string | null
-  marks_course?: Prisma.XOR<Prisma.MarksCourseScalarRelationFilter, Prisma.MarksCourseWhereInput>
+  course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>
   student?: Prisma.XOR<Prisma.StudentScalarRelationFilter, Prisma.StudentWhereInput>
-}, "id" | "marks_course_id_student_id">
+}, "id" | "course_id_student_id">
 
 export type MarkOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  marks_course_id?: Prisma.SortOrder
+  course_id?: Prisma.SortOrder
   student_id?: Prisma.SortOrder
   practical_grade?: Prisma.SortOrder
   theoretical_grade?: Prisma.SortOrder
@@ -300,7 +300,7 @@ export type MarkScalarWhereWithAggregatesInput = {
   OR?: Prisma.MarkScalarWhereWithAggregatesInput[]
   NOT?: Prisma.MarkScalarWhereWithAggregatesInput | Prisma.MarkScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Mark"> | number
-  marks_course_id?: Prisma.IntWithAggregatesFilter<"Mark"> | number
+  course_id?: Prisma.IntWithAggregatesFilter<"Mark"> | number
   student_id?: Prisma.IntWithAggregatesFilter<"Mark"> | number
   practical_grade?: Prisma.IntWithAggregatesFilter<"Mark"> | number
   theoretical_grade?: Prisma.IntWithAggregatesFilter<"Mark"> | number
@@ -313,13 +313,13 @@ export type MarkCreateInput = {
   theoretical_grade: number
   created_at?: Date | string
   updated_at?: Date | string | null
-  marks_course: Prisma.MarksCourseCreateNestedOneWithoutMarksInput
+  course: Prisma.CourseCreateNestedOneWithoutMarksInput
   student: Prisma.StudentCreateNestedOneWithoutMarksInput
 }
 
 export type MarkUncheckedCreateInput = {
   id?: number
-  marks_course_id: number
+  course_id: number
   student_id: number
   practical_grade: number
   theoretical_grade: number
@@ -332,13 +332,13 @@ export type MarkUpdateInput = {
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  marks_course?: Prisma.MarksCourseUpdateOneRequiredWithoutMarksNestedInput
+  course?: Prisma.CourseUpdateOneRequiredWithoutMarksNestedInput
   student?: Prisma.StudentUpdateOneRequiredWithoutMarksNestedInput
 }
 
 export type MarkUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  marks_course_id?: Prisma.IntFieldUpdateOperationsInput | number
+  course_id?: Prisma.IntFieldUpdateOperationsInput | number
   student_id?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
@@ -348,7 +348,7 @@ export type MarkUncheckedUpdateInput = {
 
 export type MarkCreateManyInput = {
   id?: number
-  marks_course_id: number
+  course_id: number
   student_id: number
   practical_grade: number
   theoretical_grade: number
@@ -365,7 +365,7 @@ export type MarkUpdateManyMutationInput = {
 
 export type MarkUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  marks_course_id?: Prisma.IntFieldUpdateOperationsInput | number
+  course_id?: Prisma.IntFieldUpdateOperationsInput | number
   student_id?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
@@ -383,14 +383,14 @@ export type MarkOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type MarkMarks_course_idStudent_idCompoundUniqueInput = {
-  marks_course_id: number
+export type MarkCourse_idStudent_idCompoundUniqueInput = {
+  course_id: number
   student_id: number
 }
 
 export type MarkCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  marks_course_id?: Prisma.SortOrder
+  course_id?: Prisma.SortOrder
   student_id?: Prisma.SortOrder
   practical_grade?: Prisma.SortOrder
   theoretical_grade?: Prisma.SortOrder
@@ -400,7 +400,7 @@ export type MarkCountOrderByAggregateInput = {
 
 export type MarkAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  marks_course_id?: Prisma.SortOrder
+  course_id?: Prisma.SortOrder
   student_id?: Prisma.SortOrder
   practical_grade?: Prisma.SortOrder
   theoretical_grade?: Prisma.SortOrder
@@ -408,7 +408,7 @@ export type MarkAvgOrderByAggregateInput = {
 
 export type MarkMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  marks_course_id?: Prisma.SortOrder
+  course_id?: Prisma.SortOrder
   student_id?: Prisma.SortOrder
   practical_grade?: Prisma.SortOrder
   theoretical_grade?: Prisma.SortOrder
@@ -418,7 +418,7 @@ export type MarkMaxOrderByAggregateInput = {
 
 export type MarkMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  marks_course_id?: Prisma.SortOrder
+  course_id?: Prisma.SortOrder
   student_id?: Prisma.SortOrder
   practical_grade?: Prisma.SortOrder
   theoretical_grade?: Prisma.SortOrder
@@ -428,7 +428,7 @@ export type MarkMinOrderByAggregateInput = {
 
 export type MarkSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  marks_course_id?: Prisma.SortOrder
+  course_id?: Prisma.SortOrder
   student_id?: Prisma.SortOrder
   practical_grade?: Prisma.SortOrder
   theoretical_grade?: Prisma.SortOrder
@@ -476,45 +476,45 @@ export type MarkUncheckedUpdateManyWithoutStudentNestedInput = {
   deleteMany?: Prisma.MarkScalarWhereInput | Prisma.MarkScalarWhereInput[]
 }
 
-export type MarkCreateNestedManyWithoutMarks_courseInput = {
-  create?: Prisma.XOR<Prisma.MarkCreateWithoutMarks_courseInput, Prisma.MarkUncheckedCreateWithoutMarks_courseInput> | Prisma.MarkCreateWithoutMarks_courseInput[] | Prisma.MarkUncheckedCreateWithoutMarks_courseInput[]
-  connectOrCreate?: Prisma.MarkCreateOrConnectWithoutMarks_courseInput | Prisma.MarkCreateOrConnectWithoutMarks_courseInput[]
-  createMany?: Prisma.MarkCreateManyMarks_courseInputEnvelope
+export type MarkCreateNestedManyWithoutCourseInput = {
+  create?: Prisma.XOR<Prisma.MarkCreateWithoutCourseInput, Prisma.MarkUncheckedCreateWithoutCourseInput> | Prisma.MarkCreateWithoutCourseInput[] | Prisma.MarkUncheckedCreateWithoutCourseInput[]
+  connectOrCreate?: Prisma.MarkCreateOrConnectWithoutCourseInput | Prisma.MarkCreateOrConnectWithoutCourseInput[]
+  createMany?: Prisma.MarkCreateManyCourseInputEnvelope
   connect?: Prisma.MarkWhereUniqueInput | Prisma.MarkWhereUniqueInput[]
 }
 
-export type MarkUncheckedCreateNestedManyWithoutMarks_courseInput = {
-  create?: Prisma.XOR<Prisma.MarkCreateWithoutMarks_courseInput, Prisma.MarkUncheckedCreateWithoutMarks_courseInput> | Prisma.MarkCreateWithoutMarks_courseInput[] | Prisma.MarkUncheckedCreateWithoutMarks_courseInput[]
-  connectOrCreate?: Prisma.MarkCreateOrConnectWithoutMarks_courseInput | Prisma.MarkCreateOrConnectWithoutMarks_courseInput[]
-  createMany?: Prisma.MarkCreateManyMarks_courseInputEnvelope
+export type MarkUncheckedCreateNestedManyWithoutCourseInput = {
+  create?: Prisma.XOR<Prisma.MarkCreateWithoutCourseInput, Prisma.MarkUncheckedCreateWithoutCourseInput> | Prisma.MarkCreateWithoutCourseInput[] | Prisma.MarkUncheckedCreateWithoutCourseInput[]
+  connectOrCreate?: Prisma.MarkCreateOrConnectWithoutCourseInput | Prisma.MarkCreateOrConnectWithoutCourseInput[]
+  createMany?: Prisma.MarkCreateManyCourseInputEnvelope
   connect?: Prisma.MarkWhereUniqueInput | Prisma.MarkWhereUniqueInput[]
 }
 
-export type MarkUpdateManyWithoutMarks_courseNestedInput = {
-  create?: Prisma.XOR<Prisma.MarkCreateWithoutMarks_courseInput, Prisma.MarkUncheckedCreateWithoutMarks_courseInput> | Prisma.MarkCreateWithoutMarks_courseInput[] | Prisma.MarkUncheckedCreateWithoutMarks_courseInput[]
-  connectOrCreate?: Prisma.MarkCreateOrConnectWithoutMarks_courseInput | Prisma.MarkCreateOrConnectWithoutMarks_courseInput[]
-  upsert?: Prisma.MarkUpsertWithWhereUniqueWithoutMarks_courseInput | Prisma.MarkUpsertWithWhereUniqueWithoutMarks_courseInput[]
-  createMany?: Prisma.MarkCreateManyMarks_courseInputEnvelope
+export type MarkUpdateManyWithoutCourseNestedInput = {
+  create?: Prisma.XOR<Prisma.MarkCreateWithoutCourseInput, Prisma.MarkUncheckedCreateWithoutCourseInput> | Prisma.MarkCreateWithoutCourseInput[] | Prisma.MarkUncheckedCreateWithoutCourseInput[]
+  connectOrCreate?: Prisma.MarkCreateOrConnectWithoutCourseInput | Prisma.MarkCreateOrConnectWithoutCourseInput[]
+  upsert?: Prisma.MarkUpsertWithWhereUniqueWithoutCourseInput | Prisma.MarkUpsertWithWhereUniqueWithoutCourseInput[]
+  createMany?: Prisma.MarkCreateManyCourseInputEnvelope
   set?: Prisma.MarkWhereUniqueInput | Prisma.MarkWhereUniqueInput[]
   disconnect?: Prisma.MarkWhereUniqueInput | Prisma.MarkWhereUniqueInput[]
   delete?: Prisma.MarkWhereUniqueInput | Prisma.MarkWhereUniqueInput[]
   connect?: Prisma.MarkWhereUniqueInput | Prisma.MarkWhereUniqueInput[]
-  update?: Prisma.MarkUpdateWithWhereUniqueWithoutMarks_courseInput | Prisma.MarkUpdateWithWhereUniqueWithoutMarks_courseInput[]
-  updateMany?: Prisma.MarkUpdateManyWithWhereWithoutMarks_courseInput | Prisma.MarkUpdateManyWithWhereWithoutMarks_courseInput[]
+  update?: Prisma.MarkUpdateWithWhereUniqueWithoutCourseInput | Prisma.MarkUpdateWithWhereUniqueWithoutCourseInput[]
+  updateMany?: Prisma.MarkUpdateManyWithWhereWithoutCourseInput | Prisma.MarkUpdateManyWithWhereWithoutCourseInput[]
   deleteMany?: Prisma.MarkScalarWhereInput | Prisma.MarkScalarWhereInput[]
 }
 
-export type MarkUncheckedUpdateManyWithoutMarks_courseNestedInput = {
-  create?: Prisma.XOR<Prisma.MarkCreateWithoutMarks_courseInput, Prisma.MarkUncheckedCreateWithoutMarks_courseInput> | Prisma.MarkCreateWithoutMarks_courseInput[] | Prisma.MarkUncheckedCreateWithoutMarks_courseInput[]
-  connectOrCreate?: Prisma.MarkCreateOrConnectWithoutMarks_courseInput | Prisma.MarkCreateOrConnectWithoutMarks_courseInput[]
-  upsert?: Prisma.MarkUpsertWithWhereUniqueWithoutMarks_courseInput | Prisma.MarkUpsertWithWhereUniqueWithoutMarks_courseInput[]
-  createMany?: Prisma.MarkCreateManyMarks_courseInputEnvelope
+export type MarkUncheckedUpdateManyWithoutCourseNestedInput = {
+  create?: Prisma.XOR<Prisma.MarkCreateWithoutCourseInput, Prisma.MarkUncheckedCreateWithoutCourseInput> | Prisma.MarkCreateWithoutCourseInput[] | Prisma.MarkUncheckedCreateWithoutCourseInput[]
+  connectOrCreate?: Prisma.MarkCreateOrConnectWithoutCourseInput | Prisma.MarkCreateOrConnectWithoutCourseInput[]
+  upsert?: Prisma.MarkUpsertWithWhereUniqueWithoutCourseInput | Prisma.MarkUpsertWithWhereUniqueWithoutCourseInput[]
+  createMany?: Prisma.MarkCreateManyCourseInputEnvelope
   set?: Prisma.MarkWhereUniqueInput | Prisma.MarkWhereUniqueInput[]
   disconnect?: Prisma.MarkWhereUniqueInput | Prisma.MarkWhereUniqueInput[]
   delete?: Prisma.MarkWhereUniqueInput | Prisma.MarkWhereUniqueInput[]
   connect?: Prisma.MarkWhereUniqueInput | Prisma.MarkWhereUniqueInput[]
-  update?: Prisma.MarkUpdateWithWhereUniqueWithoutMarks_courseInput | Prisma.MarkUpdateWithWhereUniqueWithoutMarks_courseInput[]
-  updateMany?: Prisma.MarkUpdateManyWithWhereWithoutMarks_courseInput | Prisma.MarkUpdateManyWithWhereWithoutMarks_courseInput[]
+  update?: Prisma.MarkUpdateWithWhereUniqueWithoutCourseInput | Prisma.MarkUpdateWithWhereUniqueWithoutCourseInput[]
+  updateMany?: Prisma.MarkUpdateManyWithWhereWithoutCourseInput | Prisma.MarkUpdateManyWithWhereWithoutCourseInput[]
   deleteMany?: Prisma.MarkScalarWhereInput | Prisma.MarkScalarWhereInput[]
 }
 
@@ -523,12 +523,12 @@ export type MarkCreateWithoutStudentInput = {
   theoretical_grade: number
   created_at?: Date | string
   updated_at?: Date | string | null
-  marks_course: Prisma.MarksCourseCreateNestedOneWithoutMarksInput
+  course: Prisma.CourseCreateNestedOneWithoutMarksInput
 }
 
 export type MarkUncheckedCreateWithoutStudentInput = {
   id?: number
-  marks_course_id: number
+  course_id: number
   practical_grade: number
   theoretical_grade: number
   created_at?: Date | string
@@ -566,7 +566,7 @@ export type MarkScalarWhereInput = {
   OR?: Prisma.MarkScalarWhereInput[]
   NOT?: Prisma.MarkScalarWhereInput | Prisma.MarkScalarWhereInput[]
   id?: Prisma.IntFilter<"Mark"> | number
-  marks_course_id?: Prisma.IntFilter<"Mark"> | number
+  course_id?: Prisma.IntFilter<"Mark"> | number
   student_id?: Prisma.IntFilter<"Mark"> | number
   practical_grade?: Prisma.IntFilter<"Mark"> | number
   theoretical_grade?: Prisma.IntFilter<"Mark"> | number
@@ -574,7 +574,7 @@ export type MarkScalarWhereInput = {
   updated_at?: Prisma.DateTimeNullableFilter<"Mark"> | Date | string | null
 }
 
-export type MarkCreateWithoutMarks_courseInput = {
+export type MarkCreateWithoutCourseInput = {
   practical_grade: number
   theoretical_grade: number
   created_at?: Date | string
@@ -582,7 +582,7 @@ export type MarkCreateWithoutMarks_courseInput = {
   student: Prisma.StudentCreateNestedOneWithoutMarksInput
 }
 
-export type MarkUncheckedCreateWithoutMarks_courseInput = {
+export type MarkUncheckedCreateWithoutCourseInput = {
   id?: number
   student_id: number
   practical_grade: number
@@ -591,35 +591,35 @@ export type MarkUncheckedCreateWithoutMarks_courseInput = {
   updated_at?: Date | string | null
 }
 
-export type MarkCreateOrConnectWithoutMarks_courseInput = {
+export type MarkCreateOrConnectWithoutCourseInput = {
   where: Prisma.MarkWhereUniqueInput
-  create: Prisma.XOR<Prisma.MarkCreateWithoutMarks_courseInput, Prisma.MarkUncheckedCreateWithoutMarks_courseInput>
+  create: Prisma.XOR<Prisma.MarkCreateWithoutCourseInput, Prisma.MarkUncheckedCreateWithoutCourseInput>
 }
 
-export type MarkCreateManyMarks_courseInputEnvelope = {
-  data: Prisma.MarkCreateManyMarks_courseInput | Prisma.MarkCreateManyMarks_courseInput[]
+export type MarkCreateManyCourseInputEnvelope = {
+  data: Prisma.MarkCreateManyCourseInput | Prisma.MarkCreateManyCourseInput[]
   skipDuplicates?: boolean
 }
 
-export type MarkUpsertWithWhereUniqueWithoutMarks_courseInput = {
+export type MarkUpsertWithWhereUniqueWithoutCourseInput = {
   where: Prisma.MarkWhereUniqueInput
-  update: Prisma.XOR<Prisma.MarkUpdateWithoutMarks_courseInput, Prisma.MarkUncheckedUpdateWithoutMarks_courseInput>
-  create: Prisma.XOR<Prisma.MarkCreateWithoutMarks_courseInput, Prisma.MarkUncheckedCreateWithoutMarks_courseInput>
+  update: Prisma.XOR<Prisma.MarkUpdateWithoutCourseInput, Prisma.MarkUncheckedUpdateWithoutCourseInput>
+  create: Prisma.XOR<Prisma.MarkCreateWithoutCourseInput, Prisma.MarkUncheckedCreateWithoutCourseInput>
 }
 
-export type MarkUpdateWithWhereUniqueWithoutMarks_courseInput = {
+export type MarkUpdateWithWhereUniqueWithoutCourseInput = {
   where: Prisma.MarkWhereUniqueInput
-  data: Prisma.XOR<Prisma.MarkUpdateWithoutMarks_courseInput, Prisma.MarkUncheckedUpdateWithoutMarks_courseInput>
+  data: Prisma.XOR<Prisma.MarkUpdateWithoutCourseInput, Prisma.MarkUncheckedUpdateWithoutCourseInput>
 }
 
-export type MarkUpdateManyWithWhereWithoutMarks_courseInput = {
+export type MarkUpdateManyWithWhereWithoutCourseInput = {
   where: Prisma.MarkScalarWhereInput
-  data: Prisma.XOR<Prisma.MarkUpdateManyMutationInput, Prisma.MarkUncheckedUpdateManyWithoutMarks_courseInput>
+  data: Prisma.XOR<Prisma.MarkUpdateManyMutationInput, Prisma.MarkUncheckedUpdateManyWithoutCourseInput>
 }
 
 export type MarkCreateManyStudentInput = {
   id?: number
-  marks_course_id: number
+  course_id: number
   practical_grade: number
   theoretical_grade: number
   created_at?: Date | string
@@ -631,12 +631,12 @@ export type MarkUpdateWithoutStudentInput = {
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  marks_course?: Prisma.MarksCourseUpdateOneRequiredWithoutMarksNestedInput
+  course?: Prisma.CourseUpdateOneRequiredWithoutMarksNestedInput
 }
 
 export type MarkUncheckedUpdateWithoutStudentInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  marks_course_id?: Prisma.IntFieldUpdateOperationsInput | number
+  course_id?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -645,14 +645,14 @@ export type MarkUncheckedUpdateWithoutStudentInput = {
 
 export type MarkUncheckedUpdateManyWithoutStudentInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  marks_course_id?: Prisma.IntFieldUpdateOperationsInput | number
+  course_id?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
-export type MarkCreateManyMarks_courseInput = {
+export type MarkCreateManyCourseInput = {
   id?: number
   student_id: number
   practical_grade: number
@@ -661,7 +661,7 @@ export type MarkCreateManyMarks_courseInput = {
   updated_at?: Date | string | null
 }
 
-export type MarkUpdateWithoutMarks_courseInput = {
+export type MarkUpdateWithoutCourseInput = {
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -669,7 +669,7 @@ export type MarkUpdateWithoutMarks_courseInput = {
   student?: Prisma.StudentUpdateOneRequiredWithoutMarksNestedInput
 }
 
-export type MarkUncheckedUpdateWithoutMarks_courseInput = {
+export type MarkUncheckedUpdateWithoutCourseInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   student_id?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
@@ -678,7 +678,7 @@ export type MarkUncheckedUpdateWithoutMarks_courseInput = {
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
-export type MarkUncheckedUpdateManyWithoutMarks_courseInput = {
+export type MarkUncheckedUpdateManyWithoutCourseInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   student_id?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
@@ -691,43 +691,43 @@ export type MarkUncheckedUpdateManyWithoutMarks_courseInput = {
 
 export type MarkSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  marks_course_id?: boolean
+  course_id?: boolean
   student_id?: boolean
   practical_grade?: boolean
   theoretical_grade?: boolean
   created_at?: boolean
   updated_at?: boolean
-  marks_course?: boolean | Prisma.MarksCourseDefaultArgs<ExtArgs>
+  course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
   student?: boolean | Prisma.StudentDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["mark"]>
 
 export type MarkSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  marks_course_id?: boolean
+  course_id?: boolean
   student_id?: boolean
   practical_grade?: boolean
   theoretical_grade?: boolean
   created_at?: boolean
   updated_at?: boolean
-  marks_course?: boolean | Prisma.MarksCourseDefaultArgs<ExtArgs>
+  course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
   student?: boolean | Prisma.StudentDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["mark"]>
 
 export type MarkSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  marks_course_id?: boolean
+  course_id?: boolean
   student_id?: boolean
   practical_grade?: boolean
   theoretical_grade?: boolean
   created_at?: boolean
   updated_at?: boolean
-  marks_course?: boolean | Prisma.MarksCourseDefaultArgs<ExtArgs>
+  course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
   student?: boolean | Prisma.StudentDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["mark"]>
 
 export type MarkSelectScalar = {
   id?: boolean
-  marks_course_id?: boolean
+  course_id?: boolean
   student_id?: boolean
   practical_grade?: boolean
   theoretical_grade?: boolean
@@ -735,29 +735,29 @@ export type MarkSelectScalar = {
   updated_at?: boolean
 }
 
-export type MarkOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "marks_course_id" | "student_id" | "practical_grade" | "theoretical_grade" | "created_at" | "updated_at", ExtArgs["result"]["mark"]>
+export type MarkOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "course_id" | "student_id" | "practical_grade" | "theoretical_grade" | "created_at" | "updated_at", ExtArgs["result"]["mark"]>
 export type MarkInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  marks_course?: boolean | Prisma.MarksCourseDefaultArgs<ExtArgs>
+  course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
   student?: boolean | Prisma.StudentDefaultArgs<ExtArgs>
 }
 export type MarkIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  marks_course?: boolean | Prisma.MarksCourseDefaultArgs<ExtArgs>
+  course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
   student?: boolean | Prisma.StudentDefaultArgs<ExtArgs>
 }
 export type MarkIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  marks_course?: boolean | Prisma.MarksCourseDefaultArgs<ExtArgs>
+  course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
   student?: boolean | Prisma.StudentDefaultArgs<ExtArgs>
 }
 
 export type $MarkPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Mark"
   objects: {
-    marks_course: Prisma.$MarksCoursePayload<ExtArgs>
+    course: Prisma.$CoursePayload<ExtArgs>
     student: Prisma.$StudentPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
-    marks_course_id: number
+    course_id: number
     student_id: number
     practical_grade: number
     theoretical_grade: number
@@ -1157,7 +1157,7 @@ readonly fields: MarkFieldRefs;
  */
 export interface Prisma__MarkClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  marks_course<T extends Prisma.MarksCourseDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MarksCourseDefaultArgs<ExtArgs>>): Prisma.Prisma__MarksCourseClient<runtime.Types.Result.GetResult<Prisma.$MarksCoursePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  course<T extends Prisma.CourseDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CourseDefaultArgs<ExtArgs>>): Prisma.Prisma__CourseClient<runtime.Types.Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   student<T extends Prisma.StudentDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StudentDefaultArgs<ExtArgs>>): Prisma.Prisma__StudentClient<runtime.Types.Result.GetResult<Prisma.$StudentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1189,7 +1189,7 @@ export interface Prisma__MarkClient<T, Null = never, ExtArgs extends runtime.Typ
  */
 export interface MarkFieldRefs {
   readonly id: Prisma.FieldRef<"Mark", 'Int'>
-  readonly marks_course_id: Prisma.FieldRef<"Mark", 'Int'>
+  readonly course_id: Prisma.FieldRef<"Mark", 'Int'>
   readonly student_id: Prisma.FieldRef<"Mark", 'Int'>
   readonly practical_grade: Prisma.FieldRef<"Mark", 'Int'>
   readonly theoretical_grade: Prisma.FieldRef<"Mark", 'Int'>

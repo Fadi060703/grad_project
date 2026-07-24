@@ -397,7 +397,6 @@ export const ModelName = {
   SectionCourse: 'SectionCourse',
   MajorCourse: 'MajorCourse',
   CourseFile: 'CourseFile',
-  MarksCourse: 'MarksCourse',
   Mark: 'Mark',
   StudentCourse: 'StudentCourse',
   FAQ: 'FAQ',
@@ -424,7 +423,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "systemSettings" | "faculityInfo" | "user" | "student" | "year" | "section" | "major" | "group" | "universityLocation" | "course" | "sectionCourse" | "majorCourse" | "courseFile" | "marksCourse" | "mark" | "studentCourse" | "fAQ" | "blog" | "examGuideline" | "lecture" | "weeklyLecture" | "lectureAttendance" | "announcement" | "exam" | "examSettings"
+    modelProps: "systemSettings" | "faculityInfo" | "user" | "student" | "year" | "section" | "major" | "group" | "universityLocation" | "course" | "sectionCourse" | "majorCourse" | "courseFile" | "mark" | "studentCourse" | "fAQ" | "blog" | "examGuideline" | "lecture" | "weeklyLecture" | "lectureAttendance" | "announcement" | "exam" | "examSettings"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1387,80 +1386,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.CourseFileCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.CourseFileCountAggregateOutputType> | number
-        }
-      }
-    }
-    MarksCourse: {
-      payload: Prisma.$MarksCoursePayload<ExtArgs>
-      fields: Prisma.MarksCourseFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.MarksCourseFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarksCoursePayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.MarksCourseFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarksCoursePayload>
-        }
-        findFirst: {
-          args: Prisma.MarksCourseFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarksCoursePayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.MarksCourseFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarksCoursePayload>
-        }
-        findMany: {
-          args: Prisma.MarksCourseFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarksCoursePayload>[]
-        }
-        create: {
-          args: Prisma.MarksCourseCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarksCoursePayload>
-        }
-        createMany: {
-          args: Prisma.MarksCourseCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.MarksCourseCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarksCoursePayload>[]
-        }
-        delete: {
-          args: Prisma.MarksCourseDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarksCoursePayload>
-        }
-        update: {
-          args: Prisma.MarksCourseUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarksCoursePayload>
-        }
-        deleteMany: {
-          args: Prisma.MarksCourseDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.MarksCourseUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.MarksCourseUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarksCoursePayload>[]
-        }
-        upsert: {
-          args: Prisma.MarksCourseUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MarksCoursePayload>
-        }
-        aggregate: {
-          args: Prisma.MarksCourseAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateMarksCourse>
-        }
-        groupBy: {
-          args: Prisma.MarksCourseGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.MarksCourseGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.MarksCourseCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.MarksCourseCountAggregateOutputType> | number
         }
       }
     }
@@ -2452,7 +2377,6 @@ export const CourseScalarFieldEnum = {
   theoretical_grade: 'theoretical_grade',
   practical_grade: 'practical_grade',
   year_id: 'year_id',
-  marks_course_id: 'marks_course_id',
   created_at: 'created_at',
   updated_at: 'updated_at'
 } as const
@@ -2493,19 +2417,9 @@ export const CourseFileScalarFieldEnum = {
 export type CourseFileScalarFieldEnum = (typeof CourseFileScalarFieldEnum)[keyof typeof CourseFileScalarFieldEnum]
 
 
-export const MarksCourseScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-} as const
-
-export type MarksCourseScalarFieldEnum = (typeof MarksCourseScalarFieldEnum)[keyof typeof MarksCourseScalarFieldEnum]
-
-
 export const MarkScalarFieldEnum = {
   id: 'id',
-  marks_course_id: 'marks_course_id',
+  course_id: 'course_id',
   student_id: 'student_id',
   practical_grade: 'practical_grade',
   theoretical_grade: 'theoretical_grade',
@@ -3005,7 +2919,6 @@ export type GlobalOmitConfig = {
   sectionCourse?: Prisma.SectionCourseOmit
   majorCourse?: Prisma.MajorCourseOmit
   courseFile?: Prisma.CourseFileOmit
-  marksCourse?: Prisma.MarksCourseOmit
   mark?: Prisma.MarkOmit
   studentCourse?: Prisma.StudentCourseOmit
   fAQ?: Prisma.FAQOmit

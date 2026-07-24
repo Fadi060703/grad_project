@@ -107,11 +107,6 @@ export type MajorCourse = Prisma.MajorCourseModel
  */
 export type CourseFile = Prisma.CourseFileModel
 /**
- * Model MarksCourse
- * 
- */
-export type MarksCourse = Prisma.MarksCourseModel
-/**
  * Model Mark
  * 
  */

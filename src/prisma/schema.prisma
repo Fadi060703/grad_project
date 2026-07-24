@@ -207,8 +207,6 @@ model Course {
   practical_grade     Int
   year_id             Int
   year                Year     @relation(fields: [year_id], references: [id], onDelete: Cascade)
-  marks_course_id     Int?
-  marks_course        MarksCourse? @relation(fields: [marks_course_id], references: [id], onDelete: SetNull)
   sectionCourses      SectionCourse[]
   majorCourses        MajorCourse[]
   doctors             User[]   @relation("CourseDoctors")
@@ -218,6 +216,7 @@ model Course {
   students            StudentCourse[]
   announcements       Announcement[]
   exams               Exam[]
+  marks               Mark[]
   created_at          DateTime @default(now())
   updated_at          DateTime? @updatedAt
 
@@ -266,28 +265,19 @@ model CourseFile {
   @@map("course_files")
 }
 
-model MarksCourse {
-  id         Int      @id @default(autoincrement())
-  name       String   @unique
-  courses    Course[]
-  marks      Mark[]
-  created_at DateTime @default(now())
-  updated_at DateTime? @updatedAt
-}
-
 model Mark {
   id                Int      @id @default(autoincrement())
-  marks_course_id   Int
-  marks_course      MarksCourse @relation(fields: [marks_course_id], references: [id], onDelete: Cascade)
+  course_id         Int
+  course            Course   @relation(fields: [course_id], references: [id], onDelete: Cascade)
   student_id        Int
-  student           Student   @relation(fields: [student_id], references: [student_id], onDelete: Cascade)
+  student           Student  @relation(fields: [student_id], references: [student_id], onDelete: Cascade)
   practical_grade   Int
   theoretical_grade Int
   created_at        DateTime @default(now())
   updated_at        DateTime? @updatedAt
 
-  @@unique([marks_course_id, student_id])
-  @@index([marks_course_id])
+  @@unique([course_id, student_id])
+  @@index([course_id])
   @@index([student_id])
 }
 

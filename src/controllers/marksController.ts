@@ -6,17 +6,70 @@ import {
   bulkCreateMarksSchema,
   bulkDeleteMarksSchema,
   getMarksSchema,
+  getMyStudentMarksSchema,
   updateMarkSchema,
 } from "../validators/marks";
 import { asyncHandler } from "../utils/asyncHandler";
-import { BadRequestError, ConflictError, NotFoundError } from "../errors";
+import { BadRequestError, ConflictError, ForbiddenError, NotFoundError } from "../errors";
+
+const markCourseSelect = {
+  id: true,
+  name: true,
+  course_type: true,
+  exam_type: true,
+  theoretical_grade: true,
+  practical_grade: true,
+  year: {
+    select: {
+      id: true,
+      name: true,
+    },
+  },
+} as const;
+
+const markStudentSelect = {
+  student_id: true,
+  mother_name: true,
+  year: {
+    select: {
+      id: true,
+      name: true,
+    },
+  },
+  user: {
+    select: {
+      full_name: true,
+      email: true,
+    },
+  },
+} as const;
+
+const mapMark = (mark: any) => ({
+  ...mark,
+  total_grade: mark.practical_grade + mark.theoretical_grade,
+});
+
+const buildCourseSearchWhere = (search: unknown) => {
+  if (typeof search !== "string" || !search.trim()) {
+    return null;
+  }
+
+  return {
+    course: {
+      name: {
+        contains: search.trim(),
+        mode: "insensitive" as const,
+      },
+    },
+  };
+};
 
 export const getAllMarks = createListHandler({
   prisma: prisma.mark,
 
   allowedSortFields: [
     "id",
-    "marks_course_id",
+    "course_id",
     "student_id",
     "practical_grade",
     "theoretical_grade",
@@ -26,7 +79,7 @@ export const getAllMarks = createListHandler({
 
   fieldTypes: {
     id: "number",
-    marks_course_id: "number",
+    course_id: "number",
     student_id: "number",
     practical_grade: "number",
     theoretical_grade: "number",
@@ -39,31 +92,10 @@ export const getAllMarks = createListHandler({
   findManyArgs: {
     select: {
       id: true,
-      marks_course_id: true,
-      marks_course: {
-        select: {
-          name: true,
-        },
-      },
+      course_id: true,
+      course: { select: markCourseSelect },
       student_id: true,
-      student: {
-        select: {
-          student_id: true,
-          mother_name: true,
-          year: {
-            select: {
-              id: true,
-              name: true,
-            },
-          },
-          user: {
-            select: {
-              full_name: true,
-              email: true,
-            },
-          },
-        },
-      },
+      student: { select: markStudentSelect },
       practical_grade: true,
       theoretical_grade: true,
       created_at: true,
@@ -71,7 +103,92 @@ export const getAllMarks = createListHandler({
     },
   } as any,
 
-  mapResult: ({ data }) => z.array(getMarksSchema).parse(data),
+  handleFindArgs: ({ query, findManyArgs }) => {
+    const searchWhere = buildCourseSearchWhere(query.search);
+    if (!searchWhere) return {};
+
+    return {
+      where: {
+        AND: [findManyArgs.where, searchWhere],
+      },
+    };
+  },
+
+  mapResult: ({ data }) => z.array(getMarksSchema).parse(data.map(mapMark)),
+});
+
+export const getMyStudentMarks = createListHandler({
+  prisma: prisma.mark,
+
+  allowedSortFields: [
+    "id",
+    "course_id",
+    "practical_grade",
+    "theoretical_grade",
+    "created_at",
+    "updated_at",
+  ],
+
+  fieldTypes: {
+    id: "number",
+    course_id: "number",
+    practical_grade: "number",
+    theoretical_grade: "number",
+    created_at: "date",
+    updated_at: "date",
+  },
+
+  searchableFields: [],
+
+  findManyArgs: {
+    select: {
+      id: true,
+      course_id: true,
+      course: { select: markCourseSelect },
+      practical_grade: true,
+      theoretical_grade: true,
+      created_at: true,
+      updated_at: true,
+    },
+  } as any,
+
+  handleFindArgs: async ({ req, query, findManyArgs }) => {
+    const { id: user_id, role } = req.user as { id: number; role: string };
+
+    if (role !== "STUDENT") {
+      throw new ForbiddenError("Only students can access student marks");
+    }
+
+    const student = await prisma.student.findUnique({
+      where: { userId: user_id },
+      select: { student_id: true },
+    });
+
+    if (!student) {
+      throw new ForbiddenError("Student profile not found");
+    }
+
+    const searchWhere = buildCourseSearchWhere(query.search);
+    const andConditions = [
+      findManyArgs.where,
+      { student_id: student.student_id },
+    ];
+
+    if (searchWhere) {
+      andConditions.push(searchWhere);
+    }
+
+    return {
+      ...findManyArgs,
+      where: {
+        AND: andConditions,
+      },
+      orderBy: findManyArgs.orderBy ?? { created_at: "desc" },
+    };
+  },
+
+  mapResult: ({ data }) =>
+    z.array(getMyStudentMarksSchema).parse(data.map(mapMark)),
 });
 
 export const bulkCreateMarks = asyncHandler(
@@ -81,21 +198,21 @@ export const bulkCreateMarks = asyncHandler(
 
     const pairKeys = new Set<string>();
     for (const mark of marks) {
-      const key = `${mark.marks_course_id}:${mark.student_id}`;
+      const key = `${mark.course_id}:${mark.student_id}`;
       if (pairKeys.has(key)) {
         throw new BadRequestError(
-          "Duplicate marks for the same student and marks course",
+          "Duplicate marks for the same student and course",
         );
       }
       pairKeys.add(key);
     }
 
-    const marksCourseIds = [...new Set(marks.map((m) => m.marks_course_id))];
+    const courseIds = [...new Set(marks.map((m) => m.course_id))];
     const studentIds = [...new Set(marks.map((m) => m.student_id))];
 
-    const [marksCourses, students] = await Promise.all([
-      prisma.marksCourse.findMany({
-        where: { id: { in: marksCourseIds } },
+    const [courses, students] = await Promise.all([
+      prisma.course.findMany({
+        where: { id: { in: courseIds } },
         select: { id: true },
       }),
       prisma.student.findMany({
@@ -104,8 +221,8 @@ export const bulkCreateMarks = asyncHandler(
       }),
     ]);
 
-    if (marksCourses.length !== marksCourseIds.length) {
-      throw new NotFoundError("Marks course");
+    if (courses.length !== courseIds.length) {
+      throw new NotFoundError("Course");
     }
 
     if (students.length !== studentIds.length) {
@@ -115,16 +232,16 @@ export const bulkCreateMarks = asyncHandler(
     const existing = await prisma.mark.findMany({
       where: {
         OR: marks.map((item) => ({
-          marks_course_id: item.marks_course_id,
+          course_id: item.course_id,
           student_id: item.student_id,
         })),
       },
-      select: { marks_course_id: true, student_id: true },
+      select: { course_id: true, student_id: true },
     });
 
     if (existing.length > 0) {
       throw new ConflictError(
-        "One or more marks already exist for this student and marks course",
+        "One or more marks already exist for this student and course",
       );
     }
 
@@ -140,8 +257,11 @@ export const bulkCreateMarks = asyncHandler(
 );
 
 export const updateMark = asyncHandler(async (req: Request, res: Response) => {
-  //@ts-expect-error
-  const id = parseInt(req.params.id, 10);
+  const id = parseInt(req.params.id as string, 10);
+  if (isNaN(id)) {
+    throw new BadRequestError("Invalid mark ID");
+  }
+
   const data = updateMarkSchema.parse(req.body);
 
   const existing = await prisma.mark.findUnique({
@@ -152,14 +272,14 @@ export const updateMark = asyncHandler(async (req: Request, res: Response) => {
     throw new NotFoundError("Mark");
   }
 
-  if (data.marks_course_id) {
-    const marksCourse = await prisma.marksCourse.findUnique({
-      where: { id: data.marks_course_id },
+  if (data.course_id) {
+    const course = await prisma.course.findUnique({
+      where: { id: data.course_id },
       select: { id: true },
     });
 
-    if (!marksCourse) {
-      throw new NotFoundError("Marks course");
+    if (!course) {
+      throw new NotFoundError("Course");
     }
   }
 
@@ -183,16 +303,14 @@ export const updateMark = asyncHandler(async (req: Request, res: Response) => {
       ? data.theoretical_grade
       : existing.theoretical_grade;
 
-  const marksCourseId =
-    data.marks_course_id !== undefined
-      ? data.marks_course_id
-      : existing.marks_course_id;
+  const courseId =
+    data.course_id !== undefined ? data.course_id : existing.course_id;
   const studentId =
     data.student_id !== undefined ? data.student_id : existing.student_id;
 
   const duplicate = await prisma.mark.findFirst({
     where: {
-      marks_course_id: marksCourseId,
+      course_id: courseId,
       student_id: studentId,
       NOT: { id },
     },
@@ -201,7 +319,7 @@ export const updateMark = asyncHandler(async (req: Request, res: Response) => {
 
   if (duplicate) {
     throw new ConflictError(
-      "Mark already exists for this student and marks course",
+      "Mark already exists for this student and course",
     );
   }
 
@@ -214,15 +332,17 @@ export const updateMark = asyncHandler(async (req: Request, res: Response) => {
   const updated = await prisma.mark.update({
     where: { id },
     data: {
-      marks_course_id: data.marks_course_id,
+      course_id: data.course_id,
       student_id: data.student_id,
       practical_grade: data.practical_grade,
       theoretical_grade: data.theoretical_grade,
     },
     select: {
       id: true,
-      marks_course_id: true,
+      course_id: true,
+      course: { select: markCourseSelect },
       student_id: true,
+      student: { select: markStudentSelect },
       practical_grade: true,
       theoretical_grade: true,
       created_at: true,
@@ -230,7 +350,7 @@ export const updateMark = asyncHandler(async (req: Request, res: Response) => {
     },
   });
 
-  return res.status(200).json(updated);
+  return res.status(200).json(getMarksSchema.parse(mapMark(updated)));
 });
 
 export const bulkDeleteMarks = asyncHandler(

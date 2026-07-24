@@ -15,14 +15,9 @@ import {
   bulkCreateMarks,
   bulkDeleteMarks,
   getAllMarks,
+  getMyStudentMarks,
   updateMark,
 } from "../controllers/marksController";
-import {
-  createMarksCourse,
-  deleteMarksCourse,
-  getAllMarksCourses,
-  updateMarksCourse,
-} from "../controllers/marksCourseController";
 import {
   createExamGuideline,
   deleteExamGuideline,
@@ -71,6 +66,12 @@ router.post(
 );
 
 router.get("/marks", authMiddleware, check("marks:read"), getAllMarks);
+router.get(
+  "/my-student-marks",
+  authMiddleware,
+  check("student-marks:read"),
+  getMyStudentMarks,
+);
 router.post(
   "/marks/bulk-create",
   authMiddleware,
@@ -85,30 +86,6 @@ router.delete(
   bulkDeleteMarks,
 );
 
-router.get(
-  "/marks-courses",
-  authMiddleware,
-  check("marks-courses:read"),
-  getAllMarksCourses,
-);
-router.post(
-  "/marks-courses",
-  authMiddleware,
-  check("marks-courses:add"),
-  createMarksCourse,
-);
-router.put(
-  "/marks-courses/:id",
-  authMiddleware,
-  check("marks-courses:update"),
-  updateMarksCourse,
-);
-router.delete(
-  "/marks-courses/:id",
-  authMiddleware,
-  check("marks-courses:delete"),
-  deleteMarksCourse,
-);
 
 router.get(
   "/exam-guidelines",
