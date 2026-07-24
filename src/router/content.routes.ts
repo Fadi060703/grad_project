@@ -4,6 +4,7 @@ import {
   deleteAnnouncement,
   getAllAnnouncements,
   getMyAnnouncements,
+  getMyStudentAnnouncements,
   updateAnnouncement,
 } from "../controllers/announcementController";
 import {
@@ -38,6 +39,12 @@ router.get(
   authMiddleware,
   check("my-announcements:read"),
   getMyAnnouncements,
+);
+router.get(
+  "/my-student-announcements",
+  authMiddleware,
+  check("student-announcements:read"),
+  getMyStudentAnnouncements,
 );
 router.post(
   "/announcements",

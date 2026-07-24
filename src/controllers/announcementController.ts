@@ -4,6 +4,7 @@ import { Request, Response } from 'express';
 import { asyncHandler } from '../utils/asyncHandler';
 import { BadRequestError, NotFoundError, ConflictError, ForbiddenError } from '../errors';
 import { prisma } from '../lib/prisma';
+import { createListHandler } from '../lib/express-prisma-query';
 import { 
   createAnnouncementSchema, 
   updateAnnouncementSchema, 
@@ -490,4 +491,115 @@ export const getMyAnnouncements = asyncHandler(async (req: Request, res: Respons
       totalPages: Math.ceil(total / pageSize)
     }
   });
+});
+
+// student: get announcements targeted to me
+export const getMyStudentAnnouncements = createListHandler({
+  prisma: prisma.announcement,
+
+  allowedSortFields: [
+    'id',
+    'title',
+    'type',
+    'year_id',
+    'section_id',
+    'major_id',
+    'group_id',
+    'course_id',
+    'student_id',
+    'created_at',
+    'updated_at',
+  ],
+
+  fieldTypes: {
+    id: 'number',
+    title: 'text',
+    content: 'text',
+    type: 'text',
+    year_id: 'number',
+    section_id: 'number',
+    major_id: 'number',
+    group_id: 'number',
+    course_id: 'number',
+    student_id: 'number',
+    created_at: 'date',
+    updated_at: 'date',
+  },
+
+  searchableFields: ['title', 'content'],
+
+  findManyArgs: {
+    include: {
+      year: { select: { id: true, name: true } },
+      section: { select: { id: true, name: true } },
+      major: { select: { id: true, name: true } },
+      group: { select: { id: true, name: true } },
+      course: { select: { id: true, name: true } },
+      student: { select: { id: true, full_name: true } },
+    },
+  } as any,
+
+  handleFindArgs: async ({ req, findManyArgs }) => {
+    const { id: user_id, role } = req.user as { id: number; role: string };
+
+    if (role !== 'STUDENT') {
+      throw new ForbiddenError('Only students can access student announcements');
+    }
+
+    const student = await prisma.student.findUnique({
+      where: { userId: user_id },
+      select: {
+        year_id: true,
+        section_id: true,
+        major_id: true,
+        group_id: true,
+        courses: {
+          where: { status: 'ENROLLED' },
+          select: { course_id: true },
+        },
+      },
+    });
+
+    if (!student) {
+      throw new ForbiddenError('Student profile not found');
+    }
+
+    const enrolledCourseIds = student.courses.map((course) => course.course_id);
+    const targetFilters: any[] = [
+      {
+        year_id: null,
+        section_id: null,
+        major_id: null,
+        group_id: null,
+        course_id: null,
+        student_id: null,
+      },
+      { student_id: user_id },
+      { year_id: student.year_id },
+      { group_id: student.group_id },
+    ];
+
+    if (student.section_id !== null) {
+      targetFilters.push({ section_id: student.section_id });
+    }
+
+    if (student.major_id !== null) {
+      targetFilters.push({ major_id: student.major_id });
+    }
+
+    if (enrolledCourseIds.length > 0) {
+      targetFilters.push({ course_id: { in: enrolledCourseIds } });
+    }
+
+    return {
+      ...findManyArgs,
+      where: {
+        AND: [
+          findManyArgs.where,
+          { OR: targetFilters },
+        ],
+      },
+      orderBy: findManyArgs.orderBy ?? { created_at: 'desc' },
+    };
+  },
 });
