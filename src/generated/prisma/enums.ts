@@ -39,6 +39,14 @@ export const ExamType = {
 export type ExamType = (typeof ExamType)[keyof typeof ExamType]
 
 
+export const Semester = {
+  FIRST: 'FIRST',
+  SECOND: 'SECOND'
+} as const
+
+export type Semester = (typeof Semester)[keyof typeof Semester]
+
+
 export const StudentCourseStatus = {
   ENROLLED: 'ENROLLED',
   PASSED: 'PASSED',

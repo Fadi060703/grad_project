@@ -233,6 +233,13 @@ export type EnumExamTypeFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumExamTypeFilter<$PrismaModel> | $Enums.ExamType
 }
 
+export type EnumSemesterNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.Semester | Prisma.EnumSemesterFieldRefInput<$PrismaModel> | null
+  in?: $Enums.Semester[] | Prisma.ListEnumSemesterFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.Semester[] | Prisma.ListEnumSemesterFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumSemesterNullableFilter<$PrismaModel> | $Enums.Semester | null
+}
+
 export type EnumCourseTypeWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.CourseType | Prisma.EnumCourseTypeFieldRefInput<$PrismaModel>
   in?: $Enums.CourseType[] | Prisma.ListEnumCourseTypeFieldRefInput<$PrismaModel>
@@ -251,6 +258,16 @@ export type EnumExamTypeWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumExamTypeFilter<$PrismaModel>
   _max?: Prisma.NestedEnumExamTypeFilter<$PrismaModel>
+}
+
+export type EnumSemesterNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.Semester | Prisma.EnumSemesterFieldRefInput<$PrismaModel> | null
+  in?: $Enums.Semester[] | Prisma.ListEnumSemesterFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.Semester[] | Prisma.ListEnumSemesterFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumSemesterNullableWithAggregatesFilter<$PrismaModel> | $Enums.Semester | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumSemesterNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumSemesterNullableFilter<$PrismaModel>
 }
 
 export type EnumLectureTypeFilter<$PrismaModel = never> = {
@@ -604,6 +621,13 @@ export type NestedEnumExamTypeFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumExamTypeFilter<$PrismaModel> | $Enums.ExamType
 }
 
+export type NestedEnumSemesterNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.Semester | Prisma.EnumSemesterFieldRefInput<$PrismaModel> | null
+  in?: $Enums.Semester[] | Prisma.ListEnumSemesterFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.Semester[] | Prisma.ListEnumSemesterFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumSemesterNullableFilter<$PrismaModel> | $Enums.Semester | null
+}
+
 export type NestedEnumCourseTypeWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.CourseType | Prisma.EnumCourseTypeFieldRefInput<$PrismaModel>
   in?: $Enums.CourseType[] | Prisma.ListEnumCourseTypeFieldRefInput<$PrismaModel>
@@ -622,6 +646,16 @@ export type NestedEnumExamTypeWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumExamTypeFilter<$PrismaModel>
   _max?: Prisma.NestedEnumExamTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumSemesterNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.Semester | Prisma.EnumSemesterFieldRefInput<$PrismaModel> | null
+  in?: $Enums.Semester[] | Prisma.ListEnumSemesterFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.Semester[] | Prisma.ListEnumSemesterFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumSemesterNullableWithAggregatesFilter<$PrismaModel> | $Enums.Semester | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumSemesterNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumSemesterNullableFilter<$PrismaModel>
 }
 
 export type NestedEnumLectureTypeFilter<$PrismaModel = never> = {

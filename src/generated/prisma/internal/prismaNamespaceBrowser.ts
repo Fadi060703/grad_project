@@ -223,8 +223,11 @@ export type UniversityLocationScalarFieldEnum = (typeof UniversityLocationScalar
 export const CourseScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  code: 'code',
+  image: 'image',
   course_type: 'course_type',
   exam_type: 'exam_type',
+  semester: 'semester',
   theoretical_grade: 'theoretical_grade',
   practical_grade: 'practical_grade',
   year_id: 'year_id',

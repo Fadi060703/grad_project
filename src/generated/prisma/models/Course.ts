@@ -43,8 +43,11 @@ export type CourseSumAggregateOutputType = {
 export type CourseMinAggregateOutputType = {
   id: number | null
   name: string | null
+  code: string | null
+  image: string | null
   course_type: $Enums.CourseType | null
   exam_type: $Enums.ExamType | null
+  semester: $Enums.Semester | null
   theoretical_grade: number | null
   practical_grade: number | null
   year_id: number | null
@@ -55,8 +58,11 @@ export type CourseMinAggregateOutputType = {
 export type CourseMaxAggregateOutputType = {
   id: number | null
   name: string | null
+  code: string | null
+  image: string | null
   course_type: $Enums.CourseType | null
   exam_type: $Enums.ExamType | null
+  semester: $Enums.Semester | null
   theoretical_grade: number | null
   practical_grade: number | null
   year_id: number | null
@@ -67,8 +73,11 @@ export type CourseMaxAggregateOutputType = {
 export type CourseCountAggregateOutputType = {
   id: number
   name: number
+  code: number
+  image: number
   course_type: number
   exam_type: number
+  semester: number
   theoretical_grade: number
   practical_grade: number
   year_id: number
@@ -95,8 +104,11 @@ export type CourseSumAggregateInputType = {
 export type CourseMinAggregateInputType = {
   id?: true
   name?: true
+  code?: true
+  image?: true
   course_type?: true
   exam_type?: true
+  semester?: true
   theoretical_grade?: true
   practical_grade?: true
   year_id?: true
@@ -107,8 +119,11 @@ export type CourseMinAggregateInputType = {
 export type CourseMaxAggregateInputType = {
   id?: true
   name?: true
+  code?: true
+  image?: true
   course_type?: true
   exam_type?: true
+  semester?: true
   theoretical_grade?: true
   practical_grade?: true
   year_id?: true
@@ -119,8 +134,11 @@ export type CourseMaxAggregateInputType = {
 export type CourseCountAggregateInputType = {
   id?: true
   name?: true
+  code?: true
+  image?: true
   course_type?: true
   exam_type?: true
+  semester?: true
   theoretical_grade?: true
   practical_grade?: true
   year_id?: true
@@ -218,8 +236,11 @@ export type CourseGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 export type CourseGroupByOutputType = {
   id: number
   name: string
+  code: string | null
+  image: string | null
   course_type: $Enums.CourseType
   exam_type: $Enums.ExamType
+  semester: $Enums.Semester | null
   theoretical_grade: number
   practical_grade: number
   year_id: number
@@ -253,8 +274,11 @@ export type CourseWhereInput = {
   NOT?: Prisma.CourseWhereInput | Prisma.CourseWhereInput[]
   id?: Prisma.IntFilter<"Course"> | number
   name?: Prisma.StringFilter<"Course"> | string
+  code?: Prisma.StringNullableFilter<"Course"> | string | null
+  image?: Prisma.StringNullableFilter<"Course"> | string | null
   course_type?: Prisma.EnumCourseTypeFilter<"Course"> | $Enums.CourseType
   exam_type?: Prisma.EnumExamTypeFilter<"Course"> | $Enums.ExamType
+  semester?: Prisma.EnumSemesterNullableFilter<"Course"> | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFilter<"Course"> | number
   practical_grade?: Prisma.IntFilter<"Course"> | number
   year_id?: Prisma.IntFilter<"Course"> | number
@@ -276,8 +300,11 @@ export type CourseWhereInput = {
 export type CourseOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  code?: Prisma.SortOrderInput | Prisma.SortOrder
+  image?: Prisma.SortOrderInput | Prisma.SortOrder
   course_type?: Prisma.SortOrder
   exam_type?: Prisma.SortOrder
+  semester?: Prisma.SortOrderInput | Prisma.SortOrder
   theoretical_grade?: Prisma.SortOrder
   practical_grade?: Prisma.SortOrder
   year_id?: Prisma.SortOrder
@@ -299,11 +326,14 @@ export type CourseOrderByWithRelationInput = {
 export type CourseWhereUniqueInput = Prisma.AtLeast<{
   id?: number
   name?: string
+  code?: string
   AND?: Prisma.CourseWhereInput | Prisma.CourseWhereInput[]
   OR?: Prisma.CourseWhereInput[]
   NOT?: Prisma.CourseWhereInput | Prisma.CourseWhereInput[]
+  image?: Prisma.StringNullableFilter<"Course"> | string | null
   course_type?: Prisma.EnumCourseTypeFilter<"Course"> | $Enums.CourseType
   exam_type?: Prisma.EnumExamTypeFilter<"Course"> | $Enums.ExamType
+  semester?: Prisma.EnumSemesterNullableFilter<"Course"> | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFilter<"Course"> | number
   practical_grade?: Prisma.IntFilter<"Course"> | number
   year_id?: Prisma.IntFilter<"Course"> | number
@@ -320,13 +350,16 @@ export type CourseWhereUniqueInput = Prisma.AtLeast<{
   announcements?: Prisma.AnnouncementListRelationFilter
   exams?: Prisma.ExamListRelationFilter
   marks?: Prisma.MarkListRelationFilter
-}, "id" | "name">
+}, "id" | "name" | "code">
 
 export type CourseOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  code?: Prisma.SortOrderInput | Prisma.SortOrder
+  image?: Prisma.SortOrderInput | Prisma.SortOrder
   course_type?: Prisma.SortOrder
   exam_type?: Prisma.SortOrder
+  semester?: Prisma.SortOrderInput | Prisma.SortOrder
   theoretical_grade?: Prisma.SortOrder
   practical_grade?: Prisma.SortOrder
   year_id?: Prisma.SortOrder
@@ -345,8 +378,11 @@ export type CourseScalarWhereWithAggregatesInput = {
   NOT?: Prisma.CourseScalarWhereWithAggregatesInput | Prisma.CourseScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Course"> | number
   name?: Prisma.StringWithAggregatesFilter<"Course"> | string
+  code?: Prisma.StringNullableWithAggregatesFilter<"Course"> | string | null
+  image?: Prisma.StringNullableWithAggregatesFilter<"Course"> | string | null
   course_type?: Prisma.EnumCourseTypeWithAggregatesFilter<"Course"> | $Enums.CourseType
   exam_type?: Prisma.EnumExamTypeWithAggregatesFilter<"Course"> | $Enums.ExamType
+  semester?: Prisma.EnumSemesterNullableWithAggregatesFilter<"Course"> | $Enums.Semester | null
   theoretical_grade?: Prisma.IntWithAggregatesFilter<"Course"> | number
   practical_grade?: Prisma.IntWithAggregatesFilter<"Course"> | number
   year_id?: Prisma.IntWithAggregatesFilter<"Course"> | number
@@ -356,8 +392,11 @@ export type CourseScalarWhereWithAggregatesInput = {
 
 export type CourseCreateInput = {
   name: string
+  code?: string | null
+  image?: string | null
   course_type: $Enums.CourseType
   exam_type: $Enums.ExamType
+  semester?: $Enums.Semester | null
   theoretical_grade: number
   practical_grade: number
   created_at?: Date | string
@@ -378,8 +417,11 @@ export type CourseCreateInput = {
 export type CourseUncheckedCreateInput = {
   id?: number
   name: string
+  code?: string | null
+  image?: string | null
   course_type: $Enums.CourseType
   exam_type: $Enums.ExamType
+  semester?: $Enums.Semester | null
   theoretical_grade: number
   practical_grade: number
   year_id: number
@@ -399,8 +441,11 @@ export type CourseUncheckedCreateInput = {
 
 export type CourseUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course_type?: Prisma.EnumCourseTypeFieldUpdateOperationsInput | $Enums.CourseType
   exam_type?: Prisma.EnumExamTypeFieldUpdateOperationsInput | $Enums.ExamType
+  semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -421,8 +466,11 @@ export type CourseUpdateInput = {
 export type CourseUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course_type?: Prisma.EnumCourseTypeFieldUpdateOperationsInput | $Enums.CourseType
   exam_type?: Prisma.EnumExamTypeFieldUpdateOperationsInput | $Enums.ExamType
+  semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
@@ -443,8 +491,11 @@ export type CourseUncheckedUpdateInput = {
 export type CourseCreateManyInput = {
   id?: number
   name: string
+  code?: string | null
+  image?: string | null
   course_type: $Enums.CourseType
   exam_type: $Enums.ExamType
+  semester?: $Enums.Semester | null
   theoretical_grade: number
   practical_grade: number
   year_id: number
@@ -454,8 +505,11 @@ export type CourseCreateManyInput = {
 
 export type CourseUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course_type?: Prisma.EnumCourseTypeFieldUpdateOperationsInput | $Enums.CourseType
   exam_type?: Prisma.EnumExamTypeFieldUpdateOperationsInput | $Enums.ExamType
+  semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -465,8 +519,11 @@ export type CourseUpdateManyMutationInput = {
 export type CourseUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course_type?: Prisma.EnumCourseTypeFieldUpdateOperationsInput | $Enums.CourseType
   exam_type?: Prisma.EnumExamTypeFieldUpdateOperationsInput | $Enums.ExamType
+  semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
@@ -487,8 +544,11 @@ export type CourseOrderByRelationAggregateInput = {
 export type CourseCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  code?: Prisma.SortOrder
+  image?: Prisma.SortOrder
   course_type?: Prisma.SortOrder
   exam_type?: Prisma.SortOrder
+  semester?: Prisma.SortOrder
   theoretical_grade?: Prisma.SortOrder
   practical_grade?: Prisma.SortOrder
   year_id?: Prisma.SortOrder
@@ -506,8 +566,11 @@ export type CourseAvgOrderByAggregateInput = {
 export type CourseMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  code?: Prisma.SortOrder
+  image?: Prisma.SortOrder
   course_type?: Prisma.SortOrder
   exam_type?: Prisma.SortOrder
+  semester?: Prisma.SortOrder
   theoretical_grade?: Prisma.SortOrder
   practical_grade?: Prisma.SortOrder
   year_id?: Prisma.SortOrder
@@ -518,8 +581,11 @@ export type CourseMaxOrderByAggregateInput = {
 export type CourseMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  code?: Prisma.SortOrder
+  image?: Prisma.SortOrder
   course_type?: Prisma.SortOrder
   exam_type?: Prisma.SortOrder
+  semester?: Prisma.SortOrder
   theoretical_grade?: Prisma.SortOrder
   practical_grade?: Prisma.SortOrder
   year_id?: Prisma.SortOrder
@@ -670,6 +736,10 @@ export type EnumExamTypeFieldUpdateOperationsInput = {
   set?: $Enums.ExamType
 }
 
+export type NullableEnumSemesterFieldUpdateOperationsInput = {
+  set?: $Enums.Semester | null
+}
+
 export type CourseCreateNestedOneWithoutSectionCoursesInput = {
   create?: Prisma.XOR<Prisma.CourseCreateWithoutSectionCoursesInput, Prisma.CourseUncheckedCreateWithoutSectionCoursesInput>
   connectOrCreate?: Prisma.CourseCreateOrConnectWithoutSectionCoursesInput
@@ -786,8 +856,11 @@ export type CourseUpdateOneRequiredWithoutExamsNestedInput = {
 
 export type CourseCreateWithoutTeachersInput = {
   name: string
+  code?: string | null
+  image?: string | null
   course_type: $Enums.CourseType
   exam_type: $Enums.ExamType
+  semester?: $Enums.Semester | null
   theoretical_grade: number
   practical_grade: number
   created_at?: Date | string
@@ -807,8 +880,11 @@ export type CourseCreateWithoutTeachersInput = {
 export type CourseUncheckedCreateWithoutTeachersInput = {
   id?: number
   name: string
+  code?: string | null
+  image?: string | null
   course_type: $Enums.CourseType
   exam_type: $Enums.ExamType
+  semester?: $Enums.Semester | null
   theoretical_grade: number
   practical_grade: number
   year_id: number
@@ -832,8 +908,11 @@ export type CourseCreateOrConnectWithoutTeachersInput = {
 
 export type CourseCreateWithoutDoctorsInput = {
   name: string
+  code?: string | null
+  image?: string | null
   course_type: $Enums.CourseType
   exam_type: $Enums.ExamType
+  semester?: $Enums.Semester | null
   theoretical_grade: number
   practical_grade: number
   created_at?: Date | string
@@ -853,8 +932,11 @@ export type CourseCreateWithoutDoctorsInput = {
 export type CourseUncheckedCreateWithoutDoctorsInput = {
   id?: number
   name: string
+  code?: string | null
+  image?: string | null
   course_type: $Enums.CourseType
   exam_type: $Enums.ExamType
+  semester?: $Enums.Semester | null
   theoretical_grade: number
   practical_grade: number
   year_id: number
@@ -898,8 +980,11 @@ export type CourseScalarWhereInput = {
   NOT?: Prisma.CourseScalarWhereInput | Prisma.CourseScalarWhereInput[]
   id?: Prisma.IntFilter<"Course"> | number
   name?: Prisma.StringFilter<"Course"> | string
+  code?: Prisma.StringNullableFilter<"Course"> | string | null
+  image?: Prisma.StringNullableFilter<"Course"> | string | null
   course_type?: Prisma.EnumCourseTypeFilter<"Course"> | $Enums.CourseType
   exam_type?: Prisma.EnumExamTypeFilter<"Course"> | $Enums.ExamType
+  semester?: Prisma.EnumSemesterNullableFilter<"Course"> | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFilter<"Course"> | number
   practical_grade?: Prisma.IntFilter<"Course"> | number
   year_id?: Prisma.IntFilter<"Course"> | number
@@ -925,8 +1010,11 @@ export type CourseUpdateManyWithWhereWithoutDoctorsInput = {
 
 export type CourseCreateWithoutYearInput = {
   name: string
+  code?: string | null
+  image?: string | null
   course_type: $Enums.CourseType
   exam_type: $Enums.ExamType
+  semester?: $Enums.Semester | null
   theoretical_grade: number
   practical_grade: number
   created_at?: Date | string
@@ -946,8 +1034,11 @@ export type CourseCreateWithoutYearInput = {
 export type CourseUncheckedCreateWithoutYearInput = {
   id?: number
   name: string
+  code?: string | null
+  image?: string | null
   course_type: $Enums.CourseType
   exam_type: $Enums.ExamType
+  semester?: $Enums.Semester | null
   theoretical_grade: number
   practical_grade: number
   created_at?: Date | string
@@ -992,8 +1083,11 @@ export type CourseUpdateManyWithWhereWithoutYearInput = {
 
 export type CourseCreateWithoutSectionCoursesInput = {
   name: string
+  code?: string | null
+  image?: string | null
   course_type: $Enums.CourseType
   exam_type: $Enums.ExamType
+  semester?: $Enums.Semester | null
   theoretical_grade: number
   practical_grade: number
   created_at?: Date | string
@@ -1013,8 +1107,11 @@ export type CourseCreateWithoutSectionCoursesInput = {
 export type CourseUncheckedCreateWithoutSectionCoursesInput = {
   id?: number
   name: string
+  code?: string | null
+  image?: string | null
   course_type: $Enums.CourseType
   exam_type: $Enums.ExamType
+  semester?: $Enums.Semester | null
   theoretical_grade: number
   practical_grade: number
   year_id: number
@@ -1049,8 +1146,11 @@ export type CourseUpdateToOneWithWhereWithoutSectionCoursesInput = {
 
 export type CourseUpdateWithoutSectionCoursesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course_type?: Prisma.EnumCourseTypeFieldUpdateOperationsInput | $Enums.CourseType
   exam_type?: Prisma.EnumExamTypeFieldUpdateOperationsInput | $Enums.ExamType
+  semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1070,8 +1170,11 @@ export type CourseUpdateWithoutSectionCoursesInput = {
 export type CourseUncheckedUpdateWithoutSectionCoursesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course_type?: Prisma.EnumCourseTypeFieldUpdateOperationsInput | $Enums.CourseType
   exam_type?: Prisma.EnumExamTypeFieldUpdateOperationsInput | $Enums.ExamType
+  semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1090,8 +1193,11 @@ export type CourseUncheckedUpdateWithoutSectionCoursesInput = {
 
 export type CourseCreateWithoutMajorCoursesInput = {
   name: string
+  code?: string | null
+  image?: string | null
   course_type: $Enums.CourseType
   exam_type: $Enums.ExamType
+  semester?: $Enums.Semester | null
   theoretical_grade: number
   practical_grade: number
   created_at?: Date | string
@@ -1111,8 +1217,11 @@ export type CourseCreateWithoutMajorCoursesInput = {
 export type CourseUncheckedCreateWithoutMajorCoursesInput = {
   id?: number
   name: string
+  code?: string | null
+  image?: string | null
   course_type: $Enums.CourseType
   exam_type: $Enums.ExamType
+  semester?: $Enums.Semester | null
   theoretical_grade: number
   practical_grade: number
   year_id: number
@@ -1147,8 +1256,11 @@ export type CourseUpdateToOneWithWhereWithoutMajorCoursesInput = {
 
 export type CourseUpdateWithoutMajorCoursesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course_type?: Prisma.EnumCourseTypeFieldUpdateOperationsInput | $Enums.CourseType
   exam_type?: Prisma.EnumExamTypeFieldUpdateOperationsInput | $Enums.ExamType
+  semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1168,8 +1280,11 @@ export type CourseUpdateWithoutMajorCoursesInput = {
 export type CourseUncheckedUpdateWithoutMajorCoursesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course_type?: Prisma.EnumCourseTypeFieldUpdateOperationsInput | $Enums.CourseType
   exam_type?: Prisma.EnumExamTypeFieldUpdateOperationsInput | $Enums.ExamType
+  semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1188,8 +1303,11 @@ export type CourseUncheckedUpdateWithoutMajorCoursesInput = {
 
 export type CourseCreateWithoutCourseFilesInput = {
   name: string
+  code?: string | null
+  image?: string | null
   course_type: $Enums.CourseType
   exam_type: $Enums.ExamType
+  semester?: $Enums.Semester | null
   theoretical_grade: number
   practical_grade: number
   created_at?: Date | string
@@ -1209,8 +1327,11 @@ export type CourseCreateWithoutCourseFilesInput = {
 export type CourseUncheckedCreateWithoutCourseFilesInput = {
   id?: number
   name: string
+  code?: string | null
+  image?: string | null
   course_type: $Enums.CourseType
   exam_type: $Enums.ExamType
+  semester?: $Enums.Semester | null
   theoretical_grade: number
   practical_grade: number
   year_id: number
@@ -1245,8 +1366,11 @@ export type CourseUpdateToOneWithWhereWithoutCourseFilesInput = {
 
 export type CourseUpdateWithoutCourseFilesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course_type?: Prisma.EnumCourseTypeFieldUpdateOperationsInput | $Enums.CourseType
   exam_type?: Prisma.EnumExamTypeFieldUpdateOperationsInput | $Enums.ExamType
+  semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1266,8 +1390,11 @@ export type CourseUpdateWithoutCourseFilesInput = {
 export type CourseUncheckedUpdateWithoutCourseFilesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course_type?: Prisma.EnumCourseTypeFieldUpdateOperationsInput | $Enums.CourseType
   exam_type?: Prisma.EnumExamTypeFieldUpdateOperationsInput | $Enums.ExamType
+  semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1286,8 +1413,11 @@ export type CourseUncheckedUpdateWithoutCourseFilesInput = {
 
 export type CourseCreateWithoutMarksInput = {
   name: string
+  code?: string | null
+  image?: string | null
   course_type: $Enums.CourseType
   exam_type: $Enums.ExamType
+  semester?: $Enums.Semester | null
   theoretical_grade: number
   practical_grade: number
   created_at?: Date | string
@@ -1307,8 +1437,11 @@ export type CourseCreateWithoutMarksInput = {
 export type CourseUncheckedCreateWithoutMarksInput = {
   id?: number
   name: string
+  code?: string | null
+  image?: string | null
   course_type: $Enums.CourseType
   exam_type: $Enums.ExamType
+  semester?: $Enums.Semester | null
   theoretical_grade: number
   practical_grade: number
   year_id: number
@@ -1343,8 +1476,11 @@ export type CourseUpdateToOneWithWhereWithoutMarksInput = {
 
 export type CourseUpdateWithoutMarksInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course_type?: Prisma.EnumCourseTypeFieldUpdateOperationsInput | $Enums.CourseType
   exam_type?: Prisma.EnumExamTypeFieldUpdateOperationsInput | $Enums.ExamType
+  semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1364,8 +1500,11 @@ export type CourseUpdateWithoutMarksInput = {
 export type CourseUncheckedUpdateWithoutMarksInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course_type?: Prisma.EnumCourseTypeFieldUpdateOperationsInput | $Enums.CourseType
   exam_type?: Prisma.EnumExamTypeFieldUpdateOperationsInput | $Enums.ExamType
+  semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1384,8 +1523,11 @@ export type CourseUncheckedUpdateWithoutMarksInput = {
 
 export type CourseCreateWithoutStudentsInput = {
   name: string
+  code?: string | null
+  image?: string | null
   course_type: $Enums.CourseType
   exam_type: $Enums.ExamType
+  semester?: $Enums.Semester | null
   theoretical_grade: number
   practical_grade: number
   created_at?: Date | string
@@ -1405,8 +1547,11 @@ export type CourseCreateWithoutStudentsInput = {
 export type CourseUncheckedCreateWithoutStudentsInput = {
   id?: number
   name: string
+  code?: string | null
+  image?: string | null
   course_type: $Enums.CourseType
   exam_type: $Enums.ExamType
+  semester?: $Enums.Semester | null
   theoretical_grade: number
   practical_grade: number
   year_id: number
@@ -1441,8 +1586,11 @@ export type CourseUpdateToOneWithWhereWithoutStudentsInput = {
 
 export type CourseUpdateWithoutStudentsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course_type?: Prisma.EnumCourseTypeFieldUpdateOperationsInput | $Enums.CourseType
   exam_type?: Prisma.EnumExamTypeFieldUpdateOperationsInput | $Enums.ExamType
+  semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1462,8 +1610,11 @@ export type CourseUpdateWithoutStudentsInput = {
 export type CourseUncheckedUpdateWithoutStudentsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course_type?: Prisma.EnumCourseTypeFieldUpdateOperationsInput | $Enums.CourseType
   exam_type?: Prisma.EnumExamTypeFieldUpdateOperationsInput | $Enums.ExamType
+  semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1482,8 +1633,11 @@ export type CourseUncheckedUpdateWithoutStudentsInput = {
 
 export type CourseCreateWithoutLecturesInput = {
   name: string
+  code?: string | null
+  image?: string | null
   course_type: $Enums.CourseType
   exam_type: $Enums.ExamType
+  semester?: $Enums.Semester | null
   theoretical_grade: number
   practical_grade: number
   created_at?: Date | string
@@ -1503,8 +1657,11 @@ export type CourseCreateWithoutLecturesInput = {
 export type CourseUncheckedCreateWithoutLecturesInput = {
   id?: number
   name: string
+  code?: string | null
+  image?: string | null
   course_type: $Enums.CourseType
   exam_type: $Enums.ExamType
+  semester?: $Enums.Semester | null
   theoretical_grade: number
   practical_grade: number
   year_id: number
@@ -1539,8 +1696,11 @@ export type CourseUpdateToOneWithWhereWithoutLecturesInput = {
 
 export type CourseUpdateWithoutLecturesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course_type?: Prisma.EnumCourseTypeFieldUpdateOperationsInput | $Enums.CourseType
   exam_type?: Prisma.EnumExamTypeFieldUpdateOperationsInput | $Enums.ExamType
+  semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1560,8 +1720,11 @@ export type CourseUpdateWithoutLecturesInput = {
 export type CourseUncheckedUpdateWithoutLecturesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course_type?: Prisma.EnumCourseTypeFieldUpdateOperationsInput | $Enums.CourseType
   exam_type?: Prisma.EnumExamTypeFieldUpdateOperationsInput | $Enums.ExamType
+  semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1580,8 +1743,11 @@ export type CourseUncheckedUpdateWithoutLecturesInput = {
 
 export type CourseCreateWithoutAnnouncementsInput = {
   name: string
+  code?: string | null
+  image?: string | null
   course_type: $Enums.CourseType
   exam_type: $Enums.ExamType
+  semester?: $Enums.Semester | null
   theoretical_grade: number
   practical_grade: number
   created_at?: Date | string
@@ -1601,8 +1767,11 @@ export type CourseCreateWithoutAnnouncementsInput = {
 export type CourseUncheckedCreateWithoutAnnouncementsInput = {
   id?: number
   name: string
+  code?: string | null
+  image?: string | null
   course_type: $Enums.CourseType
   exam_type: $Enums.ExamType
+  semester?: $Enums.Semester | null
   theoretical_grade: number
   practical_grade: number
   year_id: number
@@ -1637,8 +1806,11 @@ export type CourseUpdateToOneWithWhereWithoutAnnouncementsInput = {
 
 export type CourseUpdateWithoutAnnouncementsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course_type?: Prisma.EnumCourseTypeFieldUpdateOperationsInput | $Enums.CourseType
   exam_type?: Prisma.EnumExamTypeFieldUpdateOperationsInput | $Enums.ExamType
+  semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1658,8 +1830,11 @@ export type CourseUpdateWithoutAnnouncementsInput = {
 export type CourseUncheckedUpdateWithoutAnnouncementsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course_type?: Prisma.EnumCourseTypeFieldUpdateOperationsInput | $Enums.CourseType
   exam_type?: Prisma.EnumExamTypeFieldUpdateOperationsInput | $Enums.ExamType
+  semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1678,8 +1853,11 @@ export type CourseUncheckedUpdateWithoutAnnouncementsInput = {
 
 export type CourseCreateWithoutExamsInput = {
   name: string
+  code?: string | null
+  image?: string | null
   course_type: $Enums.CourseType
   exam_type: $Enums.ExamType
+  semester?: $Enums.Semester | null
   theoretical_grade: number
   practical_grade: number
   created_at?: Date | string
@@ -1699,8 +1877,11 @@ export type CourseCreateWithoutExamsInput = {
 export type CourseUncheckedCreateWithoutExamsInput = {
   id?: number
   name: string
+  code?: string | null
+  image?: string | null
   course_type: $Enums.CourseType
   exam_type: $Enums.ExamType
+  semester?: $Enums.Semester | null
   theoretical_grade: number
   practical_grade: number
   year_id: number
@@ -1735,8 +1916,11 @@ export type CourseUpdateToOneWithWhereWithoutExamsInput = {
 
 export type CourseUpdateWithoutExamsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course_type?: Prisma.EnumCourseTypeFieldUpdateOperationsInput | $Enums.CourseType
   exam_type?: Prisma.EnumExamTypeFieldUpdateOperationsInput | $Enums.ExamType
+  semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1756,8 +1940,11 @@ export type CourseUpdateWithoutExamsInput = {
 export type CourseUncheckedUpdateWithoutExamsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course_type?: Prisma.EnumCourseTypeFieldUpdateOperationsInput | $Enums.CourseType
   exam_type?: Prisma.EnumExamTypeFieldUpdateOperationsInput | $Enums.ExamType
+  semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1776,8 +1963,11 @@ export type CourseUncheckedUpdateWithoutExamsInput = {
 
 export type CourseUpdateWithoutTeachersInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course_type?: Prisma.EnumCourseTypeFieldUpdateOperationsInput | $Enums.CourseType
   exam_type?: Prisma.EnumExamTypeFieldUpdateOperationsInput | $Enums.ExamType
+  semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1797,8 +1987,11 @@ export type CourseUpdateWithoutTeachersInput = {
 export type CourseUncheckedUpdateWithoutTeachersInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course_type?: Prisma.EnumCourseTypeFieldUpdateOperationsInput | $Enums.CourseType
   exam_type?: Prisma.EnumExamTypeFieldUpdateOperationsInput | $Enums.ExamType
+  semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1818,8 +2011,11 @@ export type CourseUncheckedUpdateWithoutTeachersInput = {
 export type CourseUncheckedUpdateManyWithoutTeachersInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course_type?: Prisma.EnumCourseTypeFieldUpdateOperationsInput | $Enums.CourseType
   exam_type?: Prisma.EnumExamTypeFieldUpdateOperationsInput | $Enums.ExamType
+  semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1829,8 +2025,11 @@ export type CourseUncheckedUpdateManyWithoutTeachersInput = {
 
 export type CourseUpdateWithoutDoctorsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course_type?: Prisma.EnumCourseTypeFieldUpdateOperationsInput | $Enums.CourseType
   exam_type?: Prisma.EnumExamTypeFieldUpdateOperationsInput | $Enums.ExamType
+  semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1850,8 +2049,11 @@ export type CourseUpdateWithoutDoctorsInput = {
 export type CourseUncheckedUpdateWithoutDoctorsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course_type?: Prisma.EnumCourseTypeFieldUpdateOperationsInput | $Enums.CourseType
   exam_type?: Prisma.EnumExamTypeFieldUpdateOperationsInput | $Enums.ExamType
+  semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1871,8 +2073,11 @@ export type CourseUncheckedUpdateWithoutDoctorsInput = {
 export type CourseUncheckedUpdateManyWithoutDoctorsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course_type?: Prisma.EnumCourseTypeFieldUpdateOperationsInput | $Enums.CourseType
   exam_type?: Prisma.EnumExamTypeFieldUpdateOperationsInput | $Enums.ExamType
+  semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1883,8 +2088,11 @@ export type CourseUncheckedUpdateManyWithoutDoctorsInput = {
 export type CourseCreateManyYearInput = {
   id?: number
   name: string
+  code?: string | null
+  image?: string | null
   course_type: $Enums.CourseType
   exam_type: $Enums.ExamType
+  semester?: $Enums.Semester | null
   theoretical_grade: number
   practical_grade: number
   created_at?: Date | string
@@ -1893,8 +2101,11 @@ export type CourseCreateManyYearInput = {
 
 export type CourseUpdateWithoutYearInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course_type?: Prisma.EnumCourseTypeFieldUpdateOperationsInput | $Enums.CourseType
   exam_type?: Prisma.EnumExamTypeFieldUpdateOperationsInput | $Enums.ExamType
+  semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1914,8 +2125,11 @@ export type CourseUpdateWithoutYearInput = {
 export type CourseUncheckedUpdateWithoutYearInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course_type?: Prisma.EnumCourseTypeFieldUpdateOperationsInput | $Enums.CourseType
   exam_type?: Prisma.EnumExamTypeFieldUpdateOperationsInput | $Enums.ExamType
+  semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1935,8 +2149,11 @@ export type CourseUncheckedUpdateWithoutYearInput = {
 export type CourseUncheckedUpdateManyWithoutYearInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   course_type?: Prisma.EnumCourseTypeFieldUpdateOperationsInput | $Enums.CourseType
   exam_type?: Prisma.EnumExamTypeFieldUpdateOperationsInput | $Enums.ExamType
+  semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2058,8 +2275,11 @@ export type CourseCountOutputTypeCountMarksArgs<ExtArgs extends runtime.Types.Ex
 export type CourseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  code?: boolean
+  image?: boolean
   course_type?: boolean
   exam_type?: boolean
+  semester?: boolean
   theoretical_grade?: boolean
   practical_grade?: boolean
   year_id?: boolean
@@ -2082,8 +2302,11 @@ export type CourseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
 export type CourseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  code?: boolean
+  image?: boolean
   course_type?: boolean
   exam_type?: boolean
+  semester?: boolean
   theoretical_grade?: boolean
   practical_grade?: boolean
   year_id?: boolean
@@ -2095,8 +2318,11 @@ export type CourseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
 export type CourseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  code?: boolean
+  image?: boolean
   course_type?: boolean
   exam_type?: boolean
+  semester?: boolean
   theoretical_grade?: boolean
   practical_grade?: boolean
   year_id?: boolean
@@ -2108,8 +2334,11 @@ export type CourseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
 export type CourseSelectScalar = {
   id?: boolean
   name?: boolean
+  code?: boolean
+  image?: boolean
   course_type?: boolean
   exam_type?: boolean
+  semester?: boolean
   theoretical_grade?: boolean
   practical_grade?: boolean
   year_id?: boolean
@@ -2117,7 +2346,7 @@ export type CourseSelectScalar = {
   updated_at?: boolean
 }
 
-export type CourseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "course_type" | "exam_type" | "theoretical_grade" | "practical_grade" | "year_id" | "created_at" | "updated_at", ExtArgs["result"]["course"]>
+export type CourseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "code" | "image" | "course_type" | "exam_type" | "semester" | "theoretical_grade" | "practical_grade" | "year_id" | "created_at" | "updated_at", ExtArgs["result"]["course"]>
 export type CourseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   year?: boolean | Prisma.YearDefaultArgs<ExtArgs>
   sectionCourses?: boolean | Prisma.Course$sectionCoursesArgs<ExtArgs>
@@ -2157,8 +2386,11 @@ export type $CoursePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     name: string
+    code: string | null
+    image: string | null
     course_type: $Enums.CourseType
     exam_type: $Enums.ExamType
+    semester: $Enums.Semester | null
     theoretical_grade: number
     practical_grade: number
     year_id: number
@@ -2600,8 +2832,11 @@ export interface Prisma__CourseClient<T, Null = never, ExtArgs extends runtime.T
 export interface CourseFieldRefs {
   readonly id: Prisma.FieldRef<"Course", 'Int'>
   readonly name: Prisma.FieldRef<"Course", 'String'>
+  readonly code: Prisma.FieldRef<"Course", 'String'>
+  readonly image: Prisma.FieldRef<"Course", 'String'>
   readonly course_type: Prisma.FieldRef<"Course", 'CourseType'>
   readonly exam_type: Prisma.FieldRef<"Course", 'ExamType'>
+  readonly semester: Prisma.FieldRef<"Course", 'Semester'>
   readonly theoretical_grade: Prisma.FieldRef<"Course", 'Int'>
   readonly practical_grade: Prisma.FieldRef<"Course", 'Int'>
   readonly year_id: Prisma.FieldRef<"Course", 'Int'>

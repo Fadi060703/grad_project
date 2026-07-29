@@ -198,11 +198,19 @@ enum ExamType {
   WRITTEN
 }
 
+enum Semester {
+  FIRST
+  SECOND
+}
+
 model Course {
-  id                  Int      @id @default(autoincrement())
-  name                String   @unique
+  id                  Int       @id @default(autoincrement())
+  name                String    @unique
+  code                String?   @unique
+  image               String?
   course_type         CourseType
   exam_type           ExamType
+  semester            Semester? @default(FIRST)
   theoretical_grade   Int
   practical_grade     Int
   year_id             Int

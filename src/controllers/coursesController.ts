@@ -36,6 +36,8 @@ export const getAllCourses = createListHandler({
   allowedSortFields: [
     "id",
     "name",
+    "code",
+    "semester",
     "course_type",
     "exam_type",
     "theoretical_grade",
@@ -47,6 +49,9 @@ export const getAllCourses = createListHandler({
   fieldTypes: {
     id: "number",
     name: "text",
+    code: "text",
+    image: "text",
+    semester: "text",
     course_type: "text",
     exam_type: "text",
     theoretical_grade: "number",
@@ -56,14 +61,17 @@ export const getAllCourses = createListHandler({
     updated_at: "date",
   },
 
-  searchableFields: ["name"],
+  searchableFields: ["name", "code"],
 
   findManyArgs: {
     select: {
       id: true,
       name: true,
+      code: true,
+      image: true,
       course_type: true,
       exam_type: true,
+      semester: true,
       theoretical_grade: true,
       practical_grade: true,
       year_id: true,
@@ -148,8 +156,11 @@ export const getCourseById = asyncHandler(
       select: {
         id: true,
         name: true,
+        code: true,
+        image: true,
         course_type: true,
         exam_type: true,
+        semester: true,
         theoretical_grade: true,
         practical_grade: true,
         year_id: true,
@@ -289,6 +300,16 @@ export const createCourse = asyncHandler(
       throw new ConflictError("Course with this name already exists");
     }
 
+    if (data.code !== undefined && data.code !== null) {
+      const existingCode = await prisma.course.findUnique({
+        where: { code: data.code },
+      });
+
+      if (existingCode) {
+        throw new ConflictError("Course with this code already exists");
+      }
+    }
+
     let majorIds: number[] = [];
     let sectionIds: number[] = [];
 
@@ -339,8 +360,11 @@ export const createCourse = asyncHandler(
     const created = await prisma.course.create({
       data: {
         name: data.name,
+        code: data.code ?? null,
+        image: data.image ?? null,
         course_type: data.course_type,
         exam_type: data.exam_type,
+        semester: data.semester,
         theoretical_grade: data.theoretical_grade,
         practical_grade: data.practical_grade,
         year_id: year.id,
@@ -360,8 +384,11 @@ export const createCourse = asyncHandler(
       select: {
         id: true,
         name: true,
+        code: true,
+        image: true,
         course_type: true,
         exam_type: true,
+        semester: true,
         theoretical_grade: true,
         practical_grade: true,
         year_id: true,
@@ -452,6 +479,7 @@ export const updateCourse = asyncHandler(
       select: {
         id: true,
         name: true,
+        code: true,
         year_id: true,
       },
     });
@@ -531,6 +559,20 @@ export const updateCourse = asyncHandler(
       }
     }
 
+    if (
+      data.code !== undefined &&
+      data.code !== null &&
+      data.code !== existingCourse.code
+    ) {
+      const duplicateCode = await prisma.course.findUnique({
+        where: { code: data.code },
+      });
+
+      if (duplicateCode) {
+        throw new ConflictError("Course with this code already exists");
+      }
+    }
+
     let majorIdsToSet: number[] = [];
     let sectionIdsToSet: number[] = [];
 
@@ -578,9 +620,12 @@ export const updateCourse = asyncHandler(
 
     const updateData: any = {};
     if (data.name !== undefined) updateData.name = data.name;
+    if (data.code !== undefined) updateData.code = data.code;
+    if (data.image !== undefined) updateData.image = data.image;
     if (data.course_type !== undefined)
       updateData.course_type = data.course_type;
     if (data.exam_type !== undefined) updateData.exam_type = data.exam_type;
+    if (data.semester !== undefined) updateData.semester = data.semester;
     if (data.theoretical_grade !== undefined)
       updateData.theoretical_grade = data.theoretical_grade;
     if (data.practical_grade !== undefined)
@@ -624,8 +669,11 @@ export const updateCourse = asyncHandler(
       select: {
         id: true,
         name: true,
+        code: true,
+        image: true,
         course_type: true,
         exam_type: true,
+        semester: true,
         theoretical_grade: true,
         practical_grade: true,
         year_id: true,
@@ -721,8 +769,11 @@ export const deleteCourse = asyncHandler(
       select: {
         id: true,
         name: true,
+        code: true,
+        image: true,
         course_type: true,
         exam_type: true,
+        semester: true,
       },
     });
 
@@ -752,8 +803,11 @@ export const getCoursesByMajor = asyncHandler(
       select: {
         id: true,
         name: true,
+        code: true,
+        image: true,
         course_type: true,
         exam_type: true,
+        semester: true,
         theoretical_grade: true,
         practical_grade: true,
         year_id: true,
@@ -849,8 +903,11 @@ export const getCoursesBySection = asyncHandler(
       select: {
         id: true,
         name: true,
+        code: true,
+        image: true,
         course_type: true,
         exam_type: true,
+        semester: true,
         theoretical_grade: true,
         practical_grade: true,
         year_id: true,
@@ -935,6 +992,8 @@ export const getMyCourses = createListHandler({
   allowedSortFields: [
     "id",
     "name",
+    "code",
+    "semester",
     "course_type",
     "exam_type",
     "theoretical_grade",
@@ -946,6 +1005,9 @@ export const getMyCourses = createListHandler({
   fieldTypes: {
     id: "number",
     name: "text",
+    code: "text",
+    image: "text",
+    semester: "text",
     course_type: "text",
     exam_type: "text",
     theoretical_grade: "number",
@@ -955,14 +1017,17 @@ export const getMyCourses = createListHandler({
     updated_at: "date",
   },
 
-  searchableFields: ["name"],
+  searchableFields: ["name", "code"],
 
   findManyArgs: {
     select: {
       id: true,
       name: true,
+      code: true,
+      image: true,
       course_type: true,
       exam_type: true,
+      semester: true,
       theoretical_grade: true,
       practical_grade: true,
       year_id: true,
@@ -1058,6 +1123,8 @@ export const getMyStudentCourses = createListHandler({
   allowedSortFields: [
     "id",
     "name",
+    "code",
+    "semester",
     "course_type",
     "exam_type",
     "theoretical_grade",
@@ -1069,6 +1136,9 @@ export const getMyStudentCourses = createListHandler({
   fieldTypes: {
     id: "number",
     name: "text",
+    code: "text",
+    image: "text",
+    semester: "text",
     course_type: "text",
     exam_type: "text",
     theoretical_grade: "number",
@@ -1078,14 +1148,17 @@ export const getMyStudentCourses = createListHandler({
     updated_at: "date",
   },
 
-  searchableFields: ["name"],
+  searchableFields: ["name", "code"],
 
   findManyArgs: {
     select: {
       id: true,
       name: true,
+      code: true,
+      image: true,
       course_type: true,
       exam_type: true,
+      semester: true,
       theoretical_grade: true,
       practical_grade: true,
       year_id: true,

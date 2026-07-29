@@ -2372,8 +2372,11 @@ export type UniversityLocationScalarFieldEnum = (typeof UniversityLocationScalar
 export const CourseScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  code: 'code',
+  image: 'image',
   course_type: 'course_type',
   exam_type: 'exam_type',
+  semester: 'semester',
   theoretical_grade: 'theoretical_grade',
   practical_grade: 'practical_grade',
   year_id: 'year_id',
@@ -2682,6 +2685,20 @@ export type EnumExamTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
  * Reference to a field of type 'ExamType[]'
  */
 export type ListEnumExamTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ExamType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Semester'
+ */
+export type EnumSemesterFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Semester'>
+    
+
+
+/**
+ * Reference to a field of type 'Semester[]'
+ */
+export type ListEnumSemesterFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Semester[]'>
     
 
 

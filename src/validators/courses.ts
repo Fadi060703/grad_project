@@ -5,8 +5,11 @@ import { z } from "zod";
 export const getCoursesSchema = z.object({
   id: z.number().positive(),
   name: z.string(),
+  code: z.string().optional().nullable(),
+  image: z.string().optional().nullable(),
   course_type: z.enum(["THEORITICAL_ONLY", "THEORITICAL_AND_PRACTICAL"]),
   exam_type: z.enum(["MSQ", "WRITTEN"]),
+  semester: z.enum(["FIRST", "SECOND"]).optional().nullable(),
   theoretical_grade: z.number().int().min(0).max(100),
   practical_grade: z.number().int().min(0).max(100),
   year_id: z.number().positive(),
@@ -76,8 +79,11 @@ export const createCourseSchema = z.object({
     .string()
     .min(3, "Name must be at least 3 characters")
     .max(200, "Name must not exceed 200 characters"),
+  code: z.string().optional().nullable(),
+  image: z.string().optional().nullable(),
   course_type: z.enum(["THEORITICAL_ONLY", "THEORITICAL_AND_PRACTICAL"]),
   exam_type: z.enum(["MSQ", "WRITTEN"]),
+  semester: z.enum(["FIRST", "SECOND"]).optional(),
   theoretical_grade: z
     .number()
     .int()
@@ -105,10 +111,13 @@ export const updateCourseSchema = z.object({
     .min(3, "Name must be at least 3 characters")
     .max(200, "Name must not exceed 200 characters")
     .optional(),
+  code: z.string().optional().nullable(),
+  image: z.string().optional().nullable(),
   course_type: z
     .enum(["THEORITICAL_ONLY", "THEORITICAL_AND_PRACTICAL"])
     .optional(),
   exam_type: z.enum(["MSQ", "WRITTEN"]).optional(),
+  semester: z.enum(["FIRST", "SECOND"]).optional().nullable(),
   theoretical_grade: z.number().int().min(0).max(100).optional(),
   practical_grade: z.number().int().min(0).max(100).optional(),
   year_id: z.number().positive().optional(),
