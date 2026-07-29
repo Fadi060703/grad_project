@@ -1,5 +1,6 @@
 import express, { Application } from 'express';
 import { createServer } from 'http';
+import { join } from 'path';
 import { Server as SocketServer } from 'socket.io';
 import router from './src/router/router';
 import { getLocalExternalIPv4 } from './src/lib/getIPv4';
@@ -11,8 +12,9 @@ import { initializeWebSocket } from './src/websocket/server';
 import { initCron } from './src/lib/cron';
 
 const app: Application = express();
-const path = '0.0.0.0';
+const host = '0.0.0.0';
 const port = 8001;
+const uploadsDir = join(process.cwd(), 'public', 'uploads');
 
 // CORS middleware
 app.use(cors({
@@ -23,6 +25,7 @@ app.use(cors({
 }));
 
 app.use(express.json());
+app.use('/uploads', express.static(uploadsDir));
 app.use('/api', router);
 app.use(notFound);
 app.use(logger);
@@ -38,7 +41,7 @@ initializeWebSocket(server);
 initCron();
 
 // Start both HTTP and WebSocket on the same port
-server.listen(port, path, () => {
+server.listen(port, host, () => {
     const networkIpv4 = getLocalExternalIPv4();
     console.log(`✓ Server running on:`);
     console.log(`  Local:   127.0.0.1:${port}`);
