@@ -176,6 +176,7 @@ export const permissions: Record<string, string[]> = {
   ],
   MARKS_DE: [],
   STUDENT: [
+    "years:read",
     "student-profile:read",
     "student-profile:update",
     "student-profile:change-password",

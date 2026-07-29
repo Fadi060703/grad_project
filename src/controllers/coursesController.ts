@@ -168,6 +168,7 @@ export const getCourseById = asyncHandler(
           select: {
             id: true,
             name: true,
+            has_majors: true,
           },
         },
         majorCourses: {
@@ -396,6 +397,7 @@ export const createCourse = asyncHandler(
           select: {
             id: true,
             name: true,
+            has_majors: true,
           },
         },
         majorCourses: {
@@ -681,6 +683,7 @@ export const updateCourse = asyncHandler(
           select: {
             id: true,
             name: true,
+            has_majors: true,
           },
         },
         majorCourses: {
@@ -815,6 +818,7 @@ export const getCoursesByMajor = asyncHandler(
           select: {
             id: true,
             name: true,
+            has_majors: true,
           },
         },
         majorCourses: {
@@ -915,6 +919,7 @@ export const getCoursesBySection = asyncHandler(
           select: {
             id: true,
             name: true,
+            has_majors: true,
           },
         },
         majorCourses: {
