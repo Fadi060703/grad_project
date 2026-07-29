@@ -17,6 +17,7 @@ const markCourseSelect = {
   name: true,
   course_type: true,
   exam_type: true,
+  code: true,
   theoretical_grade: true,
   practical_grade: true,
   year: {
@@ -138,7 +139,7 @@ export const getMyStudentMarks = createListHandler({
     updated_at: "date",
   },
 
-  searchableFields: [],
+  searchableFields: ["course.name", "course.code"],
 
   findManyArgs: {
     select: {

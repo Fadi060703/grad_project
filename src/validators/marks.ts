@@ -19,6 +19,7 @@ const markCourseSchema = z.object({
   exam_type: z.enum(["MSQ", "WRITTEN"]),
   theoretical_grade: z.number().int().min(0).max(100),
   practical_grade: z.number().int().min(0).max(100),
+  code: z.string(),
   year: z.object({
     id: z.number().positive(),
     name: z.string(),
