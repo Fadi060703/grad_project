@@ -222,80 +222,86 @@ export const manualGenerateWeeklyLectures = asyncHandler(
 );
 
 // GET /weekly-lectures/next/student
+export async function getNextLectureForStudentItem(req: Request) {
+  const { userId, role } = getAuthUser(req);
+
+  if (role !== "STUDENT") throw new ForbiddenError("Only students can access this endpoint");
+
+  const student = await prisma.student.findUnique({
+    where: { userId },
+    select: {
+      student_id: true,
+      section_id: true,
+      major_id: true,
+      group_id: true,
+    },
+  });
+  if (!student) throw new NotFoundError("Student");
+
+  const targetRules: Record<string, unknown>[] = [
+    {
+      lecture_type: "PRACTICAL",
+      group_id: student.group_id,
+    },
+  ];
+
+  if (student.section_id) {
+    targetRules.push({
+      lecture_type: "THEORETICAL",
+      section_id: student.section_id,
+    });
+  }
+
+  if (student.major_id) {
+    targetRules.push({
+      lecture_type: "THEORETICAL",
+      major_id: student.major_id,
+    });
+  }
+
+  const result = await findNextWeeklyLecture({
+    lecture: { OR: targetRules },
+  });
+
+  if (!result) {
+    return null;
+  }
+
+  const { weeklyLecture, slotWindow, isOngoing: lectureIsOngoing } = result;
+
+  let has_attended: boolean | null = null;
+  if (weeklyLecture.lecture.lecture_type === "PRACTICAL") {
+    const attendance = await prisma.lectureAttendance.findUnique({
+      where: {
+        weekly_lecture_id_student_id: {
+          weekly_lecture_id: weeklyLecture.id,
+          student_id: student.student_id,
+        },
+      },
+    });
+    has_attended = attendance?.has_attended ?? false;
+  }
+
+  const canScanQr =
+    weeklyLecture.lecture.lecture_type === "PRACTICAL" &&
+    weeklyLecture.status === "PUBLISHED" &&
+    lectureIsOngoing &&
+    has_attended !== true;
+
+  return withTiming(weeklyLecture, slotWindow, {
+    is_ongoing: lectureIsOngoing,
+    has_attended,
+    can_scan_qr: canScanQr,
+  });
+}
+
 export const getNextLectureForStudent = asyncHandler(
   async (req: Request, res: Response) => {
-    const { userId, role } = getAuthUser(req);
-
-    if (role !== "STUDENT") throw new ForbiddenError("Only students can access this endpoint");
-
-    const student = await prisma.student.findUnique({
-      where: { userId },
-      select: {
-        student_id: true,
-        section_id: true,
-        major_id: true,
-        group_id: true,
-      },
-    });
-    if (!student) throw new NotFoundError("Student");
-
-    const targetRules: Record<string, unknown>[] = [
-      {
-        lecture_type: "PRACTICAL",
-        group_id: student.group_id,
-      },
-    ];
-
-    if (student.section_id) {
-      targetRules.push({
-        lecture_type: "THEORETICAL",
-        section_id: student.section_id,
-      });
-    }
-
-    if (student.major_id) {
-      targetRules.push({
-        lecture_type: "THEORETICAL",
-        major_id: student.major_id,
-      });
-    }
-
-    const result = await findNextWeeklyLecture({
-      lecture: { OR: targetRules },
-    });
-
-    if (!result) {
-      return res.status(200).json({ success: true, data: null });
-    }
-
-    const { weeklyLecture, slotWindow, isOngoing: lectureIsOngoing } = result;
-
-    let has_attended: boolean | null = null;
-    if (weeklyLecture.lecture.lecture_type === "PRACTICAL") {
-      const attendance = await prisma.lectureAttendance.findUnique({
-        where: {
-          weekly_lecture_id_student_id: {
-            weekly_lecture_id: weeklyLecture.id,
-            student_id: student.student_id,
-          },
-        },
-      });
-      has_attended = attendance?.has_attended ?? false;
-    }
-
-    const canScanQr =
-      weeklyLecture.lecture.lecture_type === "PRACTICAL" &&
-      weeklyLecture.status === "PUBLISHED" &&
-      lectureIsOngoing &&
-      has_attended !== true;
+    const data = await getNextLectureForStudentItem(req);
 
     return res.status(200).json({
       success: true,
-      data: withTiming(weeklyLecture, slotWindow, {
-        is_ongoing: lectureIsOngoing,
-        has_attended,
-        can_scan_qr: canScanQr,
-      }),
+      data,
     });
   },
 );

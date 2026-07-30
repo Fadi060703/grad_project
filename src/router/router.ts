@@ -8,6 +8,7 @@ import examRoutes from "./exam.routes";
 import contentRoutes from "./content.routes";
 import systemRoutes from "./system.routes";
 import studentRoutes from "./student.routes";
+import timeConditionedRoutes from "./timeConditioned.routes";
 
 const router = Router();
 
@@ -20,5 +21,6 @@ router.use("/", examRoutes);
 router.use("/", contentRoutes);
 router.use("/", systemRoutes);
 router.use("/", studentRoutes);
+router.use("/", timeConditionedRoutes);
 
 export default router;

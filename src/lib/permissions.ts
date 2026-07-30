@@ -73,6 +73,7 @@ export const permissions: Record<string, string[]> = {
     "exams:add",
     "exams:update",
     "exams:delete",
+    "time-conditioned-items:read",
   ],
   DOCTOR: [
     "course-files:read",
@@ -197,6 +198,7 @@ export const permissions: Record<string, string[]> = {
     "weekly-lectures:read",
     "attendance:mark",
     "student-exams:read",
+    "time-conditioned-items:read",
   ],
 };
 
