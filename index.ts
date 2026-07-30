@@ -26,6 +26,12 @@ app.use(cors({
 
 app.use(express.json());
 app.use('/uploads', express.static(uploadsDir));
+app.get('/attendance-test.html', (_req, res) => {
+    res.sendFile(join(process.cwd(), 'src', 'router', 'attendance-test.html'));
+});
+app.get('/api/attendance-test.html', (_req, res) => {
+    res.sendFile(join(process.cwd(), 'src', 'router', 'attendance-test.html'));
+});
 app.use('/api', router);
 app.use(notFound);
 app.use(logger);

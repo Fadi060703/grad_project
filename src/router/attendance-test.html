@@ -1,494 +1,711 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
-  <title>Attendance Test Tool</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Weekly Lecture Attendance Test</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jsQR/1.4.0/jsQR.min.js"></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@500;700;800&display=swap');
 
     :root {
-      --bg: #0a0a0f;
-      --surface: #111118;
-      --border: #1e1e2e;
-      --accent: #7c3aed;
-      --accent2: #06b6d4;
-      --success: #10b981;
-      --error: #ef4444;
-      --text: #e2e8f0;
-      --muted: #64748b;
+      --ink: #e9eef7;
+      --muted: #8490a7;
+      --bg: #070911;
+      --panel: #111521;
+      --panel-2: #171d2b;
+      --line: #263047;
+      --teacher: #9b5cff;
+      --doctor: #4ecdc4;
+      --student: #ffb020;
+      --good: #19c37d;
+      --bad: #ff4d5e;
+      --warn: #ffb020;
+      --shadow: rgba(0, 0, 0, 0.35);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
+    * { box-sizing: border-box; }
     body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Syne', sans-serif;
+      margin: 0;
       min-height: 100vh;
-      padding: 24px 16px 48px;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 18% 0%, rgba(155, 92, 255, 0.22), transparent 26rem),
+        radial-gradient(circle at 90% 18%, rgba(78, 205, 196, 0.16), transparent 22rem),
+        linear-gradient(180deg, #070911 0%, #0b1020 100%);
+      font-family: 'Syne', system-ui, sans-serif;
+      padding: 24px 14px 48px;
     }
 
-    /* Grain overlay */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.4;
+    .wrap { max-width: 1040px; margin: 0 auto; }
+    header { margin-bottom: 18px; }
+    h1 {
+      margin: 0 0 6px;
+      font-size: clamp(28px, 6vw, 56px);
+      line-height: 0.95;
+      letter-spacing: -0.055em;
+      max-width: 720px;
     }
-
-    .wrap { position: relative; z-index: 1; max-width: 480px; margin: 0 auto; }
-
-    header { text-align: center; margin-bottom: 36px; }
-    header h1 {
-      font-size: 26px;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    header p {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
+    .subtitle {
+      margin: 0;
       color: var(--muted);
-      margin-top: 4px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    /* Base URL config */
-    .config-bar {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 28px;
-      align-items: center;
-    }
-    .config-bar input {
-      flex: 1;
       font-family: 'JetBrains Mono', monospace;
       font-size: 12px;
-    }
-    .config-bar label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      color: var(--muted);
-      white-space: nowrap;
+      line-height: 1.6;
     }
 
-    /* Tab switcher */
-    .tabs {
+    .config {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 4px;
-      margin-bottom: 24px;
-    }
-    .tab-btn {
-      padding: 10px;
-      border: none;
-      border-radius: 9px;
-      background: transparent;
-      color: var(--muted);
-      font-family: 'Syne', sans-serif;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s;
-      letter-spacing: 0.3px;
-    }
-    .tab-btn.active {
-      background: var(--accent);
-      color: white;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 22px 0;
     }
 
-    .tab-panel { display: none; }
-    .tab-panel.active { display: block; }
-
-    /* Card */
     .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 20px;
-      margin-bottom: 16px;
-    }
-    .card-title {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 16px;
-      font-family: 'JetBrains Mono', monospace;
+      background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.015)), var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: 0 18px 60px var(--shadow);
+      padding: 18px;
     }
 
+    .wide { grid-column: 1 / -1; }
     label {
       display: block;
-      font-size: 12px;
-      font-weight: 700;
       color: var(--muted);
-      margin-bottom: 6px;
       font-family: 'JetBrains Mono', monospace;
-      letter-spacing: 0.5px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      margin: 0 0 7px;
+      text-transform: uppercase;
+    }
+    input, textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #090d18;
+      color: var(--ink);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      line-height: 1.4;
+      outline: none;
+      padding: 11px 12px;
+    }
+    textarea { min-height: 82px; resize: vertical; }
+    input:focus, textarea:focus { border-color: var(--teacher); }
+    .hint { color: var(--muted); font-size: 12px; line-height: 1.55; margin: 8px 0 0; }
+
+    .tabs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .tab-btn, .btn {
+      border: 0;
+      border-radius: 14px;
+      color: white;
+      cursor: pointer;
+      font-family: 'Syne', system-ui, sans-serif;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      padding: 12px 14px;
+      transition: transform 0.16s ease, opacity 0.16s ease, background 0.16s ease;
+    }
+    .tab-btn { background: var(--panel-2); border: 1px solid var(--line); color: var(--muted); }
+    .tab-btn.active { color: white; }
+    .tab-btn[data-tab="teacher"].active { background: var(--teacher); }
+    .tab-btn[data-tab="doctor"].active { background: var(--doctor); color: #06110f; }
+    .tab-btn[data-tab="student"].active { background: var(--student); color: #1a1000; }
+    .btn:hover, .tab-btn:hover { transform: translateY(-1px); }
+    .btn:disabled { cursor: not-allowed; opacity: 0.42; transform: none; }
+    .btn-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 12px; }
+    .btn.full { width: 100%; margin-top: 12px; }
+    .teacher { background: var(--teacher); }
+    .doctor { background: var(--doctor); color: #06110f; }
+    .student { background: var(--student); color: #1a1000; }
+    .ghost { background: transparent; border: 1px solid var(--line); color: var(--ink); }
+    .danger { background: var(--bad); }
+
+    .panel { display: none; }
+    .panel.active { display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 0.85fr); gap: 14px; }
+    .section-title {
+      color: var(--muted);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      margin: 0 0 14px;
       text-transform: uppercase;
     }
 
-    input[type="number"],
-    input[type="text"],
-    input[type="url"] {
-      width: 100%;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 10px 12px;
-      color: var(--text);
+    .lecture-card {
+      border: 1px dashed var(--line);
+      border-radius: 15px;
+      background: rgba(0,0,0,0.14);
+      padding: 14px;
+      min-height: 168px;
+      white-space: pre-wrap;
+      word-break: break-word;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 13px;
-      outline: none;
-      transition: border-color 0.2s;
-      margin-bottom: 14px;
+      font-size: 12px;
+      line-height: 1.65;
+      color: #d7deeb;
     }
-    input:focus { border-color: var(--accent); }
 
-    button.btn {
-      width: 100%;
-      padding: 12px;
-      border: none;
-      border-radius: 10px;
-      font-family: 'Syne', sans-serif;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.18s;
-      letter-spacing: 0.3px;
+    .status-line {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
     }
-    button.btn-primary {
-      background: linear-gradient(135deg, var(--accent), #5b21b6);
-      color: white;
+    .pill {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 5px 8px;
     }
-    button.btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
-    button.btn-cyan {
-      background: linear-gradient(135deg, var(--accent2), #0284c7);
-      color: white;
-    }
-    button.btn-cyan:hover { opacity: 0.88; transform: translateY(-1px); }
-    button.btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+    .pill.good { border-color: rgba(25,195,125,0.45); color: var(--good); }
+    .pill.bad { border-color: rgba(255,77,94,0.5); color: var(--bad); }
+    .pill.warn { border-color: rgba(255,176,32,0.55); color: var(--warn); }
 
-    /* QR display */
     #qr-box {
       display: none;
-      flex-direction: column;
       align-items: center;
-      padding: 20px;
       background: white;
-      border-radius: 12px;
-      margin-top: 16px;
+      border-radius: 16px;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 14px;
+      padding: 18px;
     }
     #qr-box.visible { display: flex; }
-    #qr-render { margin-bottom: 12px; }
     #qr-token {
+      color: #1f2937;
       font-family: 'JetBrains Mono', monospace;
       font-size: 10px;
-      color: #333;
-      word-break: break-all;
+      line-height: 1.45;
       text-align: center;
+      word-break: break-all;
     }
 
-    /* Camera / scanner */
     #scanner-wrap {
-      position: relative;
-      border-radius: 12px;
-      overflow: hidden;
-      background: #000;
-      margin-top: 16px;
+      background: black;
+      border-radius: 16px;
       display: none;
+      margin-top: 12px;
+      overflow: hidden;
+      position: relative;
     }
     #scanner-wrap.visible { display: block; }
-    #scanner-video {
-      width: 100%;
-      display: block;
-    }
-    #scanner-canvas { display: none; }
-    .scan-overlay {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      pointer-events: none;
-    }
+    video { display: block; width: 100%; }
+    canvas { display: none; }
     .scan-frame {
-      width: 180px;
-      height: 180px;
-      border: 2px solid var(--accent2);
-      border-radius: 8px;
-      box-shadow: 0 0 0 9999px rgba(0,0,0,0.45);
-      position: relative;
-    }
-    .scan-line {
+      border: 2px solid var(--student);
+      border-radius: 14px;
+      box-shadow: 0 0 0 9999px rgba(0,0,0,0.46);
+      height: 190px;
+      left: 50%;
       position: absolute;
-      left: 0; right: 0;
-      height: 2px;
-      background: var(--accent2);
-      animation: scan 2s linear infinite;
-      box-shadow: 0 0 8px var(--accent2);
-    }
-    @keyframes scan {
-      0%   { top: 0; }
-      100% { top: 100%; }
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 190px;
     }
 
-    /* Toast / result */
     .toast {
       display: none;
-      padding: 14px 16px;
-      border-radius: 10px;
-      font-size: 14px;
-      font-weight: 700;
-      margin-top: 14px;
+      border-radius: 14px;
       font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      line-height: 1.55;
+      margin-top: 12px;
+      padding: 12px;
+      white-space: pre-wrap;
     }
     .toast.visible { display: block; }
-    .toast.success { background: rgba(16,185,129,0.15); border: 1px solid var(--success); color: var(--success); }
-    .toast.error   { background: rgba(239,68,68,0.15);  border: 1px solid var(--error);   color: var(--error); }
+    .toast.success { background: rgba(25,195,125,0.12); border: 1px solid rgba(25,195,125,0.5); color: var(--good); }
+    .toast.error { background: rgba(255,77,94,0.12); border: 1px solid rgba(255,77,94,0.52); color: var(--bad); }
+    .toast.info { background: rgba(132,144,167,0.13); border: 1px solid var(--line); color: var(--ink); }
+
+    @media (max-width: 820px) {
+      .config, .panel.active { grid-template-columns: 1fr; }
+      .btn-row { grid-template-columns: 1fr; }
+      .tabs { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
-<div class="wrap">
+  <main class="wrap">
+    <header>
+      <h1>Weekly lecture attendance test</h1>
+      <p class="subtitle">Use this page from ngrok on two devices: teacher/doctor controls on laptop, student scanner on phone.</p>
+    </header>
 
-  <header>
-    <h1>Attendance Test Tool</h1>
-    <p>Dev / QA — not for production</p>
-  </header>
-
-  <!-- Base URL -->
-  <div class="config-bar">
-    <label>API</label>
-    <input type="url" id="base-url" value="https://b85d-89-38-99-79.ngrok-free.app" placeholder="https://abc123.ngrok.io"/>
-  </div>
-
-  <!-- Tabs -->
-  <div class="tabs">
-    <button class="tab-btn active" onclick="switchTab('teacher')">👨‍🏫 Teacher</button>
-    <button class="tab-btn"        onclick="switchTab('student')">🎓 Student</button>
-  </div>
-
-  <!-- TEACHER TAB -->
-  <div class="tab-panel active" id="tab-teacher">
-    <div class="card">
-      <div class="card-title">Generate QR Code</div>
-      <label>Weekly Lecture ID</label>
-      <input type="number" id="t-wl-id" placeholder="e.g. 1"/>
-      <button class="btn btn-primary" onclick="generateQR()">Generate &amp; Publish</button>
-      <div id="qr-box">
-        <div id="qr-render"></div>
-        <div id="qr-token"></div>
+    <section class="config">
+      <div class="card wide">
+        <label for="base-url">API base URL</label>
+        <input id="base-url" type="url" placeholder="https://abc123.ngrok-free.app" />
+        <p class="hint">Default is this page's origin. If opened as a local file, paste your backend URL, for example <code>http://localhost:8001</code> or your ngrok HTTPS URL.</p>
       </div>
-      <div class="toast" id="t-toast"></div>
-    </div>
-  </div>
+      <div class="card">
+        <label for="teacher-token">Teacher bearer token</label>
+        <input id="teacher-token" type="text" placeholder="paste teacher access token" />
+      </div>
+      <div class="card">
+        <label for="doctor-token">Doctor bearer token</label>
+        <input id="doctor-token" type="text" placeholder="paste doctor access token" />
+      </div>
+      <div class="card wide">
+        <label for="student-token">Student bearer token</label>
+        <input id="student-token" type="text" placeholder="paste student access token" />
+      </div>
+    </section>
 
-  <!-- STUDENT TAB -->
-  <div class="tab-panel" id="tab-student">
-    <div class="card">
-      <div class="card-title">Mark Attendance</div>
-      <label>Student ID</label>
-      <!-- TODO: remove this field and read student_id from auth token instead -->
-      <input type="number" id="s-student-id" placeholder="e.g. 1"/>
-      <button class="btn btn-cyan" onclick="toggleCamera()" id="scan-btn">📷 Start Camera Scan</button>
+    <nav class="tabs">
+      <button class="tab-btn active" data-tab="teacher" onclick="switchTab('teacher', this)">Teacher practical</button>
+      <button class="tab-btn" data-tab="doctor" onclick="switchTab('doctor', this)">Doctor theoretical</button>
+      <button class="tab-btn" data-tab="student" onclick="switchTab('student', this)">Student scan</button>
+    </nav>
 
-      <div id="scanner-wrap">
-        <video id="scanner-video" autoplay playsinline muted></video>
-        <canvas id="scanner-canvas"></canvas>
-        <div class="scan-overlay">
-          <div class="scan-frame">
-            <div class="scan-line"></div>
-          </div>
+    <section class="panel active" id="panel-teacher">
+      <div class="card">
+        <p class="section-title">Teacher controls</p>
+        <button class="btn teacher full" onclick="getNext('teacher')">Get teacher next lecture</button>
+        <div class="btn-row">
+          <button class="btn teacher" id="teacher-publish-btn" onclick="publishTeacherLecture()" disabled>Publish / show QR</button>
+          <button class="btn ghost" id="teacher-cancel-btn" onclick="toggleCancel('teacher')" disabled>Cancel / restore</button>
         </div>
+        <label for="teacher-manual-id" style="margin-top:14px">Manual weekly lecture ID override</label>
+        <input id="teacher-manual-id" type="number" placeholder="optional" />
+        <button class="btn ghost full" onclick="publishTeacherLecture(true)">Publish manual ID</button>
+        <div id="qr-box">
+          <div id="qr-render"></div>
+          <div id="qr-token"></div>
+        </div>
+        <div class="toast" id="teacher-toast"></div>
       </div>
+      <div class="card">
+        <p class="section-title">Current teacher lecture</p>
+        <div class="lecture-card" id="teacher-lecture">No lecture loaded.</div>
+      </div>
+    </section>
 
-      <div class="toast" id="s-toast"></div>
-    </div>
-  </div>
+    <section class="panel" id="panel-doctor">
+      <div class="card">
+        <p class="section-title">Doctor controls</p>
+        <button class="btn doctor full" onclick="getNext('doctor')">Get doctor next lecture</button>
+        <button class="btn ghost full" id="doctor-cancel-btn" onclick="toggleCancel('doctor')" disabled>Cancel / restore</button>
+        <label for="doctor-manual-id" style="margin-top:14px">Manual weekly lecture ID override</label>
+        <input id="doctor-manual-id" type="number" placeholder="optional" />
+        <button class="btn ghost full" onclick="toggleCancel('doctor', true)">Cancel / restore manual ID</button>
+        <div class="toast" id="doctor-toast"></div>
+      </div>
+      <div class="card">
+        <p class="section-title">Current doctor lecture</p>
+        <div class="lecture-card" id="doctor-lecture">No lecture loaded.</div>
+      </div>
+    </section>
 
-</div>
+    <section class="panel" id="panel-student">
+      <div class="card">
+        <p class="section-title">Student controls</p>
+        <button class="btn student full" onclick="getNext('student')">Get student next lecture</button>
+        <button class="btn student full" id="scan-btn" onclick="toggleCamera()" disabled>Start camera scan</button>
+        <div id="scanner-wrap">
+          <video id="scanner-video" autoplay playsinline muted></video>
+          <canvas id="scanner-canvas"></canvas>
+          <div class="scan-frame"></div>
+        </div>
+        <label for="manual-qr" style="margin-top:14px">Manual QR payload</label>
+        <textarea id="manual-qr" placeholder='Paste QR JSON here, e.g. {"weekly_lecture_id":1,"qr_string":"..."}'></textarea>
+        <button class="btn ghost full" onclick="submitManualQR()">Submit pasted QR payload</button>
+        <div class="toast" id="student-toast"></div>
+      </div>
+      <div class="card">
+        <p class="section-title">Current student lecture</p>
+        <div class="lecture-card" id="student-lecture">No lecture loaded.</div>
+      </div>
+    </section>
+  </main>
 
-<script>
-  // ── Tab switching ──────────────────────────────────────────────────────────
-  function switchTab(name) {
-    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById('tab-' + name).classList.add('active');
-    event.currentTarget.classList.add('active');
-    stopCamera();
-  }
+  <script>
+    const state = { teacher: null, doctor: null, student: null };
+    let stream = null;
+    let scanFrameId = null;
+    let scanning = false;
+    let scanFrames = 0;
 
-  function baseURL() {
-    return document.getElementById('base-url').value.replace(/\/$/, '');
-  }
-
-  // ── Toast helpers ──────────────────────────────────────────────────────────
-  function showToast(id, msg, type) {
-    const el = document.getElementById(id);
-    el.textContent = msg;
-    el.className = `toast visible ${type}`;
-  }
-
-  // ── TEACHER: Generate QR ──────────────────────────────────────────────────
-  async function generateQR() {
-    const wlId = document.getElementById('t-wl-id').value;
-    if (!wlId) return showToast('t-toast', 'Enter a Weekly Lecture ID', 'error');
-
-    try {
-      const res = await fetch(`${baseURL()}/api/weekly-lectures/${wlId}/publish`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+    function init() {
+      const origin = window.location.protocol === 'file:' ? 'http://localhost:8001' : window.location.origin;
+      document.getElementById('base-url').value = localStorage.getItem('attendanceTest.baseUrl') || origin;
+      ['teacher-token', 'doctor-token', 'student-token'].forEach((id) => {
+        document.getElementById(id).value = localStorage.getItem('attendanceTest.' + id) || '';
       });
-      const data = await res.json();
+      document.querySelectorAll('input').forEach((input) => {
+        input.addEventListener('input', persistConfig);
+      });
+    }
 
-      if (!res.ok) {
-        showToast('t-toast', data.message || 'Failed to publish', 'error');
-        return;
+    function persistConfig() {
+      localStorage.setItem('attendanceTest.baseUrl', document.getElementById('base-url').value.trim());
+      ['teacher-token', 'doctor-token', 'student-token'].forEach((id) => {
+        localStorage.setItem('attendanceTest.' + id, document.getElementById(id).value.trim());
+      });
+    }
+
+    function switchTab(name, button) {
+      stopCamera();
+      document.querySelectorAll('.panel').forEach((panel) => panel.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach((tab) => tab.classList.remove('active'));
+      document.getElementById('panel-' + name).classList.add('active');
+      button.classList.add('active');
+    }
+
+    function baseURL() {
+      return document.getElementById('base-url').value.trim().replace(/\/$/, '');
+    }
+
+    function tokenFor(role) {
+      return document.getElementById(role + '-token').value.trim();
+    }
+
+    function headersFor(role, hasBody = false) {
+      const headers = { Accept: 'application/json' };
+      if (hasBody) headers['Content-Type'] = 'application/json';
+      const token = tokenFor(role);
+      if (token) headers.Authorization = 'Bearer ' + token;
+      return headers;
+    }
+
+    async function api(role, path, options = {}) {
+      const response = await fetch(baseURL() + '/api' + path, {
+        ...options,
+        headers: {
+          ...headersFor(role, Boolean(options.body)),
+          ...(options.headers || {}),
+        },
+      });
+
+      const text = await response.text();
+      let data = null;
+      try { data = text ? JSON.parse(text) : null; } catch { data = { message: text }; }
+
+      if (!response.ok) {
+        throw new Error(data?.message || data?.error || 'HTTP ' + response.status);
       }
 
-      const qrString = data.data.qr_string;
-      const payload  = JSON.stringify({ qr_string: qrString, weekly_lecture_id: Number(wlId) });
+      return data;
+    }
 
-      // Render QR
-      document.getElementById('qr-render').innerHTML = '';
-      new QRCode(document.getElementById('qr-render'), {
+    function showToast(role, message, type = 'info') {
+      const toast = document.getElementById(role + '-toast');
+      toast.textContent = message;
+      toast.className = 'toast visible ' + type;
+    }
+
+    function formatLecture(wl) {
+      if (!wl) return 'No next lecture returned.';
+      const lecture = wl.lecture || {};
+      const target = lecture.group?.name
+        ? 'Group: ' + lecture.group.name
+        : lecture.section?.name
+          ? 'Section: ' + lecture.section.name
+          : lecture.major?.name
+            ? 'Major: ' + lecture.major.name
+            : 'Target: none';
+
+      return [
+        'Weekly lecture ID: ' + wl.id,
+        'Status: ' + wl.status,
+        'Type: ' + lecture.lecture_type,
+        'Course: ' + (lecture.course?.name || '—'),
+        'Instructor: ' + (lecture.instructor?.full_name || '—'),
+        'Location: ' + (lecture.location?.name || '—'),
+        target,
+        'Date: ' + String(wl.lecture_date).slice(0, 10),
+        'Window: ' + localTime(wl.slot_start) + ' → ' + localTime(wl.slot_end),
+        'Ongoing: ' + Boolean(wl.is_ongoing),
+        'Can publish: ' + Boolean(wl.can_publish),
+        'Can cancel: ' + Boolean(wl.can_cancel),
+        'Can restore: ' + Boolean(wl.can_restore),
+        'Can scan QR: ' + Boolean(wl.can_scan_qr),
+        'Has attended: ' + (wl.has_attended === null || wl.has_attended === undefined ? 'n/a' : wl.has_attended),
+      ].join('\n');
+    }
+
+    function localTime(value) {
+      if (!value) return '—';
+      return new Date(value).toLocaleString();
+    }
+
+    function updateLectureUI(role) {
+      const wl = state[role];
+      document.getElementById(role + '-lecture').textContent = formatLecture(wl);
+
+      if (role === 'teacher') {
+        document.getElementById('teacher-publish-btn').disabled = !wl?.can_publish;
+        document.getElementById('teacher-cancel-btn').disabled = !(wl?.can_cancel || wl?.can_restore);
+      }
+
+      if (role === 'doctor') {
+        document.getElementById('doctor-cancel-btn').disabled = !(wl?.can_cancel || wl?.can_restore);
+      }
+
+      if (role === 'student') {
+        document.getElementById('scan-btn').disabled = !wl?.can_scan_qr;
+      }
+    }
+
+    async function getNext(role) {
+      try {
+        const data = await api(role, '/weekly-lectures/next/' + role);
+        state[role] = data.data;
+        updateLectureUI(role);
+        showToast(role, data.data ? 'Loaded next lecture.' : 'No next lecture found.', 'success');
+      } catch (error) {
+        showToast(role, error.message, 'error');
+      }
+    }
+
+    function selectedId(role, manual = false) {
+      if (manual) {
+        const value = Number(document.getElementById(role + '-manual-id').value);
+        return Number.isInteger(value) && value > 0 ? value : null;
+      }
+      return state[role]?.id || null;
+    }
+
+    async function publishTeacherLecture(manual = false) {
+      const id = selectedId('teacher', manual);
+      if (!id) return showToast('teacher', 'Choose a loaded lecture or enter a manual ID.', 'error');
+
+      try {
+        const data = await api('teacher', '/weekly-lectures/' + id + '/publish', { method: 'POST' });
+        state.teacher = data.data;
+        updateLectureUI('teacher');
+        renderQR(data.data.id, data.data.qr_string);
+        showToast('teacher', data.message || 'Published.', 'success');
+      } catch (error) {
+        showToast('teacher', error.message, 'error');
+      }
+    }
+
+    function renderQR(weeklyLectureId, qrString) {
+      const payload = JSON.stringify({ weekly_lecture_id: weeklyLectureId, qr_string: qrString });
+      const render = document.getElementById('qr-render');
+      render.innerHTML = '';
+      new QRCode(render, {
         text: payload,
-        width: 220,
-        height: 220,
+        width: 230,
+        height: 230,
         colorDark: '#000000',
         colorLight: '#ffffff',
       });
-      document.getElementById('qr-token').textContent = `token: ${qrString}`;
+      document.getElementById('qr-token').textContent = payload;
       document.getElementById('qr-box').classList.add('visible');
-      showToast('t-toast', '✅ QR generated successfully', 'success');
-
-    } catch (err) {
-      showToast('t-toast', 'Network error: ' + err.message, 'error');
     }
-  }
 
-  // ── STUDENT: Camera / QR scan ─────────────────────────────────────────────
-  let stream = null;
-  let scanInterval = null;
+    async function toggleCancel(role, manual = false) {
+      const id = selectedId(role, manual);
+      if (!id) return showToast(role, 'Choose a loaded lecture or enter a manual ID.', 'error');
 
-  async function toggleCamera() {
-    if (stream) { stopCamera(); return; }
+      try {
+        const data = await api(role, '/weekly-lectures/' + id + '/toggle-cancel', { method: 'POST' });
+        state[role] = data.data;
+        updateLectureUI(role);
+        showToast(role, data.message || 'Updated.', 'success');
+      } catch (error) {
+        showToast(role, error.message, 'error');
+      }
+    }
 
-    const wrap  = document.getElementById('scanner-wrap');
-    const video = document.getElementById('scanner-video');
-    const btn   = document.getElementById('scan-btn');
+    async function toggleCamera() {
+      if (stream) return stopCamera();
+      if (!state.student?.can_scan_qr) {
+        return showToast('student', 'Student next lecture must be ongoing and published before scanning.', 'error');
+      }
 
-    try {
-      stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: 'environment' }
-      });
-      video.srcObject = stream;
-      wrap.classList.add('visible');
-      btn.textContent = '⛔ Stop Camera';
+      if (!navigator.mediaDevices?.getUserMedia) {
+        return showToast('student', 'Camera API is not available. Open this page over HTTPS/ngrok on your phone.', 'error');
+      }
 
-      video.addEventListener('loadedmetadata', () => {
+      const video = document.getElementById('scanner-video');
+      const wrap = document.getElementById('scanner-wrap');
+      const button = document.getElementById('scan-btn');
+
+      try {
+        showToast('student', 'Preparing scanner...', 'info');
+        await ensureScannerLibrary();
+
+        stream = await navigator.mediaDevices.getUserMedia({
+          video: {
+            facingMode: { ideal: 'environment' },
+            width: { ideal: 1280 },
+            height: { ideal: 720 },
+          },
+          audio: false,
+        });
+        video.srcObject = stream;
+        wrap.classList.add('visible');
+        button.textContent = 'Stop camera';
+        await video.play();
+        showToast('student', 'Camera started. Point it at the QR code and keep the QR inside the square.', 'info');
         startScanning();
-      });
-
-    } catch (err) {
-      showToast('s-toast', 'Camera error: ' + err.message, 'error');
+      } catch (error) {
+        showToast('student', 'Camera error: ' + error.message, 'error');
+      }
     }
-  }
 
-  function stopCamera() {
-    if (stream) {
-      stream.getTracks().forEach(t => t.stop());
-      stream = null;
+    function stopCamera() {
+      scanning = false;
+      if (scanFrameId) {
+        cancelAnimationFrame(scanFrameId);
+        scanFrameId = null;
+      }
+      if (stream) {
+        stream.getTracks().forEach((track) => track.stop());
+        stream = null;
+      }
+      document.getElementById('scanner-wrap').classList.remove('visible');
+      document.getElementById('scan-btn').textContent = 'Start camera scan';
     }
-    if (scanInterval) { clearInterval(scanInterval); scanInterval = null; }
-    document.getElementById('scanner-wrap').classList.remove('visible');
-    document.getElementById('scan-btn').textContent = '📷 Start Camera Scan';
-  }
 
-  function startScanning() {
-    const video  = document.getElementById('scanner-video');
-    const canvas = document.getElementById('scanner-canvas');
-    const ctx    = canvas.getContext('2d');
+    function startScanning() {
+      if (scanning) return;
+      scanning = true;
+      scanFrames = 0;
+      scanLoop();
+    }
 
-    scanInterval = setInterval(() => {
-      if (video.readyState !== video.HAVE_ENOUGH_DATA) return;
+    async function scanLoop() {
+      if (!scanning) return;
 
-      canvas.width  = video.videoWidth;
+      const video = document.getElementById('scanner-video');
+      const canvas = document.getElementById('scanner-canvas');
+      const ctx = canvas.getContext('2d', { willReadFrequently: true });
+
+      try {
+        if (video.readyState >= video.HAVE_CURRENT_DATA && video.videoWidth > 0 && video.videoHeight > 0) {
+          const detected = await detectQrFromVideo(video, canvas, ctx);
+          if (detected) {
+            stopCamera();
+            showToast('student', 'QR detected. Sending attendance request...', 'info');
+            await handleQRPayload(detected);
+            return;
+          }
+
+          scanFrames++;
+          if (scanFrames % 90 === 0) {
+            showToast('student', 'Still scanning... Move closer, reduce glare, and keep the QR square fully visible.', 'info');
+          }
+        }
+      } catch (error) {
+        stopCamera();
+        showToast('student', 'Scanner error: ' + error.message, 'error');
+        return;
+      }
+
+      scanFrameId = requestAnimationFrame(scanLoop);
+    }
+
+    async function detectQrFromVideo(video, canvas, ctx) {
+      if ('BarcodeDetector' in window) {
+        try {
+          const detector = new BarcodeDetector({ formats: ['qr_code'] });
+          const codes = await detector.detect(video);
+          if (codes.length > 0) return codes[0].rawValue;
+        } catch {
+          // Fall back to jsQR below. Some browsers expose BarcodeDetector but
+          // do not support detecting directly from a video element.
+        }
+      }
+
+      if (typeof window.jsQR !== 'function') {
+        throw new Error('QR scanner library is unavailable. Use manual QR payload as fallback.');
+      }
+
+      canvas.width = video.videoWidth;
       canvas.height = video.videoHeight;
       ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
       const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      const code = jsQR(imageData.data, imageData.width, imageData.height, {
-        inversionAttempts: 'dontInvert',
+      const code = window.jsQR(imageData.data, imageData.width, imageData.height, {
+        inversionAttempts: 'attemptBoth',
       });
 
-      if (code) {
-        stopCamera();
-        handleQRResult(code.data);
-      }
-    }, 300);
-  }
-
-  async function handleQRResult(raw) {
-    let parsed;
-    try {
-      parsed = JSON.parse(raw);
-    } catch {
-      showToast('s-toast', 'Invalid QR code format', 'error');
-      return;
+      return code?.data || null;
     }
 
-    const { qr_string, weekly_lecture_id } = parsed;
-    if (!qr_string || !weekly_lecture_id) {
-      showToast('s-toast', 'QR missing required fields', 'error');
-      return;
-    }
+    function loadScript(src) {
+      return new Promise((resolve, reject) => {
+        const existing = document.querySelector('script[src="' + src + '"]');
+        if (existing) return resolve();
 
-    // TODO: replace student_id with value from auth token
-    const studentId = parseInt(document.getElementById('s-student-id').value, 10);
-    if (isNaN(studentId)) {
-      showToast('s-toast', 'Enter a valid Student ID first', 'error');
-      return;
-    }
-
-    try {
-      const res = await fetch(`${baseURL()}/api/attendance/mark`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          student_id: studentId,         // TODO: remove — take from token
-          weekly_lecture_id,
-          qr_string,
-        }),
+        const script = document.createElement('script');
+        script.src = src;
+        script.async = true;
+        script.onload = resolve;
+        script.onerror = reject;
+        document.head.appendChild(script);
       });
+    }
 
-      const data = await res.json();
+    async function ensureScannerLibrary() {
+      if (typeof window.jsQR === 'function') return;
 
-      if (res.ok) {
-        showToast('s-toast', '✅ Attendance marked!', 'success');
-      } else {
-        showToast('s-toast', '❌ ' + (data.message || 'Failed'), 'error');
+      const sources = [
+        'https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js',
+        'https://unpkg.com/jsqr@1.4.0/dist/jsQR.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/jsQR/1.4.0/jsQR.min.js',
+      ];
+
+      for (const src of sources) {
+        try {
+          await loadScript(src);
+          if (typeof window.jsQR === 'function') return;
+        } catch {
+          // Try the next CDN.
+        }
       }
 
-    } catch (err) {
-      showToast('s-toast', 'Network error: ' + err.message, 'error');
+      throw new Error('Could not load QR scanner library. Check phone internet, then retry or use manual QR payload.');
     }
-  }
-</script>
+
+    function submitManualQR() {
+      handleQRPayload(document.getElementById('manual-qr').value.trim());
+    }
+
+    async function handleQRPayload(raw) {
+      let parsed;
+      try {
+        parsed = JSON.parse(raw);
+      } catch {
+        return showToast('student', 'Invalid QR format. Expected JSON payload.', 'error');
+      }
+
+      if (!parsed.weekly_lecture_id || !parsed.qr_string) {
+        return showToast('student', 'QR payload must include weekly_lecture_id and qr_string.', 'error');
+      }
+
+      try {
+        const data = await api('student', '/attendance/mark', {
+          method: 'POST',
+          body: JSON.stringify({
+            weekly_lecture_id: Number(parsed.weekly_lecture_id),
+            qr_string: parsed.qr_string,
+          }),
+        });
+        showToast('student', data.message || 'Attendance marked.', 'success');
+        await getNext('student');
+      } catch (error) {
+        showToast('student', error.message, 'error');
+      }
+    }
+
+    init();
+  </script>
 </body>
 </html>

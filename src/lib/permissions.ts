@@ -101,6 +101,7 @@ export const permissions: Record<string, string[]> = {
     "announcements:delete",
     "lectures:read",
     "weekly-lectures:read",
+    "weekly-lectures:toggle-cancel",
     // "exams:read",
   ],
   TEACHER: [
@@ -194,6 +195,7 @@ export const permissions: Record<string, string[]> = {
     "lectures:read",
     "student-announcements:read",
     "weekly-lectures:read",
+    "attendance:mark",
     "student-exams:read",
   ],
 };

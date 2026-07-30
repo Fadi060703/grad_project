@@ -10,6 +10,7 @@ import {
   getNextLectureForStudent,
   getNextLectureForTeacher,
   manualGenerateWeeklyLectures,
+  prepareAttendanceTestData,
   publishWeeklyLecture,
   toggleCancelWeeklyLecture,
 } from "../controllers/weeklyLecturesController";
@@ -18,6 +19,9 @@ import { authMiddleware } from "../middlewares/auth";
 import { check } from "../middlewares/check-permission";
 
 const router = Router();
+
+// TEMPORARY OPEN DEV ENDPOINT — remove before production.
+router.post("/dev/prepare-attendance-test", prepareAttendanceTestData);
 
 router.get(
   "/lectures",

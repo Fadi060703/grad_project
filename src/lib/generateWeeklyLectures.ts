@@ -1,5 +1,15 @@
-import { PrismaClient } from "../generated/prisma/client";
 import { prisma } from "./prisma";
+
+export type GenerateWeeklyLecturesResult = {
+  week_start: string;
+  week_end: string;
+  created: number;
+  skipped_existing: number;
+};
+
+function toDateOnlyString(date: Date) {
+  return date.toISOString().slice(0, 10);
+}
 
 // Returns the date of the next occurrence of a given weekday
 // from a reference date (inclusive — if reference is that day, returns reference)
@@ -8,26 +18,18 @@ function getNextWeekday(from: Date, targetDay: number): Date {
   const current = result.getDay(); // 0=Sun, 1=Mon, ..., 5=Fri, 6=Sat
   const diff = (targetDay - current + 7) % 7;
   result.setDate(result.getDate() + diff);
-  result.setHours(0, 0, 0, 0);
+  // Use local noon for PostgreSQL @db.Date values to avoid timezone conversion
+  // shifting the saved date to the previous day.
+  result.setHours(12, 0, 0, 0);
   return result;
 }
 
-const WEEKDAY_MAP: Record<string, number> = {
-  SUNDAY: 0,
-  MONDAY: 1,
-  TUESDAY: 2,
-  WEDNESDAY: 3,
-  THURSDAY: 4,
-};
-
-export async function generateWeeklyLectures(): Promise<number> {
+export async function generateWeeklyLectures(): Promise<GenerateWeeklyLecturesResult> {
   console.log("🔄 Running weekly lectures generation...");
 
-  // Find the upcoming Sunday (start of academic week)
   const now = new Date();
-  const sunday = getNextWeekday(now, 0); // 0 = Sunday
+  const sunday = getNextWeekday(now, 0);
 
-  // Academic week: Sunday to Thursday (5 days)
   const weekDates: Record<string, Date> = {
     SUNDAY: new Date(sunday),
     MONDAY: new Date(new Date(sunday).setDate(sunday.getDate() + 1)),
@@ -36,17 +38,16 @@ export async function generateWeeklyLectures(): Promise<number> {
     THURSDAY: new Date(new Date(sunday).setDate(sunday.getDate() + 4)),
   };
 
-  // Fetch all lectures
   const lectures = await prisma.lecture.findMany();
 
   let created = 0;
+  let skippedExisting = 0;
 
   for (const lecture of lectures) {
     const lectureDate = weekDates[lecture.day];
 
     if (!lectureDate) continue;
 
-    // Idempotent — skip if already exists
     const existing = await prisma.weeklyLecture.findUnique({
       where: {
         lecture_id_lecture_date: {
@@ -56,7 +57,10 @@ export async function generateWeeklyLectures(): Promise<number> {
       },
     });
 
-    if (existing) continue;
+    if (existing) {
+      skippedExisting++;
+      continue;
+    }
 
     await prisma.weeklyLecture.create({
       data: {
@@ -69,6 +73,16 @@ export async function generateWeeklyLectures(): Promise<number> {
     created++;
   }
 
-  console.log(`   ✔ ${created} weekly lectures generated.`);
-  return created;
+  const result = {
+    week_start: toDateOnlyString(weekDates.SUNDAY),
+    week_end: toDateOnlyString(weekDates.THURSDAY),
+    created,
+    skipped_existing: skippedExisting,
+  };
+
+  console.log(
+    `   ✔ ${result.created} weekly lectures generated. ${result.skipped_existing} already existed.`,
+  );
+
+  return result;
 }
