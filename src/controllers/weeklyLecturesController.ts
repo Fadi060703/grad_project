@@ -100,7 +100,10 @@ function withTiming<T extends { lecture: { time_box_order: number }; lecture_dat
   };
 }
 
-async function findNextWeeklyLecture(whereClause: Record<string, unknown>) {
+async function findNextWeeklyLecture(
+  whereClause: Record<string, unknown>,
+  options: { includeCancelled?: boolean } = {},
+) {
   const now = new Date();
   const today = new Date(now);
   today.setHours(0, 0, 0, 0);
@@ -108,7 +111,7 @@ async function findNextWeeklyLecture(whereClause: Record<string, unknown>) {
   const candidates = await prisma.weeklyLecture.findMany({
     where: {
       lecture_date: { gte: today },
-      status: { not: "CANCELLED" },
+      ...(options.includeCancelled ? {} : { status: { not: "CANCELLED" } }),
       ...whereClause,
     },
     include: {
@@ -313,9 +316,12 @@ export const getNextLectureForTeacher = asyncHandler(
 
     if (role !== "TEACHER") throw new ForbiddenError("Only teachers can access this endpoint");
 
-    const result = await findNextWeeklyLecture({
-      lecture: { instructor_id: userId, lecture_type: "PRACTICAL" },
-    });
+    const result = await findNextWeeklyLecture(
+      {
+        lecture: { instructor_id: userId, lecture_type: "PRACTICAL" },
+      },
+      { includeCancelled: true },
+    );
 
     if (!result) return res.status(200).json({ success: true, data: null });
 
@@ -341,9 +347,12 @@ export const getNextLectureForDoctor = asyncHandler(
 
     if (role !== "DOCTOR") throw new ForbiddenError("Only doctors can access this endpoint");
 
-    const result = await findNextWeeklyLecture({
-      lecture: { instructor_id: userId, lecture_type: "THEORETICAL" },
-    });
+    const result = await findNextWeeklyLecture(
+      {
+        lecture: { instructor_id: userId, lecture_type: "THEORETICAL" },
+      },
+      { includeCancelled: true },
+    );
 
     if (!result) return res.status(200).json({ success: true, data: null });
 
@@ -551,10 +560,10 @@ function addMinutes(date: Date, minutes: number) {
   return result;
 }
 
-function getNextMinutePlusTen() {
+function getNextMinutePlusOne() {
   const start = new Date();
   start.setSeconds(0, 0);
-  start.setMinutes(start.getMinutes() + 11);
+  start.setMinutes(start.getMinutes() + 2);
   return start;
 }
 
@@ -562,7 +571,7 @@ function getNextMinutePlusTen() {
 // POST /dev/prepare-attendance-test
 export const prepareAttendanceTestData = asyncHandler(
   async (_req: Request, res: Response) => {
-    const practicalStart = getNextMinutePlusTen();
+    const practicalStart = getNextMinutePlusOne();
     const practicalEnd = addMinutes(
       practicalStart,
       ATTENDANCE_TEST_DATA.lecture_duration,
