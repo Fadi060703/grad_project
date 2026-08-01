@@ -55,6 +55,27 @@ function dateOnly(date: Date) {
   return result;
 }
 
+function dateOnlyFromStoredDate(date: Date) {
+  const result = new Date(
+    date.getUTCFullYear(),
+    date.getUTCMonth(),
+    date.getUTCDate(),
+  );
+  result.setHours(0, 0, 0, 0);
+  return result;
+}
+
+function storedDateForLocalDay(date: Date) {
+  return new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+}
+
+function dateKey(date: Date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
 function subtractDays(date: Date, days: number) {
   const result = dateOnly(date);
   result.setDate(result.getDate() - days);
@@ -68,7 +89,7 @@ function getExamDateTime(date: Date, time: string) {
     return new Date(date);
   }
 
-  const result = dateOnly(date);
+  const result = dateOnlyFromStoredDate(date);
   result.setHours(hour, minute, Number.isInteger(second) ? second : 0, 0);
   return result;
 }
@@ -94,7 +115,7 @@ function getExamItemStatus(
   endTime: string,
 ): ExamScheduleStatus {
   if (getExamEndDateTime(date, endTime) < now) return "finished";
-  if (dateOnly(date).getTime() === today.getTime()) return "today";
+  if (dateOnlyFromStoredDate(date).getTime() === today.getTime()) return "today";
   return "upcoming";
 }
 
@@ -132,7 +153,7 @@ async function computeSlotWindow(
 ): Promise<SlotWindow> {
   const { startHour, startMin, duration } = await getTimingSettings();
 
-  const slotStart = new Date(lectureDate);
+  const slotStart = dateOnlyFromStoredDate(lectureDate);
   slotStart.setHours(startHour, startMin + (timeBoxOrder - 1) * duration, 0, 0);
 
   const slotEnd = new Date(slotStart);
@@ -320,7 +341,7 @@ async function getNextExamItem(userId: number, examType: ExamCategory) {
 
   const settings = await prisma.examSettings.findMany({
     where: {
-      date: { gte: today },
+      date: { gte: storedDateForLocalDay(today) },
       students: {
         some: {
           student_id: student.student_id,
@@ -434,9 +455,16 @@ async function getMiniLectureSchedule(userId: number) {
   const now = new Date();
   const today = dateOnly(now);
 
+  if (targetRules.length === 0) {
+    return {
+      day: null,
+      items: [],
+    };
+  }
+
   const weeklyLectures = await prisma.weeklyLecture.findMany({
     where: {
-      lecture_date: { gte: today },
+      lecture_date: { gte: storedDateForLocalDay(today) },
       status: { not: "CANCELLED" },
       lecture: { OR: targetRules },
     },
@@ -446,34 +474,47 @@ async function getMiniLectureSchedule(userId: number) {
     orderBy: [{ lecture_date: "asc" }, { lecture: { time_box_order: "asc" } }],
   });
 
-  const scheduleDate = weeklyLectures[0]?.lecture_date ?? null;
+  const lecturesWithTiming = await Promise.all(
+    weeklyLectures
+      .filter((weeklyLecture) => weeklyLecture.status !== "CANCELLED")
+      .map(async (weeklyLecture) => {
+        const slotWindow = await computeSlotWindow(
+          weeklyLecture.lecture_date,
+          weeklyLecture.lecture.time_box_order,
+        );
 
-  if (!scheduleDate) {
+        return {
+          weeklyLecture,
+          slotWindow,
+          dayStart: dateOnlyFromStoredDate(weeklyLecture.lecture_date),
+          itemStatus: getLectureItemStatus(now, slotWindow),
+        };
+      }),
+  );
+
+  const nextActiveLecture = lecturesWithTiming.find(
+    (item) => item.itemStatus !== "finished",
+  );
+
+  if (!nextActiveLecture) {
     return {
       day: null,
       items: [],
     };
   }
 
-  const scheduleDayStart = dateOnly(scheduleDate);
-  const dayLectures = weeklyLectures.filter(
-    (weeklyLecture) =>
-      dateOnly(weeklyLecture.lecture_date).getTime() === scheduleDayStart.getTime(),
+  const scheduleDayStart = nextActiveLecture.dayStart;
+  const scheduleDayKey = dateKey(scheduleDayStart);
+  const dayLectures = lecturesWithTiming.filter(
+    (item) => dateKey(item.dayStart) === scheduleDayKey,
   );
 
-  const items = await Promise.all(
-    dayLectures.map(async (weeklyLecture) => {
-      const slotWindow = await computeSlotWindow(
-        weeklyLecture.lecture_date,
-        weeklyLecture.lecture.time_box_order,
-      );
-
-      return {
-        ...weeklyLecture,
-        slot_start: slotWindow.slotStart.toISOString(),
-        slot_end: slotWindow.slotEnd.toISOString(),
-        item_status: getLectureItemStatus(now, slotWindow),
-      };
+  const items = dayLectures.map(
+    ({ weeklyLecture, slotWindow, itemStatus }) => ({
+      ...weeklyLecture,
+      slot_start: slotWindow.slotStart.toISOString(),
+      slot_end: slotWindow.slotEnd.toISOString(),
+      item_status: itemStatus,
     }),
   );
 
