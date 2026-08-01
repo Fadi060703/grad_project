@@ -118,6 +118,16 @@ export const updateStudentSchema = z.object({
 
 export const bulkCreateStudentsSchema = z.array(createStudentSchema).min(1, "At least one student is required");
 
+export const swapStudentGroupsSchema = z
+  .object({
+    student_a_id: z.number().positive(),
+    student_b_id: z.number().positive(),
+  })
+  .refine((data) => data.student_a_id !== data.student_b_id, {
+    message: "Cannot swap a student with itself",
+    path: ["student_b_id"],
+  });
+
 // Export types
 export type getUsersDTO = z.infer<typeof getAllUsersSchema>;
 export type createUserDTO = z.infer<typeof createUserSchema>;
@@ -125,3 +135,4 @@ export type createStudentDTO = z.infer<typeof createStudentSchema>;
 export type updateUserDTO = z.infer<typeof updateUserSchema>;
 export type updateStudentDTO = z.infer<typeof updateStudentSchema>;
 export type BulkCreateStudentsInput = z.infer<typeof bulkCreateStudentsSchema>;
+export type swapStudentGroupsDTO = z.infer<typeof swapStudentGroupsSchema>;

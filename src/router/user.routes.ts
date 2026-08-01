@@ -7,6 +7,7 @@ import {
   getAllnonStudentUsers,
   getAllStudentUsers,
   getUserById,
+  swapStudentGroups,
   toggleUserActivity,
   updateStudent,
   updateUser,
@@ -34,6 +35,7 @@ router.put("/users/:id", authMiddleware, check("users:update"), updateUser);
 router.delete("/users/:id", authMiddleware, check("users:delete"), deleteUser);
 
 router.post("/students/bulk", authMiddleware, check("users:add"), bulkCreateStudents);
+router.post("/students/swap-groups", authMiddleware, swapStudentGroups);
 router.get(
   "/students",
   authMiddleware,

@@ -47,6 +47,14 @@ export const Semester = {
 export type Semester = (typeof Semester)[keyof typeof Semester]
 
 
+export const CourseMarksPublishType = {
+  PRACTICAL: 'PRACTICAL',
+  FULL: 'FULL'
+} as const
+
+export type CourseMarksPublishType = (typeof CourseMarksPublishType)[keyof typeof CourseMarksPublishType]
+
+
 export const StudentCourseStatus = {
   ENROLLED: 'ENROLLED',
   PASSED: 'PASSED',

@@ -4,6 +4,7 @@ import {
   createUniversityLocation,
   deleteUniversityLocation,
   getAllUniversityLocations,
+  getUniversityLocationById,
   updateUniversityLocation,
 } from "../controllers/locationsController";
 import {
@@ -25,6 +26,12 @@ router.get(
   authMiddleware,
   check("locations:read"),
   getAllUniversityLocations,
+);
+router.get(
+  "/locations/:id",
+  authMiddleware,
+  check("locations:read"),
+  getUniversityLocationById,
 );
 router.post(
   "/locations",

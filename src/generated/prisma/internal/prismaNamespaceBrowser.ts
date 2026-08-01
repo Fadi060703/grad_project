@@ -65,6 +65,7 @@ export const ModelName = {
   MajorCourse: 'MajorCourse',
   CourseFile: 'CourseFile',
   Mark: 'Mark',
+  CourseMarksPublication: 'CourseMarksPublication',
   StudentCourse: 'StudentCourse',
   FAQ: 'FAQ',
   Blog: 'Blog',
@@ -101,6 +102,7 @@ export const SystemSettingsScalarFieldEnum = {
   aided_marks_number: 'aided_marks_number',
   theoretical_exam_date: 'theoretical_exam_date',
   practical_exam_date: 'practical_exam_date',
+  current_academic_key: 'current_academic_key',
   created_at: 'created_at',
   updated_at: 'updated_at'
 } as const
@@ -231,6 +233,8 @@ export const CourseScalarFieldEnum = {
   theoretical_grade: 'theoretical_grade',
   practical_grade: 'practical_grade',
   year_id: 'year_id',
+  is_practical_marks_published: 'is_practical_marks_published',
+  is_marks_published: 'is_marks_published',
   created_at: 'created_at',
   updated_at: 'updated_at'
 } as const
@@ -275,6 +279,7 @@ export const MarkScalarFieldEnum = {
   id: 'id',
   course_id: 'course_id',
   student_id: 'student_id',
+  academic_key: 'academic_key',
   practical_grade: 'practical_grade',
   theoretical_grade: 'theoretical_grade',
   created_at: 'created_at',
@@ -282,6 +287,20 @@ export const MarkScalarFieldEnum = {
 } as const
 
 export type MarkScalarFieldEnum = (typeof MarkScalarFieldEnum)[keyof typeof MarkScalarFieldEnum]
+
+
+export const CourseMarksPublicationScalarFieldEnum = {
+  id: 'id',
+  course_id: 'course_id',
+  academic_key: 'academic_key',
+  publish_type: 'publish_type',
+  published_by: 'published_by',
+  published_at: 'published_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type CourseMarksPublicationScalarFieldEnum = (typeof CourseMarksPublicationScalarFieldEnum)[keyof typeof CourseMarksPublicationScalarFieldEnum]
 
 
 export const StudentCourseScalarFieldEnum = {

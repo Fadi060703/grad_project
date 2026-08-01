@@ -10,6 +10,7 @@ export const getSystemSettingsSchema = z.object({
   aided_marks_number: z.number().int().min(0).optional().nullable(),
   theoretical_exam_date: z.string().datetime().or(z.date()).optional().nullable(),
   practical_exam_date: z.string().datetime().or(z.date()).optional().nullable(),
+  current_academic_key: z.string().optional().nullable(),
   created_at: z.date().optional(),
   updated_at: z.date().optional()
 });
@@ -20,7 +21,8 @@ export const createSystemSettingsSchema = z.object({
   aided_pass_courses_number: z.number().int().min(0, "Cannot be negative").max(20, "Cannot exceed 20 courses").optional(),
   aided_marks_number: z.number().int().min(0, "Cannot be negative").max(100, "Cannot exceed 100 marks").optional(),
   theoretical_exam_date: z.string().datetime().or(z.date()).optional(),
-  practical_exam_date: z.string().datetime().or(z.date()).optional()
+  practical_exam_date: z.string().datetime().or(z.date()).optional(),
+  current_academic_key: z.string().optional().nullable(),
 });
 
 export const updateSystemSettingsSchema = z.object({
@@ -29,7 +31,8 @@ export const updateSystemSettingsSchema = z.object({
   aided_pass_courses_number: z.number().int().min(0, "Cannot be negative").max(20, "Cannot exceed 20 courses").optional(),
   aided_marks_number: z.number().int().min(0, "Cannot be negative").max(100, "Cannot exceed 100 marks").optional(),
   theoretical_exam_date: z.string().datetime().or(z.date()).optional(),
-  practical_exam_date: z.string().datetime().or(z.date()).optional()
+  practical_exam_date: z.string().datetime().or(z.date()).optional(),
+  current_academic_key: z.string().optional().nullable(),
 });
 
 // Export types

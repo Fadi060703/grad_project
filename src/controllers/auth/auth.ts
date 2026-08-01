@@ -1,12 +1,13 @@
 import { Request, Response } from "express";
 import { prisma } from "../../lib/prisma";
 import { loginSchema } from "../../validators/login";
+import { changeDashboardPasswordSchema } from "../../validators/auth-change-password";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { JWT_EXPIRES_IN, JWT_SECRET } from "../../config/auth";
 import { permissions, Role } from "../../lib/permissions";
 import { asyncHandler } from "../../utils/asyncHandler";
-import { BadRequestError, UnauthorizedError, NotFoundError } from "../../errors";
+import { BadRequestError, UnauthorizedError, NotFoundError, ForbiddenError } from "../../errors";
 
 export const login = asyncHandler(async (req: Request, res: Response) => {
     const data = loginSchema.parse(req.body);
@@ -24,6 +25,36 @@ export const login = asyncHandler(async (req: Request, res: Response) => {
     return res.status(200).json({
         success: true,
         data: { access: token, expires_in: JWT_EXPIRES_IN },
+    });
+});
+
+export const changeDashboardPassword = asyncHandler(async (req: Request, res: Response) => {
+    const data = changeDashboardPasswordSchema.parse(req.body);
+    const { id } = req.user as { id: number | string; role: string };
+    const userId = Number(id);
+
+    const user = await prisma.user.findUnique({
+        where: { id: userId },
+        select: { id: true, role: true, password: true },
+    });
+
+    if (!user) throw new NotFoundError("User");
+    if (user.role === "STUDENT") {
+        throw new ForbiddenError("Students cannot use dashboard password change");
+    }
+
+    const matched = await bcrypt.compare(data.current_password, user.password);
+    if (!matched) throw new BadRequestError("Current password is incorrect");
+
+    const hashedPassword = await bcrypt.hash(data.new_password, 10);
+    await prisma.user.update({
+        where: { id: user.id },
+        data: { password: hashedPassword },
+    });
+
+    return res.status(200).json({
+        success: true,
+        message: "Password changed successfully",
     });
 });
 

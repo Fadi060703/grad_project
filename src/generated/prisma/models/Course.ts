@@ -51,6 +51,8 @@ export type CourseMinAggregateOutputType = {
   theoretical_grade: number | null
   practical_grade: number | null
   year_id: number | null
+  is_practical_marks_published: boolean | null
+  is_marks_published: boolean | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -66,6 +68,8 @@ export type CourseMaxAggregateOutputType = {
   theoretical_grade: number | null
   practical_grade: number | null
   year_id: number | null
+  is_practical_marks_published: boolean | null
+  is_marks_published: boolean | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -81,6 +85,8 @@ export type CourseCountAggregateOutputType = {
   theoretical_grade: number
   practical_grade: number
   year_id: number
+  is_practical_marks_published: number
+  is_marks_published: number
   created_at: number
   updated_at: number
   _all: number
@@ -112,6 +118,8 @@ export type CourseMinAggregateInputType = {
   theoretical_grade?: true
   practical_grade?: true
   year_id?: true
+  is_practical_marks_published?: true
+  is_marks_published?: true
   created_at?: true
   updated_at?: true
 }
@@ -127,6 +135,8 @@ export type CourseMaxAggregateInputType = {
   theoretical_grade?: true
   practical_grade?: true
   year_id?: true
+  is_practical_marks_published?: true
+  is_marks_published?: true
   created_at?: true
   updated_at?: true
 }
@@ -142,6 +152,8 @@ export type CourseCountAggregateInputType = {
   theoretical_grade?: true
   practical_grade?: true
   year_id?: true
+  is_practical_marks_published?: true
+  is_marks_published?: true
   created_at?: true
   updated_at?: true
   _all?: true
@@ -244,6 +256,8 @@ export type CourseGroupByOutputType = {
   theoretical_grade: number
   practical_grade: number
   year_id: number
+  is_practical_marks_published: boolean
+  is_marks_published: boolean
   created_at: Date
   updated_at: Date | null
   _count: CourseCountAggregateOutputType | null
@@ -282,6 +296,8 @@ export type CourseWhereInput = {
   theoretical_grade?: Prisma.IntFilter<"Course"> | number
   practical_grade?: Prisma.IntFilter<"Course"> | number
   year_id?: Prisma.IntFilter<"Course"> | number
+  is_practical_marks_published?: Prisma.BoolFilter<"Course"> | boolean
+  is_marks_published?: Prisma.BoolFilter<"Course"> | boolean
   created_at?: Prisma.DateTimeFilter<"Course"> | Date | string
   updated_at?: Prisma.DateTimeNullableFilter<"Course"> | Date | string | null
   year?: Prisma.XOR<Prisma.YearScalarRelationFilter, Prisma.YearWhereInput>
@@ -295,6 +311,7 @@ export type CourseWhereInput = {
   announcements?: Prisma.AnnouncementListRelationFilter
   exams?: Prisma.ExamListRelationFilter
   marks?: Prisma.MarkListRelationFilter
+  marksPublications?: Prisma.CourseMarksPublicationListRelationFilter
 }
 
 export type CourseOrderByWithRelationInput = {
@@ -308,6 +325,8 @@ export type CourseOrderByWithRelationInput = {
   theoretical_grade?: Prisma.SortOrder
   practical_grade?: Prisma.SortOrder
   year_id?: Prisma.SortOrder
+  is_practical_marks_published?: Prisma.SortOrder
+  is_marks_published?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrderInput | Prisma.SortOrder
   year?: Prisma.YearOrderByWithRelationInput
@@ -321,6 +340,7 @@ export type CourseOrderByWithRelationInput = {
   announcements?: Prisma.AnnouncementOrderByRelationAggregateInput
   exams?: Prisma.ExamOrderByRelationAggregateInput
   marks?: Prisma.MarkOrderByRelationAggregateInput
+  marksPublications?: Prisma.CourseMarksPublicationOrderByRelationAggregateInput
 }
 
 export type CourseWhereUniqueInput = Prisma.AtLeast<{
@@ -337,6 +357,8 @@ export type CourseWhereUniqueInput = Prisma.AtLeast<{
   theoretical_grade?: Prisma.IntFilter<"Course"> | number
   practical_grade?: Prisma.IntFilter<"Course"> | number
   year_id?: Prisma.IntFilter<"Course"> | number
+  is_practical_marks_published?: Prisma.BoolFilter<"Course"> | boolean
+  is_marks_published?: Prisma.BoolFilter<"Course"> | boolean
   created_at?: Prisma.DateTimeFilter<"Course"> | Date | string
   updated_at?: Prisma.DateTimeNullableFilter<"Course"> | Date | string | null
   year?: Prisma.XOR<Prisma.YearScalarRelationFilter, Prisma.YearWhereInput>
@@ -350,6 +372,7 @@ export type CourseWhereUniqueInput = Prisma.AtLeast<{
   announcements?: Prisma.AnnouncementListRelationFilter
   exams?: Prisma.ExamListRelationFilter
   marks?: Prisma.MarkListRelationFilter
+  marksPublications?: Prisma.CourseMarksPublicationListRelationFilter
 }, "id" | "name" | "code">
 
 export type CourseOrderByWithAggregationInput = {
@@ -363,6 +386,8 @@ export type CourseOrderByWithAggregationInput = {
   theoretical_grade?: Prisma.SortOrder
   practical_grade?: Prisma.SortOrder
   year_id?: Prisma.SortOrder
+  is_practical_marks_published?: Prisma.SortOrder
+  is_marks_published?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.CourseCountOrderByAggregateInput
@@ -386,6 +411,8 @@ export type CourseScalarWhereWithAggregatesInput = {
   theoretical_grade?: Prisma.IntWithAggregatesFilter<"Course"> | number
   practical_grade?: Prisma.IntWithAggregatesFilter<"Course"> | number
   year_id?: Prisma.IntWithAggregatesFilter<"Course"> | number
+  is_practical_marks_published?: Prisma.BoolWithAggregatesFilter<"Course"> | boolean
+  is_marks_published?: Prisma.BoolWithAggregatesFilter<"Course"> | boolean
   created_at?: Prisma.DateTimeWithAggregatesFilter<"Course"> | Date | string
   updated_at?: Prisma.DateTimeNullableWithAggregatesFilter<"Course"> | Date | string | null
 }
@@ -399,6 +426,8 @@ export type CourseCreateInput = {
   semester?: $Enums.Semester | null
   theoretical_grade: number
   practical_grade: number
+  is_practical_marks_published?: boolean
+  is_marks_published?: boolean
   created_at?: Date | string
   updated_at?: Date | string | null
   year: Prisma.YearCreateNestedOneWithoutCoursesInput
@@ -412,6 +441,7 @@ export type CourseCreateInput = {
   announcements?: Prisma.AnnouncementCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamCreateNestedManyWithoutCourseInput
   marks?: Prisma.MarkCreateNestedManyWithoutCourseInput
+  marksPublications?: Prisma.CourseMarksPublicationCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUncheckedCreateInput = {
@@ -425,6 +455,8 @@ export type CourseUncheckedCreateInput = {
   theoretical_grade: number
   practical_grade: number
   year_id: number
+  is_practical_marks_published?: boolean
+  is_marks_published?: boolean
   created_at?: Date | string
   updated_at?: Date | string | null
   sectionCourses?: Prisma.SectionCourseUncheckedCreateNestedManyWithoutCourseInput
@@ -437,6 +469,7 @@ export type CourseUncheckedCreateInput = {
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamUncheckedCreateNestedManyWithoutCourseInput
   marks?: Prisma.MarkUncheckedCreateNestedManyWithoutCourseInput
+  marksPublications?: Prisma.CourseMarksPublicationUncheckedCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUpdateInput = {
@@ -448,6 +481,8 @@ export type CourseUpdateInput = {
   semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
+  is_practical_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   year?: Prisma.YearUpdateOneRequiredWithoutCoursesNestedInput
@@ -461,6 +496,7 @@ export type CourseUpdateInput = {
   announcements?: Prisma.AnnouncementUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUpdateManyWithoutCourseNestedInput
   marks?: Prisma.MarkUpdateManyWithoutCourseNestedInput
+  marksPublications?: Prisma.CourseMarksPublicationUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateInput = {
@@ -474,6 +510,8 @@ export type CourseUncheckedUpdateInput = {
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
+  is_practical_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sectionCourses?: Prisma.SectionCourseUncheckedUpdateManyWithoutCourseNestedInput
@@ -486,6 +524,7 @@ export type CourseUncheckedUpdateInput = {
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUncheckedUpdateManyWithoutCourseNestedInput
   marks?: Prisma.MarkUncheckedUpdateManyWithoutCourseNestedInput
+  marksPublications?: Prisma.CourseMarksPublicationUncheckedUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseCreateManyInput = {
@@ -499,6 +538,8 @@ export type CourseCreateManyInput = {
   theoretical_grade: number
   practical_grade: number
   year_id: number
+  is_practical_marks_published?: boolean
+  is_marks_published?: boolean
   created_at?: Date | string
   updated_at?: Date | string | null
 }
@@ -512,6 +553,8 @@ export type CourseUpdateManyMutationInput = {
   semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
+  is_practical_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
@@ -527,6 +570,8 @@ export type CourseUncheckedUpdateManyInput = {
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
+  is_practical_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
@@ -552,6 +597,8 @@ export type CourseCountOrderByAggregateInput = {
   theoretical_grade?: Prisma.SortOrder
   practical_grade?: Prisma.SortOrder
   year_id?: Prisma.SortOrder
+  is_practical_marks_published?: Prisma.SortOrder
+  is_marks_published?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -574,6 +621,8 @@ export type CourseMaxOrderByAggregateInput = {
   theoretical_grade?: Prisma.SortOrder
   practical_grade?: Prisma.SortOrder
   year_id?: Prisma.SortOrder
+  is_practical_marks_published?: Prisma.SortOrder
+  is_marks_published?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -589,6 +638,8 @@ export type CourseMinOrderByAggregateInput = {
   theoretical_grade?: Prisma.SortOrder
   practical_grade?: Prisma.SortOrder
   year_id?: Prisma.SortOrder
+  is_practical_marks_published?: Prisma.SortOrder
+  is_marks_published?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -796,6 +847,20 @@ export type CourseUpdateOneRequiredWithoutMarksNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CourseUpdateToOneWithWhereWithoutMarksInput, Prisma.CourseUpdateWithoutMarksInput>, Prisma.CourseUncheckedUpdateWithoutMarksInput>
 }
 
+export type CourseCreateNestedOneWithoutMarksPublicationsInput = {
+  create?: Prisma.XOR<Prisma.CourseCreateWithoutMarksPublicationsInput, Prisma.CourseUncheckedCreateWithoutMarksPublicationsInput>
+  connectOrCreate?: Prisma.CourseCreateOrConnectWithoutMarksPublicationsInput
+  connect?: Prisma.CourseWhereUniqueInput
+}
+
+export type CourseUpdateOneRequiredWithoutMarksPublicationsNestedInput = {
+  create?: Prisma.XOR<Prisma.CourseCreateWithoutMarksPublicationsInput, Prisma.CourseUncheckedCreateWithoutMarksPublicationsInput>
+  connectOrCreate?: Prisma.CourseCreateOrConnectWithoutMarksPublicationsInput
+  upsert?: Prisma.CourseUpsertWithoutMarksPublicationsInput
+  connect?: Prisma.CourseWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CourseUpdateToOneWithWhereWithoutMarksPublicationsInput, Prisma.CourseUpdateWithoutMarksPublicationsInput>, Prisma.CourseUncheckedUpdateWithoutMarksPublicationsInput>
+}
+
 export type CourseCreateNestedOneWithoutStudentsInput = {
   create?: Prisma.XOR<Prisma.CourseCreateWithoutStudentsInput, Prisma.CourseUncheckedCreateWithoutStudentsInput>
   connectOrCreate?: Prisma.CourseCreateOrConnectWithoutStudentsInput
@@ -863,6 +928,8 @@ export type CourseCreateWithoutTeachersInput = {
   semester?: $Enums.Semester | null
   theoretical_grade: number
   practical_grade: number
+  is_practical_marks_published?: boolean
+  is_marks_published?: boolean
   created_at?: Date | string
   updated_at?: Date | string | null
   year: Prisma.YearCreateNestedOneWithoutCoursesInput
@@ -875,6 +942,7 @@ export type CourseCreateWithoutTeachersInput = {
   announcements?: Prisma.AnnouncementCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamCreateNestedManyWithoutCourseInput
   marks?: Prisma.MarkCreateNestedManyWithoutCourseInput
+  marksPublications?: Prisma.CourseMarksPublicationCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUncheckedCreateWithoutTeachersInput = {
@@ -888,6 +956,8 @@ export type CourseUncheckedCreateWithoutTeachersInput = {
   theoretical_grade: number
   practical_grade: number
   year_id: number
+  is_practical_marks_published?: boolean
+  is_marks_published?: boolean
   created_at?: Date | string
   updated_at?: Date | string | null
   sectionCourses?: Prisma.SectionCourseUncheckedCreateNestedManyWithoutCourseInput
@@ -899,6 +969,7 @@ export type CourseUncheckedCreateWithoutTeachersInput = {
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamUncheckedCreateNestedManyWithoutCourseInput
   marks?: Prisma.MarkUncheckedCreateNestedManyWithoutCourseInput
+  marksPublications?: Prisma.CourseMarksPublicationUncheckedCreateNestedManyWithoutCourseInput
 }
 
 export type CourseCreateOrConnectWithoutTeachersInput = {
@@ -915,6 +986,8 @@ export type CourseCreateWithoutDoctorsInput = {
   semester?: $Enums.Semester | null
   theoretical_grade: number
   practical_grade: number
+  is_practical_marks_published?: boolean
+  is_marks_published?: boolean
   created_at?: Date | string
   updated_at?: Date | string | null
   year: Prisma.YearCreateNestedOneWithoutCoursesInput
@@ -927,6 +1000,7 @@ export type CourseCreateWithoutDoctorsInput = {
   announcements?: Prisma.AnnouncementCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamCreateNestedManyWithoutCourseInput
   marks?: Prisma.MarkCreateNestedManyWithoutCourseInput
+  marksPublications?: Prisma.CourseMarksPublicationCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUncheckedCreateWithoutDoctorsInput = {
@@ -940,6 +1014,8 @@ export type CourseUncheckedCreateWithoutDoctorsInput = {
   theoretical_grade: number
   practical_grade: number
   year_id: number
+  is_practical_marks_published?: boolean
+  is_marks_published?: boolean
   created_at?: Date | string
   updated_at?: Date | string | null
   sectionCourses?: Prisma.SectionCourseUncheckedCreateNestedManyWithoutCourseInput
@@ -951,6 +1027,7 @@ export type CourseUncheckedCreateWithoutDoctorsInput = {
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamUncheckedCreateNestedManyWithoutCourseInput
   marks?: Prisma.MarkUncheckedCreateNestedManyWithoutCourseInput
+  marksPublications?: Prisma.CourseMarksPublicationUncheckedCreateNestedManyWithoutCourseInput
 }
 
 export type CourseCreateOrConnectWithoutDoctorsInput = {
@@ -988,6 +1065,8 @@ export type CourseScalarWhereInput = {
   theoretical_grade?: Prisma.IntFilter<"Course"> | number
   practical_grade?: Prisma.IntFilter<"Course"> | number
   year_id?: Prisma.IntFilter<"Course"> | number
+  is_practical_marks_published?: Prisma.BoolFilter<"Course"> | boolean
+  is_marks_published?: Prisma.BoolFilter<"Course"> | boolean
   created_at?: Prisma.DateTimeFilter<"Course"> | Date | string
   updated_at?: Prisma.DateTimeNullableFilter<"Course"> | Date | string | null
 }
@@ -1017,6 +1096,8 @@ export type CourseCreateWithoutYearInput = {
   semester?: $Enums.Semester | null
   theoretical_grade: number
   practical_grade: number
+  is_practical_marks_published?: boolean
+  is_marks_published?: boolean
   created_at?: Date | string
   updated_at?: Date | string | null
   sectionCourses?: Prisma.SectionCourseCreateNestedManyWithoutCourseInput
@@ -1029,6 +1110,7 @@ export type CourseCreateWithoutYearInput = {
   announcements?: Prisma.AnnouncementCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamCreateNestedManyWithoutCourseInput
   marks?: Prisma.MarkCreateNestedManyWithoutCourseInput
+  marksPublications?: Prisma.CourseMarksPublicationCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUncheckedCreateWithoutYearInput = {
@@ -1041,6 +1123,8 @@ export type CourseUncheckedCreateWithoutYearInput = {
   semester?: $Enums.Semester | null
   theoretical_grade: number
   practical_grade: number
+  is_practical_marks_published?: boolean
+  is_marks_published?: boolean
   created_at?: Date | string
   updated_at?: Date | string | null
   sectionCourses?: Prisma.SectionCourseUncheckedCreateNestedManyWithoutCourseInput
@@ -1053,6 +1137,7 @@ export type CourseUncheckedCreateWithoutYearInput = {
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamUncheckedCreateNestedManyWithoutCourseInput
   marks?: Prisma.MarkUncheckedCreateNestedManyWithoutCourseInput
+  marksPublications?: Prisma.CourseMarksPublicationUncheckedCreateNestedManyWithoutCourseInput
 }
 
 export type CourseCreateOrConnectWithoutYearInput = {
@@ -1090,6 +1175,8 @@ export type CourseCreateWithoutSectionCoursesInput = {
   semester?: $Enums.Semester | null
   theoretical_grade: number
   practical_grade: number
+  is_practical_marks_published?: boolean
+  is_marks_published?: boolean
   created_at?: Date | string
   updated_at?: Date | string | null
   year: Prisma.YearCreateNestedOneWithoutCoursesInput
@@ -1102,6 +1189,7 @@ export type CourseCreateWithoutSectionCoursesInput = {
   announcements?: Prisma.AnnouncementCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamCreateNestedManyWithoutCourseInput
   marks?: Prisma.MarkCreateNestedManyWithoutCourseInput
+  marksPublications?: Prisma.CourseMarksPublicationCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUncheckedCreateWithoutSectionCoursesInput = {
@@ -1115,6 +1203,8 @@ export type CourseUncheckedCreateWithoutSectionCoursesInput = {
   theoretical_grade: number
   practical_grade: number
   year_id: number
+  is_practical_marks_published?: boolean
+  is_marks_published?: boolean
   created_at?: Date | string
   updated_at?: Date | string | null
   majorCourses?: Prisma.MajorCourseUncheckedCreateNestedManyWithoutCourseInput
@@ -1126,6 +1216,7 @@ export type CourseUncheckedCreateWithoutSectionCoursesInput = {
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamUncheckedCreateNestedManyWithoutCourseInput
   marks?: Prisma.MarkUncheckedCreateNestedManyWithoutCourseInput
+  marksPublications?: Prisma.CourseMarksPublicationUncheckedCreateNestedManyWithoutCourseInput
 }
 
 export type CourseCreateOrConnectWithoutSectionCoursesInput = {
@@ -1153,6 +1244,8 @@ export type CourseUpdateWithoutSectionCoursesInput = {
   semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
+  is_practical_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   year?: Prisma.YearUpdateOneRequiredWithoutCoursesNestedInput
@@ -1165,6 +1258,7 @@ export type CourseUpdateWithoutSectionCoursesInput = {
   announcements?: Prisma.AnnouncementUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUpdateManyWithoutCourseNestedInput
   marks?: Prisma.MarkUpdateManyWithoutCourseNestedInput
+  marksPublications?: Prisma.CourseMarksPublicationUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutSectionCoursesInput = {
@@ -1178,6 +1272,8 @@ export type CourseUncheckedUpdateWithoutSectionCoursesInput = {
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
+  is_practical_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   majorCourses?: Prisma.MajorCourseUncheckedUpdateManyWithoutCourseNestedInput
@@ -1189,6 +1285,7 @@ export type CourseUncheckedUpdateWithoutSectionCoursesInput = {
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUncheckedUpdateManyWithoutCourseNestedInput
   marks?: Prisma.MarkUncheckedUpdateManyWithoutCourseNestedInput
+  marksPublications?: Prisma.CourseMarksPublicationUncheckedUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseCreateWithoutMajorCoursesInput = {
@@ -1200,6 +1297,8 @@ export type CourseCreateWithoutMajorCoursesInput = {
   semester?: $Enums.Semester | null
   theoretical_grade: number
   practical_grade: number
+  is_practical_marks_published?: boolean
+  is_marks_published?: boolean
   created_at?: Date | string
   updated_at?: Date | string | null
   year: Prisma.YearCreateNestedOneWithoutCoursesInput
@@ -1212,6 +1311,7 @@ export type CourseCreateWithoutMajorCoursesInput = {
   announcements?: Prisma.AnnouncementCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamCreateNestedManyWithoutCourseInput
   marks?: Prisma.MarkCreateNestedManyWithoutCourseInput
+  marksPublications?: Prisma.CourseMarksPublicationCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUncheckedCreateWithoutMajorCoursesInput = {
@@ -1225,6 +1325,8 @@ export type CourseUncheckedCreateWithoutMajorCoursesInput = {
   theoretical_grade: number
   practical_grade: number
   year_id: number
+  is_practical_marks_published?: boolean
+  is_marks_published?: boolean
   created_at?: Date | string
   updated_at?: Date | string | null
   sectionCourses?: Prisma.SectionCourseUncheckedCreateNestedManyWithoutCourseInput
@@ -1236,6 +1338,7 @@ export type CourseUncheckedCreateWithoutMajorCoursesInput = {
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamUncheckedCreateNestedManyWithoutCourseInput
   marks?: Prisma.MarkUncheckedCreateNestedManyWithoutCourseInput
+  marksPublications?: Prisma.CourseMarksPublicationUncheckedCreateNestedManyWithoutCourseInput
 }
 
 export type CourseCreateOrConnectWithoutMajorCoursesInput = {
@@ -1263,6 +1366,8 @@ export type CourseUpdateWithoutMajorCoursesInput = {
   semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
+  is_practical_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   year?: Prisma.YearUpdateOneRequiredWithoutCoursesNestedInput
@@ -1275,6 +1380,7 @@ export type CourseUpdateWithoutMajorCoursesInput = {
   announcements?: Prisma.AnnouncementUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUpdateManyWithoutCourseNestedInput
   marks?: Prisma.MarkUpdateManyWithoutCourseNestedInput
+  marksPublications?: Prisma.CourseMarksPublicationUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutMajorCoursesInput = {
@@ -1288,6 +1394,8 @@ export type CourseUncheckedUpdateWithoutMajorCoursesInput = {
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
+  is_practical_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sectionCourses?: Prisma.SectionCourseUncheckedUpdateManyWithoutCourseNestedInput
@@ -1299,6 +1407,7 @@ export type CourseUncheckedUpdateWithoutMajorCoursesInput = {
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUncheckedUpdateManyWithoutCourseNestedInput
   marks?: Prisma.MarkUncheckedUpdateManyWithoutCourseNestedInput
+  marksPublications?: Prisma.CourseMarksPublicationUncheckedUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseCreateWithoutCourseFilesInput = {
@@ -1310,6 +1419,8 @@ export type CourseCreateWithoutCourseFilesInput = {
   semester?: $Enums.Semester | null
   theoretical_grade: number
   practical_grade: number
+  is_practical_marks_published?: boolean
+  is_marks_published?: boolean
   created_at?: Date | string
   updated_at?: Date | string | null
   year: Prisma.YearCreateNestedOneWithoutCoursesInput
@@ -1322,6 +1433,7 @@ export type CourseCreateWithoutCourseFilesInput = {
   announcements?: Prisma.AnnouncementCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamCreateNestedManyWithoutCourseInput
   marks?: Prisma.MarkCreateNestedManyWithoutCourseInput
+  marksPublications?: Prisma.CourseMarksPublicationCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUncheckedCreateWithoutCourseFilesInput = {
@@ -1335,6 +1447,8 @@ export type CourseUncheckedCreateWithoutCourseFilesInput = {
   theoretical_grade: number
   practical_grade: number
   year_id: number
+  is_practical_marks_published?: boolean
+  is_marks_published?: boolean
   created_at?: Date | string
   updated_at?: Date | string | null
   sectionCourses?: Prisma.SectionCourseUncheckedCreateNestedManyWithoutCourseInput
@@ -1346,6 +1460,7 @@ export type CourseUncheckedCreateWithoutCourseFilesInput = {
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamUncheckedCreateNestedManyWithoutCourseInput
   marks?: Prisma.MarkUncheckedCreateNestedManyWithoutCourseInput
+  marksPublications?: Prisma.CourseMarksPublicationUncheckedCreateNestedManyWithoutCourseInput
 }
 
 export type CourseCreateOrConnectWithoutCourseFilesInput = {
@@ -1373,6 +1488,8 @@ export type CourseUpdateWithoutCourseFilesInput = {
   semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
+  is_practical_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   year?: Prisma.YearUpdateOneRequiredWithoutCoursesNestedInput
@@ -1385,6 +1502,7 @@ export type CourseUpdateWithoutCourseFilesInput = {
   announcements?: Prisma.AnnouncementUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUpdateManyWithoutCourseNestedInput
   marks?: Prisma.MarkUpdateManyWithoutCourseNestedInput
+  marksPublications?: Prisma.CourseMarksPublicationUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutCourseFilesInput = {
@@ -1398,6 +1516,8 @@ export type CourseUncheckedUpdateWithoutCourseFilesInput = {
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
+  is_practical_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sectionCourses?: Prisma.SectionCourseUncheckedUpdateManyWithoutCourseNestedInput
@@ -1409,6 +1529,7 @@ export type CourseUncheckedUpdateWithoutCourseFilesInput = {
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUncheckedUpdateManyWithoutCourseNestedInput
   marks?: Prisma.MarkUncheckedUpdateManyWithoutCourseNestedInput
+  marksPublications?: Prisma.CourseMarksPublicationUncheckedUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseCreateWithoutMarksInput = {
@@ -1420,6 +1541,8 @@ export type CourseCreateWithoutMarksInput = {
   semester?: $Enums.Semester | null
   theoretical_grade: number
   practical_grade: number
+  is_practical_marks_published?: boolean
+  is_marks_published?: boolean
   created_at?: Date | string
   updated_at?: Date | string | null
   year: Prisma.YearCreateNestedOneWithoutCoursesInput
@@ -1432,6 +1555,7 @@ export type CourseCreateWithoutMarksInput = {
   students?: Prisma.StudentCourseCreateNestedManyWithoutCourseInput
   announcements?: Prisma.AnnouncementCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamCreateNestedManyWithoutCourseInput
+  marksPublications?: Prisma.CourseMarksPublicationCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUncheckedCreateWithoutMarksInput = {
@@ -1445,6 +1569,8 @@ export type CourseUncheckedCreateWithoutMarksInput = {
   theoretical_grade: number
   practical_grade: number
   year_id: number
+  is_practical_marks_published?: boolean
+  is_marks_published?: boolean
   created_at?: Date | string
   updated_at?: Date | string | null
   sectionCourses?: Prisma.SectionCourseUncheckedCreateNestedManyWithoutCourseInput
@@ -1456,6 +1582,7 @@ export type CourseUncheckedCreateWithoutMarksInput = {
   students?: Prisma.StudentCourseUncheckedCreateNestedManyWithoutCourseInput
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamUncheckedCreateNestedManyWithoutCourseInput
+  marksPublications?: Prisma.CourseMarksPublicationUncheckedCreateNestedManyWithoutCourseInput
 }
 
 export type CourseCreateOrConnectWithoutMarksInput = {
@@ -1483,6 +1610,8 @@ export type CourseUpdateWithoutMarksInput = {
   semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
+  is_practical_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   year?: Prisma.YearUpdateOneRequiredWithoutCoursesNestedInput
@@ -1495,6 +1624,7 @@ export type CourseUpdateWithoutMarksInput = {
   students?: Prisma.StudentCourseUpdateManyWithoutCourseNestedInput
   announcements?: Prisma.AnnouncementUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUpdateManyWithoutCourseNestedInput
+  marksPublications?: Prisma.CourseMarksPublicationUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutMarksInput = {
@@ -1508,6 +1638,8 @@ export type CourseUncheckedUpdateWithoutMarksInput = {
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
+  is_practical_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sectionCourses?: Prisma.SectionCourseUncheckedUpdateManyWithoutCourseNestedInput
@@ -1519,6 +1651,129 @@ export type CourseUncheckedUpdateWithoutMarksInput = {
   students?: Prisma.StudentCourseUncheckedUpdateManyWithoutCourseNestedInput
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUncheckedUpdateManyWithoutCourseNestedInput
+  marksPublications?: Prisma.CourseMarksPublicationUncheckedUpdateManyWithoutCourseNestedInput
+}
+
+export type CourseCreateWithoutMarksPublicationsInput = {
+  name: string
+  code?: string | null
+  image?: string | null
+  course_type: $Enums.CourseType
+  exam_type: $Enums.ExamType
+  semester?: $Enums.Semester | null
+  theoretical_grade: number
+  practical_grade: number
+  is_practical_marks_published?: boolean
+  is_marks_published?: boolean
+  created_at?: Date | string
+  updated_at?: Date | string | null
+  year: Prisma.YearCreateNestedOneWithoutCoursesInput
+  sectionCourses?: Prisma.SectionCourseCreateNestedManyWithoutCourseInput
+  majorCourses?: Prisma.MajorCourseCreateNestedManyWithoutCourseInput
+  doctors?: Prisma.UserCreateNestedManyWithoutDoctorCoursesInput
+  teachers?: Prisma.UserCreateNestedManyWithoutTeachingCoursesInput
+  lectures?: Prisma.LectureCreateNestedManyWithoutCourseInput
+  courseFiles?: Prisma.CourseFileCreateNestedManyWithoutCourseInput
+  students?: Prisma.StudentCourseCreateNestedManyWithoutCourseInput
+  announcements?: Prisma.AnnouncementCreateNestedManyWithoutCourseInput
+  exams?: Prisma.ExamCreateNestedManyWithoutCourseInput
+  marks?: Prisma.MarkCreateNestedManyWithoutCourseInput
+}
+
+export type CourseUncheckedCreateWithoutMarksPublicationsInput = {
+  id?: number
+  name: string
+  code?: string | null
+  image?: string | null
+  course_type: $Enums.CourseType
+  exam_type: $Enums.ExamType
+  semester?: $Enums.Semester | null
+  theoretical_grade: number
+  practical_grade: number
+  year_id: number
+  is_practical_marks_published?: boolean
+  is_marks_published?: boolean
+  created_at?: Date | string
+  updated_at?: Date | string | null
+  sectionCourses?: Prisma.SectionCourseUncheckedCreateNestedManyWithoutCourseInput
+  majorCourses?: Prisma.MajorCourseUncheckedCreateNestedManyWithoutCourseInput
+  doctors?: Prisma.UserUncheckedCreateNestedManyWithoutDoctorCoursesInput
+  teachers?: Prisma.UserUncheckedCreateNestedManyWithoutTeachingCoursesInput
+  lectures?: Prisma.LectureUncheckedCreateNestedManyWithoutCourseInput
+  courseFiles?: Prisma.CourseFileUncheckedCreateNestedManyWithoutCourseInput
+  students?: Prisma.StudentCourseUncheckedCreateNestedManyWithoutCourseInput
+  announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCourseInput
+  exams?: Prisma.ExamUncheckedCreateNestedManyWithoutCourseInput
+  marks?: Prisma.MarkUncheckedCreateNestedManyWithoutCourseInput
+}
+
+export type CourseCreateOrConnectWithoutMarksPublicationsInput = {
+  where: Prisma.CourseWhereUniqueInput
+  create: Prisma.XOR<Prisma.CourseCreateWithoutMarksPublicationsInput, Prisma.CourseUncheckedCreateWithoutMarksPublicationsInput>
+}
+
+export type CourseUpsertWithoutMarksPublicationsInput = {
+  update: Prisma.XOR<Prisma.CourseUpdateWithoutMarksPublicationsInput, Prisma.CourseUncheckedUpdateWithoutMarksPublicationsInput>
+  create: Prisma.XOR<Prisma.CourseCreateWithoutMarksPublicationsInput, Prisma.CourseUncheckedCreateWithoutMarksPublicationsInput>
+  where?: Prisma.CourseWhereInput
+}
+
+export type CourseUpdateToOneWithWhereWithoutMarksPublicationsInput = {
+  where?: Prisma.CourseWhereInput
+  data: Prisma.XOR<Prisma.CourseUpdateWithoutMarksPublicationsInput, Prisma.CourseUncheckedUpdateWithoutMarksPublicationsInput>
+}
+
+export type CourseUpdateWithoutMarksPublicationsInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  course_type?: Prisma.EnumCourseTypeFieldUpdateOperationsInput | $Enums.CourseType
+  exam_type?: Prisma.EnumExamTypeFieldUpdateOperationsInput | $Enums.ExamType
+  semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
+  theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
+  practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
+  is_practical_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  year?: Prisma.YearUpdateOneRequiredWithoutCoursesNestedInput
+  sectionCourses?: Prisma.SectionCourseUpdateManyWithoutCourseNestedInput
+  majorCourses?: Prisma.MajorCourseUpdateManyWithoutCourseNestedInput
+  doctors?: Prisma.UserUpdateManyWithoutDoctorCoursesNestedInput
+  teachers?: Prisma.UserUpdateManyWithoutTeachingCoursesNestedInput
+  lectures?: Prisma.LectureUpdateManyWithoutCourseNestedInput
+  courseFiles?: Prisma.CourseFileUpdateManyWithoutCourseNestedInput
+  students?: Prisma.StudentCourseUpdateManyWithoutCourseNestedInput
+  announcements?: Prisma.AnnouncementUpdateManyWithoutCourseNestedInput
+  exams?: Prisma.ExamUpdateManyWithoutCourseNestedInput
+  marks?: Prisma.MarkUpdateManyWithoutCourseNestedInput
+}
+
+export type CourseUncheckedUpdateWithoutMarksPublicationsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  course_type?: Prisma.EnumCourseTypeFieldUpdateOperationsInput | $Enums.CourseType
+  exam_type?: Prisma.EnumExamTypeFieldUpdateOperationsInput | $Enums.ExamType
+  semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
+  theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
+  practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
+  year_id?: Prisma.IntFieldUpdateOperationsInput | number
+  is_practical_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sectionCourses?: Prisma.SectionCourseUncheckedUpdateManyWithoutCourseNestedInput
+  majorCourses?: Prisma.MajorCourseUncheckedUpdateManyWithoutCourseNestedInput
+  doctors?: Prisma.UserUncheckedUpdateManyWithoutDoctorCoursesNestedInput
+  teachers?: Prisma.UserUncheckedUpdateManyWithoutTeachingCoursesNestedInput
+  lectures?: Prisma.LectureUncheckedUpdateManyWithoutCourseNestedInput
+  courseFiles?: Prisma.CourseFileUncheckedUpdateManyWithoutCourseNestedInput
+  students?: Prisma.StudentCourseUncheckedUpdateManyWithoutCourseNestedInput
+  announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCourseNestedInput
+  exams?: Prisma.ExamUncheckedUpdateManyWithoutCourseNestedInput
+  marks?: Prisma.MarkUncheckedUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseCreateWithoutStudentsInput = {
@@ -1530,6 +1785,8 @@ export type CourseCreateWithoutStudentsInput = {
   semester?: $Enums.Semester | null
   theoretical_grade: number
   practical_grade: number
+  is_practical_marks_published?: boolean
+  is_marks_published?: boolean
   created_at?: Date | string
   updated_at?: Date | string | null
   year: Prisma.YearCreateNestedOneWithoutCoursesInput
@@ -1542,6 +1799,7 @@ export type CourseCreateWithoutStudentsInput = {
   announcements?: Prisma.AnnouncementCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamCreateNestedManyWithoutCourseInput
   marks?: Prisma.MarkCreateNestedManyWithoutCourseInput
+  marksPublications?: Prisma.CourseMarksPublicationCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUncheckedCreateWithoutStudentsInput = {
@@ -1555,6 +1813,8 @@ export type CourseUncheckedCreateWithoutStudentsInput = {
   theoretical_grade: number
   practical_grade: number
   year_id: number
+  is_practical_marks_published?: boolean
+  is_marks_published?: boolean
   created_at?: Date | string
   updated_at?: Date | string | null
   sectionCourses?: Prisma.SectionCourseUncheckedCreateNestedManyWithoutCourseInput
@@ -1566,6 +1826,7 @@ export type CourseUncheckedCreateWithoutStudentsInput = {
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamUncheckedCreateNestedManyWithoutCourseInput
   marks?: Prisma.MarkUncheckedCreateNestedManyWithoutCourseInput
+  marksPublications?: Prisma.CourseMarksPublicationUncheckedCreateNestedManyWithoutCourseInput
 }
 
 export type CourseCreateOrConnectWithoutStudentsInput = {
@@ -1593,6 +1854,8 @@ export type CourseUpdateWithoutStudentsInput = {
   semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
+  is_practical_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   year?: Prisma.YearUpdateOneRequiredWithoutCoursesNestedInput
@@ -1605,6 +1868,7 @@ export type CourseUpdateWithoutStudentsInput = {
   announcements?: Prisma.AnnouncementUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUpdateManyWithoutCourseNestedInput
   marks?: Prisma.MarkUpdateManyWithoutCourseNestedInput
+  marksPublications?: Prisma.CourseMarksPublicationUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutStudentsInput = {
@@ -1618,6 +1882,8 @@ export type CourseUncheckedUpdateWithoutStudentsInput = {
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
+  is_practical_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sectionCourses?: Prisma.SectionCourseUncheckedUpdateManyWithoutCourseNestedInput
@@ -1629,6 +1895,7 @@ export type CourseUncheckedUpdateWithoutStudentsInput = {
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUncheckedUpdateManyWithoutCourseNestedInput
   marks?: Prisma.MarkUncheckedUpdateManyWithoutCourseNestedInput
+  marksPublications?: Prisma.CourseMarksPublicationUncheckedUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseCreateWithoutLecturesInput = {
@@ -1640,6 +1907,8 @@ export type CourseCreateWithoutLecturesInput = {
   semester?: $Enums.Semester | null
   theoretical_grade: number
   practical_grade: number
+  is_practical_marks_published?: boolean
+  is_marks_published?: boolean
   created_at?: Date | string
   updated_at?: Date | string | null
   year: Prisma.YearCreateNestedOneWithoutCoursesInput
@@ -1652,6 +1921,7 @@ export type CourseCreateWithoutLecturesInput = {
   announcements?: Prisma.AnnouncementCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamCreateNestedManyWithoutCourseInput
   marks?: Prisma.MarkCreateNestedManyWithoutCourseInput
+  marksPublications?: Prisma.CourseMarksPublicationCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUncheckedCreateWithoutLecturesInput = {
@@ -1665,6 +1935,8 @@ export type CourseUncheckedCreateWithoutLecturesInput = {
   theoretical_grade: number
   practical_grade: number
   year_id: number
+  is_practical_marks_published?: boolean
+  is_marks_published?: boolean
   created_at?: Date | string
   updated_at?: Date | string | null
   sectionCourses?: Prisma.SectionCourseUncheckedCreateNestedManyWithoutCourseInput
@@ -1676,6 +1948,7 @@ export type CourseUncheckedCreateWithoutLecturesInput = {
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamUncheckedCreateNestedManyWithoutCourseInput
   marks?: Prisma.MarkUncheckedCreateNestedManyWithoutCourseInput
+  marksPublications?: Prisma.CourseMarksPublicationUncheckedCreateNestedManyWithoutCourseInput
 }
 
 export type CourseCreateOrConnectWithoutLecturesInput = {
@@ -1703,6 +1976,8 @@ export type CourseUpdateWithoutLecturesInput = {
   semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
+  is_practical_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   year?: Prisma.YearUpdateOneRequiredWithoutCoursesNestedInput
@@ -1715,6 +1990,7 @@ export type CourseUpdateWithoutLecturesInput = {
   announcements?: Prisma.AnnouncementUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUpdateManyWithoutCourseNestedInput
   marks?: Prisma.MarkUpdateManyWithoutCourseNestedInput
+  marksPublications?: Prisma.CourseMarksPublicationUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutLecturesInput = {
@@ -1728,6 +2004,8 @@ export type CourseUncheckedUpdateWithoutLecturesInput = {
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
+  is_practical_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sectionCourses?: Prisma.SectionCourseUncheckedUpdateManyWithoutCourseNestedInput
@@ -1739,6 +2017,7 @@ export type CourseUncheckedUpdateWithoutLecturesInput = {
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUncheckedUpdateManyWithoutCourseNestedInput
   marks?: Prisma.MarkUncheckedUpdateManyWithoutCourseNestedInput
+  marksPublications?: Prisma.CourseMarksPublicationUncheckedUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseCreateWithoutAnnouncementsInput = {
@@ -1750,6 +2029,8 @@ export type CourseCreateWithoutAnnouncementsInput = {
   semester?: $Enums.Semester | null
   theoretical_grade: number
   practical_grade: number
+  is_practical_marks_published?: boolean
+  is_marks_published?: boolean
   created_at?: Date | string
   updated_at?: Date | string | null
   year: Prisma.YearCreateNestedOneWithoutCoursesInput
@@ -1762,6 +2043,7 @@ export type CourseCreateWithoutAnnouncementsInput = {
   students?: Prisma.StudentCourseCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamCreateNestedManyWithoutCourseInput
   marks?: Prisma.MarkCreateNestedManyWithoutCourseInput
+  marksPublications?: Prisma.CourseMarksPublicationCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUncheckedCreateWithoutAnnouncementsInput = {
@@ -1775,6 +2057,8 @@ export type CourseUncheckedCreateWithoutAnnouncementsInput = {
   theoretical_grade: number
   practical_grade: number
   year_id: number
+  is_practical_marks_published?: boolean
+  is_marks_published?: boolean
   created_at?: Date | string
   updated_at?: Date | string | null
   sectionCourses?: Prisma.SectionCourseUncheckedCreateNestedManyWithoutCourseInput
@@ -1786,6 +2070,7 @@ export type CourseUncheckedCreateWithoutAnnouncementsInput = {
   students?: Prisma.StudentCourseUncheckedCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamUncheckedCreateNestedManyWithoutCourseInput
   marks?: Prisma.MarkUncheckedCreateNestedManyWithoutCourseInput
+  marksPublications?: Prisma.CourseMarksPublicationUncheckedCreateNestedManyWithoutCourseInput
 }
 
 export type CourseCreateOrConnectWithoutAnnouncementsInput = {
@@ -1813,6 +2098,8 @@ export type CourseUpdateWithoutAnnouncementsInput = {
   semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
+  is_practical_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   year?: Prisma.YearUpdateOneRequiredWithoutCoursesNestedInput
@@ -1825,6 +2112,7 @@ export type CourseUpdateWithoutAnnouncementsInput = {
   students?: Prisma.StudentCourseUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUpdateManyWithoutCourseNestedInput
   marks?: Prisma.MarkUpdateManyWithoutCourseNestedInput
+  marksPublications?: Prisma.CourseMarksPublicationUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutAnnouncementsInput = {
@@ -1838,6 +2126,8 @@ export type CourseUncheckedUpdateWithoutAnnouncementsInput = {
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
+  is_practical_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sectionCourses?: Prisma.SectionCourseUncheckedUpdateManyWithoutCourseNestedInput
@@ -1849,6 +2139,7 @@ export type CourseUncheckedUpdateWithoutAnnouncementsInput = {
   students?: Prisma.StudentCourseUncheckedUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUncheckedUpdateManyWithoutCourseNestedInput
   marks?: Prisma.MarkUncheckedUpdateManyWithoutCourseNestedInput
+  marksPublications?: Prisma.CourseMarksPublicationUncheckedUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseCreateWithoutExamsInput = {
@@ -1860,6 +2151,8 @@ export type CourseCreateWithoutExamsInput = {
   semester?: $Enums.Semester | null
   theoretical_grade: number
   practical_grade: number
+  is_practical_marks_published?: boolean
+  is_marks_published?: boolean
   created_at?: Date | string
   updated_at?: Date | string | null
   year: Prisma.YearCreateNestedOneWithoutCoursesInput
@@ -1872,6 +2165,7 @@ export type CourseCreateWithoutExamsInput = {
   students?: Prisma.StudentCourseCreateNestedManyWithoutCourseInput
   announcements?: Prisma.AnnouncementCreateNestedManyWithoutCourseInput
   marks?: Prisma.MarkCreateNestedManyWithoutCourseInput
+  marksPublications?: Prisma.CourseMarksPublicationCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUncheckedCreateWithoutExamsInput = {
@@ -1885,6 +2179,8 @@ export type CourseUncheckedCreateWithoutExamsInput = {
   theoretical_grade: number
   practical_grade: number
   year_id: number
+  is_practical_marks_published?: boolean
+  is_marks_published?: boolean
   created_at?: Date | string
   updated_at?: Date | string | null
   sectionCourses?: Prisma.SectionCourseUncheckedCreateNestedManyWithoutCourseInput
@@ -1896,6 +2192,7 @@ export type CourseUncheckedCreateWithoutExamsInput = {
   students?: Prisma.StudentCourseUncheckedCreateNestedManyWithoutCourseInput
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCourseInput
   marks?: Prisma.MarkUncheckedCreateNestedManyWithoutCourseInput
+  marksPublications?: Prisma.CourseMarksPublicationUncheckedCreateNestedManyWithoutCourseInput
 }
 
 export type CourseCreateOrConnectWithoutExamsInput = {
@@ -1923,6 +2220,8 @@ export type CourseUpdateWithoutExamsInput = {
   semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
+  is_practical_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   year?: Prisma.YearUpdateOneRequiredWithoutCoursesNestedInput
@@ -1935,6 +2234,7 @@ export type CourseUpdateWithoutExamsInput = {
   students?: Prisma.StudentCourseUpdateManyWithoutCourseNestedInput
   announcements?: Prisma.AnnouncementUpdateManyWithoutCourseNestedInput
   marks?: Prisma.MarkUpdateManyWithoutCourseNestedInput
+  marksPublications?: Prisma.CourseMarksPublicationUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutExamsInput = {
@@ -1948,6 +2248,8 @@ export type CourseUncheckedUpdateWithoutExamsInput = {
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
+  is_practical_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sectionCourses?: Prisma.SectionCourseUncheckedUpdateManyWithoutCourseNestedInput
@@ -1959,6 +2261,7 @@ export type CourseUncheckedUpdateWithoutExamsInput = {
   students?: Prisma.StudentCourseUncheckedUpdateManyWithoutCourseNestedInput
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCourseNestedInput
   marks?: Prisma.MarkUncheckedUpdateManyWithoutCourseNestedInput
+  marksPublications?: Prisma.CourseMarksPublicationUncheckedUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUpdateWithoutTeachersInput = {
@@ -1970,6 +2273,8 @@ export type CourseUpdateWithoutTeachersInput = {
   semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
+  is_practical_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   year?: Prisma.YearUpdateOneRequiredWithoutCoursesNestedInput
@@ -1982,6 +2287,7 @@ export type CourseUpdateWithoutTeachersInput = {
   announcements?: Prisma.AnnouncementUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUpdateManyWithoutCourseNestedInput
   marks?: Prisma.MarkUpdateManyWithoutCourseNestedInput
+  marksPublications?: Prisma.CourseMarksPublicationUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutTeachersInput = {
@@ -1995,6 +2301,8 @@ export type CourseUncheckedUpdateWithoutTeachersInput = {
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
+  is_practical_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sectionCourses?: Prisma.SectionCourseUncheckedUpdateManyWithoutCourseNestedInput
@@ -2006,6 +2314,7 @@ export type CourseUncheckedUpdateWithoutTeachersInput = {
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUncheckedUpdateManyWithoutCourseNestedInput
   marks?: Prisma.MarkUncheckedUpdateManyWithoutCourseNestedInput
+  marksPublications?: Prisma.CourseMarksPublicationUncheckedUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateManyWithoutTeachersInput = {
@@ -2019,6 +2328,8 @@ export type CourseUncheckedUpdateManyWithoutTeachersInput = {
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
+  is_practical_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
@@ -2032,6 +2343,8 @@ export type CourseUpdateWithoutDoctorsInput = {
   semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
+  is_practical_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   year?: Prisma.YearUpdateOneRequiredWithoutCoursesNestedInput
@@ -2044,6 +2357,7 @@ export type CourseUpdateWithoutDoctorsInput = {
   announcements?: Prisma.AnnouncementUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUpdateManyWithoutCourseNestedInput
   marks?: Prisma.MarkUpdateManyWithoutCourseNestedInput
+  marksPublications?: Prisma.CourseMarksPublicationUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutDoctorsInput = {
@@ -2057,6 +2371,8 @@ export type CourseUncheckedUpdateWithoutDoctorsInput = {
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
+  is_practical_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sectionCourses?: Prisma.SectionCourseUncheckedUpdateManyWithoutCourseNestedInput
@@ -2068,6 +2384,7 @@ export type CourseUncheckedUpdateWithoutDoctorsInput = {
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUncheckedUpdateManyWithoutCourseNestedInput
   marks?: Prisma.MarkUncheckedUpdateManyWithoutCourseNestedInput
+  marksPublications?: Prisma.CourseMarksPublicationUncheckedUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateManyWithoutDoctorsInput = {
@@ -2081,6 +2398,8 @@ export type CourseUncheckedUpdateManyWithoutDoctorsInput = {
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   year_id?: Prisma.IntFieldUpdateOperationsInput | number
+  is_practical_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
@@ -2095,6 +2414,8 @@ export type CourseCreateManyYearInput = {
   semester?: $Enums.Semester | null
   theoretical_grade: number
   practical_grade: number
+  is_practical_marks_published?: boolean
+  is_marks_published?: boolean
   created_at?: Date | string
   updated_at?: Date | string | null
 }
@@ -2108,6 +2429,8 @@ export type CourseUpdateWithoutYearInput = {
   semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
+  is_practical_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sectionCourses?: Prisma.SectionCourseUpdateManyWithoutCourseNestedInput
@@ -2120,6 +2443,7 @@ export type CourseUpdateWithoutYearInput = {
   announcements?: Prisma.AnnouncementUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUpdateManyWithoutCourseNestedInput
   marks?: Prisma.MarkUpdateManyWithoutCourseNestedInput
+  marksPublications?: Prisma.CourseMarksPublicationUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutYearInput = {
@@ -2132,6 +2456,8 @@ export type CourseUncheckedUpdateWithoutYearInput = {
   semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
+  is_practical_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sectionCourses?: Prisma.SectionCourseUncheckedUpdateManyWithoutCourseNestedInput
@@ -2144,6 +2470,7 @@ export type CourseUncheckedUpdateWithoutYearInput = {
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUncheckedUpdateManyWithoutCourseNestedInput
   marks?: Prisma.MarkUncheckedUpdateManyWithoutCourseNestedInput
+  marksPublications?: Prisma.CourseMarksPublicationUncheckedUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateManyWithoutYearInput = {
@@ -2156,6 +2483,8 @@ export type CourseUncheckedUpdateManyWithoutYearInput = {
   semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
+  is_practical_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
@@ -2176,6 +2505,7 @@ export type CourseCountOutputType = {
   announcements: number
   exams: number
   marks: number
+  marksPublications: number
 }
 
 export type CourseCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2189,6 +2519,7 @@ export type CourseCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions
   announcements?: boolean | CourseCountOutputTypeCountAnnouncementsArgs
   exams?: boolean | CourseCountOutputTypeCountExamsArgs
   marks?: boolean | CourseCountOutputTypeCountMarksArgs
+  marksPublications?: boolean | CourseCountOutputTypeCountMarksPublicationsArgs
 }
 
 /**
@@ -2271,6 +2602,13 @@ export type CourseCountOutputTypeCountMarksArgs<ExtArgs extends runtime.Types.Ex
   where?: Prisma.MarkWhereInput
 }
 
+/**
+ * CourseCountOutputType without action
+ */
+export type CourseCountOutputTypeCountMarksPublicationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CourseMarksPublicationWhereInput
+}
+
 
 export type CourseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2283,6 +2621,8 @@ export type CourseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   theoretical_grade?: boolean
   practical_grade?: boolean
   year_id?: boolean
+  is_practical_marks_published?: boolean
+  is_marks_published?: boolean
   created_at?: boolean
   updated_at?: boolean
   year?: boolean | Prisma.YearDefaultArgs<ExtArgs>
@@ -2296,6 +2636,7 @@ export type CourseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   announcements?: boolean | Prisma.Course$announcementsArgs<ExtArgs>
   exams?: boolean | Prisma.Course$examsArgs<ExtArgs>
   marks?: boolean | Prisma.Course$marksArgs<ExtArgs>
+  marksPublications?: boolean | Prisma.Course$marksPublicationsArgs<ExtArgs>
   _count?: boolean | Prisma.CourseCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["course"]>
 
@@ -2310,6 +2651,8 @@ export type CourseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   theoretical_grade?: boolean
   practical_grade?: boolean
   year_id?: boolean
+  is_practical_marks_published?: boolean
+  is_marks_published?: boolean
   created_at?: boolean
   updated_at?: boolean
   year?: boolean | Prisma.YearDefaultArgs<ExtArgs>
@@ -2326,6 +2669,8 @@ export type CourseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   theoretical_grade?: boolean
   practical_grade?: boolean
   year_id?: boolean
+  is_practical_marks_published?: boolean
+  is_marks_published?: boolean
   created_at?: boolean
   updated_at?: boolean
   year?: boolean | Prisma.YearDefaultArgs<ExtArgs>
@@ -2342,11 +2687,13 @@ export type CourseSelectScalar = {
   theoretical_grade?: boolean
   practical_grade?: boolean
   year_id?: boolean
+  is_practical_marks_published?: boolean
+  is_marks_published?: boolean
   created_at?: boolean
   updated_at?: boolean
 }
 
-export type CourseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "code" | "image" | "course_type" | "exam_type" | "semester" | "theoretical_grade" | "practical_grade" | "year_id" | "created_at" | "updated_at", ExtArgs["result"]["course"]>
+export type CourseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "code" | "image" | "course_type" | "exam_type" | "semester" | "theoretical_grade" | "practical_grade" | "year_id" | "is_practical_marks_published" | "is_marks_published" | "created_at" | "updated_at", ExtArgs["result"]["course"]>
 export type CourseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   year?: boolean | Prisma.YearDefaultArgs<ExtArgs>
   sectionCourses?: boolean | Prisma.Course$sectionCoursesArgs<ExtArgs>
@@ -2359,6 +2706,7 @@ export type CourseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   announcements?: boolean | Prisma.Course$announcementsArgs<ExtArgs>
   exams?: boolean | Prisma.Course$examsArgs<ExtArgs>
   marks?: boolean | Prisma.Course$marksArgs<ExtArgs>
+  marksPublications?: boolean | Prisma.Course$marksPublicationsArgs<ExtArgs>
   _count?: boolean | Prisma.CourseCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CourseIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2382,6 +2730,7 @@ export type $CoursePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     announcements: Prisma.$AnnouncementPayload<ExtArgs>[]
     exams: Prisma.$ExamPayload<ExtArgs>[]
     marks: Prisma.$MarkPayload<ExtArgs>[]
+    marksPublications: Prisma.$CourseMarksPublicationPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -2394,6 +2743,8 @@ export type $CoursePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     theoretical_grade: number
     practical_grade: number
     year_id: number
+    is_practical_marks_published: boolean
+    is_marks_published: boolean
     created_at: Date
     updated_at: Date | null
   }, ExtArgs["result"]["course"]>
@@ -2801,6 +3152,7 @@ export interface Prisma__CourseClient<T, Null = never, ExtArgs extends runtime.T
   announcements<T extends Prisma.Course$announcementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Course$announcementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AnnouncementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   exams<T extends Prisma.Course$examsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Course$examsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ExamPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   marks<T extends Prisma.Course$marksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Course$marksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MarkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  marksPublications<T extends Prisma.Course$marksPublicationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Course$marksPublicationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CourseMarksPublicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2840,6 +3192,8 @@ export interface CourseFieldRefs {
   readonly theoretical_grade: Prisma.FieldRef<"Course", 'Int'>
   readonly practical_grade: Prisma.FieldRef<"Course", 'Int'>
   readonly year_id: Prisma.FieldRef<"Course", 'Int'>
+  readonly is_practical_marks_published: Prisma.FieldRef<"Course", 'Boolean'>
+  readonly is_marks_published: Prisma.FieldRef<"Course", 'Boolean'>
   readonly created_at: Prisma.FieldRef<"Course", 'DateTime'>
   readonly updated_at: Prisma.FieldRef<"Course", 'DateTime'>
 }
@@ -3480,6 +3834,30 @@ export type Course$marksArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.MarkScalarFieldEnum | Prisma.MarkScalarFieldEnum[]
+}
+
+/**
+ * Course.marksPublications
+ */
+export type Course$marksPublicationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CourseMarksPublication
+   */
+  select?: Prisma.CourseMarksPublicationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CourseMarksPublication
+   */
+  omit?: Prisma.CourseMarksPublicationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CourseMarksPublicationInclude<ExtArgs> | null
+  where?: Prisma.CourseMarksPublicationWhereInput
+  orderBy?: Prisma.CourseMarksPublicationOrderByWithRelationInput | Prisma.CourseMarksPublicationOrderByWithRelationInput[]
+  cursor?: Prisma.CourseMarksPublicationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CourseMarksPublicationScalarFieldEnum | Prisma.CourseMarksPublicationScalarFieldEnum[]
 }
 
 /**

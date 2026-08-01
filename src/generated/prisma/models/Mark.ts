@@ -46,6 +46,7 @@ export type MarkMinAggregateOutputType = {
   id: number | null
   course_id: number | null
   student_id: number | null
+  academic_key: string | null
   practical_grade: number | null
   theoretical_grade: number | null
   created_at: Date | null
@@ -56,6 +57,7 @@ export type MarkMaxAggregateOutputType = {
   id: number | null
   course_id: number | null
   student_id: number | null
+  academic_key: string | null
   practical_grade: number | null
   theoretical_grade: number | null
   created_at: Date | null
@@ -66,6 +68,7 @@ export type MarkCountAggregateOutputType = {
   id: number
   course_id: number
   student_id: number
+  academic_key: number
   practical_grade: number
   theoretical_grade: number
   created_at: number
@@ -94,6 +97,7 @@ export type MarkMinAggregateInputType = {
   id?: true
   course_id?: true
   student_id?: true
+  academic_key?: true
   practical_grade?: true
   theoretical_grade?: true
   created_at?: true
@@ -104,6 +108,7 @@ export type MarkMaxAggregateInputType = {
   id?: true
   course_id?: true
   student_id?: true
+  academic_key?: true
   practical_grade?: true
   theoretical_grade?: true
   created_at?: true
@@ -114,6 +119,7 @@ export type MarkCountAggregateInputType = {
   id?: true
   course_id?: true
   student_id?: true
+  academic_key?: true
   practical_grade?: true
   theoretical_grade?: true
   created_at?: true
@@ -211,6 +217,7 @@ export type MarkGroupByOutputType = {
   id: number
   course_id: number
   student_id: number
+  academic_key: string
   practical_grade: number
   theoretical_grade: number
   created_at: Date
@@ -244,6 +251,7 @@ export type MarkWhereInput = {
   id?: Prisma.IntFilter<"Mark"> | number
   course_id?: Prisma.IntFilter<"Mark"> | number
   student_id?: Prisma.IntFilter<"Mark"> | number
+  academic_key?: Prisma.StringFilter<"Mark"> | string
   practical_grade?: Prisma.IntFilter<"Mark"> | number
   theoretical_grade?: Prisma.IntFilter<"Mark"> | number
   created_at?: Prisma.DateTimeFilter<"Mark"> | Date | string
@@ -256,6 +264,7 @@ export type MarkOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   course_id?: Prisma.SortOrder
   student_id?: Prisma.SortOrder
+  academic_key?: Prisma.SortOrder
   practical_grade?: Prisma.SortOrder
   theoretical_grade?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
@@ -266,24 +275,26 @@ export type MarkOrderByWithRelationInput = {
 
 export type MarkWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  course_id_student_id?: Prisma.MarkCourse_idStudent_idCompoundUniqueInput
+  course_id_student_id_academic_key?: Prisma.MarkCourse_idStudent_idAcademic_keyCompoundUniqueInput
   AND?: Prisma.MarkWhereInput | Prisma.MarkWhereInput[]
   OR?: Prisma.MarkWhereInput[]
   NOT?: Prisma.MarkWhereInput | Prisma.MarkWhereInput[]
   course_id?: Prisma.IntFilter<"Mark"> | number
   student_id?: Prisma.IntFilter<"Mark"> | number
+  academic_key?: Prisma.StringFilter<"Mark"> | string
   practical_grade?: Prisma.IntFilter<"Mark"> | number
   theoretical_grade?: Prisma.IntFilter<"Mark"> | number
   created_at?: Prisma.DateTimeFilter<"Mark"> | Date | string
   updated_at?: Prisma.DateTimeNullableFilter<"Mark"> | Date | string | null
   course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>
   student?: Prisma.XOR<Prisma.StudentScalarRelationFilter, Prisma.StudentWhereInput>
-}, "id" | "course_id_student_id">
+}, "id" | "course_id_student_id_academic_key">
 
 export type MarkOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   course_id?: Prisma.SortOrder
   student_id?: Prisma.SortOrder
+  academic_key?: Prisma.SortOrder
   practical_grade?: Prisma.SortOrder
   theoretical_grade?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
@@ -302,6 +313,7 @@ export type MarkScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"Mark"> | number
   course_id?: Prisma.IntWithAggregatesFilter<"Mark"> | number
   student_id?: Prisma.IntWithAggregatesFilter<"Mark"> | number
+  academic_key?: Prisma.StringWithAggregatesFilter<"Mark"> | string
   practical_grade?: Prisma.IntWithAggregatesFilter<"Mark"> | number
   theoretical_grade?: Prisma.IntWithAggregatesFilter<"Mark"> | number
   created_at?: Prisma.DateTimeWithAggregatesFilter<"Mark"> | Date | string
@@ -309,6 +321,7 @@ export type MarkScalarWhereWithAggregatesInput = {
 }
 
 export type MarkCreateInput = {
+  academic_key: string
   practical_grade: number
   theoretical_grade: number
   created_at?: Date | string
@@ -321,6 +334,7 @@ export type MarkUncheckedCreateInput = {
   id?: number
   course_id: number
   student_id: number
+  academic_key: string
   practical_grade: number
   theoretical_grade: number
   created_at?: Date | string
@@ -328,6 +342,7 @@ export type MarkUncheckedCreateInput = {
 }
 
 export type MarkUpdateInput = {
+  academic_key?: Prisma.StringFieldUpdateOperationsInput | string
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -340,6 +355,7 @@ export type MarkUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   course_id?: Prisma.IntFieldUpdateOperationsInput | number
   student_id?: Prisma.IntFieldUpdateOperationsInput | number
+  academic_key?: Prisma.StringFieldUpdateOperationsInput | string
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -350,6 +366,7 @@ export type MarkCreateManyInput = {
   id?: number
   course_id: number
   student_id: number
+  academic_key: string
   practical_grade: number
   theoretical_grade: number
   created_at?: Date | string
@@ -357,6 +374,7 @@ export type MarkCreateManyInput = {
 }
 
 export type MarkUpdateManyMutationInput = {
+  academic_key?: Prisma.StringFieldUpdateOperationsInput | string
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -367,6 +385,7 @@ export type MarkUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   course_id?: Prisma.IntFieldUpdateOperationsInput | number
   student_id?: Prisma.IntFieldUpdateOperationsInput | number
+  academic_key?: Prisma.StringFieldUpdateOperationsInput | string
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -383,15 +402,17 @@ export type MarkOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type MarkCourse_idStudent_idCompoundUniqueInput = {
+export type MarkCourse_idStudent_idAcademic_keyCompoundUniqueInput = {
   course_id: number
   student_id: number
+  academic_key: string
 }
 
 export type MarkCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   course_id?: Prisma.SortOrder
   student_id?: Prisma.SortOrder
+  academic_key?: Prisma.SortOrder
   practical_grade?: Prisma.SortOrder
   theoretical_grade?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
@@ -410,6 +431,7 @@ export type MarkMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   course_id?: Prisma.SortOrder
   student_id?: Prisma.SortOrder
+  academic_key?: Prisma.SortOrder
   practical_grade?: Prisma.SortOrder
   theoretical_grade?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
@@ -420,6 +442,7 @@ export type MarkMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   course_id?: Prisma.SortOrder
   student_id?: Prisma.SortOrder
+  academic_key?: Prisma.SortOrder
   practical_grade?: Prisma.SortOrder
   theoretical_grade?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
@@ -519,6 +542,7 @@ export type MarkUncheckedUpdateManyWithoutCourseNestedInput = {
 }
 
 export type MarkCreateWithoutStudentInput = {
+  academic_key: string
   practical_grade: number
   theoretical_grade: number
   created_at?: Date | string
@@ -529,6 +553,7 @@ export type MarkCreateWithoutStudentInput = {
 export type MarkUncheckedCreateWithoutStudentInput = {
   id?: number
   course_id: number
+  academic_key: string
   practical_grade: number
   theoretical_grade: number
   created_at?: Date | string
@@ -568,6 +593,7 @@ export type MarkScalarWhereInput = {
   id?: Prisma.IntFilter<"Mark"> | number
   course_id?: Prisma.IntFilter<"Mark"> | number
   student_id?: Prisma.IntFilter<"Mark"> | number
+  academic_key?: Prisma.StringFilter<"Mark"> | string
   practical_grade?: Prisma.IntFilter<"Mark"> | number
   theoretical_grade?: Prisma.IntFilter<"Mark"> | number
   created_at?: Prisma.DateTimeFilter<"Mark"> | Date | string
@@ -575,6 +601,7 @@ export type MarkScalarWhereInput = {
 }
 
 export type MarkCreateWithoutCourseInput = {
+  academic_key: string
   practical_grade: number
   theoretical_grade: number
   created_at?: Date | string
@@ -585,6 +612,7 @@ export type MarkCreateWithoutCourseInput = {
 export type MarkUncheckedCreateWithoutCourseInput = {
   id?: number
   student_id: number
+  academic_key: string
   practical_grade: number
   theoretical_grade: number
   created_at?: Date | string
@@ -620,6 +648,7 @@ export type MarkUpdateManyWithWhereWithoutCourseInput = {
 export type MarkCreateManyStudentInput = {
   id?: number
   course_id: number
+  academic_key: string
   practical_grade: number
   theoretical_grade: number
   created_at?: Date | string
@@ -627,6 +656,7 @@ export type MarkCreateManyStudentInput = {
 }
 
 export type MarkUpdateWithoutStudentInput = {
+  academic_key?: Prisma.StringFieldUpdateOperationsInput | string
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -637,6 +667,7 @@ export type MarkUpdateWithoutStudentInput = {
 export type MarkUncheckedUpdateWithoutStudentInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   course_id?: Prisma.IntFieldUpdateOperationsInput | number
+  academic_key?: Prisma.StringFieldUpdateOperationsInput | string
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -646,6 +677,7 @@ export type MarkUncheckedUpdateWithoutStudentInput = {
 export type MarkUncheckedUpdateManyWithoutStudentInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   course_id?: Prisma.IntFieldUpdateOperationsInput | number
+  academic_key?: Prisma.StringFieldUpdateOperationsInput | string
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -655,6 +687,7 @@ export type MarkUncheckedUpdateManyWithoutStudentInput = {
 export type MarkCreateManyCourseInput = {
   id?: number
   student_id: number
+  academic_key: string
   practical_grade: number
   theoretical_grade: number
   created_at?: Date | string
@@ -662,6 +695,7 @@ export type MarkCreateManyCourseInput = {
 }
 
 export type MarkUpdateWithoutCourseInput = {
+  academic_key?: Prisma.StringFieldUpdateOperationsInput | string
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -672,6 +706,7 @@ export type MarkUpdateWithoutCourseInput = {
 export type MarkUncheckedUpdateWithoutCourseInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   student_id?: Prisma.IntFieldUpdateOperationsInput | number
+  academic_key?: Prisma.StringFieldUpdateOperationsInput | string
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -681,6 +716,7 @@ export type MarkUncheckedUpdateWithoutCourseInput = {
 export type MarkUncheckedUpdateManyWithoutCourseInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   student_id?: Prisma.IntFieldUpdateOperationsInput | number
+  academic_key?: Prisma.StringFieldUpdateOperationsInput | string
   practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -693,6 +729,7 @@ export type MarkSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   id?: boolean
   course_id?: boolean
   student_id?: boolean
+  academic_key?: boolean
   practical_grade?: boolean
   theoretical_grade?: boolean
   created_at?: boolean
@@ -705,6 +742,7 @@ export type MarkSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   course_id?: boolean
   student_id?: boolean
+  academic_key?: boolean
   practical_grade?: boolean
   theoretical_grade?: boolean
   created_at?: boolean
@@ -717,6 +755,7 @@ export type MarkSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   course_id?: boolean
   student_id?: boolean
+  academic_key?: boolean
   practical_grade?: boolean
   theoretical_grade?: boolean
   created_at?: boolean
@@ -729,13 +768,14 @@ export type MarkSelectScalar = {
   id?: boolean
   course_id?: boolean
   student_id?: boolean
+  academic_key?: boolean
   practical_grade?: boolean
   theoretical_grade?: boolean
   created_at?: boolean
   updated_at?: boolean
 }
 
-export type MarkOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "course_id" | "student_id" | "practical_grade" | "theoretical_grade" | "created_at" | "updated_at", ExtArgs["result"]["mark"]>
+export type MarkOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "course_id" | "student_id" | "academic_key" | "practical_grade" | "theoretical_grade" | "created_at" | "updated_at", ExtArgs["result"]["mark"]>
 export type MarkInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
   student?: boolean | Prisma.StudentDefaultArgs<ExtArgs>
@@ -759,6 +799,7 @@ export type $MarkPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     id: number
     course_id: number
     student_id: number
+    academic_key: string
     practical_grade: number
     theoretical_grade: number
     created_at: Date
@@ -1191,6 +1232,7 @@ export interface MarkFieldRefs {
   readonly id: Prisma.FieldRef<"Mark", 'Int'>
   readonly course_id: Prisma.FieldRef<"Mark", 'Int'>
   readonly student_id: Prisma.FieldRef<"Mark", 'Int'>
+  readonly academic_key: Prisma.FieldRef<"Mark", 'String'>
   readonly practical_grade: Prisma.FieldRef<"Mark", 'Int'>
   readonly theoretical_grade: Prisma.FieldRef<"Mark", 'Int'>
   readonly created_at: Prisma.FieldRef<"Mark", 'DateTime'>

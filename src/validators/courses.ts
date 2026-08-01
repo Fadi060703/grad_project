@@ -12,6 +12,8 @@ export const getCoursesSchema = z.object({
   semester: z.enum(["FIRST", "SECOND"]).optional().nullable(),
   theoretical_grade: z.number().int().min(0).max(100),
   practical_grade: z.number().int().min(0).max(100),
+  is_practical_marks_published: z.boolean(),
+  is_marks_published: z.boolean(),
   year_id: z.number().positive(),
   year: z
     .object({

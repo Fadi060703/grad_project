@@ -20,6 +20,7 @@ export const getSystemSettings = asyncHandler(async (req: Request, res: Response
       aided_marks_number: true,
       theoretical_exam_date: true,
       practical_exam_date: true,
+      current_academic_key: true,
       created_at: true,
       updated_at: true,
     },
@@ -57,6 +58,7 @@ export const createOrUpdateSystemSettings = asyncHandler(async (req: Request, re
     practical_exam_date: data.practical_exam_date !== undefined
       ? data.practical_exam_date ? new Date(data.practical_exam_date) : null
       : undefined,
+    current_academic_key: data.current_academic_key !== undefined ? data.current_academic_key : undefined,
   };
 
   if (!existingSettings) {
@@ -68,6 +70,7 @@ export const createOrUpdateSystemSettings = asyncHandler(async (req: Request, re
         aided_marks_number: payload.aided_marks_number ?? null,
         theoretical_exam_date: payload.theoretical_exam_date ?? null,
         practical_exam_date: payload.practical_exam_date ?? null,
+        current_academic_key: payload.current_academic_key ?? null,
       },
       select: {
         id: true,
@@ -100,6 +103,7 @@ export const createOrUpdateSystemSettings = asyncHandler(async (req: Request, re
       aided_marks_number: true,
       theoretical_exam_date: true,
       practical_exam_date: true,
+      current_academic_key: true,
       created_at: true,
       updated_at: true,
     },

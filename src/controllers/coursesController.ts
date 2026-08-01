@@ -74,6 +74,8 @@ export const getAllCourses = createListHandler({
       semester: true,
       theoretical_grade: true,
       practical_grade: true,
+      is_practical_marks_published: true,
+      is_marks_published: true,
       year_id: true,
       year: {
         select: {
@@ -1035,6 +1037,8 @@ export const getMyCourses = createListHandler({
       semester: true,
       theoretical_grade: true,
       practical_grade: true,
+      is_practical_marks_published: true,
+      is_marks_published: true,
       year_id: true,
       year: {
         select: {
@@ -1166,6 +1170,8 @@ export const getMyStudentCourses = createListHandler({
       semester: true,
       theoretical_grade: true,
       practical_grade: true,
+      is_practical_marks_published: true,
+      is_marks_published: true,
       year_id: true,
       year: {
         select: {

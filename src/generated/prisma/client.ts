@@ -112,6 +112,11 @@ export type CourseFile = Prisma.CourseFileModel
  */
 export type Mark = Prisma.MarkModel
 /**
+ * Model CourseMarksPublication
+ * 
+ */
+export type CourseMarksPublication = Prisma.CourseMarksPublicationModel
+/**
  * Model StudentCourse
  * 
  */

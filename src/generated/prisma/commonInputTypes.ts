@@ -287,6 +287,23 @@ export type EnumLectureTypeWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumLectureTypeFilter<$PrismaModel>
 }
 
+export type EnumCourseMarksPublishTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.CourseMarksPublishType | Prisma.EnumCourseMarksPublishTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.CourseMarksPublishType[] | Prisma.ListEnumCourseMarksPublishTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CourseMarksPublishType[] | Prisma.ListEnumCourseMarksPublishTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCourseMarksPublishTypeFilter<$PrismaModel> | $Enums.CourseMarksPublishType
+}
+
+export type EnumCourseMarksPublishTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CourseMarksPublishType | Prisma.EnumCourseMarksPublishTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.CourseMarksPublishType[] | Prisma.ListEnumCourseMarksPublishTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CourseMarksPublishType[] | Prisma.ListEnumCourseMarksPublishTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCourseMarksPublishTypeWithAggregatesFilter<$PrismaModel> | $Enums.CourseMarksPublishType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCourseMarksPublishTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCourseMarksPublishTypeFilter<$PrismaModel>
+}
+
 export type EnumStudentCourseStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.StudentCourseStatus | Prisma.EnumStudentCourseStatusFieldRefInput<$PrismaModel>
   in?: $Enums.StudentCourseStatus[] | Prisma.ListEnumStudentCourseStatusFieldRefInput<$PrismaModel>
@@ -673,6 +690,23 @@ export type NestedEnumLectureTypeWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumLectureTypeFilter<$PrismaModel>
   _max?: Prisma.NestedEnumLectureTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumCourseMarksPublishTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.CourseMarksPublishType | Prisma.EnumCourseMarksPublishTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.CourseMarksPublishType[] | Prisma.ListEnumCourseMarksPublishTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CourseMarksPublishType[] | Prisma.ListEnumCourseMarksPublishTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCourseMarksPublishTypeFilter<$PrismaModel> | $Enums.CourseMarksPublishType
+}
+
+export type NestedEnumCourseMarksPublishTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CourseMarksPublishType | Prisma.EnumCourseMarksPublishTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.CourseMarksPublishType[] | Prisma.ListEnumCourseMarksPublishTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CourseMarksPublishType[] | Prisma.ListEnumCourseMarksPublishTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCourseMarksPublishTypeWithAggregatesFilter<$PrismaModel> | $Enums.CourseMarksPublishType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCourseMarksPublishTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCourseMarksPublishTypeFilter<$PrismaModel>
 }
 
 export type NestedEnumStudentCourseStatusFilter<$PrismaModel = never> = {

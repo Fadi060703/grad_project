@@ -5,7 +5,7 @@ const markItemSchema = z
     course_id: z.number().positive(),
     student_id: z.number().positive(),
     practical_grade: z.number().int().min(0).max(100),
-    theoretical_grade: z.number().int().min(0).max(100),
+    theoretical_grade: z.number().int().min(0).max(100).default(0),
   })
   .refine((data) => data.practical_grade + data.theoretical_grade <= 100, {
     message: "Sum of practical and theoretical grades must be <= 100",
@@ -19,7 +19,9 @@ const markCourseSchema = z.object({
   exam_type: z.enum(["MSQ", "WRITTEN"]),
   theoretical_grade: z.number().int().min(0).max(100),
   practical_grade: z.number().int().min(0).max(100),
-  code: z.string(),
+  is_practical_marks_published: z.boolean(),
+  is_marks_published: z.boolean(),
+  code: z.string().nullable(),
   year: z.object({
     id: z.number().positive(),
     name: z.string(),
@@ -43,6 +45,7 @@ const markBaseSchema = z.object({
   id: z.number().positive(),
   course_id: z.number().positive(),
   course: markCourseSchema,
+  academic_key: z.string(),
   practical_grade: z.number().int().min(0).max(100),
   theoretical_grade: z.number().int().min(0).max(100),
   total_grade: z.number().int().min(0).max(100),

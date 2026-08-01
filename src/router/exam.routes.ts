@@ -16,6 +16,8 @@ import {
   bulkDeleteMarks,
   getAllMarks,
   getMyStudentMarks,
+  publishFullMarks,
+  publishPracticalMarks,
   updateMark,
 } from "../controllers/marksController";
 import {
@@ -77,6 +79,16 @@ router.post(
   authMiddleware,
   check("marks:add"),
   bulkCreateMarks,
+);
+router.post(
+  "/marks/courses/:courseId/publish-practical",
+  authMiddleware,
+  publishPracticalMarks,
+);
+router.post(
+  "/marks/courses/:courseId/publish-full",
+  authMiddleware,
+  publishFullMarks,
 );
 router.put("/marks/:id", authMiddleware, check("marks:update"), updateMark);
 router.delete(

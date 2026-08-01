@@ -28,6 +28,7 @@ export const getAllUniversityLocations = createListHandler({
       id: true,
       name: true,
       reaching_description: true,
+      photo_array: true,
       created_at: true,
       updated_at: true,
     },
@@ -49,6 +50,7 @@ export const getUniversityLocationById = asyncHandler(async (req: Request, res: 
       id: true,
       name: true,
       reaching_description: true,
+      photo_array: true,
       created_at: true,
       updated_at: true,
     }
@@ -82,11 +84,13 @@ export const createUniversityLocation = asyncHandler(async (req: Request, res: R
     data: {
       name: data.name,
       reaching_description: data.reaching_description || null,
+      photo_array: data.photo_array,
     },
     select: {
       id: true,
       name: true,
       reaching_description: true,
+      photo_array: true,
       created_at: true,
       updated_at: true,
     }
@@ -128,10 +132,11 @@ export const updateUniversityLocation = asyncHandler(async (req: Request, res: R
     }
   }
   
-  const updateData: { name?: string; reaching_description?: string | null } = {};
+  const updateData: { name?: string; reaching_description?: string | null; photo_array?: string[] } = {};
   
   if (data.name !== undefined) updateData.name = data.name;
   if (data.reaching_description !== undefined) updateData.reaching_description = data.reaching_description;
+  if (data.photo_array !== undefined) updateData.photo_array = data.photo_array;
   
   const updated = await prisma.universityLocation.update({
     where: { id },
@@ -140,6 +145,7 @@ export const updateUniversityLocation = asyncHandler(async (req: Request, res: R
       id: true,
       name: true,
       reaching_description: true,
+      photo_array: true,
       created_at: true,
       updated_at: true,
     }

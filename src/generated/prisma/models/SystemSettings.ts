@@ -48,6 +48,7 @@ export type SystemSettingsMinAggregateOutputType = {
   aided_marks_number: number | null
   theoretical_exam_date: Date | null
   practical_exam_date: Date | null
+  current_academic_key: string | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -60,6 +61,7 @@ export type SystemSettingsMaxAggregateOutputType = {
   aided_marks_number: number | null
   theoretical_exam_date: Date | null
   practical_exam_date: Date | null
+  current_academic_key: string | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -72,6 +74,7 @@ export type SystemSettingsCountAggregateOutputType = {
   aided_marks_number: number
   theoretical_exam_date: number
   practical_exam_date: number
+  current_academic_key: number
   created_at: number
   updated_at: number
   _all: number
@@ -100,6 +103,7 @@ export type SystemSettingsMinAggregateInputType = {
   aided_marks_number?: true
   theoretical_exam_date?: true
   practical_exam_date?: true
+  current_academic_key?: true
   created_at?: true
   updated_at?: true
 }
@@ -112,6 +116,7 @@ export type SystemSettingsMaxAggregateInputType = {
   aided_marks_number?: true
   theoretical_exam_date?: true
   practical_exam_date?: true
+  current_academic_key?: true
   created_at?: true
   updated_at?: true
 }
@@ -124,6 +129,7 @@ export type SystemSettingsCountAggregateInputType = {
   aided_marks_number?: true
   theoretical_exam_date?: true
   practical_exam_date?: true
+  current_academic_key?: true
   created_at?: true
   updated_at?: true
   _all?: true
@@ -223,6 +229,7 @@ export type SystemSettingsGroupByOutputType = {
   aided_marks_number: number | null
   theoretical_exam_date: Date | null
   practical_exam_date: Date | null
+  current_academic_key: string | null
   created_at: Date
   updated_at: Date
   _count: SystemSettingsCountAggregateOutputType | null
@@ -258,6 +265,7 @@ export type SystemSettingsWhereInput = {
   aided_marks_number?: Prisma.IntNullableFilter<"SystemSettings"> | number | null
   theoretical_exam_date?: Prisma.DateTimeNullableFilter<"SystemSettings"> | Date | string | null
   practical_exam_date?: Prisma.DateTimeNullableFilter<"SystemSettings"> | Date | string | null
+  current_academic_key?: Prisma.StringNullableFilter<"SystemSettings"> | string | null
   created_at?: Prisma.DateTimeFilter<"SystemSettings"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"SystemSettings"> | Date | string
 }
@@ -270,6 +278,7 @@ export type SystemSettingsOrderByWithRelationInput = {
   aided_marks_number?: Prisma.SortOrderInput | Prisma.SortOrder
   theoretical_exam_date?: Prisma.SortOrderInput | Prisma.SortOrder
   practical_exam_date?: Prisma.SortOrderInput | Prisma.SortOrder
+  current_academic_key?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -285,6 +294,7 @@ export type SystemSettingsWhereUniqueInput = Prisma.AtLeast<{
   aided_marks_number?: Prisma.IntNullableFilter<"SystemSettings"> | number | null
   theoretical_exam_date?: Prisma.DateTimeNullableFilter<"SystemSettings"> | Date | string | null
   practical_exam_date?: Prisma.DateTimeNullableFilter<"SystemSettings"> | Date | string | null
+  current_academic_key?: Prisma.StringNullableFilter<"SystemSettings"> | string | null
   created_at?: Prisma.DateTimeFilter<"SystemSettings"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"SystemSettings"> | Date | string
 }, "id">
@@ -297,6 +307,7 @@ export type SystemSettingsOrderByWithAggregationInput = {
   aided_marks_number?: Prisma.SortOrderInput | Prisma.SortOrder
   theoretical_exam_date?: Prisma.SortOrderInput | Prisma.SortOrder
   practical_exam_date?: Prisma.SortOrderInput | Prisma.SortOrder
+  current_academic_key?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   _count?: Prisma.SystemSettingsCountOrderByAggregateInput
@@ -317,6 +328,7 @@ export type SystemSettingsScalarWhereWithAggregatesInput = {
   aided_marks_number?: Prisma.IntNullableWithAggregatesFilter<"SystemSettings"> | number | null
   theoretical_exam_date?: Prisma.DateTimeNullableWithAggregatesFilter<"SystemSettings"> | Date | string | null
   practical_exam_date?: Prisma.DateTimeNullableWithAggregatesFilter<"SystemSettings"> | Date | string | null
+  current_academic_key?: Prisma.StringNullableWithAggregatesFilter<"SystemSettings"> | string | null
   created_at?: Prisma.DateTimeWithAggregatesFilter<"SystemSettings"> | Date | string
   updated_at?: Prisma.DateTimeWithAggregatesFilter<"SystemSettings"> | Date | string
 }
@@ -328,6 +340,7 @@ export type SystemSettingsCreateInput = {
   aided_marks_number?: number | null
   theoretical_exam_date?: Date | string | null
   practical_exam_date?: Date | string | null
+  current_academic_key?: string | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -340,6 +353,7 @@ export type SystemSettingsUncheckedCreateInput = {
   aided_marks_number?: number | null
   theoretical_exam_date?: Date | string | null
   practical_exam_date?: Date | string | null
+  current_academic_key?: string | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -351,6 +365,7 @@ export type SystemSettingsUpdateInput = {
   aided_marks_number?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   theoretical_exam_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   practical_exam_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  current_academic_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -363,6 +378,7 @@ export type SystemSettingsUncheckedUpdateInput = {
   aided_marks_number?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   theoretical_exam_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   practical_exam_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  current_academic_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -375,6 +391,7 @@ export type SystemSettingsCreateManyInput = {
   aided_marks_number?: number | null
   theoretical_exam_date?: Date | string | null
   practical_exam_date?: Date | string | null
+  current_academic_key?: string | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -386,6 +403,7 @@ export type SystemSettingsUpdateManyMutationInput = {
   aided_marks_number?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   theoretical_exam_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   practical_exam_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  current_academic_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -398,6 +416,7 @@ export type SystemSettingsUncheckedUpdateManyInput = {
   aided_marks_number?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   theoretical_exam_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   practical_exam_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  current_academic_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -410,6 +429,7 @@ export type SystemSettingsCountOrderByAggregateInput = {
   aided_marks_number?: Prisma.SortOrder
   theoretical_exam_date?: Prisma.SortOrder
   practical_exam_date?: Prisma.SortOrder
+  current_academic_key?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -429,6 +449,7 @@ export type SystemSettingsMaxOrderByAggregateInput = {
   aided_marks_number?: Prisma.SortOrder
   theoretical_exam_date?: Prisma.SortOrder
   practical_exam_date?: Prisma.SortOrder
+  current_academic_key?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -441,6 +462,7 @@ export type SystemSettingsMinOrderByAggregateInput = {
   aided_marks_number?: Prisma.SortOrder
   theoretical_exam_date?: Prisma.SortOrder
   practical_exam_date?: Prisma.SortOrder
+  current_academic_key?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -490,6 +512,7 @@ export type SystemSettingsSelect<ExtArgs extends runtime.Types.Extensions.Intern
   aided_marks_number?: boolean
   theoretical_exam_date?: boolean
   practical_exam_date?: boolean
+  current_academic_key?: boolean
   created_at?: boolean
   updated_at?: boolean
 }, ExtArgs["result"]["systemSettings"]>
@@ -502,6 +525,7 @@ export type SystemSettingsSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   aided_marks_number?: boolean
   theoretical_exam_date?: boolean
   practical_exam_date?: boolean
+  current_academic_key?: boolean
   created_at?: boolean
   updated_at?: boolean
 }, ExtArgs["result"]["systemSettings"]>
@@ -514,6 +538,7 @@ export type SystemSettingsSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   aided_marks_number?: boolean
   theoretical_exam_date?: boolean
   practical_exam_date?: boolean
+  current_academic_key?: boolean
   created_at?: boolean
   updated_at?: boolean
 }, ExtArgs["result"]["systemSettings"]>
@@ -526,11 +551,12 @@ export type SystemSettingsSelectScalar = {
   aided_marks_number?: boolean
   theoretical_exam_date?: boolean
   practical_exam_date?: boolean
+  current_academic_key?: boolean
   created_at?: boolean
   updated_at?: boolean
 }
 
-export type SystemSettingsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "lecture_duration" | "lectures_start_time" | "aided_pass_courses_number" | "aided_marks_number" | "theoretical_exam_date" | "practical_exam_date" | "created_at" | "updated_at", ExtArgs["result"]["systemSettings"]>
+export type SystemSettingsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "lecture_duration" | "lectures_start_time" | "aided_pass_courses_number" | "aided_marks_number" | "theoretical_exam_date" | "practical_exam_date" | "current_academic_key" | "created_at" | "updated_at", ExtArgs["result"]["systemSettings"]>
 
 export type $SystemSettingsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "SystemSettings"
@@ -543,6 +569,7 @@ export type $SystemSettingsPayload<ExtArgs extends runtime.Types.Extensions.Inte
     aided_marks_number: number | null
     theoretical_exam_date: Date | null
     practical_exam_date: Date | null
+    current_academic_key: string | null
     created_at: Date
     updated_at: Date
   }, ExtArgs["result"]["systemSettings"]>
@@ -975,6 +1002,7 @@ export interface SystemSettingsFieldRefs {
   readonly aided_marks_number: Prisma.FieldRef<"SystemSettings", 'Int'>
   readonly theoretical_exam_date: Prisma.FieldRef<"SystemSettings", 'DateTime'>
   readonly practical_exam_date: Prisma.FieldRef<"SystemSettings", 'DateTime'>
+  readonly current_academic_key: Prisma.FieldRef<"SystemSettings", 'String'>
   readonly created_at: Prisma.FieldRef<"SystemSettings", 'DateTime'>
   readonly updated_at: Prisma.FieldRef<"SystemSettings", 'DateTime'>
 }

@@ -7,6 +7,7 @@ import {
   createUserSchema,
   getAllStudentsSchema,
   getAllUsersSchema,
+  swapStudentGroupsSchema,
   updateStudentSchema,
   updateUserSchema,
 } from "../validators/users";
@@ -15,7 +16,7 @@ import { prisma } from "../lib/prisma";
 import { createListHandler } from "../lib/express-prisma-query";
 import bcrypt from "bcrypt";
 import { asyncHandler } from "../utils/asyncHandler";
-import { BadRequestError, NotFoundError, ConflictError } from "../errors";
+import { BadRequestError, NotFoundError, ConflictError, ForbiddenError } from "../errors";
 
 export const getAllnonStudentUsers = createListHandler({
   prisma: prisma.user,
@@ -638,6 +639,124 @@ export const updateStudent = asyncHandler(async (req: Request, res: Response) =>
     data: {
       ...updatedStudent.user,
       student: updatedStudent.student,
+    },
+  });
+});
+
+export const swapStudentGroups = asyncHandler(async (req: Request, res: Response) => {
+  const { role } = req.user as { id: number | string; role: string };
+  if (role !== "ADMIN") {
+    throw new ForbiddenError("Only admins can swap student groups");
+  }
+
+  const data = swapStudentGroupsSchema.parse(req.body);
+
+  const students = await prisma.student.findMany({
+    where: { student_id: { in: [data.student_a_id, data.student_b_id] } },
+    select: {
+      student_id: true,
+      year_id: true,
+      section_id: true,
+      major_id: true,
+      group_id: true,
+      group: {
+        select: {
+          id: true,
+          section_id: true,
+          major_id: true,
+          section: { select: { id: true, year_id: true } },
+          major: { select: { id: true, year_id: true } },
+        },
+      },
+    },
+  });
+
+  if (students.length !== 2) {
+    throw new NotFoundError("Student");
+  }
+
+  const studentA = students.find((student) => student.student_id === data.student_a_id);
+  const studentB = students.find((student) => student.student_id === data.student_b_id);
+
+  if (!studentA || !studentB) {
+    throw new NotFoundError("Student");
+  }
+
+  if (studentA.group_id === studentB.group_id) {
+    throw new BadRequestError("Students are already in the same group");
+  }
+
+  if (studentA.year_id !== studentB.year_id) {
+    throw new BadRequestError("Students must be in the same year");
+  }
+
+  const bothSectionBased = studentA.section_id !== null && studentB.section_id !== null;
+  const bothMajorBased = studentA.major_id !== null && studentB.major_id !== null;
+
+  if (!bothSectionBased && !bothMajorBased) {
+    throw new BadRequestError("Students must have the same academic scope type");
+  }
+
+  if (bothSectionBased && studentA.section_id !== studentB.section_id) {
+    throw new BadRequestError("Students must be in the same section");
+  }
+
+  if (bothMajorBased && studentA.major_id !== studentB.major_id) {
+    throw new BadRequestError("Students must be in the same major");
+  }
+
+  const validateGroupScope = (student: NonNullable<typeof studentA>) => {
+    if (student.section_id !== null) {
+      if (student.group.section_id !== student.section_id || student.group.major_id !== null) {
+        throw new BadRequestError("Student group does not match the student's section scope");
+      }
+      if (student.group.section?.year_id !== student.year_id) {
+        throw new BadRequestError("Student group does not match the student's year");
+      }
+      return;
+    }
+
+    if (student.major_id !== null) {
+      if (student.group.major_id !== student.major_id || student.group.section_id !== null) {
+        throw new BadRequestError("Student group does not match the student's major scope");
+      }
+      if (student.group.major?.year_id !== student.year_id) {
+        throw new BadRequestError("Student group does not match the student's year");
+      }
+      return;
+    }
+
+    throw new BadRequestError("Student must have either section_id or major_id");
+  };
+
+  validateGroupScope(studentA);
+  validateGroupScope(studentB);
+
+  await prisma.$transaction([
+    prisma.student.update({
+      where: { student_id: studentA.student_id },
+      data: { group_id: studentB.group_id },
+    }),
+    prisma.student.update({
+      where: { student_id: studentB.student_id },
+      data: { group_id: studentA.group_id },
+    }),
+  ]);
+
+  return res.status(200).json({
+    success: true,
+    message: "Student groups swapped successfully",
+    data: {
+      student_a: {
+        student_id: studentA.student_id,
+        old_group_id: studentA.group_id,
+        new_group_id: studentB.group_id,
+      },
+      student_b: {
+        student_id: studentB.student_id,
+        old_group_id: studentB.group_id,
+        new_group_id: studentA.group_id,
+      },
     },
   });
 });
