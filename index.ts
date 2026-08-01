@@ -17,6 +17,12 @@ const port = 8001;
 const uploadsDir = join(process.cwd(), 'public', 'uploads');
 
 // CORS middleware
+// app.use(cors({
+//   origin: 'https://1f4e-185-183-34-110.ngrok-free.app', // exact origin, not * (the new ngrok frontend url)
+//   credentials: true
+// }))
+
+
 app.use(cors({
     origin: /.*/,
     credentials: true,
