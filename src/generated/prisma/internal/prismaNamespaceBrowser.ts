@@ -55,6 +55,8 @@ export const ModelName = {
   FaculityInfo: 'FaculityInfo',
   User: 'User',
   Student: 'Student',
+  PushSubscription: 'PushSubscription',
+  Notification: 'Notification',
   Year: 'Year',
   Section: 'Section',
   Major: 'Major',
@@ -162,6 +164,33 @@ export const StudentScalarFieldEnum = {
 } as const
 
 export type StudentScalarFieldEnum = (typeof StudentScalarFieldEnum)[keyof typeof StudentScalarFieldEnum]
+
+
+export const PushSubscriptionScalarFieldEnum = {
+  id: 'id',
+  student_id: 'student_id',
+  endpoint: 'endpoint',
+  p256dh: 'p256dh',
+  auth: 'auth',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type PushSubscriptionScalarFieldEnum = (typeof PushSubscriptionScalarFieldEnum)[keyof typeof PushSubscriptionScalarFieldEnum]
+
+
+export const NotificationScalarFieldEnum = {
+  id: 'id',
+  student_id: 'student_id',
+  title: 'title',
+  body: 'body',
+  route: 'route',
+  icon: 'icon',
+  is_read: 'is_read',
+  created_at: 'created_at'
+} as const
+
+export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
 
 
 export const YearScalarFieldEnum = {

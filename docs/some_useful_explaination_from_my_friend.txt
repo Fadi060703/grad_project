@@ -1,0 +1,26 @@
+The Web Push flow, plain-language version
+Your frontend loads a service worker file (public/sw.js) — think of it as a tiny background script the browser keeps alive independently of your page/tab.
+User clicks "Enable notifications." The browser shows the native permission popup ("Allow/Block notifications"). If allowed, the browser generates a subscription — this is basically "an address the browser can be reached at, plus a lock/key pair to encrypt messages sent to it." That's the endpoint, p256dh, auth you asked about (explained below).
+Frontend sends that subscription to your backend, which saves it in the DB, tied to that user.
+Later, something happens (e.g. a grade gets published). Your backend code looks up which students should be notified, grabs their saved subscriptions, and calls web-push.sendNotification(subscription, message).
+The web-push library encrypts the message using the keys from the subscription and sends it to the endpoint URL — which is actually a URL owned by the browser vendor (Google's push service for Chrome, Mozilla's for Firefox, etc.). That's the "middleman" that actually delivers it to the device — you don't manage it, it's built into the browser/OS.
+The browser receives it and wakes up your service worker, even if the tab/site is closed, which shows the notification. If the student clicks it, the service worker opens the specific route you specified in the data payload.
+So the "VAPID keys" are just your app's identity card — proof to the browser's push service that notifications claiming to be from you actually are. You generate this once for your whole app (not per user).
+Now your specific questions
+1. VAPID key generation & storage: Run this once in your project folder:
+npx web-push generate-vapid-keys
+This prints a public key and a private key (just two long strings — not files, not accounts). You:
+Put the private key in your backend .env (e.g. VAPID_PRIVATE_KEY=...) — never expose this to the frontend.
+Put the public key in your frontend env (e.g. NEXT_PUBLIC_VAPID_PUBLIC_KEY=...) — this one is safe to expose, the frontend needs it to create a subscription.
+You generate this once ever for the whole project, not per student.
+2. What endpoint, p256dh, auth are: When the browser creates a subscription, it returns an object like:
+{
+  "endpoint": "https://fcm.googleapis.com/fcm/send/abc123...",
+  "keys": {
+    "p256dh": "BN4G...",
+    "auth": "k8Jk..."
+  }
+}
+endpoint — the unique URL for that specific browser/device where the push service (Chrome/Firefox's own servers) will deliver the message. Each subscription (device/browser) has a different one.
+p256dh — a public encryption key used to encrypt the notification payload so only that browser can read it.
+auth — an extra secret used alongside p256dh for the encryption (prevents replay attacks).

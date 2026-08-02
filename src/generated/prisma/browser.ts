@@ -38,6 +38,16 @@ export type User = Prisma.UserModel
  */
 export type Student = Prisma.StudentModel
 /**
+ * Model PushSubscription
+ * 
+ */
+export type PushSubscription = Prisma.PushSubscriptionModel
+/**
+ * Model Notification
+ * 
+ */
+export type Notification = Prisma.NotificationModel
+/**
  * Model Year
  * 
  */

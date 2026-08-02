@@ -199,6 +199,9 @@ export const permissions: Record<string, string[]> = {
     "attendance:mark",
     "student-exams:read",
     "time-conditioned-items:read",
+    "push-subscriptions:manage",
+    "notifications:read",
+    "notifications:update",
   ],
 };
 

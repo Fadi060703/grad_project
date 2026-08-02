@@ -109,10 +109,39 @@ model Student {
   major            Major?              @relation(fields: [major_id], references: [id], onDelete: SetNull)
   group_id         Int
   group            Group               @relation(fields: [group_id], references: [id], onDelete: Cascade)
-  courses          StudentCourse[]
-  marks            Mark[]
-  attendances      LectureAttendance[]
-  exam_settings    ExamSettings[]      @relation("ExamSettingsStudents")
+  courses            StudentCourse[]
+  marks              Mark[]
+  attendances        LectureAttendance[]
+  exam_settings      ExamSettings[]      @relation("ExamSettingsStudents")
+  push_subscriptions PushSubscription[]
+  notifications      Notification[]
+}
+
+model PushSubscription {
+  id         Int      @id @default(autoincrement())
+  student_id Int
+  student    Student  @relation(fields: [student_id], references: [student_id], onDelete: Cascade)
+  endpoint   String   @unique
+  p256dh     String
+  auth       String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("push_subscriptions")
+}
+
+model Notification {
+  id         Int      @id @default(autoincrement())
+  student_id Int
+  student    Student  @relation(fields: [student_id], references: [student_id], onDelete: Cascade)
+  title      String
+  body       String
+  route      String?
+  icon       String?
+  is_read    Boolean  @default(false)
+  created_at DateTime @default(now())
+
+  @@map("notifications")
 }
 
 model Year {

@@ -1,14 +1,14 @@
 import express, { Application } from 'express';
 import { createServer } from 'http';
 import { join } from 'path';
-import { Server as SocketServer } from 'socket.io';
+// import { Server as SocketServer } from 'socket.io';
 import router from './src/router/router';
 import { getLocalExternalIPv4 } from './src/lib/getIPv4';
 import cors from "cors";
 import { logger } from './src/middlewares/logger';
 import { notFound } from './src/middlewares/404';
 import { errorHandler } from './src/middlewares/errorHandler';
-import { initializeWebSocket } from './src/websocket/server';
+// import { initializeWebSocket } from './src/websocket/server';
 import { initCron } from './src/lib/cron';
 
 const app: Application = express();
@@ -38,6 +38,12 @@ app.get('/attendance-test.html', (_req, res) => {
 app.get('/api/attendance-test.html', (_req, res) => {
     res.sendFile(join(process.cwd(), 'src', 'router', 'attendance-test.html'));
 });
+app.get('/sw.js', (_req, res) => {
+    res.sendFile(join(process.cwd(), 'public', 'sw.js'));
+});
+app.get('/test-push.html', (_req, res) => {
+    res.sendFile(join(process.cwd(), 'public', 'test-push.html'));
+});
 app.use('/api', router);
 app.use(notFound);
 app.use(logger);
@@ -46,17 +52,17 @@ app.use(errorHandler);
 // Create HTTP server
 const server = createServer(app);
 
-// Initialize WebSocket on the same server
-initializeWebSocket(server);
+// WebSocket is disabled for now while push notifications are being added.
+// initializeWebSocket(server);
 
 // Initialize cron jobs
 initCron();
 
-// Start both HTTP and WebSocket on the same port
+// Start the HTTP server
 server.listen(port, host, () => {
     const networkIpv4 = getLocalExternalIPv4();
     console.log(`✓ Server running on:`);
     console.log(`  Local:   127.0.0.1:${port}`);
     console.log(`  Network: ${networkIpv4}:${port}`);
-    console.log(`✓ WebSocket server ready on same port`);
+    // console.log(`✓ WebSocket server ready on same port`);
 });
