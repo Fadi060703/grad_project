@@ -1,7 +1,7 @@
 import webpush from "web-push";
 import { prisma } from "../lib/prisma";
 
-type NotifyStudentsPayload = {
+export type NotifyStudentsPayload = {
   title: string;
   body: string;
   route?: string;
@@ -169,4 +169,17 @@ export const notifyStudents = async (
     subscriptionsDeleted,
     skippedStudentIds,
   };
+};
+
+export const notifyStudentsSafely = async (
+  studentIds: number[],
+  payload: NotifyStudentsPayload,
+  context = "student notification",
+) => {
+  try {
+    return await notifyStudents(studentIds, payload);
+  } catch (err) {
+    console.error(`Failed to send ${context}`, err);
+    return null;
+  }
 };

@@ -3,6 +3,7 @@ import { prisma } from "../lib/prisma";
 import { asyncHandler } from "../utils/asyncHandler";
 import { BadRequestError, ForbiddenError, NotFoundError } from "../errors";
 import { generateWeeklyLectures } from "../lib/generateWeeklyLectures";
+import { notifyStudentsSafely } from "../services";
 import { v4 as uuidv4 } from "uuid";
 
 const lectureInclude = {
@@ -19,6 +20,15 @@ type AuthUser = { id: number | string; role: string };
 type SlotWindow = {
   slotStart: Date;
   slotEnd: Date;
+};
+
+const DEFAULT_NOTIFICATION_ICON = "/logo_light_mode.svg";
+
+type LectureNotificationTarget = {
+  lecture_type: string;
+  group_id: number | null;
+  section_id: number | null;
+  major_id: number | null;
 };
 
 function getAuthUser(req: Request): { userId: number; role: string } {
@@ -209,6 +219,64 @@ function validateInstructorOwnsLecture(
   if (lecture.instructor_id !== userId) {
     throw new ForbiddenError("You can only manage your own weekly lectures");
   }
+}
+
+async function getLectureNotificationStudentIds(lecture: LectureNotificationTarget) {
+  if (lecture.lecture_type === "PRACTICAL") {
+    if (!lecture.group_id) return [];
+
+    const students = await prisma.student.findMany({
+      where: { group_id: lecture.group_id },
+      select: { student_id: true },
+    });
+
+    return students.map((student) => student.student_id);
+  }
+
+  if (lecture.lecture_type === "THEORETICAL") {
+    if (lecture.section_id) {
+      const students = await prisma.student.findMany({
+        where: { section_id: lecture.section_id },
+        select: { student_id: true },
+      });
+
+      return students.map((student) => student.student_id);
+    }
+
+    if (lecture.major_id) {
+      const students = await prisma.student.findMany({
+        where: { major_id: lecture.major_id },
+        select: { student_id: true },
+      });
+
+      return students.map((student) => student.student_id);
+    }
+  }
+
+  return [];
+}
+
+async function notifyWeeklyLectureStatusChange(props: {
+  weeklyLectureId: number;
+  lecture: LectureNotificationTarget & { course: { name: string } };
+  status: string;
+}) {
+  const studentIds = await getLectureNotificationStudentIds(props.lecture);
+  const lectureType = props.lecture.lecture_type === "PRACTICAL" ? "العملية" : "النظرية";
+  const isCancelled = props.status === "CANCELLED";
+
+  await notifyStudentsSafely(
+    studentIds,
+    {
+      title: isCancelled ? "تم إلغاء المحاضرة" : "تمت إعادة المحاضرة",
+      body: isCancelled
+        ? `تم إلغاء محاضرتك ${lectureType} في مادة ${props.lecture.course.name}.`
+        : `تمت إعادة محاضرتك ${lectureType} في مادة ${props.lecture.course.name}.`,
+      route: "/website",
+      icon: DEFAULT_NOTIFICATION_ICON,
+    },
+    `weekly lecture ${props.weeklyLectureId} status change`,
+  );
 }
 
 // POST /cron/generate-weekly-lectures
@@ -502,6 +570,12 @@ export const toggleCancelWeeklyLecture = asyncHandler(
       where: { id },
       data: { status: newStatus },
       include: { lecture: { include: lectureInclude } },
+    });
+
+    await notifyWeeklyLectureStatusChange({
+      weeklyLectureId: updated.id,
+      lecture: updated.lecture,
+      status: updated.status,
     });
 
     return res.status(200).json({

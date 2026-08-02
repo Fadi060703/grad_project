@@ -12,8 +12,10 @@ import {
 } from "../validators/marks";
 import { asyncHandler } from "../utils/asyncHandler";
 import { BadRequestError, ConflictError, ForbiddenError, NotFoundError } from "../errors";
+import { notifyStudentsSafely } from "../services";
 
 const MARKS_PUBLISH_ROLES = new Set(["ADMIN", "MARKS_DE", "EXAMS_DE"]);
+const DEFAULT_NOTIFICATION_ICON = "/logo_light_mode.svg";
 
 const markCourseSelect = {
   id: true,
@@ -121,6 +123,61 @@ const assertCanPublishMarks = (req: Request) => {
   }
 
   return userId;
+};
+
+const notifyPublishedPracticalMarks = async (courseId: number, academicKey: string) => {
+  const marks = await prisma.mark.findMany({
+    where: { course_id: courseId, academic_key: academicKey },
+    select: {
+      student_id: true,
+      practical_grade: true,
+      course: { select: { name: true } },
+    },
+  });
+
+  await Promise.all(
+    marks.map((mark) =>
+      notifyStudentsSafely(
+        [mark.student_id],
+        {
+          title: "تم نشر علامة العملي",
+          body: `علامتك العملية في مادة ${mark.course.name} هي ${mark.practical_grade}.`,
+          route: "/website/grades",
+          icon: DEFAULT_NOTIFICATION_ICON,
+        },
+        `practical marks for course ${courseId} student ${mark.student_id}`,
+      ),
+    ),
+  );
+};
+
+const notifyPublishedFullMarks = async (courseId: number, academicKey: string) => {
+  const marks = await prisma.mark.findMany({
+    where: { course_id: courseId, academic_key: academicKey },
+    select: {
+      student_id: true,
+      practical_grade: true,
+      theoretical_grade: true,
+      course: { select: { name: true } },
+    },
+  });
+
+  await Promise.all(
+    marks.map((mark) => {
+      const totalGrade = mark.practical_grade + mark.theoretical_grade;
+
+      return notifyStudentsSafely(
+        [mark.student_id],
+        {
+          title: "تم نشر العلامة النهائية",
+          body: `علامتك النهائية في مادة ${mark.course.name} هي ${totalGrade}.`,
+          route: "/website/grades",
+          icon: DEFAULT_NOTIFICATION_ICON,
+        },
+        `full marks for course ${courseId} student ${mark.student_id}`,
+      );
+    }),
+  );
 };
 
 const assertCourseMarksComplete = async (courseId: number, academicKey: string) => {
@@ -491,6 +548,8 @@ export const publishPracticalMarks = asyncHandler(async (req: Request, res: Resp
     }),
   ]);
 
+  await notifyPublishedPracticalMarks(courseId, academicKey);
+
   return res.status(200).json({
     success: true,
     message: "Practical marks published successfully",
@@ -557,6 +616,8 @@ export const publishFullMarks = asyncHandler(async (req: Request, res: Response)
       },
     }),
   ]);
+
+  await notifyPublishedFullMarks(courseId, academicKey);
 
   return res.status(200).json({
     success: true,

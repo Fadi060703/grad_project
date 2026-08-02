@@ -13,20 +13,77 @@ import {
 } from '../validators/announcements';
 import { z } from 'zod';
 import { emitNewAnnouncement, emitAnnouncementUpdate, emitAnnouncementDelete } from '../websocket/event';
+import { notifyStudentsSafely } from '../services';
+
+const DEFAULT_NOTIFICATION_ICON = '/logo_light_mode.svg';
+const ANNOUNCEMENT_TARGET_FIELDS = [
+  'year_id',
+  'section_id',
+  'major_id',
+  'group_id',
+  'course_id',
+  'student_id',
+] as const;
+
+type AnnouncementTarget = {
+  year_id: number | null;
+  section_id: number | null;
+  major_id: number | null;
+  group_id: number | null;
+  course_id: number | null;
+  student_id: number | null;
+};
+
+const pickAnnouncementTarget = (announcement: AnnouncementTarget): AnnouncementTarget => ({
+  year_id: announcement.year_id,
+  section_id: announcement.section_id,
+  major_id: announcement.major_id,
+  group_id: announcement.group_id,
+  course_id: announcement.course_id,
+  student_id: announcement.student_id,
+});
+
+const getAnnouncementRecipientStudentIds = async (target: AnnouncementTarget) => {
+  const where: any = {};
+
+  if (target.year_id !== null) where.year_id = target.year_id;
+  if (target.section_id !== null) where.section_id = target.section_id;
+  if (target.major_id !== null) where.major_id = target.major_id;
+  if (target.group_id !== null) where.group_id = target.group_id;
+  if (target.student_id !== null) where.userId = target.student_id;
+  if (target.course_id !== null) {
+    where.courses = { some: { course_id: target.course_id } };
+  }
+
+  const students = await prisma.student.findMany({
+    where,
+    select: { student_id: true },
+  });
+
+  return students.map((student) => student.student_id);
+};
+
+const notifyAnnouncementRecipients = async (
+  studentIds: number[],
+  announcement: { id: number; title: string },
+) => {
+  await notifyStudentsSafely(
+    studentIds,
+    {
+      title: 'إعلان جديد',
+      body: `إعلان جديد: ${announcement.title}`,
+      route: `/website/announcements/${announcement.id}`,
+      icon: DEFAULT_NOTIFICATION_ICON,
+    },
+    `announcement ${announcement.id}`,
+  );
+};
 
 // Create announcement
 export const createAnnouncement = asyncHandler(async (req: Request, res: Response) => {
   const data = createAnnouncementSchema.parse(req.body);
   const { id: user_id } = req.user as { id: number; role: string };
 
-  
-  // Validate that at least one target is specified
-  const hasTarget = data.year_id || data.section_id || data.major_id || 
-                    data.group_id || data.course_id || data.student_id;
-  
-  if (!hasTarget) {
-    throw new BadRequestError('At least one target (year, section, major, group, course, or student) is required');
-  }
   
   // Validate relationships exist if provided
   if (data.year_id) {
@@ -87,6 +144,11 @@ export const createAnnouncement = asyncHandler(async (req: Request, res: Respons
   
   // 🔹 EMIT WEBSOCKET EVENT
   emitNewAnnouncement(announcement);
+
+  const recipientStudentIds = await getAnnouncementRecipientStudentIds(
+    pickAnnouncementTarget(announcement),
+  );
+  await notifyAnnouncementRecipients(recipientStudentIds, announcement);
   
   return res.status(201).json({
     success: true,
@@ -236,6 +298,13 @@ export const updateAnnouncement = asyncHandler(async (req: Request, res: Respons
     if (!student) throw new NotFoundError('Student');
   }
   
+  const targetFieldsChanged = ANNOUNCEMENT_TARGET_FIELDS.some(
+    (field) => (data as any)[field] !== undefined && (data as any)[field] !== (existingAnnouncement as any)[field],
+  );
+  const oldRecipientStudentIds = targetFieldsChanged
+    ? await getAnnouncementRecipientStudentIds(pickAnnouncementTarget(existingAnnouncement))
+    : [];
+  
   const updateData: any = {};
   if (data.title !== undefined) updateData.title = data.title;
   if (data.content !== undefined) updateData.content = data.content;
@@ -263,6 +332,18 @@ export const updateAnnouncement = asyncHandler(async (req: Request, res: Respons
   
   // 🔹 EMIT WEBSOCKET EVENT
   emitAnnouncementUpdate(id, updated);
+
+  if (targetFieldsChanged) {
+    const newRecipientStudentIds = await getAnnouncementRecipientStudentIds(
+      pickAnnouncementTarget(updated),
+    );
+    const oldRecipientStudentIdSet = new Set(oldRecipientStudentIds);
+    const newlyAddedStudentIds = newRecipientStudentIds.filter(
+      (studentId) => !oldRecipientStudentIdSet.has(studentId),
+    );
+
+    await notifyAnnouncementRecipients(newlyAddedStudentIds, updated);
+  }
   
   return res.status(200).json({
     success: true,

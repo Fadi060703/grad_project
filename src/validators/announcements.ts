@@ -46,12 +46,12 @@ export const createAnnouncementSchema = z.object({
   title: z.string().min(3, "Title must be at least 3 characters").max(200, "Title must not exceed 200 characters"),
   content: z.string().min(10, "Content must be at least 10 characters").max(5000, "Content must not exceed 5000 characters"),
   type: z.enum(["REGULAR", "IMPORTANT", "EMERGENCY"]).default("REGULAR"),
-  year_id: z.number().positive().optional(),
-  section_id: z.number().positive().optional(),
-  major_id: z.number().positive().optional(),
-  group_id: z.number().positive().optional(),
-  course_id: z.number().positive().optional(),
-  student_id: z.number().positive().optional(),
+  year_id: z.number().positive().optional().nullable(),
+  section_id: z.number().positive().optional().nullable(),
+  major_id: z.number().positive().optional().nullable(),
+  group_id: z.number().positive().optional().nullable(),
+  course_id: z.number().positive().optional().nullable(),
+  student_id: z.number().positive().optional().nullable(),
   attachments: z.array(z.string()).default([]),
 });
 

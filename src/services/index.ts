@@ -1,1 +1,2 @@
-export { notifyStudents } from "./notificationService";
+export { notifyStudents, notifyStudentsSafely } from "./notificationService";
+export type { NotifyStudentsPayload } from "./notificationService";

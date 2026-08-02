@@ -13,6 +13,7 @@ import {
 import { z } from "zod";
 import { createListHandler } from "../lib/express-prisma-query";
 import { ExamStatus } from "../generated/prisma/client";
+import { notifyStudentsSafely } from "../services";
 
 // ─── Shared select shape ──────────────────────────────────────────────────────
 
@@ -53,6 +54,8 @@ type ExamReadiness = {
   isReady: boolean;
   reason?: string;
 };
+
+const DEFAULT_NOTIFICATION_ICON = "/logo_light_mode.svg";
 
 const shuffleArray = <T>(items: T[]) => {
   const shuffled = [...items];
@@ -183,6 +186,47 @@ const getExamReadiness = async (
   }
 
   return { isReady: true };
+};
+
+const formatExamDateForNotification = (date: Date) => date.toISOString().slice(0, 10);
+
+const notifyPublishedExam = async (examId: number) => {
+  const exam = await prisma.exam.findUnique({
+    where: { id: examId },
+    select: {
+      id: true,
+      course: { select: { name: true } },
+      settings: {
+        select: {
+          id: true,
+          date: true,
+          start_time: true,
+          end_time: true,
+          location: { select: { name: true } },
+          students: { select: { student_id: true } },
+        },
+      },
+    },
+  });
+
+  if (!exam) return;
+
+  await Promise.all(
+    exam.settings.map((setting) => {
+      const studentIds = setting.students.map((student) => student.student_id);
+
+      return notifyStudentsSafely(
+        studentIds,
+        {
+          title: "تم نشر مكان الامتحان",
+          body: `تم نشر مكان امتحان مادة ${exam.course.name} بتاريخ ${formatExamDateForNotification(setting.date)} من الساعة ${setting.start_time} إلى ${setting.end_time} في ${setting.location?.name ?? "مكان غير محدد"}.`,
+          route: "/website",
+          icon: DEFAULT_NOTIFICATION_ICON,
+        },
+        `exam ${exam.id} setting ${setting.id} publish`,
+      );
+    }),
+  );
 };
 
 const refreshExamStatus = async (tx: any, examId: number) => {
@@ -736,13 +780,14 @@ export const publishExam = asyncHandler(async (req: Request, res: Response) => {
       );
     }
 
-    // TODO: Send notifications to all assigned students with their exam date, time, and location.
     return tx.exam.update({
       where: { id },
       data: { status: ExamStatus.PUBLISHED },
       select: examSelect,
     });
   });
+
+  await notifyPublishedExam(id);
 
   const parsed = examResponseSchema.parse(updatedExam);
 
