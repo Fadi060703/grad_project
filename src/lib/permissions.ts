@@ -74,6 +74,7 @@ export const permissions: Record<string, string[]> = {
     "exams:update",
     "exams:delete",
     "time-conditioned-items:read",
+    "admin-dashboard:read",
   ],
   DOCTOR: [
     "course-files:read",
@@ -103,6 +104,7 @@ export const permissions: Record<string, string[]> = {
     "lectures:read",
     "weekly-lectures:read",
     "weekly-lectures:toggle-cancel",
+    "doctor-dashboard:read",
     // "exams:read",
   ],
   TEACHER: [
@@ -137,6 +139,7 @@ export const permissions: Record<string, string[]> = {
     "announcements:delete",
     "lectures:read",
     "weekly-lectures:read",
+    "teacher-dashboard:read",
     // "exams:read",
   ],
   CONTENT_DE: [
@@ -156,6 +159,7 @@ export const permissions: Record<string, string[]> = {
     "announcements:add",
     "announcements:update",
     "announcements:delete",
+    "content-dashboard:read",
   ],
   EXAMS_DE: [
     "exams:read",
@@ -166,6 +170,7 @@ export const permissions: Record<string, string[]> = {
     "marks:add",
     "marks:update",
     "marks:delete",
+    "exams-dashboard:read",
   ],
   LECTURES_SCHEDULE_DE: [
     "years:read",
@@ -175,6 +180,7 @@ export const permissions: Record<string, string[]> = {
     "lectures:add",
     "lectures:update",
     "lectures:delete",
+    "lectures-schedule-dashboard:read",
   ],
   MARKS_DE: [],
   STUDENT: [
