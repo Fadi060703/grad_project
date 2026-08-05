@@ -399,6 +399,8 @@ export const ModelName = {
   SectionCourse: 'SectionCourse',
   MajorCourse: 'MajorCourse',
   CourseFile: 'CourseFile',
+  CourseFileFlashcards: 'CourseFileFlashcards',
+  CourseFileSummary: 'CourseFileSummary',
   Mark: 'Mark',
   CourseMarksPublication: 'CourseMarksPublication',
   StudentCourse: 'StudentCourse',
@@ -426,7 +428,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "systemSettings" | "faculityInfo" | "user" | "student" | "pushSubscription" | "notification" | "year" | "section" | "major" | "group" | "universityLocation" | "course" | "sectionCourse" | "majorCourse" | "courseFile" | "mark" | "courseMarksPublication" | "studentCourse" | "fAQ" | "blog" | "examGuideline" | "lecture" | "weeklyLecture" | "lectureAttendance" | "announcement" | "exam" | "examSettings"
+    modelProps: "systemSettings" | "faculityInfo" | "user" | "student" | "pushSubscription" | "notification" | "year" | "section" | "major" | "group" | "universityLocation" | "course" | "sectionCourse" | "majorCourse" | "courseFile" | "courseFileFlashcards" | "courseFileSummary" | "mark" | "courseMarksPublication" | "studentCourse" | "fAQ" | "blog" | "examGuideline" | "lecture" | "weeklyLecture" | "lectureAttendance" | "announcement" | "exam" | "examSettings"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1537,6 +1539,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.CourseFileCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.CourseFileCountAggregateOutputType> | number
+        }
+      }
+    }
+    CourseFileFlashcards: {
+      payload: Prisma.$CourseFileFlashcardsPayload<ExtArgs>
+      fields: Prisma.CourseFileFlashcardsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CourseFileFlashcardsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseFileFlashcardsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CourseFileFlashcardsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseFileFlashcardsPayload>
+        }
+        findFirst: {
+          args: Prisma.CourseFileFlashcardsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseFileFlashcardsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CourseFileFlashcardsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseFileFlashcardsPayload>
+        }
+        findMany: {
+          args: Prisma.CourseFileFlashcardsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseFileFlashcardsPayload>[]
+        }
+        create: {
+          args: Prisma.CourseFileFlashcardsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseFileFlashcardsPayload>
+        }
+        createMany: {
+          args: Prisma.CourseFileFlashcardsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CourseFileFlashcardsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseFileFlashcardsPayload>[]
+        }
+        delete: {
+          args: Prisma.CourseFileFlashcardsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseFileFlashcardsPayload>
+        }
+        update: {
+          args: Prisma.CourseFileFlashcardsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseFileFlashcardsPayload>
+        }
+        deleteMany: {
+          args: Prisma.CourseFileFlashcardsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CourseFileFlashcardsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CourseFileFlashcardsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseFileFlashcardsPayload>[]
+        }
+        upsert: {
+          args: Prisma.CourseFileFlashcardsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseFileFlashcardsPayload>
+        }
+        aggregate: {
+          args: Prisma.CourseFileFlashcardsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCourseFileFlashcards>
+        }
+        groupBy: {
+          args: Prisma.CourseFileFlashcardsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CourseFileFlashcardsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CourseFileFlashcardsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CourseFileFlashcardsCountAggregateOutputType> | number
+        }
+      }
+    }
+    CourseFileSummary: {
+      payload: Prisma.$CourseFileSummaryPayload<ExtArgs>
+      fields: Prisma.CourseFileSummaryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CourseFileSummaryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseFileSummaryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CourseFileSummaryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseFileSummaryPayload>
+        }
+        findFirst: {
+          args: Prisma.CourseFileSummaryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseFileSummaryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CourseFileSummaryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseFileSummaryPayload>
+        }
+        findMany: {
+          args: Prisma.CourseFileSummaryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseFileSummaryPayload>[]
+        }
+        create: {
+          args: Prisma.CourseFileSummaryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseFileSummaryPayload>
+        }
+        createMany: {
+          args: Prisma.CourseFileSummaryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CourseFileSummaryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseFileSummaryPayload>[]
+        }
+        delete: {
+          args: Prisma.CourseFileSummaryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseFileSummaryPayload>
+        }
+        update: {
+          args: Prisma.CourseFileSummaryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseFileSummaryPayload>
+        }
+        deleteMany: {
+          args: Prisma.CourseFileSummaryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CourseFileSummaryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CourseFileSummaryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseFileSummaryPayload>[]
+        }
+        upsert: {
+          args: Prisma.CourseFileSummaryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseFileSummaryPayload>
+        }
+        aggregate: {
+          args: Prisma.CourseFileSummaryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCourseFileSummary>
+        }
+        groupBy: {
+          args: Prisma.CourseFileSummaryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CourseFileSummaryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CourseFileSummaryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CourseFileSummaryCountAggregateOutputType> | number
         }
       }
     }
@@ -2675,6 +2825,32 @@ export const CourseFileScalarFieldEnum = {
 export type CourseFileScalarFieldEnum = (typeof CourseFileScalarFieldEnum)[keyof typeof CourseFileScalarFieldEnum]
 
 
+export const CourseFileFlashcardsScalarFieldEnum = {
+  id: 'id',
+  course_id: 'course_id',
+  course_file_id: 'course_file_id',
+  course_type: 'course_type',
+  cards: 'cards',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type CourseFileFlashcardsScalarFieldEnum = (typeof CourseFileFlashcardsScalarFieldEnum)[keyof typeof CourseFileFlashcardsScalarFieldEnum]
+
+
+export const CourseFileSummaryScalarFieldEnum = {
+  id: 'id',
+  course_id: 'course_id',
+  course_file_id: 'course_file_id',
+  course_type: 'course_type',
+  summary: 'summary',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type CourseFileSummaryScalarFieldEnum = (typeof CourseFileSummaryScalarFieldEnum)[keyof typeof CourseFileSummaryScalarFieldEnum]
+
+
 export const MarkScalarFieldEnum = {
   id: 'id',
   course_id: 'course_id',
@@ -2845,6 +3021,13 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
 export const QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
@@ -2859,6 +3042,15 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
 
@@ -2983,6 +3175,20 @@ export type EnumLectureTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$Pris
  * Reference to a field of type 'LectureType[]'
  */
 export type ListEnumLectureTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LectureType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Json'
+ */
+export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+/**
+ * Reference to a field of type 'QueryMode'
+ */
+export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 
@@ -3222,6 +3428,8 @@ export type GlobalOmitConfig = {
   sectionCourse?: Prisma.SectionCourseOmit
   majorCourse?: Prisma.MajorCourseOmit
   courseFile?: Prisma.CourseFileOmit
+  courseFileFlashcards?: Prisma.CourseFileFlashcardsOmit
+  courseFileSummary?: Prisma.CourseFileSummaryOmit
   mark?: Prisma.MarkOmit
   courseMarksPublication?: Prisma.CourseMarksPublicationOmit
   studentCourse?: Prisma.StudentCourseOmit

@@ -44,6 +44,9 @@ app.get('/sw.js', (_req, res) => {
 app.get('/test-push.html', (_req, res) => {
     res.sendFile(join(process.cwd(), 'public', 'test-push.html'));
 });
+app.get('/test-ai-study-materials.html', (_req, res) => {
+    res.sendFile(join(process.cwd(), 'public', 'test-ai-study-materials.html'));
+});
 app.use('/api', router);
 app.use(notFound);
 app.use(logger);

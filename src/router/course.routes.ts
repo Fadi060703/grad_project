@@ -16,6 +16,10 @@ import {
   createCourseFile,
   deleteCourseFile,
   getAllCourseFiles,
+  getCourseFileFlashcardsHtml,
+  getCourseFileFlashcardsHtmlById,
+  getCourseFileSummaryHtml,
+  getCourseFileSummaryHtmlById,
   updateCourseFile,
   uploadCourseFile,
 } from "../controllers/courseFilesController";
@@ -57,6 +61,18 @@ router.delete(
 );
 
 router.get(
+  "/course-files/:id/flashcards-html",
+  authMiddleware,
+  check("course-files:read"),
+  getCourseFileFlashcardsHtmlById,
+);
+router.get(
+  "/course-files/:id/summary-html",
+  authMiddleware,
+  check("course-files:read"),
+  getCourseFileSummaryHtmlById,
+);
+router.get(
   "/courses/:course_id/files",
   authMiddleware,
   check("course-files:read"),
@@ -67,6 +83,18 @@ router.post(
   authMiddleware,
   check("course-files:add"),
   createCourseFile,
+);
+router.get(
+  "/courses/:course_id/files/:id/flashcards-html",
+  authMiddleware,
+  check("course-files:read"),
+  getCourseFileFlashcardsHtml,
+);
+router.get(
+  "/courses/:course_id/files/:id/summary-html",
+  authMiddleware,
+  check("course-files:read"),
+  getCourseFileSummaryHtml,
 );
 router.put(
   "/courses/:course_id/files/:id",

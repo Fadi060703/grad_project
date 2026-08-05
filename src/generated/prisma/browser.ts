@@ -93,6 +93,16 @@ export type MajorCourse = Prisma.MajorCourseModel
  */
 export type CourseFile = Prisma.CourseFileModel
 /**
+ * Model CourseFileFlashcards
+ * 
+ */
+export type CourseFileFlashcards = Prisma.CourseFileFlashcardsModel
+/**
+ * Model CourseFileSummary
+ * 
+ */
+export type CourseFileSummary = Prisma.CourseFileSummaryModel
+/**
  * Model Mark
  * 
  */

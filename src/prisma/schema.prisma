@@ -259,6 +259,8 @@ model Course {
   teachers                     User[]                   @relation("CourseTeachers")
   lectures                     Lecture[]
   courseFiles                  CourseFile[]
+  fileFlashcards               CourseFileFlashcards[]
+  fileSummaries                CourseFileSummary[]
   students                     StudentCourse[]
   announcements                Announcement[]
   exams                        Exam[]
@@ -299,19 +301,51 @@ model MajorCourse {
 }
 
 model CourseFile {
-  id         Int         @id @default(autoincrement())
+  id         Int                   @id @default(autoincrement())
   course_id  Int
-  course     Course      @relation(fields: [course_id], references: [id], onDelete: Cascade)
+  course     Course                @relation(fields: [course_id], references: [id], onDelete: Cascade)
   type       LectureType
   file       String
   size       Int
   title      String
   mime_type  String
-  created_at DateTime    @default(now())
-  updated_at DateTime    @updatedAt
+  flashcards CourseFileFlashcards?
+  summary    CourseFileSummary?
+  created_at DateTime              @default(now())
+  updated_at DateTime              @updatedAt
 
   @@index([course_id])
   @@map("course_files")
+}
+
+model CourseFileFlashcards {
+  id             Int         @id @default(autoincrement())
+  course_id      Int
+  course         Course      @relation(fields: [course_id], references: [id], onDelete: Cascade)
+  course_file_id Int         @unique
+  courseFile     CourseFile  @relation(fields: [course_file_id], references: [id], onDelete: Cascade)
+  course_type    LectureType
+  cards          Json
+  created_at     DateTime    @default(now())
+  updated_at     DateTime    @updatedAt
+
+  @@index([course_id])
+  @@map("course_file_flashcards")
+}
+
+model CourseFileSummary {
+  id             Int         @id @default(autoincrement())
+  course_id      Int
+  course         Course      @relation(fields: [course_id], references: [id], onDelete: Cascade)
+  course_file_id Int         @unique
+  courseFile     CourseFile  @relation(fields: [course_file_id], references: [id], onDelete: Cascade)
+  course_type    LectureType
+  summary        Json
+  created_at     DateTime    @default(now())
+  updated_at     DateTime    @updatedAt
+
+  @@index([course_id])
+  @@map("course_file_summaries")
 }
 
 model Mark {

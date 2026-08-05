@@ -257,6 +257,8 @@ export type CourseFileWhereInput = {
   created_at?: Prisma.DateTimeFilter<"CourseFile"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"CourseFile"> | Date | string
   course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>
+  flashcards?: Prisma.XOR<Prisma.CourseFileFlashcardsNullableScalarRelationFilter, Prisma.CourseFileFlashcardsWhereInput> | null
+  summary?: Prisma.XOR<Prisma.CourseFileSummaryNullableScalarRelationFilter, Prisma.CourseFileSummaryWhereInput> | null
 }
 
 export type CourseFileOrderByWithRelationInput = {
@@ -270,6 +272,8 @@ export type CourseFileOrderByWithRelationInput = {
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   course?: Prisma.CourseOrderByWithRelationInput
+  flashcards?: Prisma.CourseFileFlashcardsOrderByWithRelationInput
+  summary?: Prisma.CourseFileSummaryOrderByWithRelationInput
 }
 
 export type CourseFileWhereUniqueInput = Prisma.AtLeast<{
@@ -286,6 +290,8 @@ export type CourseFileWhereUniqueInput = Prisma.AtLeast<{
   created_at?: Prisma.DateTimeFilter<"CourseFile"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"CourseFile"> | Date | string
   course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>
+  flashcards?: Prisma.XOR<Prisma.CourseFileFlashcardsNullableScalarRelationFilter, Prisma.CourseFileFlashcardsWhereInput> | null
+  summary?: Prisma.XOR<Prisma.CourseFileSummaryNullableScalarRelationFilter, Prisma.CourseFileSummaryWhereInput> | null
 }, "id">
 
 export type CourseFileOrderByWithAggregationInput = {
@@ -329,6 +335,8 @@ export type CourseFileCreateInput = {
   created_at?: Date | string
   updated_at?: Date | string
   course: Prisma.CourseCreateNestedOneWithoutCourseFilesInput
+  flashcards?: Prisma.CourseFileFlashcardsCreateNestedOneWithoutCourseFileInput
+  summary?: Prisma.CourseFileSummaryCreateNestedOneWithoutCourseFileInput
 }
 
 export type CourseFileUncheckedCreateInput = {
@@ -341,6 +349,8 @@ export type CourseFileUncheckedCreateInput = {
   mime_type: string
   created_at?: Date | string
   updated_at?: Date | string
+  flashcards?: Prisma.CourseFileFlashcardsUncheckedCreateNestedOneWithoutCourseFileInput
+  summary?: Prisma.CourseFileSummaryUncheckedCreateNestedOneWithoutCourseFileInput
 }
 
 export type CourseFileUpdateInput = {
@@ -352,6 +362,8 @@ export type CourseFileUpdateInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   course?: Prisma.CourseUpdateOneRequiredWithoutCourseFilesNestedInput
+  flashcards?: Prisma.CourseFileFlashcardsUpdateOneWithoutCourseFileNestedInput
+  summary?: Prisma.CourseFileSummaryUpdateOneWithoutCourseFileNestedInput
 }
 
 export type CourseFileUncheckedUpdateInput = {
@@ -364,6 +376,8 @@ export type CourseFileUncheckedUpdateInput = {
   mime_type?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  flashcards?: Prisma.CourseFileFlashcardsUncheckedUpdateOneWithoutCourseFileNestedInput
+  summary?: Prisma.CourseFileSummaryUncheckedUpdateOneWithoutCourseFileNestedInput
 }
 
 export type CourseFileCreateManyInput = {
@@ -458,6 +472,11 @@ export type CourseFileSumOrderByAggregateInput = {
   size?: Prisma.SortOrder
 }
 
+export type CourseFileScalarRelationFilter = {
+  is?: Prisma.CourseFileWhereInput
+  isNot?: Prisma.CourseFileWhereInput
+}
+
 export type CourseFileCreateNestedManyWithoutCourseInput = {
   create?: Prisma.XOR<Prisma.CourseFileCreateWithoutCourseInput, Prisma.CourseFileUncheckedCreateWithoutCourseInput> | Prisma.CourseFileCreateWithoutCourseInput[] | Prisma.CourseFileUncheckedCreateWithoutCourseInput[]
   connectOrCreate?: Prisma.CourseFileCreateOrConnectWithoutCourseInput | Prisma.CourseFileCreateOrConnectWithoutCourseInput[]
@@ -504,6 +523,34 @@ export type EnumLectureTypeFieldUpdateOperationsInput = {
   set?: $Enums.LectureType
 }
 
+export type CourseFileCreateNestedOneWithoutFlashcardsInput = {
+  create?: Prisma.XOR<Prisma.CourseFileCreateWithoutFlashcardsInput, Prisma.CourseFileUncheckedCreateWithoutFlashcardsInput>
+  connectOrCreate?: Prisma.CourseFileCreateOrConnectWithoutFlashcardsInput
+  connect?: Prisma.CourseFileWhereUniqueInput
+}
+
+export type CourseFileUpdateOneRequiredWithoutFlashcardsNestedInput = {
+  create?: Prisma.XOR<Prisma.CourseFileCreateWithoutFlashcardsInput, Prisma.CourseFileUncheckedCreateWithoutFlashcardsInput>
+  connectOrCreate?: Prisma.CourseFileCreateOrConnectWithoutFlashcardsInput
+  upsert?: Prisma.CourseFileUpsertWithoutFlashcardsInput
+  connect?: Prisma.CourseFileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CourseFileUpdateToOneWithWhereWithoutFlashcardsInput, Prisma.CourseFileUpdateWithoutFlashcardsInput>, Prisma.CourseFileUncheckedUpdateWithoutFlashcardsInput>
+}
+
+export type CourseFileCreateNestedOneWithoutSummaryInput = {
+  create?: Prisma.XOR<Prisma.CourseFileCreateWithoutSummaryInput, Prisma.CourseFileUncheckedCreateWithoutSummaryInput>
+  connectOrCreate?: Prisma.CourseFileCreateOrConnectWithoutSummaryInput
+  connect?: Prisma.CourseFileWhereUniqueInput
+}
+
+export type CourseFileUpdateOneRequiredWithoutSummaryNestedInput = {
+  create?: Prisma.XOR<Prisma.CourseFileCreateWithoutSummaryInput, Prisma.CourseFileUncheckedCreateWithoutSummaryInput>
+  connectOrCreate?: Prisma.CourseFileCreateOrConnectWithoutSummaryInput
+  upsert?: Prisma.CourseFileUpsertWithoutSummaryInput
+  connect?: Prisma.CourseFileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CourseFileUpdateToOneWithWhereWithoutSummaryInput, Prisma.CourseFileUpdateWithoutSummaryInput>, Prisma.CourseFileUncheckedUpdateWithoutSummaryInput>
+}
+
 export type CourseFileCreateWithoutCourseInput = {
   type: $Enums.LectureType
   file: string
@@ -512,6 +559,8 @@ export type CourseFileCreateWithoutCourseInput = {
   mime_type: string
   created_at?: Date | string
   updated_at?: Date | string
+  flashcards?: Prisma.CourseFileFlashcardsCreateNestedOneWithoutCourseFileInput
+  summary?: Prisma.CourseFileSummaryCreateNestedOneWithoutCourseFileInput
 }
 
 export type CourseFileUncheckedCreateWithoutCourseInput = {
@@ -523,6 +572,8 @@ export type CourseFileUncheckedCreateWithoutCourseInput = {
   mime_type: string
   created_at?: Date | string
   updated_at?: Date | string
+  flashcards?: Prisma.CourseFileFlashcardsUncheckedCreateNestedOneWithoutCourseFileInput
+  summary?: Prisma.CourseFileSummaryUncheckedCreateNestedOneWithoutCourseFileInput
 }
 
 export type CourseFileCreateOrConnectWithoutCourseInput = {
@@ -566,6 +617,138 @@ export type CourseFileScalarWhereInput = {
   updated_at?: Prisma.DateTimeFilter<"CourseFile"> | Date | string
 }
 
+export type CourseFileCreateWithoutFlashcardsInput = {
+  type: $Enums.LectureType
+  file: string
+  size: number
+  title: string
+  mime_type: string
+  created_at?: Date | string
+  updated_at?: Date | string
+  course: Prisma.CourseCreateNestedOneWithoutCourseFilesInput
+  summary?: Prisma.CourseFileSummaryCreateNestedOneWithoutCourseFileInput
+}
+
+export type CourseFileUncheckedCreateWithoutFlashcardsInput = {
+  id?: number
+  course_id: number
+  type: $Enums.LectureType
+  file: string
+  size: number
+  title: string
+  mime_type: string
+  created_at?: Date | string
+  updated_at?: Date | string
+  summary?: Prisma.CourseFileSummaryUncheckedCreateNestedOneWithoutCourseFileInput
+}
+
+export type CourseFileCreateOrConnectWithoutFlashcardsInput = {
+  where: Prisma.CourseFileWhereUniqueInput
+  create: Prisma.XOR<Prisma.CourseFileCreateWithoutFlashcardsInput, Prisma.CourseFileUncheckedCreateWithoutFlashcardsInput>
+}
+
+export type CourseFileUpsertWithoutFlashcardsInput = {
+  update: Prisma.XOR<Prisma.CourseFileUpdateWithoutFlashcardsInput, Prisma.CourseFileUncheckedUpdateWithoutFlashcardsInput>
+  create: Prisma.XOR<Prisma.CourseFileCreateWithoutFlashcardsInput, Prisma.CourseFileUncheckedCreateWithoutFlashcardsInput>
+  where?: Prisma.CourseFileWhereInput
+}
+
+export type CourseFileUpdateToOneWithWhereWithoutFlashcardsInput = {
+  where?: Prisma.CourseFileWhereInput
+  data: Prisma.XOR<Prisma.CourseFileUpdateWithoutFlashcardsInput, Prisma.CourseFileUncheckedUpdateWithoutFlashcardsInput>
+}
+
+export type CourseFileUpdateWithoutFlashcardsInput = {
+  type?: Prisma.EnumLectureTypeFieldUpdateOperationsInput | $Enums.LectureType
+  file?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  mime_type?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  course?: Prisma.CourseUpdateOneRequiredWithoutCourseFilesNestedInput
+  summary?: Prisma.CourseFileSummaryUpdateOneWithoutCourseFileNestedInput
+}
+
+export type CourseFileUncheckedUpdateWithoutFlashcardsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  course_id?: Prisma.IntFieldUpdateOperationsInput | number
+  type?: Prisma.EnumLectureTypeFieldUpdateOperationsInput | $Enums.LectureType
+  file?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  mime_type?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  summary?: Prisma.CourseFileSummaryUncheckedUpdateOneWithoutCourseFileNestedInput
+}
+
+export type CourseFileCreateWithoutSummaryInput = {
+  type: $Enums.LectureType
+  file: string
+  size: number
+  title: string
+  mime_type: string
+  created_at?: Date | string
+  updated_at?: Date | string
+  course: Prisma.CourseCreateNestedOneWithoutCourseFilesInput
+  flashcards?: Prisma.CourseFileFlashcardsCreateNestedOneWithoutCourseFileInput
+}
+
+export type CourseFileUncheckedCreateWithoutSummaryInput = {
+  id?: number
+  course_id: number
+  type: $Enums.LectureType
+  file: string
+  size: number
+  title: string
+  mime_type: string
+  created_at?: Date | string
+  updated_at?: Date | string
+  flashcards?: Prisma.CourseFileFlashcardsUncheckedCreateNestedOneWithoutCourseFileInput
+}
+
+export type CourseFileCreateOrConnectWithoutSummaryInput = {
+  where: Prisma.CourseFileWhereUniqueInput
+  create: Prisma.XOR<Prisma.CourseFileCreateWithoutSummaryInput, Prisma.CourseFileUncheckedCreateWithoutSummaryInput>
+}
+
+export type CourseFileUpsertWithoutSummaryInput = {
+  update: Prisma.XOR<Prisma.CourseFileUpdateWithoutSummaryInput, Prisma.CourseFileUncheckedUpdateWithoutSummaryInput>
+  create: Prisma.XOR<Prisma.CourseFileCreateWithoutSummaryInput, Prisma.CourseFileUncheckedCreateWithoutSummaryInput>
+  where?: Prisma.CourseFileWhereInput
+}
+
+export type CourseFileUpdateToOneWithWhereWithoutSummaryInput = {
+  where?: Prisma.CourseFileWhereInput
+  data: Prisma.XOR<Prisma.CourseFileUpdateWithoutSummaryInput, Prisma.CourseFileUncheckedUpdateWithoutSummaryInput>
+}
+
+export type CourseFileUpdateWithoutSummaryInput = {
+  type?: Prisma.EnumLectureTypeFieldUpdateOperationsInput | $Enums.LectureType
+  file?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  mime_type?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  course?: Prisma.CourseUpdateOneRequiredWithoutCourseFilesNestedInput
+  flashcards?: Prisma.CourseFileFlashcardsUpdateOneWithoutCourseFileNestedInput
+}
+
+export type CourseFileUncheckedUpdateWithoutSummaryInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  course_id?: Prisma.IntFieldUpdateOperationsInput | number
+  type?: Prisma.EnumLectureTypeFieldUpdateOperationsInput | $Enums.LectureType
+  file?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  mime_type?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  flashcards?: Prisma.CourseFileFlashcardsUncheckedUpdateOneWithoutCourseFileNestedInput
+}
+
 export type CourseFileCreateManyCourseInput = {
   id?: number
   type: $Enums.LectureType
@@ -585,6 +768,8 @@ export type CourseFileUpdateWithoutCourseInput = {
   mime_type?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  flashcards?: Prisma.CourseFileFlashcardsUpdateOneWithoutCourseFileNestedInput
+  summary?: Prisma.CourseFileSummaryUpdateOneWithoutCourseFileNestedInput
 }
 
 export type CourseFileUncheckedUpdateWithoutCourseInput = {
@@ -596,6 +781,8 @@ export type CourseFileUncheckedUpdateWithoutCourseInput = {
   mime_type?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  flashcards?: Prisma.CourseFileFlashcardsUncheckedUpdateOneWithoutCourseFileNestedInput
+  summary?: Prisma.CourseFileSummaryUncheckedUpdateOneWithoutCourseFileNestedInput
 }
 
 export type CourseFileUncheckedUpdateManyWithoutCourseInput = {
@@ -622,6 +809,8 @@ export type CourseFileSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   created_at?: boolean
   updated_at?: boolean
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+  flashcards?: boolean | Prisma.CourseFile$flashcardsArgs<ExtArgs>
+  summary?: boolean | Prisma.CourseFile$summaryArgs<ExtArgs>
 }, ExtArgs["result"]["courseFile"]>
 
 export type CourseFileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -665,6 +854,8 @@ export type CourseFileSelectScalar = {
 export type CourseFileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "course_id" | "type" | "file" | "size" | "title" | "mime_type" | "created_at" | "updated_at", ExtArgs["result"]["courseFile"]>
 export type CourseFileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+  flashcards?: boolean | Prisma.CourseFile$flashcardsArgs<ExtArgs>
+  summary?: boolean | Prisma.CourseFile$summaryArgs<ExtArgs>
 }
 export type CourseFileIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
@@ -677,6 +868,8 @@ export type $CourseFilePayload<ExtArgs extends runtime.Types.Extensions.Internal
   name: "CourseFile"
   objects: {
     course: Prisma.$CoursePayload<ExtArgs>
+    flashcards: Prisma.$CourseFileFlashcardsPayload<ExtArgs> | null
+    summary: Prisma.$CourseFileSummaryPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1083,6 +1276,8 @@ readonly fields: CourseFileFieldRefs;
 export interface Prisma__CourseFileClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   course<T extends Prisma.CourseDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CourseDefaultArgs<ExtArgs>>): Prisma.Prisma__CourseClient<runtime.Types.Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  flashcards<T extends Prisma.CourseFile$flashcardsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CourseFile$flashcardsArgs<ExtArgs>>): Prisma.Prisma__CourseFileFlashcardsClient<runtime.Types.Result.GetResult<Prisma.$CourseFileFlashcardsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  summary<T extends Prisma.CourseFile$summaryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CourseFile$summaryArgs<ExtArgs>>): Prisma.Prisma__CourseFileSummaryClient<runtime.Types.Result.GetResult<Prisma.$CourseFileSummaryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1519,6 +1714,44 @@ export type CourseFileDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * Limit how many CourseFiles to delete.
    */
   limit?: number
+}
+
+/**
+ * CourseFile.flashcards
+ */
+export type CourseFile$flashcardsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CourseFileFlashcards
+   */
+  select?: Prisma.CourseFileFlashcardsSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CourseFileFlashcards
+   */
+  omit?: Prisma.CourseFileFlashcardsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CourseFileFlashcardsInclude<ExtArgs> | null
+  where?: Prisma.CourseFileFlashcardsWhereInput
+}
+
+/**
+ * CourseFile.summary
+ */
+export type CourseFile$summaryArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CourseFileSummary
+   */
+  select?: Prisma.CourseFileSummarySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CourseFileSummary
+   */
+  omit?: Prisma.CourseFileSummaryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CourseFileSummaryInclude<ExtArgs> | null
+  where?: Prisma.CourseFileSummaryWhereInput
 }
 
 /**

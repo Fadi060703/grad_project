@@ -9,6 +9,17 @@ import {
   getCourseFileSchema,
   updateCourseFileSchema,
 } from "../validators/coursesFiles";
+import {
+  AiStudyMaterialGenerationError,
+  generateCourseFileStudyMaterials,
+  parseStoredFlashcards,
+  parseStoredSummary,
+  type GeneratedStudyMaterials,
+} from "../services/aiStudyMaterialsService";
+import {
+  renderFlashcardsHtml,
+  renderSummaryHtml,
+} from "../services/courseFileAiHtmlService";
 import { asyncHandler } from "../utils/asyncHandler";
 
 type UploadedFile = {
@@ -216,15 +227,46 @@ export const createCourseFile = async (req: Request, res: Response) => {
 
     const data = createCourseFileSchema.parse(req.body);
 
-    const created = await prisma.courseFile.create({
-      data: {
-        course_id: courseId,
-        type: data.type,
-        file: data.file,
-        size: data.size,
-        title: data.title,
-        mime_type: data.mime_type,
-      },
+    const aiMaterials = await generateCourseFileStudyMaterials({
+      courseId,
+      courseType: data.type,
+      title: data.title,
+      file: data.file,
+      mimeType: data.mime_type,
+      size: data.size,
+    });
+
+    const created = await prisma.$transaction(async (tx) => {
+      const courseFile = await tx.courseFile.create({
+        data: {
+          course_id: courseId,
+          type: data.type,
+          file: data.file,
+          size: data.size,
+          title: data.title,
+          mime_type: data.mime_type,
+        },
+      });
+
+      await tx.courseFileFlashcards.create({
+        data: {
+          course_id: courseId,
+          course_file_id: courseFile.id,
+          course_type: courseFile.type,
+          cards: aiMaterials.flashcards,
+        },
+      });
+
+      await tx.courseFileSummary.create({
+        data: {
+          course_id: courseId,
+          course_file_id: courseFile.id,
+          course_type: courseFile.type,
+          summary: aiMaterials.summary,
+        },
+      });
+
+      return courseFile;
     });
 
     return res.status(201).json(created);
@@ -232,6 +274,14 @@ export const createCourseFile = async (req: Request, res: Response) => {
     if (err instanceof z.ZodError) {
       return res.status(400).json({ error: "Validation failed" });
     }
+
+    if (err instanceof AiStudyMaterialGenerationError) {
+      return res.status(502).json({
+        error: err.message,
+        debug: err.debugDetails,
+      });
+    }
+
     return res.status(400).json({ error: err });
   }
 };
@@ -263,20 +313,219 @@ export const updateCourseFile = async (req: Request, res: Response) => {
     }
 
     const data = updateCourseFileSchema.parse(req.body);
+    const fileChanged = !!data.file && data.file !== existing.file;
+    let aiMaterials: GeneratedStudyMaterials | null = null;
 
-    if (data.file && data.file !== existing.file) {
+    if (fileChanged) {
+      aiMaterials = await generateCourseFileStudyMaterials({
+        courseId,
+        courseType: data.type ?? existing.type,
+        title: data.title ?? existing.title,
+        file: data.file!,
+        mimeType: data.mime_type ?? existing.mime_type,
+        size: data.size ?? existing.size,
+      });
+
       await deleteFileIfExists(existing.file);
     }
 
-    const updated = await prisma.courseFile.update({
-      where: { id },
-      data,
+    const updated = await prisma.$transaction(async (tx) => {
+      const courseFile = await tx.courseFile.update({
+        where: { id },
+        data,
+      });
+
+      if (aiMaterials) {
+        await tx.courseFileFlashcards.upsert({
+          where: { course_file_id: id },
+          create: {
+            course_id: courseId,
+            course_file_id: id,
+            course_type: courseFile.type,
+            cards: aiMaterials.flashcards,
+          },
+          update: {
+            course_id: courseId,
+            course_type: courseFile.type,
+            cards: aiMaterials.flashcards,
+          },
+        });
+
+        await tx.courseFileSummary.upsert({
+          where: { course_file_id: id },
+          create: {
+            course_id: courseId,
+            course_file_id: id,
+            course_type: courseFile.type,
+            summary: aiMaterials.summary,
+          },
+          update: {
+            course_id: courseId,
+            course_type: courseFile.type,
+            summary: aiMaterials.summary,
+          },
+        });
+      } else if (data.type && data.type !== existing.type) {
+        await tx.courseFileFlashcards.updateMany({
+          where: { course_file_id: id },
+          data: { course_type: data.type },
+        });
+        await tx.courseFileSummary.updateMany({
+          where: { course_file_id: id },
+          data: { course_type: data.type },
+        });
+      }
+
+      return courseFile;
     });
 
     return res.status(200).json(updated);
   } catch (err) {
     if (err instanceof z.ZodError) {
       return res.status(400).json({ error: "Validation failed" });
+    }
+
+    if (err instanceof AiStudyMaterialGenerationError) {
+      return res.status(502).json({
+        error: err.message,
+        debug: err.debugDetails,
+      });
+    }
+
+    return res.status(400).json({ error: err });
+  }
+};
+
+const sendFlashcardsHtml = async (
+  res: Response,
+  where: { course_file_id: number; course_id?: number },
+) => {
+  const flashcardsRow = await prisma.courseFileFlashcards.findFirst({
+    where,
+    include: {
+      courseFile: { select: { title: true, type: true } },
+    },
+  });
+
+  if (!flashcardsRow) {
+    return res.status(404).json({ error: "Flashcards not found" });
+  }
+
+  const cards = parseStoredFlashcards(flashcardsRow.cards);
+  const html = renderFlashcardsHtml({
+    title: flashcardsRow.courseFile.title,
+    courseType: flashcardsRow.course_type,
+    cards,
+  });
+
+  return res.status(200).type("html").send(html);
+};
+
+const sendSummaryHtml = async (
+  res: Response,
+  where: { course_file_id: number; course_id?: number },
+) => {
+  const summaryRow = await prisma.courseFileSummary.findFirst({
+    where,
+    include: {
+      courseFile: { select: { title: true, type: true } },
+    },
+  });
+
+  if (!summaryRow) {
+    return res.status(404).json({ error: "Summary not found" });
+  }
+
+  const summary = parseStoredSummary(summaryRow.summary);
+  const html = renderSummaryHtml({
+    title: summaryRow.courseFile.title,
+    courseType: summaryRow.course_type,
+    summary,
+  });
+
+  return res.status(200).type("html").send(html);
+};
+
+export const getCourseFileFlashcardsHtml = async (
+  req: Request,
+  res: Response,
+) => {
+  try {
+    const courseId = parseCourseId(req.params.course_id);
+    const id = parsePositiveInt(req.params.id);
+
+    if (!courseId || !id) {
+      return res.status(400).json({ error: "Invalid course file id" });
+    }
+
+    return await sendFlashcardsHtml(res, {
+      course_id: courseId,
+      course_file_id: id,
+    });
+  } catch (err) {
+    if (err instanceof z.ZodError) {
+      return res.status(500).json({ error: "Stored flashcards data is invalid" });
+    }
+    return res.status(400).json({ error: err });
+  }
+};
+
+export const getCourseFileSummaryHtml = async (req: Request, res: Response) => {
+  try {
+    const courseId = parseCourseId(req.params.course_id);
+    const id = parsePositiveInt(req.params.id);
+
+    if (!courseId || !id) {
+      return res.status(400).json({ error: "Invalid course file id" });
+    }
+
+    return await sendSummaryHtml(res, {
+      course_id: courseId,
+      course_file_id: id,
+    });
+  } catch (err) {
+    if (err instanceof z.ZodError) {
+      return res.status(500).json({ error: "Stored summary data is invalid" });
+    }
+    return res.status(400).json({ error: err });
+  }
+};
+
+export const getCourseFileFlashcardsHtmlById = async (
+  req: Request,
+  res: Response,
+) => {
+  try {
+    const id = parsePositiveInt(req.params.id);
+
+    if (!id) {
+      return res.status(400).json({ error: "Invalid course file id" });
+    }
+
+    return await sendFlashcardsHtml(res, { course_file_id: id });
+  } catch (err) {
+    if (err instanceof z.ZodError) {
+      return res.status(500).json({ error: "Stored flashcards data is invalid" });
+    }
+    return res.status(400).json({ error: err });
+  }
+};
+
+export const getCourseFileSummaryHtmlById = async (
+  req: Request,
+  res: Response,
+) => {
+  try {
+    const id = parsePositiveInt(req.params.id);
+
+    if (!id) {
+      return res.status(400).json({ error: "Invalid course file id" });
+    }
+
+    return await sendSummaryHtml(res, { course_file_id: id });
+  } catch (err) {
+    if (err instanceof z.ZodError) {
+      return res.status(500).json({ error: "Stored summary data is invalid" });
     }
     return res.status(400).json({ error: err });
   }

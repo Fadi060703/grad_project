@@ -66,6 +66,8 @@ export const ModelName = {
   SectionCourse: 'SectionCourse',
   MajorCourse: 'MajorCourse',
   CourseFile: 'CourseFile',
+  CourseFileFlashcards: 'CourseFileFlashcards',
+  CourseFileSummary: 'CourseFileSummary',
   Mark: 'Mark',
   CourseMarksPublication: 'CourseMarksPublication',
   StudentCourse: 'StudentCourse',
@@ -304,6 +306,32 @@ export const CourseFileScalarFieldEnum = {
 export type CourseFileScalarFieldEnum = (typeof CourseFileScalarFieldEnum)[keyof typeof CourseFileScalarFieldEnum]
 
 
+export const CourseFileFlashcardsScalarFieldEnum = {
+  id: 'id',
+  course_id: 'course_id',
+  course_file_id: 'course_file_id',
+  course_type: 'course_type',
+  cards: 'cards',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type CourseFileFlashcardsScalarFieldEnum = (typeof CourseFileFlashcardsScalarFieldEnum)[keyof typeof CourseFileFlashcardsScalarFieldEnum]
+
+
+export const CourseFileSummaryScalarFieldEnum = {
+  id: 'id',
+  course_id: 'course_id',
+  course_file_id: 'course_file_id',
+  course_type: 'course_type',
+  summary: 'summary',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type CourseFileSummaryScalarFieldEnum = (typeof CourseFileSummaryScalarFieldEnum)[keyof typeof CourseFileSummaryScalarFieldEnum]
+
+
 export const MarkScalarFieldEnum = {
   id: 'id',
   course_id: 'course_id',
@@ -474,6 +502,13 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
 export const QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
@@ -488,4 +523,13 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
