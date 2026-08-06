@@ -399,6 +399,10 @@ export const ModelName = {
   SectionCourse: 'SectionCourse',
   MajorCourse: 'MajorCourse',
   CourseFile: 'CourseFile',
+  CourseAiChatSession: 'CourseAiChatSession',
+  CourseAiChatMessage: 'CourseAiChatMessage',
+  ChatbotSession: 'ChatbotSession',
+  ChatbotMessage: 'ChatbotMessage',
   CourseFileFlashcards: 'CourseFileFlashcards',
   CourseFileSummary: 'CourseFileSummary',
   Mark: 'Mark',
@@ -428,7 +432,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "systemSettings" | "faculityInfo" | "user" | "student" | "pushSubscription" | "notification" | "year" | "section" | "major" | "group" | "universityLocation" | "course" | "sectionCourse" | "majorCourse" | "courseFile" | "courseFileFlashcards" | "courseFileSummary" | "mark" | "courseMarksPublication" | "studentCourse" | "fAQ" | "blog" | "examGuideline" | "lecture" | "weeklyLecture" | "lectureAttendance" | "announcement" | "exam" | "examSettings"
+    modelProps: "systemSettings" | "faculityInfo" | "user" | "student" | "pushSubscription" | "notification" | "year" | "section" | "major" | "group" | "universityLocation" | "course" | "sectionCourse" | "majorCourse" | "courseFile" | "courseAiChatSession" | "courseAiChatMessage" | "chatbotSession" | "chatbotMessage" | "courseFileFlashcards" | "courseFileSummary" | "mark" | "courseMarksPublication" | "studentCourse" | "fAQ" | "blog" | "examGuideline" | "lecture" | "weeklyLecture" | "lectureAttendance" | "announcement" | "exam" | "examSettings"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1542,6 +1546,302 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    CourseAiChatSession: {
+      payload: Prisma.$CourseAiChatSessionPayload<ExtArgs>
+      fields: Prisma.CourseAiChatSessionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CourseAiChatSessionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseAiChatSessionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CourseAiChatSessionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseAiChatSessionPayload>
+        }
+        findFirst: {
+          args: Prisma.CourseAiChatSessionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseAiChatSessionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CourseAiChatSessionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseAiChatSessionPayload>
+        }
+        findMany: {
+          args: Prisma.CourseAiChatSessionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseAiChatSessionPayload>[]
+        }
+        create: {
+          args: Prisma.CourseAiChatSessionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseAiChatSessionPayload>
+        }
+        createMany: {
+          args: Prisma.CourseAiChatSessionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CourseAiChatSessionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseAiChatSessionPayload>[]
+        }
+        delete: {
+          args: Prisma.CourseAiChatSessionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseAiChatSessionPayload>
+        }
+        update: {
+          args: Prisma.CourseAiChatSessionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseAiChatSessionPayload>
+        }
+        deleteMany: {
+          args: Prisma.CourseAiChatSessionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CourseAiChatSessionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CourseAiChatSessionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseAiChatSessionPayload>[]
+        }
+        upsert: {
+          args: Prisma.CourseAiChatSessionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseAiChatSessionPayload>
+        }
+        aggregate: {
+          args: Prisma.CourseAiChatSessionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCourseAiChatSession>
+        }
+        groupBy: {
+          args: Prisma.CourseAiChatSessionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CourseAiChatSessionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CourseAiChatSessionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CourseAiChatSessionCountAggregateOutputType> | number
+        }
+      }
+    }
+    CourseAiChatMessage: {
+      payload: Prisma.$CourseAiChatMessagePayload<ExtArgs>
+      fields: Prisma.CourseAiChatMessageFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CourseAiChatMessageFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseAiChatMessagePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CourseAiChatMessageFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseAiChatMessagePayload>
+        }
+        findFirst: {
+          args: Prisma.CourseAiChatMessageFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseAiChatMessagePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CourseAiChatMessageFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseAiChatMessagePayload>
+        }
+        findMany: {
+          args: Prisma.CourseAiChatMessageFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseAiChatMessagePayload>[]
+        }
+        create: {
+          args: Prisma.CourseAiChatMessageCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseAiChatMessagePayload>
+        }
+        createMany: {
+          args: Prisma.CourseAiChatMessageCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CourseAiChatMessageCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseAiChatMessagePayload>[]
+        }
+        delete: {
+          args: Prisma.CourseAiChatMessageDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseAiChatMessagePayload>
+        }
+        update: {
+          args: Prisma.CourseAiChatMessageUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseAiChatMessagePayload>
+        }
+        deleteMany: {
+          args: Prisma.CourseAiChatMessageDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CourseAiChatMessageUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CourseAiChatMessageUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseAiChatMessagePayload>[]
+        }
+        upsert: {
+          args: Prisma.CourseAiChatMessageUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourseAiChatMessagePayload>
+        }
+        aggregate: {
+          args: Prisma.CourseAiChatMessageAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCourseAiChatMessage>
+        }
+        groupBy: {
+          args: Prisma.CourseAiChatMessageGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CourseAiChatMessageGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CourseAiChatMessageCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CourseAiChatMessageCountAggregateOutputType> | number
+        }
+      }
+    }
+    ChatbotSession: {
+      payload: Prisma.$ChatbotSessionPayload<ExtArgs>
+      fields: Prisma.ChatbotSessionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ChatbotSessionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatbotSessionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ChatbotSessionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatbotSessionPayload>
+        }
+        findFirst: {
+          args: Prisma.ChatbotSessionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatbotSessionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ChatbotSessionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatbotSessionPayload>
+        }
+        findMany: {
+          args: Prisma.ChatbotSessionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatbotSessionPayload>[]
+        }
+        create: {
+          args: Prisma.ChatbotSessionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatbotSessionPayload>
+        }
+        createMany: {
+          args: Prisma.ChatbotSessionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ChatbotSessionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatbotSessionPayload>[]
+        }
+        delete: {
+          args: Prisma.ChatbotSessionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatbotSessionPayload>
+        }
+        update: {
+          args: Prisma.ChatbotSessionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatbotSessionPayload>
+        }
+        deleteMany: {
+          args: Prisma.ChatbotSessionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ChatbotSessionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ChatbotSessionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatbotSessionPayload>[]
+        }
+        upsert: {
+          args: Prisma.ChatbotSessionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatbotSessionPayload>
+        }
+        aggregate: {
+          args: Prisma.ChatbotSessionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateChatbotSession>
+        }
+        groupBy: {
+          args: Prisma.ChatbotSessionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ChatbotSessionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ChatbotSessionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ChatbotSessionCountAggregateOutputType> | number
+        }
+      }
+    }
+    ChatbotMessage: {
+      payload: Prisma.$ChatbotMessagePayload<ExtArgs>
+      fields: Prisma.ChatbotMessageFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ChatbotMessageFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatbotMessagePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ChatbotMessageFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatbotMessagePayload>
+        }
+        findFirst: {
+          args: Prisma.ChatbotMessageFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatbotMessagePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ChatbotMessageFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatbotMessagePayload>
+        }
+        findMany: {
+          args: Prisma.ChatbotMessageFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatbotMessagePayload>[]
+        }
+        create: {
+          args: Prisma.ChatbotMessageCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatbotMessagePayload>
+        }
+        createMany: {
+          args: Prisma.ChatbotMessageCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ChatbotMessageCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatbotMessagePayload>[]
+        }
+        delete: {
+          args: Prisma.ChatbotMessageDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatbotMessagePayload>
+        }
+        update: {
+          args: Prisma.ChatbotMessageUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatbotMessagePayload>
+        }
+        deleteMany: {
+          args: Prisma.ChatbotMessageDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ChatbotMessageUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ChatbotMessageUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatbotMessagePayload>[]
+        }
+        upsert: {
+          args: Prisma.ChatbotMessageUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatbotMessagePayload>
+        }
+        aggregate: {
+          args: Prisma.ChatbotMessageAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateChatbotMessage>
+        }
+        groupBy: {
+          args: Prisma.ChatbotMessageGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ChatbotMessageGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ChatbotMessageCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ChatbotMessageCountAggregateOutputType> | number
+        }
+      }
+    }
     CourseFileFlashcards: {
       payload: Prisma.$CourseFileFlashcardsPayload<ExtArgs>
       fields: Prisma.CourseFileFlashcardsFieldRefs
@@ -2647,6 +2947,7 @@ export const FaculityInfoScalarFieldEnum = {
   lectures_schedule_url: 'lectures_schedule_url',
   theoritical_exam_schedule_url: 'theoritical_exam_schedule_url',
   practical_exam_schedule_url: 'practical_exam_schedule_url',
+  uni_chatbot_file: 'uni_chatbot_file',
   created_at: 'created_at',
   updated_at: 'updated_at'
 } as const
@@ -2823,6 +3124,54 @@ export const CourseFileScalarFieldEnum = {
 } as const
 
 export type CourseFileScalarFieldEnum = (typeof CourseFileScalarFieldEnum)[keyof typeof CourseFileScalarFieldEnum]
+
+
+export const CourseAiChatSessionScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  student_id: 'student_id',
+  course_id: 'course_id',
+  previous_interaction_id: 'previous_interaction_id',
+  summaries_hash: 'summaries_hash',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type CourseAiChatSessionScalarFieldEnum = (typeof CourseAiChatSessionScalarFieldEnum)[keyof typeof CourseAiChatSessionScalarFieldEnum]
+
+
+export const CourseAiChatMessageScalarFieldEnum = {
+  id: 'id',
+  session_id: 'session_id',
+  sender: 'sender',
+  content: 'content',
+  created_at: 'created_at'
+} as const
+
+export type CourseAiChatMessageScalarFieldEnum = (typeof CourseAiChatMessageScalarFieldEnum)[keyof typeof CourseAiChatMessageScalarFieldEnum]
+
+
+export const ChatbotSessionScalarFieldEnum = {
+  id: 'id',
+  student_id: 'student_id',
+  previous_interaction_id: 'previous_interaction_id',
+  content_hash: 'content_hash',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type ChatbotSessionScalarFieldEnum = (typeof ChatbotSessionScalarFieldEnum)[keyof typeof ChatbotSessionScalarFieldEnum]
+
+
+export const ChatbotMessageScalarFieldEnum = {
+  id: 'id',
+  session_id: 'session_id',
+  sender: 'sender',
+  content: 'content',
+  created_at: 'created_at'
+} as const
+
+export type ChatbotMessageScalarFieldEnum = (typeof ChatbotMessageScalarFieldEnum)[keyof typeof ChatbotMessageScalarFieldEnum]
 
 
 export const CourseFileFlashcardsScalarFieldEnum = {
@@ -3179,6 +3528,20 @@ export type ListEnumLectureTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$
 
 
 /**
+ * Reference to a field of type 'CourseAiChatMessageSender'
+ */
+export type EnumCourseAiChatMessageSenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CourseAiChatMessageSender'>
+    
+
+
+/**
+ * Reference to a field of type 'CourseAiChatMessageSender[]'
+ */
+export type ListEnumCourseAiChatMessageSenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CourseAiChatMessageSender[]'>
+    
+
+
+/**
  * Reference to a field of type 'Json'
  */
 export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
@@ -3428,6 +3791,10 @@ export type GlobalOmitConfig = {
   sectionCourse?: Prisma.SectionCourseOmit
   majorCourse?: Prisma.MajorCourseOmit
   courseFile?: Prisma.CourseFileOmit
+  courseAiChatSession?: Prisma.CourseAiChatSessionOmit
+  courseAiChatMessage?: Prisma.CourseAiChatMessageOmit
+  chatbotSession?: Prisma.ChatbotSessionOmit
+  chatbotMessage?: Prisma.ChatbotMessageOmit
   courseFileFlashcards?: Prisma.CourseFileFlashcardsOmit
   courseFileSummary?: Prisma.CourseFileSummaryOmit
   mark?: Prisma.MarkOmit

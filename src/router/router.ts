@@ -11,6 +11,7 @@ import studentRoutes from "./student.routes";
 import timeConditionedRoutes from "./timeConditioned.routes";
 import notificationRoutes from "./notifications.routes";
 import dashboardRoutes from "./dashboard.routes";
+import aiRoutes from "./ai.routes";
 
 const router = Router();
 
@@ -26,5 +27,6 @@ router.use("/", studentRoutes);
 router.use("/", timeConditionedRoutes);
 router.use("/", notificationRoutes);
 router.use("/", dashboardRoutes);
+router.use("/", aiRoutes);
 
 export default router;

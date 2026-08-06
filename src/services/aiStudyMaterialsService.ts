@@ -167,15 +167,9 @@ export const parseStoredSummary = (value: unknown): CourseFileSummaryData =>
   summarySchema.parse(value);
 
 export class AiStudyMaterialGenerationError extends Error {
-  debugDetails?: unknown;
-
-  constructor(
-    message: string,
-    options?: { cause?: unknown; debugDetails?: unknown },
-  ) {
-    super(message, { cause: options?.cause });
+  constructor(message: string, options?: { cause?: unknown }) {
+    super(message, options);
     this.name = "AiStudyMaterialGenerationError";
-    this.debugDetails = options?.debugDetails;
   }
 }
 
@@ -446,17 +440,7 @@ export const generateCourseFileStudyMaterials = async (
 
     throw new AiStudyMaterialGenerationError(
       "Failed to generate AI study materials for the course file",
-      {
-        cause: err,
-        debugDetails:
-          err instanceof Error
-            ? {
-                name: err.name,
-                message: err.message,
-                stack: err.stack,
-              }
-            : err,
-      },
+      { cause: err },
     );
   }
 };

@@ -22,7 +22,7 @@ const UPLOAD_TYPE_FOLDER: Record<UploadType, string> = {
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
 const ALLOWED_MIME_PREFIX = "image/";
-const ALLOWED_MIME_EXACT = new Set(["application/pdf"]);
+const ALLOWED_MIME_EXACT = new Set(["application/pdf", "text/markdown"]);
 
 const sanitizeFilename = (name: string) =>
   name.replace(/[^a-zA-Z0-9._-]/g, "_");

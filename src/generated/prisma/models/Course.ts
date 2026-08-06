@@ -309,6 +309,7 @@ export type CourseWhereInput = {
   courseFiles?: Prisma.CourseFileListRelationFilter
   fileFlashcards?: Prisma.CourseFileFlashcardsListRelationFilter
   fileSummaries?: Prisma.CourseFileSummaryListRelationFilter
+  aiChatSessions?: Prisma.CourseAiChatSessionListRelationFilter
   students?: Prisma.StudentCourseListRelationFilter
   announcements?: Prisma.AnnouncementListRelationFilter
   exams?: Prisma.ExamListRelationFilter
@@ -340,6 +341,7 @@ export type CourseOrderByWithRelationInput = {
   courseFiles?: Prisma.CourseFileOrderByRelationAggregateInput
   fileFlashcards?: Prisma.CourseFileFlashcardsOrderByRelationAggregateInput
   fileSummaries?: Prisma.CourseFileSummaryOrderByRelationAggregateInput
+  aiChatSessions?: Prisma.CourseAiChatSessionOrderByRelationAggregateInput
   students?: Prisma.StudentCourseOrderByRelationAggregateInput
   announcements?: Prisma.AnnouncementOrderByRelationAggregateInput
   exams?: Prisma.ExamOrderByRelationAggregateInput
@@ -374,6 +376,7 @@ export type CourseWhereUniqueInput = Prisma.AtLeast<{
   courseFiles?: Prisma.CourseFileListRelationFilter
   fileFlashcards?: Prisma.CourseFileFlashcardsListRelationFilter
   fileSummaries?: Prisma.CourseFileSummaryListRelationFilter
+  aiChatSessions?: Prisma.CourseAiChatSessionListRelationFilter
   students?: Prisma.StudentCourseListRelationFilter
   announcements?: Prisma.AnnouncementListRelationFilter
   exams?: Prisma.ExamListRelationFilter
@@ -445,6 +448,7 @@ export type CourseCreateInput = {
   courseFiles?: Prisma.CourseFileCreateNestedManyWithoutCourseInput
   fileFlashcards?: Prisma.CourseFileFlashcardsCreateNestedManyWithoutCourseInput
   fileSummaries?: Prisma.CourseFileSummaryCreateNestedManyWithoutCourseInput
+  aiChatSessions?: Prisma.CourseAiChatSessionCreateNestedManyWithoutCourseInput
   students?: Prisma.StudentCourseCreateNestedManyWithoutCourseInput
   announcements?: Prisma.AnnouncementCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamCreateNestedManyWithoutCourseInput
@@ -475,6 +479,7 @@ export type CourseUncheckedCreateInput = {
   courseFiles?: Prisma.CourseFileUncheckedCreateNestedManyWithoutCourseInput
   fileFlashcards?: Prisma.CourseFileFlashcardsUncheckedCreateNestedManyWithoutCourseInput
   fileSummaries?: Prisma.CourseFileSummaryUncheckedCreateNestedManyWithoutCourseInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedCreateNestedManyWithoutCourseInput
   students?: Prisma.StudentCourseUncheckedCreateNestedManyWithoutCourseInput
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamUncheckedCreateNestedManyWithoutCourseInput
@@ -504,6 +509,7 @@ export type CourseUpdateInput = {
   courseFiles?: Prisma.CourseFileUpdateManyWithoutCourseNestedInput
   fileFlashcards?: Prisma.CourseFileFlashcardsUpdateManyWithoutCourseNestedInput
   fileSummaries?: Prisma.CourseFileSummaryUpdateManyWithoutCourseNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUpdateManyWithoutCourseNestedInput
   students?: Prisma.StudentCourseUpdateManyWithoutCourseNestedInput
   announcements?: Prisma.AnnouncementUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUpdateManyWithoutCourseNestedInput
@@ -534,6 +540,7 @@ export type CourseUncheckedUpdateInput = {
   courseFiles?: Prisma.CourseFileUncheckedUpdateManyWithoutCourseNestedInput
   fileFlashcards?: Prisma.CourseFileFlashcardsUncheckedUpdateManyWithoutCourseNestedInput
   fileSummaries?: Prisma.CourseFileSummaryUncheckedUpdateManyWithoutCourseNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedUpdateManyWithoutCourseNestedInput
   students?: Prisma.StudentCourseUncheckedUpdateManyWithoutCourseNestedInput
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUncheckedUpdateManyWithoutCourseNestedInput
@@ -847,6 +854,20 @@ export type CourseUpdateOneRequiredWithoutCourseFilesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CourseUpdateToOneWithWhereWithoutCourseFilesInput, Prisma.CourseUpdateWithoutCourseFilesInput>, Prisma.CourseUncheckedUpdateWithoutCourseFilesInput>
 }
 
+export type CourseCreateNestedOneWithoutAiChatSessionsInput = {
+  create?: Prisma.XOR<Prisma.CourseCreateWithoutAiChatSessionsInput, Prisma.CourseUncheckedCreateWithoutAiChatSessionsInput>
+  connectOrCreate?: Prisma.CourseCreateOrConnectWithoutAiChatSessionsInput
+  connect?: Prisma.CourseWhereUniqueInput
+}
+
+export type CourseUpdateOneRequiredWithoutAiChatSessionsNestedInput = {
+  create?: Prisma.XOR<Prisma.CourseCreateWithoutAiChatSessionsInput, Prisma.CourseUncheckedCreateWithoutAiChatSessionsInput>
+  connectOrCreate?: Prisma.CourseCreateOrConnectWithoutAiChatSessionsInput
+  upsert?: Prisma.CourseUpsertWithoutAiChatSessionsInput
+  connect?: Prisma.CourseWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CourseUpdateToOneWithWhereWithoutAiChatSessionsInput, Prisma.CourseUpdateWithoutAiChatSessionsInput>, Prisma.CourseUncheckedUpdateWithoutAiChatSessionsInput>
+}
+
 export type CourseCreateNestedOneWithoutFileFlashcardsInput = {
   create?: Prisma.XOR<Prisma.CourseCreateWithoutFileFlashcardsInput, Prisma.CourseUncheckedCreateWithoutFileFlashcardsInput>
   connectOrCreate?: Prisma.CourseCreateOrConnectWithoutFileFlashcardsInput
@@ -982,6 +1003,7 @@ export type CourseCreateWithoutTeachersInput = {
   courseFiles?: Prisma.CourseFileCreateNestedManyWithoutCourseInput
   fileFlashcards?: Prisma.CourseFileFlashcardsCreateNestedManyWithoutCourseInput
   fileSummaries?: Prisma.CourseFileSummaryCreateNestedManyWithoutCourseInput
+  aiChatSessions?: Prisma.CourseAiChatSessionCreateNestedManyWithoutCourseInput
   students?: Prisma.StudentCourseCreateNestedManyWithoutCourseInput
   announcements?: Prisma.AnnouncementCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamCreateNestedManyWithoutCourseInput
@@ -1011,6 +1033,7 @@ export type CourseUncheckedCreateWithoutTeachersInput = {
   courseFiles?: Prisma.CourseFileUncheckedCreateNestedManyWithoutCourseInput
   fileFlashcards?: Prisma.CourseFileFlashcardsUncheckedCreateNestedManyWithoutCourseInput
   fileSummaries?: Prisma.CourseFileSummaryUncheckedCreateNestedManyWithoutCourseInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedCreateNestedManyWithoutCourseInput
   students?: Prisma.StudentCourseUncheckedCreateNestedManyWithoutCourseInput
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamUncheckedCreateNestedManyWithoutCourseInput
@@ -1044,6 +1067,7 @@ export type CourseCreateWithoutDoctorsInput = {
   courseFiles?: Prisma.CourseFileCreateNestedManyWithoutCourseInput
   fileFlashcards?: Prisma.CourseFileFlashcardsCreateNestedManyWithoutCourseInput
   fileSummaries?: Prisma.CourseFileSummaryCreateNestedManyWithoutCourseInput
+  aiChatSessions?: Prisma.CourseAiChatSessionCreateNestedManyWithoutCourseInput
   students?: Prisma.StudentCourseCreateNestedManyWithoutCourseInput
   announcements?: Prisma.AnnouncementCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamCreateNestedManyWithoutCourseInput
@@ -1073,6 +1097,7 @@ export type CourseUncheckedCreateWithoutDoctorsInput = {
   courseFiles?: Prisma.CourseFileUncheckedCreateNestedManyWithoutCourseInput
   fileFlashcards?: Prisma.CourseFileFlashcardsUncheckedCreateNestedManyWithoutCourseInput
   fileSummaries?: Prisma.CourseFileSummaryUncheckedCreateNestedManyWithoutCourseInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedCreateNestedManyWithoutCourseInput
   students?: Prisma.StudentCourseUncheckedCreateNestedManyWithoutCourseInput
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamUncheckedCreateNestedManyWithoutCourseInput
@@ -1158,6 +1183,7 @@ export type CourseCreateWithoutYearInput = {
   courseFiles?: Prisma.CourseFileCreateNestedManyWithoutCourseInput
   fileFlashcards?: Prisma.CourseFileFlashcardsCreateNestedManyWithoutCourseInput
   fileSummaries?: Prisma.CourseFileSummaryCreateNestedManyWithoutCourseInput
+  aiChatSessions?: Prisma.CourseAiChatSessionCreateNestedManyWithoutCourseInput
   students?: Prisma.StudentCourseCreateNestedManyWithoutCourseInput
   announcements?: Prisma.AnnouncementCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamCreateNestedManyWithoutCourseInput
@@ -1187,6 +1213,7 @@ export type CourseUncheckedCreateWithoutYearInput = {
   courseFiles?: Prisma.CourseFileUncheckedCreateNestedManyWithoutCourseInput
   fileFlashcards?: Prisma.CourseFileFlashcardsUncheckedCreateNestedManyWithoutCourseInput
   fileSummaries?: Prisma.CourseFileSummaryUncheckedCreateNestedManyWithoutCourseInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedCreateNestedManyWithoutCourseInput
   students?: Prisma.StudentCourseUncheckedCreateNestedManyWithoutCourseInput
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamUncheckedCreateNestedManyWithoutCourseInput
@@ -1241,6 +1268,7 @@ export type CourseCreateWithoutSectionCoursesInput = {
   courseFiles?: Prisma.CourseFileCreateNestedManyWithoutCourseInput
   fileFlashcards?: Prisma.CourseFileFlashcardsCreateNestedManyWithoutCourseInput
   fileSummaries?: Prisma.CourseFileSummaryCreateNestedManyWithoutCourseInput
+  aiChatSessions?: Prisma.CourseAiChatSessionCreateNestedManyWithoutCourseInput
   students?: Prisma.StudentCourseCreateNestedManyWithoutCourseInput
   announcements?: Prisma.AnnouncementCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamCreateNestedManyWithoutCourseInput
@@ -1270,6 +1298,7 @@ export type CourseUncheckedCreateWithoutSectionCoursesInput = {
   courseFiles?: Prisma.CourseFileUncheckedCreateNestedManyWithoutCourseInput
   fileFlashcards?: Prisma.CourseFileFlashcardsUncheckedCreateNestedManyWithoutCourseInput
   fileSummaries?: Prisma.CourseFileSummaryUncheckedCreateNestedManyWithoutCourseInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedCreateNestedManyWithoutCourseInput
   students?: Prisma.StudentCourseUncheckedCreateNestedManyWithoutCourseInput
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamUncheckedCreateNestedManyWithoutCourseInput
@@ -1314,6 +1343,7 @@ export type CourseUpdateWithoutSectionCoursesInput = {
   courseFiles?: Prisma.CourseFileUpdateManyWithoutCourseNestedInput
   fileFlashcards?: Prisma.CourseFileFlashcardsUpdateManyWithoutCourseNestedInput
   fileSummaries?: Prisma.CourseFileSummaryUpdateManyWithoutCourseNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUpdateManyWithoutCourseNestedInput
   students?: Prisma.StudentCourseUpdateManyWithoutCourseNestedInput
   announcements?: Prisma.AnnouncementUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUpdateManyWithoutCourseNestedInput
@@ -1343,6 +1373,7 @@ export type CourseUncheckedUpdateWithoutSectionCoursesInput = {
   courseFiles?: Prisma.CourseFileUncheckedUpdateManyWithoutCourseNestedInput
   fileFlashcards?: Prisma.CourseFileFlashcardsUncheckedUpdateManyWithoutCourseNestedInput
   fileSummaries?: Prisma.CourseFileSummaryUncheckedUpdateManyWithoutCourseNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedUpdateManyWithoutCourseNestedInput
   students?: Prisma.StudentCourseUncheckedUpdateManyWithoutCourseNestedInput
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUncheckedUpdateManyWithoutCourseNestedInput
@@ -1371,6 +1402,7 @@ export type CourseCreateWithoutMajorCoursesInput = {
   courseFiles?: Prisma.CourseFileCreateNestedManyWithoutCourseInput
   fileFlashcards?: Prisma.CourseFileFlashcardsCreateNestedManyWithoutCourseInput
   fileSummaries?: Prisma.CourseFileSummaryCreateNestedManyWithoutCourseInput
+  aiChatSessions?: Prisma.CourseAiChatSessionCreateNestedManyWithoutCourseInput
   students?: Prisma.StudentCourseCreateNestedManyWithoutCourseInput
   announcements?: Prisma.AnnouncementCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamCreateNestedManyWithoutCourseInput
@@ -1400,6 +1432,7 @@ export type CourseUncheckedCreateWithoutMajorCoursesInput = {
   courseFiles?: Prisma.CourseFileUncheckedCreateNestedManyWithoutCourseInput
   fileFlashcards?: Prisma.CourseFileFlashcardsUncheckedCreateNestedManyWithoutCourseInput
   fileSummaries?: Prisma.CourseFileSummaryUncheckedCreateNestedManyWithoutCourseInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedCreateNestedManyWithoutCourseInput
   students?: Prisma.StudentCourseUncheckedCreateNestedManyWithoutCourseInput
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamUncheckedCreateNestedManyWithoutCourseInput
@@ -1444,6 +1477,7 @@ export type CourseUpdateWithoutMajorCoursesInput = {
   courseFiles?: Prisma.CourseFileUpdateManyWithoutCourseNestedInput
   fileFlashcards?: Prisma.CourseFileFlashcardsUpdateManyWithoutCourseNestedInput
   fileSummaries?: Prisma.CourseFileSummaryUpdateManyWithoutCourseNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUpdateManyWithoutCourseNestedInput
   students?: Prisma.StudentCourseUpdateManyWithoutCourseNestedInput
   announcements?: Prisma.AnnouncementUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUpdateManyWithoutCourseNestedInput
@@ -1473,6 +1507,7 @@ export type CourseUncheckedUpdateWithoutMajorCoursesInput = {
   courseFiles?: Prisma.CourseFileUncheckedUpdateManyWithoutCourseNestedInput
   fileFlashcards?: Prisma.CourseFileFlashcardsUncheckedUpdateManyWithoutCourseNestedInput
   fileSummaries?: Prisma.CourseFileSummaryUncheckedUpdateManyWithoutCourseNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedUpdateManyWithoutCourseNestedInput
   students?: Prisma.StudentCourseUncheckedUpdateManyWithoutCourseNestedInput
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUncheckedUpdateManyWithoutCourseNestedInput
@@ -1501,6 +1536,7 @@ export type CourseCreateWithoutCourseFilesInput = {
   lectures?: Prisma.LectureCreateNestedManyWithoutCourseInput
   fileFlashcards?: Prisma.CourseFileFlashcardsCreateNestedManyWithoutCourseInput
   fileSummaries?: Prisma.CourseFileSummaryCreateNestedManyWithoutCourseInput
+  aiChatSessions?: Prisma.CourseAiChatSessionCreateNestedManyWithoutCourseInput
   students?: Prisma.StudentCourseCreateNestedManyWithoutCourseInput
   announcements?: Prisma.AnnouncementCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamCreateNestedManyWithoutCourseInput
@@ -1530,6 +1566,7 @@ export type CourseUncheckedCreateWithoutCourseFilesInput = {
   lectures?: Prisma.LectureUncheckedCreateNestedManyWithoutCourseInput
   fileFlashcards?: Prisma.CourseFileFlashcardsUncheckedCreateNestedManyWithoutCourseInput
   fileSummaries?: Prisma.CourseFileSummaryUncheckedCreateNestedManyWithoutCourseInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedCreateNestedManyWithoutCourseInput
   students?: Prisma.StudentCourseUncheckedCreateNestedManyWithoutCourseInput
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamUncheckedCreateNestedManyWithoutCourseInput
@@ -1574,6 +1611,7 @@ export type CourseUpdateWithoutCourseFilesInput = {
   lectures?: Prisma.LectureUpdateManyWithoutCourseNestedInput
   fileFlashcards?: Prisma.CourseFileFlashcardsUpdateManyWithoutCourseNestedInput
   fileSummaries?: Prisma.CourseFileSummaryUpdateManyWithoutCourseNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUpdateManyWithoutCourseNestedInput
   students?: Prisma.StudentCourseUpdateManyWithoutCourseNestedInput
   announcements?: Prisma.AnnouncementUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUpdateManyWithoutCourseNestedInput
@@ -1601,6 +1639,141 @@ export type CourseUncheckedUpdateWithoutCourseFilesInput = {
   doctors?: Prisma.UserUncheckedUpdateManyWithoutDoctorCoursesNestedInput
   teachers?: Prisma.UserUncheckedUpdateManyWithoutTeachingCoursesNestedInput
   lectures?: Prisma.LectureUncheckedUpdateManyWithoutCourseNestedInput
+  fileFlashcards?: Prisma.CourseFileFlashcardsUncheckedUpdateManyWithoutCourseNestedInput
+  fileSummaries?: Prisma.CourseFileSummaryUncheckedUpdateManyWithoutCourseNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedUpdateManyWithoutCourseNestedInput
+  students?: Prisma.StudentCourseUncheckedUpdateManyWithoutCourseNestedInput
+  announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCourseNestedInput
+  exams?: Prisma.ExamUncheckedUpdateManyWithoutCourseNestedInput
+  marks?: Prisma.MarkUncheckedUpdateManyWithoutCourseNestedInput
+  marksPublications?: Prisma.CourseMarksPublicationUncheckedUpdateManyWithoutCourseNestedInput
+}
+
+export type CourseCreateWithoutAiChatSessionsInput = {
+  name: string
+  code?: string | null
+  image?: string | null
+  course_type: $Enums.CourseType
+  exam_type: $Enums.ExamType
+  semester?: $Enums.Semester | null
+  theoretical_grade: number
+  practical_grade: number
+  is_practical_marks_published?: boolean
+  is_marks_published?: boolean
+  created_at?: Date | string
+  updated_at?: Date | string | null
+  year: Prisma.YearCreateNestedOneWithoutCoursesInput
+  sectionCourses?: Prisma.SectionCourseCreateNestedManyWithoutCourseInput
+  majorCourses?: Prisma.MajorCourseCreateNestedManyWithoutCourseInput
+  doctors?: Prisma.UserCreateNestedManyWithoutDoctorCoursesInput
+  teachers?: Prisma.UserCreateNestedManyWithoutTeachingCoursesInput
+  lectures?: Prisma.LectureCreateNestedManyWithoutCourseInput
+  courseFiles?: Prisma.CourseFileCreateNestedManyWithoutCourseInput
+  fileFlashcards?: Prisma.CourseFileFlashcardsCreateNestedManyWithoutCourseInput
+  fileSummaries?: Prisma.CourseFileSummaryCreateNestedManyWithoutCourseInput
+  students?: Prisma.StudentCourseCreateNestedManyWithoutCourseInput
+  announcements?: Prisma.AnnouncementCreateNestedManyWithoutCourseInput
+  exams?: Prisma.ExamCreateNestedManyWithoutCourseInput
+  marks?: Prisma.MarkCreateNestedManyWithoutCourseInput
+  marksPublications?: Prisma.CourseMarksPublicationCreateNestedManyWithoutCourseInput
+}
+
+export type CourseUncheckedCreateWithoutAiChatSessionsInput = {
+  id?: number
+  name: string
+  code?: string | null
+  image?: string | null
+  course_type: $Enums.CourseType
+  exam_type: $Enums.ExamType
+  semester?: $Enums.Semester | null
+  theoretical_grade: number
+  practical_grade: number
+  year_id: number
+  is_practical_marks_published?: boolean
+  is_marks_published?: boolean
+  created_at?: Date | string
+  updated_at?: Date | string | null
+  sectionCourses?: Prisma.SectionCourseUncheckedCreateNestedManyWithoutCourseInput
+  majorCourses?: Prisma.MajorCourseUncheckedCreateNestedManyWithoutCourseInput
+  doctors?: Prisma.UserUncheckedCreateNestedManyWithoutDoctorCoursesInput
+  teachers?: Prisma.UserUncheckedCreateNestedManyWithoutTeachingCoursesInput
+  lectures?: Prisma.LectureUncheckedCreateNestedManyWithoutCourseInput
+  courseFiles?: Prisma.CourseFileUncheckedCreateNestedManyWithoutCourseInput
+  fileFlashcards?: Prisma.CourseFileFlashcardsUncheckedCreateNestedManyWithoutCourseInput
+  fileSummaries?: Prisma.CourseFileSummaryUncheckedCreateNestedManyWithoutCourseInput
+  students?: Prisma.StudentCourseUncheckedCreateNestedManyWithoutCourseInput
+  announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCourseInput
+  exams?: Prisma.ExamUncheckedCreateNestedManyWithoutCourseInput
+  marks?: Prisma.MarkUncheckedCreateNestedManyWithoutCourseInput
+  marksPublications?: Prisma.CourseMarksPublicationUncheckedCreateNestedManyWithoutCourseInput
+}
+
+export type CourseCreateOrConnectWithoutAiChatSessionsInput = {
+  where: Prisma.CourseWhereUniqueInput
+  create: Prisma.XOR<Prisma.CourseCreateWithoutAiChatSessionsInput, Prisma.CourseUncheckedCreateWithoutAiChatSessionsInput>
+}
+
+export type CourseUpsertWithoutAiChatSessionsInput = {
+  update: Prisma.XOR<Prisma.CourseUpdateWithoutAiChatSessionsInput, Prisma.CourseUncheckedUpdateWithoutAiChatSessionsInput>
+  create: Prisma.XOR<Prisma.CourseCreateWithoutAiChatSessionsInput, Prisma.CourseUncheckedCreateWithoutAiChatSessionsInput>
+  where?: Prisma.CourseWhereInput
+}
+
+export type CourseUpdateToOneWithWhereWithoutAiChatSessionsInput = {
+  where?: Prisma.CourseWhereInput
+  data: Prisma.XOR<Prisma.CourseUpdateWithoutAiChatSessionsInput, Prisma.CourseUncheckedUpdateWithoutAiChatSessionsInput>
+}
+
+export type CourseUpdateWithoutAiChatSessionsInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  course_type?: Prisma.EnumCourseTypeFieldUpdateOperationsInput | $Enums.CourseType
+  exam_type?: Prisma.EnumExamTypeFieldUpdateOperationsInput | $Enums.ExamType
+  semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
+  theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
+  practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
+  is_practical_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  year?: Prisma.YearUpdateOneRequiredWithoutCoursesNestedInput
+  sectionCourses?: Prisma.SectionCourseUpdateManyWithoutCourseNestedInput
+  majorCourses?: Prisma.MajorCourseUpdateManyWithoutCourseNestedInput
+  doctors?: Prisma.UserUpdateManyWithoutDoctorCoursesNestedInput
+  teachers?: Prisma.UserUpdateManyWithoutTeachingCoursesNestedInput
+  lectures?: Prisma.LectureUpdateManyWithoutCourseNestedInput
+  courseFiles?: Prisma.CourseFileUpdateManyWithoutCourseNestedInput
+  fileFlashcards?: Prisma.CourseFileFlashcardsUpdateManyWithoutCourseNestedInput
+  fileSummaries?: Prisma.CourseFileSummaryUpdateManyWithoutCourseNestedInput
+  students?: Prisma.StudentCourseUpdateManyWithoutCourseNestedInput
+  announcements?: Prisma.AnnouncementUpdateManyWithoutCourseNestedInput
+  exams?: Prisma.ExamUpdateManyWithoutCourseNestedInput
+  marks?: Prisma.MarkUpdateManyWithoutCourseNestedInput
+  marksPublications?: Prisma.CourseMarksPublicationUpdateManyWithoutCourseNestedInput
+}
+
+export type CourseUncheckedUpdateWithoutAiChatSessionsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  course_type?: Prisma.EnumCourseTypeFieldUpdateOperationsInput | $Enums.CourseType
+  exam_type?: Prisma.EnumExamTypeFieldUpdateOperationsInput | $Enums.ExamType
+  semester?: Prisma.NullableEnumSemesterFieldUpdateOperationsInput | $Enums.Semester | null
+  theoretical_grade?: Prisma.IntFieldUpdateOperationsInput | number
+  practical_grade?: Prisma.IntFieldUpdateOperationsInput | number
+  year_id?: Prisma.IntFieldUpdateOperationsInput | number
+  is_practical_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_marks_published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sectionCourses?: Prisma.SectionCourseUncheckedUpdateManyWithoutCourseNestedInput
+  majorCourses?: Prisma.MajorCourseUncheckedUpdateManyWithoutCourseNestedInput
+  doctors?: Prisma.UserUncheckedUpdateManyWithoutDoctorCoursesNestedInput
+  teachers?: Prisma.UserUncheckedUpdateManyWithoutTeachingCoursesNestedInput
+  lectures?: Prisma.LectureUncheckedUpdateManyWithoutCourseNestedInput
+  courseFiles?: Prisma.CourseFileUncheckedUpdateManyWithoutCourseNestedInput
   fileFlashcards?: Prisma.CourseFileFlashcardsUncheckedUpdateManyWithoutCourseNestedInput
   fileSummaries?: Prisma.CourseFileSummaryUncheckedUpdateManyWithoutCourseNestedInput
   students?: Prisma.StudentCourseUncheckedUpdateManyWithoutCourseNestedInput
@@ -1631,6 +1804,7 @@ export type CourseCreateWithoutFileFlashcardsInput = {
   lectures?: Prisma.LectureCreateNestedManyWithoutCourseInput
   courseFiles?: Prisma.CourseFileCreateNestedManyWithoutCourseInput
   fileSummaries?: Prisma.CourseFileSummaryCreateNestedManyWithoutCourseInput
+  aiChatSessions?: Prisma.CourseAiChatSessionCreateNestedManyWithoutCourseInput
   students?: Prisma.StudentCourseCreateNestedManyWithoutCourseInput
   announcements?: Prisma.AnnouncementCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamCreateNestedManyWithoutCourseInput
@@ -1660,6 +1834,7 @@ export type CourseUncheckedCreateWithoutFileFlashcardsInput = {
   lectures?: Prisma.LectureUncheckedCreateNestedManyWithoutCourseInput
   courseFiles?: Prisma.CourseFileUncheckedCreateNestedManyWithoutCourseInput
   fileSummaries?: Prisma.CourseFileSummaryUncheckedCreateNestedManyWithoutCourseInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedCreateNestedManyWithoutCourseInput
   students?: Prisma.StudentCourseUncheckedCreateNestedManyWithoutCourseInput
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamUncheckedCreateNestedManyWithoutCourseInput
@@ -1704,6 +1879,7 @@ export type CourseUpdateWithoutFileFlashcardsInput = {
   lectures?: Prisma.LectureUpdateManyWithoutCourseNestedInput
   courseFiles?: Prisma.CourseFileUpdateManyWithoutCourseNestedInput
   fileSummaries?: Prisma.CourseFileSummaryUpdateManyWithoutCourseNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUpdateManyWithoutCourseNestedInput
   students?: Prisma.StudentCourseUpdateManyWithoutCourseNestedInput
   announcements?: Prisma.AnnouncementUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUpdateManyWithoutCourseNestedInput
@@ -1733,6 +1909,7 @@ export type CourseUncheckedUpdateWithoutFileFlashcardsInput = {
   lectures?: Prisma.LectureUncheckedUpdateManyWithoutCourseNestedInput
   courseFiles?: Prisma.CourseFileUncheckedUpdateManyWithoutCourseNestedInput
   fileSummaries?: Prisma.CourseFileSummaryUncheckedUpdateManyWithoutCourseNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedUpdateManyWithoutCourseNestedInput
   students?: Prisma.StudentCourseUncheckedUpdateManyWithoutCourseNestedInput
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUncheckedUpdateManyWithoutCourseNestedInput
@@ -1761,6 +1938,7 @@ export type CourseCreateWithoutFileSummariesInput = {
   lectures?: Prisma.LectureCreateNestedManyWithoutCourseInput
   courseFiles?: Prisma.CourseFileCreateNestedManyWithoutCourseInput
   fileFlashcards?: Prisma.CourseFileFlashcardsCreateNestedManyWithoutCourseInput
+  aiChatSessions?: Prisma.CourseAiChatSessionCreateNestedManyWithoutCourseInput
   students?: Prisma.StudentCourseCreateNestedManyWithoutCourseInput
   announcements?: Prisma.AnnouncementCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamCreateNestedManyWithoutCourseInput
@@ -1790,6 +1968,7 @@ export type CourseUncheckedCreateWithoutFileSummariesInput = {
   lectures?: Prisma.LectureUncheckedCreateNestedManyWithoutCourseInput
   courseFiles?: Prisma.CourseFileUncheckedCreateNestedManyWithoutCourseInput
   fileFlashcards?: Prisma.CourseFileFlashcardsUncheckedCreateNestedManyWithoutCourseInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedCreateNestedManyWithoutCourseInput
   students?: Prisma.StudentCourseUncheckedCreateNestedManyWithoutCourseInput
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamUncheckedCreateNestedManyWithoutCourseInput
@@ -1834,6 +2013,7 @@ export type CourseUpdateWithoutFileSummariesInput = {
   lectures?: Prisma.LectureUpdateManyWithoutCourseNestedInput
   courseFiles?: Prisma.CourseFileUpdateManyWithoutCourseNestedInput
   fileFlashcards?: Prisma.CourseFileFlashcardsUpdateManyWithoutCourseNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUpdateManyWithoutCourseNestedInput
   students?: Prisma.StudentCourseUpdateManyWithoutCourseNestedInput
   announcements?: Prisma.AnnouncementUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUpdateManyWithoutCourseNestedInput
@@ -1863,6 +2043,7 @@ export type CourseUncheckedUpdateWithoutFileSummariesInput = {
   lectures?: Prisma.LectureUncheckedUpdateManyWithoutCourseNestedInput
   courseFiles?: Prisma.CourseFileUncheckedUpdateManyWithoutCourseNestedInput
   fileFlashcards?: Prisma.CourseFileFlashcardsUncheckedUpdateManyWithoutCourseNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedUpdateManyWithoutCourseNestedInput
   students?: Prisma.StudentCourseUncheckedUpdateManyWithoutCourseNestedInput
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUncheckedUpdateManyWithoutCourseNestedInput
@@ -1892,6 +2073,7 @@ export type CourseCreateWithoutMarksInput = {
   courseFiles?: Prisma.CourseFileCreateNestedManyWithoutCourseInput
   fileFlashcards?: Prisma.CourseFileFlashcardsCreateNestedManyWithoutCourseInput
   fileSummaries?: Prisma.CourseFileSummaryCreateNestedManyWithoutCourseInput
+  aiChatSessions?: Prisma.CourseAiChatSessionCreateNestedManyWithoutCourseInput
   students?: Prisma.StudentCourseCreateNestedManyWithoutCourseInput
   announcements?: Prisma.AnnouncementCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamCreateNestedManyWithoutCourseInput
@@ -1921,6 +2103,7 @@ export type CourseUncheckedCreateWithoutMarksInput = {
   courseFiles?: Prisma.CourseFileUncheckedCreateNestedManyWithoutCourseInput
   fileFlashcards?: Prisma.CourseFileFlashcardsUncheckedCreateNestedManyWithoutCourseInput
   fileSummaries?: Prisma.CourseFileSummaryUncheckedCreateNestedManyWithoutCourseInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedCreateNestedManyWithoutCourseInput
   students?: Prisma.StudentCourseUncheckedCreateNestedManyWithoutCourseInput
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamUncheckedCreateNestedManyWithoutCourseInput
@@ -1965,6 +2148,7 @@ export type CourseUpdateWithoutMarksInput = {
   courseFiles?: Prisma.CourseFileUpdateManyWithoutCourseNestedInput
   fileFlashcards?: Prisma.CourseFileFlashcardsUpdateManyWithoutCourseNestedInput
   fileSummaries?: Prisma.CourseFileSummaryUpdateManyWithoutCourseNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUpdateManyWithoutCourseNestedInput
   students?: Prisma.StudentCourseUpdateManyWithoutCourseNestedInput
   announcements?: Prisma.AnnouncementUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUpdateManyWithoutCourseNestedInput
@@ -1994,6 +2178,7 @@ export type CourseUncheckedUpdateWithoutMarksInput = {
   courseFiles?: Prisma.CourseFileUncheckedUpdateManyWithoutCourseNestedInput
   fileFlashcards?: Prisma.CourseFileFlashcardsUncheckedUpdateManyWithoutCourseNestedInput
   fileSummaries?: Prisma.CourseFileSummaryUncheckedUpdateManyWithoutCourseNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedUpdateManyWithoutCourseNestedInput
   students?: Prisma.StudentCourseUncheckedUpdateManyWithoutCourseNestedInput
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUncheckedUpdateManyWithoutCourseNestedInput
@@ -2022,6 +2207,7 @@ export type CourseCreateWithoutMarksPublicationsInput = {
   courseFiles?: Prisma.CourseFileCreateNestedManyWithoutCourseInput
   fileFlashcards?: Prisma.CourseFileFlashcardsCreateNestedManyWithoutCourseInput
   fileSummaries?: Prisma.CourseFileSummaryCreateNestedManyWithoutCourseInput
+  aiChatSessions?: Prisma.CourseAiChatSessionCreateNestedManyWithoutCourseInput
   students?: Prisma.StudentCourseCreateNestedManyWithoutCourseInput
   announcements?: Prisma.AnnouncementCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamCreateNestedManyWithoutCourseInput
@@ -2051,6 +2237,7 @@ export type CourseUncheckedCreateWithoutMarksPublicationsInput = {
   courseFiles?: Prisma.CourseFileUncheckedCreateNestedManyWithoutCourseInput
   fileFlashcards?: Prisma.CourseFileFlashcardsUncheckedCreateNestedManyWithoutCourseInput
   fileSummaries?: Prisma.CourseFileSummaryUncheckedCreateNestedManyWithoutCourseInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedCreateNestedManyWithoutCourseInput
   students?: Prisma.StudentCourseUncheckedCreateNestedManyWithoutCourseInput
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamUncheckedCreateNestedManyWithoutCourseInput
@@ -2095,6 +2282,7 @@ export type CourseUpdateWithoutMarksPublicationsInput = {
   courseFiles?: Prisma.CourseFileUpdateManyWithoutCourseNestedInput
   fileFlashcards?: Prisma.CourseFileFlashcardsUpdateManyWithoutCourseNestedInput
   fileSummaries?: Prisma.CourseFileSummaryUpdateManyWithoutCourseNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUpdateManyWithoutCourseNestedInput
   students?: Prisma.StudentCourseUpdateManyWithoutCourseNestedInput
   announcements?: Prisma.AnnouncementUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUpdateManyWithoutCourseNestedInput
@@ -2124,6 +2312,7 @@ export type CourseUncheckedUpdateWithoutMarksPublicationsInput = {
   courseFiles?: Prisma.CourseFileUncheckedUpdateManyWithoutCourseNestedInput
   fileFlashcards?: Prisma.CourseFileFlashcardsUncheckedUpdateManyWithoutCourseNestedInput
   fileSummaries?: Prisma.CourseFileSummaryUncheckedUpdateManyWithoutCourseNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedUpdateManyWithoutCourseNestedInput
   students?: Prisma.StudentCourseUncheckedUpdateManyWithoutCourseNestedInput
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUncheckedUpdateManyWithoutCourseNestedInput
@@ -2152,6 +2341,7 @@ export type CourseCreateWithoutStudentsInput = {
   courseFiles?: Prisma.CourseFileCreateNestedManyWithoutCourseInput
   fileFlashcards?: Prisma.CourseFileFlashcardsCreateNestedManyWithoutCourseInput
   fileSummaries?: Prisma.CourseFileSummaryCreateNestedManyWithoutCourseInput
+  aiChatSessions?: Prisma.CourseAiChatSessionCreateNestedManyWithoutCourseInput
   announcements?: Prisma.AnnouncementCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamCreateNestedManyWithoutCourseInput
   marks?: Prisma.MarkCreateNestedManyWithoutCourseInput
@@ -2181,6 +2371,7 @@ export type CourseUncheckedCreateWithoutStudentsInput = {
   courseFiles?: Prisma.CourseFileUncheckedCreateNestedManyWithoutCourseInput
   fileFlashcards?: Prisma.CourseFileFlashcardsUncheckedCreateNestedManyWithoutCourseInput
   fileSummaries?: Prisma.CourseFileSummaryUncheckedCreateNestedManyWithoutCourseInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedCreateNestedManyWithoutCourseInput
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamUncheckedCreateNestedManyWithoutCourseInput
   marks?: Prisma.MarkUncheckedCreateNestedManyWithoutCourseInput
@@ -2225,6 +2416,7 @@ export type CourseUpdateWithoutStudentsInput = {
   courseFiles?: Prisma.CourseFileUpdateManyWithoutCourseNestedInput
   fileFlashcards?: Prisma.CourseFileFlashcardsUpdateManyWithoutCourseNestedInput
   fileSummaries?: Prisma.CourseFileSummaryUpdateManyWithoutCourseNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUpdateManyWithoutCourseNestedInput
   announcements?: Prisma.AnnouncementUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUpdateManyWithoutCourseNestedInput
   marks?: Prisma.MarkUpdateManyWithoutCourseNestedInput
@@ -2254,6 +2446,7 @@ export type CourseUncheckedUpdateWithoutStudentsInput = {
   courseFiles?: Prisma.CourseFileUncheckedUpdateManyWithoutCourseNestedInput
   fileFlashcards?: Prisma.CourseFileFlashcardsUncheckedUpdateManyWithoutCourseNestedInput
   fileSummaries?: Prisma.CourseFileSummaryUncheckedUpdateManyWithoutCourseNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedUpdateManyWithoutCourseNestedInput
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUncheckedUpdateManyWithoutCourseNestedInput
   marks?: Prisma.MarkUncheckedUpdateManyWithoutCourseNestedInput
@@ -2281,6 +2474,7 @@ export type CourseCreateWithoutLecturesInput = {
   courseFiles?: Prisma.CourseFileCreateNestedManyWithoutCourseInput
   fileFlashcards?: Prisma.CourseFileFlashcardsCreateNestedManyWithoutCourseInput
   fileSummaries?: Prisma.CourseFileSummaryCreateNestedManyWithoutCourseInput
+  aiChatSessions?: Prisma.CourseAiChatSessionCreateNestedManyWithoutCourseInput
   students?: Prisma.StudentCourseCreateNestedManyWithoutCourseInput
   announcements?: Prisma.AnnouncementCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamCreateNestedManyWithoutCourseInput
@@ -2310,6 +2504,7 @@ export type CourseUncheckedCreateWithoutLecturesInput = {
   courseFiles?: Prisma.CourseFileUncheckedCreateNestedManyWithoutCourseInput
   fileFlashcards?: Prisma.CourseFileFlashcardsUncheckedCreateNestedManyWithoutCourseInput
   fileSummaries?: Prisma.CourseFileSummaryUncheckedCreateNestedManyWithoutCourseInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedCreateNestedManyWithoutCourseInput
   students?: Prisma.StudentCourseUncheckedCreateNestedManyWithoutCourseInput
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamUncheckedCreateNestedManyWithoutCourseInput
@@ -2354,6 +2549,7 @@ export type CourseUpdateWithoutLecturesInput = {
   courseFiles?: Prisma.CourseFileUpdateManyWithoutCourseNestedInput
   fileFlashcards?: Prisma.CourseFileFlashcardsUpdateManyWithoutCourseNestedInput
   fileSummaries?: Prisma.CourseFileSummaryUpdateManyWithoutCourseNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUpdateManyWithoutCourseNestedInput
   students?: Prisma.StudentCourseUpdateManyWithoutCourseNestedInput
   announcements?: Prisma.AnnouncementUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUpdateManyWithoutCourseNestedInput
@@ -2383,6 +2579,7 @@ export type CourseUncheckedUpdateWithoutLecturesInput = {
   courseFiles?: Prisma.CourseFileUncheckedUpdateManyWithoutCourseNestedInput
   fileFlashcards?: Prisma.CourseFileFlashcardsUncheckedUpdateManyWithoutCourseNestedInput
   fileSummaries?: Prisma.CourseFileSummaryUncheckedUpdateManyWithoutCourseNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedUpdateManyWithoutCourseNestedInput
   students?: Prisma.StudentCourseUncheckedUpdateManyWithoutCourseNestedInput
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUncheckedUpdateManyWithoutCourseNestedInput
@@ -2412,6 +2609,7 @@ export type CourseCreateWithoutAnnouncementsInput = {
   courseFiles?: Prisma.CourseFileCreateNestedManyWithoutCourseInput
   fileFlashcards?: Prisma.CourseFileFlashcardsCreateNestedManyWithoutCourseInput
   fileSummaries?: Prisma.CourseFileSummaryCreateNestedManyWithoutCourseInput
+  aiChatSessions?: Prisma.CourseAiChatSessionCreateNestedManyWithoutCourseInput
   students?: Prisma.StudentCourseCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamCreateNestedManyWithoutCourseInput
   marks?: Prisma.MarkCreateNestedManyWithoutCourseInput
@@ -2441,6 +2639,7 @@ export type CourseUncheckedCreateWithoutAnnouncementsInput = {
   courseFiles?: Prisma.CourseFileUncheckedCreateNestedManyWithoutCourseInput
   fileFlashcards?: Prisma.CourseFileFlashcardsUncheckedCreateNestedManyWithoutCourseInput
   fileSummaries?: Prisma.CourseFileSummaryUncheckedCreateNestedManyWithoutCourseInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedCreateNestedManyWithoutCourseInput
   students?: Prisma.StudentCourseUncheckedCreateNestedManyWithoutCourseInput
   exams?: Prisma.ExamUncheckedCreateNestedManyWithoutCourseInput
   marks?: Prisma.MarkUncheckedCreateNestedManyWithoutCourseInput
@@ -2485,6 +2684,7 @@ export type CourseUpdateWithoutAnnouncementsInput = {
   courseFiles?: Prisma.CourseFileUpdateManyWithoutCourseNestedInput
   fileFlashcards?: Prisma.CourseFileFlashcardsUpdateManyWithoutCourseNestedInput
   fileSummaries?: Prisma.CourseFileSummaryUpdateManyWithoutCourseNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUpdateManyWithoutCourseNestedInput
   students?: Prisma.StudentCourseUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUpdateManyWithoutCourseNestedInput
   marks?: Prisma.MarkUpdateManyWithoutCourseNestedInput
@@ -2514,6 +2714,7 @@ export type CourseUncheckedUpdateWithoutAnnouncementsInput = {
   courseFiles?: Prisma.CourseFileUncheckedUpdateManyWithoutCourseNestedInput
   fileFlashcards?: Prisma.CourseFileFlashcardsUncheckedUpdateManyWithoutCourseNestedInput
   fileSummaries?: Prisma.CourseFileSummaryUncheckedUpdateManyWithoutCourseNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedUpdateManyWithoutCourseNestedInput
   students?: Prisma.StudentCourseUncheckedUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUncheckedUpdateManyWithoutCourseNestedInput
   marks?: Prisma.MarkUncheckedUpdateManyWithoutCourseNestedInput
@@ -2542,6 +2743,7 @@ export type CourseCreateWithoutExamsInput = {
   courseFiles?: Prisma.CourseFileCreateNestedManyWithoutCourseInput
   fileFlashcards?: Prisma.CourseFileFlashcardsCreateNestedManyWithoutCourseInput
   fileSummaries?: Prisma.CourseFileSummaryCreateNestedManyWithoutCourseInput
+  aiChatSessions?: Prisma.CourseAiChatSessionCreateNestedManyWithoutCourseInput
   students?: Prisma.StudentCourseCreateNestedManyWithoutCourseInput
   announcements?: Prisma.AnnouncementCreateNestedManyWithoutCourseInput
   marks?: Prisma.MarkCreateNestedManyWithoutCourseInput
@@ -2571,6 +2773,7 @@ export type CourseUncheckedCreateWithoutExamsInput = {
   courseFiles?: Prisma.CourseFileUncheckedCreateNestedManyWithoutCourseInput
   fileFlashcards?: Prisma.CourseFileFlashcardsUncheckedCreateNestedManyWithoutCourseInput
   fileSummaries?: Prisma.CourseFileSummaryUncheckedCreateNestedManyWithoutCourseInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedCreateNestedManyWithoutCourseInput
   students?: Prisma.StudentCourseUncheckedCreateNestedManyWithoutCourseInput
   announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutCourseInput
   marks?: Prisma.MarkUncheckedCreateNestedManyWithoutCourseInput
@@ -2615,6 +2818,7 @@ export type CourseUpdateWithoutExamsInput = {
   courseFiles?: Prisma.CourseFileUpdateManyWithoutCourseNestedInput
   fileFlashcards?: Prisma.CourseFileFlashcardsUpdateManyWithoutCourseNestedInput
   fileSummaries?: Prisma.CourseFileSummaryUpdateManyWithoutCourseNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUpdateManyWithoutCourseNestedInput
   students?: Prisma.StudentCourseUpdateManyWithoutCourseNestedInput
   announcements?: Prisma.AnnouncementUpdateManyWithoutCourseNestedInput
   marks?: Prisma.MarkUpdateManyWithoutCourseNestedInput
@@ -2644,6 +2848,7 @@ export type CourseUncheckedUpdateWithoutExamsInput = {
   courseFiles?: Prisma.CourseFileUncheckedUpdateManyWithoutCourseNestedInput
   fileFlashcards?: Prisma.CourseFileFlashcardsUncheckedUpdateManyWithoutCourseNestedInput
   fileSummaries?: Prisma.CourseFileSummaryUncheckedUpdateManyWithoutCourseNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedUpdateManyWithoutCourseNestedInput
   students?: Prisma.StudentCourseUncheckedUpdateManyWithoutCourseNestedInput
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCourseNestedInput
   marks?: Prisma.MarkUncheckedUpdateManyWithoutCourseNestedInput
@@ -2671,6 +2876,7 @@ export type CourseUpdateWithoutTeachersInput = {
   courseFiles?: Prisma.CourseFileUpdateManyWithoutCourseNestedInput
   fileFlashcards?: Prisma.CourseFileFlashcardsUpdateManyWithoutCourseNestedInput
   fileSummaries?: Prisma.CourseFileSummaryUpdateManyWithoutCourseNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUpdateManyWithoutCourseNestedInput
   students?: Prisma.StudentCourseUpdateManyWithoutCourseNestedInput
   announcements?: Prisma.AnnouncementUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUpdateManyWithoutCourseNestedInput
@@ -2700,6 +2906,7 @@ export type CourseUncheckedUpdateWithoutTeachersInput = {
   courseFiles?: Prisma.CourseFileUncheckedUpdateManyWithoutCourseNestedInput
   fileFlashcards?: Prisma.CourseFileFlashcardsUncheckedUpdateManyWithoutCourseNestedInput
   fileSummaries?: Prisma.CourseFileSummaryUncheckedUpdateManyWithoutCourseNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedUpdateManyWithoutCourseNestedInput
   students?: Prisma.StudentCourseUncheckedUpdateManyWithoutCourseNestedInput
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUncheckedUpdateManyWithoutCourseNestedInput
@@ -2745,6 +2952,7 @@ export type CourseUpdateWithoutDoctorsInput = {
   courseFiles?: Prisma.CourseFileUpdateManyWithoutCourseNestedInput
   fileFlashcards?: Prisma.CourseFileFlashcardsUpdateManyWithoutCourseNestedInput
   fileSummaries?: Prisma.CourseFileSummaryUpdateManyWithoutCourseNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUpdateManyWithoutCourseNestedInput
   students?: Prisma.StudentCourseUpdateManyWithoutCourseNestedInput
   announcements?: Prisma.AnnouncementUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUpdateManyWithoutCourseNestedInput
@@ -2774,6 +2982,7 @@ export type CourseUncheckedUpdateWithoutDoctorsInput = {
   courseFiles?: Prisma.CourseFileUncheckedUpdateManyWithoutCourseNestedInput
   fileFlashcards?: Prisma.CourseFileFlashcardsUncheckedUpdateManyWithoutCourseNestedInput
   fileSummaries?: Prisma.CourseFileSummaryUncheckedUpdateManyWithoutCourseNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedUpdateManyWithoutCourseNestedInput
   students?: Prisma.StudentCourseUncheckedUpdateManyWithoutCourseNestedInput
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUncheckedUpdateManyWithoutCourseNestedInput
@@ -2835,6 +3044,7 @@ export type CourseUpdateWithoutYearInput = {
   courseFiles?: Prisma.CourseFileUpdateManyWithoutCourseNestedInput
   fileFlashcards?: Prisma.CourseFileFlashcardsUpdateManyWithoutCourseNestedInput
   fileSummaries?: Prisma.CourseFileSummaryUpdateManyWithoutCourseNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUpdateManyWithoutCourseNestedInput
   students?: Prisma.StudentCourseUpdateManyWithoutCourseNestedInput
   announcements?: Prisma.AnnouncementUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUpdateManyWithoutCourseNestedInput
@@ -2864,6 +3074,7 @@ export type CourseUncheckedUpdateWithoutYearInput = {
   courseFiles?: Prisma.CourseFileUncheckedUpdateManyWithoutCourseNestedInput
   fileFlashcards?: Prisma.CourseFileFlashcardsUncheckedUpdateManyWithoutCourseNestedInput
   fileSummaries?: Prisma.CourseFileSummaryUncheckedUpdateManyWithoutCourseNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedUpdateManyWithoutCourseNestedInput
   students?: Prisma.StudentCourseUncheckedUpdateManyWithoutCourseNestedInput
   announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutCourseNestedInput
   exams?: Prisma.ExamUncheckedUpdateManyWithoutCourseNestedInput
@@ -2901,6 +3112,7 @@ export type CourseCountOutputType = {
   courseFiles: number
   fileFlashcards: number
   fileSummaries: number
+  aiChatSessions: number
   students: number
   announcements: number
   exams: number
@@ -2917,6 +3129,7 @@ export type CourseCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions
   courseFiles?: boolean | CourseCountOutputTypeCountCourseFilesArgs
   fileFlashcards?: boolean | CourseCountOutputTypeCountFileFlashcardsArgs
   fileSummaries?: boolean | CourseCountOutputTypeCountFileSummariesArgs
+  aiChatSessions?: boolean | CourseCountOutputTypeCountAiChatSessionsArgs
   students?: boolean | CourseCountOutputTypeCountStudentsArgs
   announcements?: boolean | CourseCountOutputTypeCountAnnouncementsArgs
   exams?: boolean | CourseCountOutputTypeCountExamsArgs
@@ -2993,6 +3206,13 @@ export type CourseCountOutputTypeCountFileSummariesArgs<ExtArgs extends runtime.
 /**
  * CourseCountOutputType without action
  */
+export type CourseCountOutputTypeCountAiChatSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CourseAiChatSessionWhereInput
+}
+
+/**
+ * CourseCountOutputType without action
+ */
 export type CourseCountOutputTypeCountStudentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.StudentCourseWhereInput
 }
@@ -3050,6 +3270,7 @@ export type CourseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   courseFiles?: boolean | Prisma.Course$courseFilesArgs<ExtArgs>
   fileFlashcards?: boolean | Prisma.Course$fileFlashcardsArgs<ExtArgs>
   fileSummaries?: boolean | Prisma.Course$fileSummariesArgs<ExtArgs>
+  aiChatSessions?: boolean | Prisma.Course$aiChatSessionsArgs<ExtArgs>
   students?: boolean | Prisma.Course$studentsArgs<ExtArgs>
   announcements?: boolean | Prisma.Course$announcementsArgs<ExtArgs>
   exams?: boolean | Prisma.Course$examsArgs<ExtArgs>
@@ -3122,6 +3343,7 @@ export type CourseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   courseFiles?: boolean | Prisma.Course$courseFilesArgs<ExtArgs>
   fileFlashcards?: boolean | Prisma.Course$fileFlashcardsArgs<ExtArgs>
   fileSummaries?: boolean | Prisma.Course$fileSummariesArgs<ExtArgs>
+  aiChatSessions?: boolean | Prisma.Course$aiChatSessionsArgs<ExtArgs>
   students?: boolean | Prisma.Course$studentsArgs<ExtArgs>
   announcements?: boolean | Prisma.Course$announcementsArgs<ExtArgs>
   exams?: boolean | Prisma.Course$examsArgs<ExtArgs>
@@ -3148,6 +3370,7 @@ export type $CoursePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     courseFiles: Prisma.$CourseFilePayload<ExtArgs>[]
     fileFlashcards: Prisma.$CourseFileFlashcardsPayload<ExtArgs>[]
     fileSummaries: Prisma.$CourseFileSummaryPayload<ExtArgs>[]
+    aiChatSessions: Prisma.$CourseAiChatSessionPayload<ExtArgs>[]
     students: Prisma.$StudentCoursePayload<ExtArgs>[]
     announcements: Prisma.$AnnouncementPayload<ExtArgs>[]
     exams: Prisma.$ExamPayload<ExtArgs>[]
@@ -3572,6 +3795,7 @@ export interface Prisma__CourseClient<T, Null = never, ExtArgs extends runtime.T
   courseFiles<T extends Prisma.Course$courseFilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Course$courseFilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CourseFilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   fileFlashcards<T extends Prisma.Course$fileFlashcardsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Course$fileFlashcardsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CourseFileFlashcardsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   fileSummaries<T extends Prisma.Course$fileSummariesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Course$fileSummariesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CourseFileSummaryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  aiChatSessions<T extends Prisma.Course$aiChatSessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Course$aiChatSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CourseAiChatSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   students<T extends Prisma.Course$studentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Course$studentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudentCoursePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   announcements<T extends Prisma.Course$announcementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Course$announcementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AnnouncementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   exams<T extends Prisma.Course$examsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Course$examsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ExamPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -4210,6 +4434,30 @@ export type Course$fileSummariesArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.CourseFileSummaryScalarFieldEnum | Prisma.CourseFileSummaryScalarFieldEnum[]
+}
+
+/**
+ * Course.aiChatSessions
+ */
+export type Course$aiChatSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CourseAiChatSession
+   */
+  select?: Prisma.CourseAiChatSessionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CourseAiChatSession
+   */
+  omit?: Prisma.CourseAiChatSessionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CourseAiChatSessionInclude<ExtArgs> | null
+  where?: Prisma.CourseAiChatSessionWhereInput
+  orderBy?: Prisma.CourseAiChatSessionOrderByWithRelationInput | Prisma.CourseAiChatSessionOrderByWithRelationInput[]
+  cursor?: Prisma.CourseAiChatSessionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CourseAiChatSessionScalarFieldEnum | Prisma.CourseAiChatSessionScalarFieldEnum[]
 }
 
 /**

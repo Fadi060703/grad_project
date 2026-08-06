@@ -14,6 +14,7 @@ export const getFaculityInfoSchema = z.object({
   lectures_schedule_url: z.string().optional().nullable(),
   theoritical_exam_schedule_url: z.string().optional().nullable(),
   practical_exam_schedule_url: z.string().optional().nullable(),
+  uni_chatbot_file: z.string().optional().nullable(),
   created_at: z.date().optional(),
   updated_at: z.date().optional(),
 });
@@ -31,6 +32,7 @@ export const updateFaculityInfoSchema = z.object({
   lectures_schedule_url: z.string().optional(),
   theoritical_exam_schedule_url: z.string().optional(),
   practical_exam_schedule_url: z.string().optional(),
+  uni_chatbot_file: z.string().optional(),
 });
 
 export type getFaculityInfoDTO = z.infer<typeof getFaculityInfoSchema>;

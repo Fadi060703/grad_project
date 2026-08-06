@@ -24,7 +24,86 @@
   <button id="downloadFlashcards">Download Flashcards HTML</button>
   <button id="downloadSummary">Download Summary HTML</button>
 
+  <hr />
+
+  <h2>Exam Preparation Test</h2>
+
+  <form id="examPreparationForm">
+    <label>
+      Course File IDs comma separated:
+      <input id="examCourseFileIds" type="text" placeholder="1,2,3" />
+    </label>
+
+    <br /><br />
+
+    <label>
+      Number of Questions:
+      <input id="questionCount" type="number" placeholder="30" />
+    </label>
+
+    <br /><br />
+
+    <button type="submit">Download Exam Preparation HTML</button>
+  </form>
+
+  <hr />
+
+  <h2>Course Chat Test</h2>
+
+  <form id="courseChatForm">
+    <label>
+      Course ID:
+      <input id="chatCourseId" type="number" />
+    </label>
+
+    <br /><br />
+
+    <label>
+      Question:
+      <input id="chatQuestion" type="text" />
+    </label>
+
+    <br /><br />
+
+    <button type="button" id="loadChatMessages">Load Previous Messages</button>
+    <button type="submit">Send Chat Message</button>
+  </form>
+
+  <pre id="chatMessages"></pre>
+
+  <hr />
+
+  <h2>University Chatbot Test</h2>
+
+  <form id="universityChatbotForm">
+    <label>
+      Message:
+      <input id="universityChatbotMessage" type="text" />
+    </label>
+
+    <br /><br />
+
+    <button type="button" id="loadUniversityChatbotMessages">Load Previous Chatbot Messages</button>
+    <button type="submit">Send Chatbot Message</button>
+  </form>
+
+  <pre id="universityChatbotMessages"></pre>
+
   <script>
+    const saveHtmlFile = (html, filename) => {
+      const blob = new Blob([html], { type: "text/html" });
+      const objectUrl = URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = objectUrl;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+
+      URL.revokeObjectURL(objectUrl);
+    };
+
     const downloadHtml = async (url, filename) => {
       const token = document.getElementById("token").value.trim();
 
@@ -40,17 +119,7 @@
       }
 
       const html = await response.text();
-      const blob = new Blob([html], { type: "text/html" });
-      const objectUrl = URL.createObjectURL(blob);
-
-      const link = document.createElement("a");
-      link.href = objectUrl;
-      link.download = filename;
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-
-      URL.revokeObjectURL(objectUrl);
+      saveHtmlFile(html, filename);
     };
 
     document.getElementById("downloadFlashcards").addEventListener("click", () => {
@@ -67,6 +136,145 @@
         `/api/course-files/${courseFileId}/summary-html`,
         `course-file-${courseFileId}-summary.html`,
       );
+    });
+
+    const renderChatMessages = (messages) => {
+      document.getElementById("chatMessages").textContent = messages
+        .map((message) => `${message.sender}: ${message.content}`)
+        .join("\n\n");
+    };
+
+    const renderUniversityChatbotMessages = (messages) => {
+      document.getElementById("universityChatbotMessages").textContent = messages
+        .map((message) => `${message.sender}: ${message.content}`)
+        .join("\n\n");
+    };
+
+    document.getElementById("examPreparationForm").addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const token = document.getElementById("token").value.trim();
+      const courseFileIds = document
+        .getElementById("examCourseFileIds")
+        .value
+        .split(",")
+        .map((value) => Number(value.trim()))
+        .filter((value) => Number.isInteger(value) && value > 0);
+      const questionCountRaw = document.getElementById("questionCount").value.trim();
+      const questionCount = questionCountRaw ? Number(questionCountRaw) : undefined;
+
+      const response = await fetch("/api/ai/exam-preparation", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          course_file_ids: courseFileIds,
+          ...(questionCount ? { question_count: questionCount } : {}),
+        }),
+      });
+
+      if (!response.ok) {
+        alert(await response.text());
+        return;
+      }
+
+      const html = await response.text();
+      saveHtmlFile(html, "exam-preparation.html");
+    });
+
+    document.getElementById("loadChatMessages").addEventListener("click", async () => {
+      const token = document.getElementById("token").value.trim();
+      const courseId = document.getElementById("chatCourseId").value.trim();
+
+      const response = await fetch(`/api/course-chat/${courseId}/messages`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        alert(await response.text());
+        return;
+      }
+
+      const data = await response.json();
+      renderChatMessages(data.messages || []);
+    });
+
+    document.getElementById("courseChatForm").addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const token = document.getElementById("token").value.trim();
+      const courseId = Number(document.getElementById("chatCourseId").value.trim());
+      const question = document.getElementById("chatQuestion").value.trim();
+
+      const response = await fetch("/api/course-chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          course_id: courseId,
+          question,
+        }),
+      });
+
+      if (!response.ok) {
+        alert(await response.text());
+        return;
+      }
+
+      const data = await response.json();
+      const current = document.getElementById("chatMessages").textContent.trim();
+      document.getElementById("chatMessages").textContent = `${current ? current + "\n\n" : ""}USER: ${question}\n\nMODEL: ${data.answer}`;
+      document.getElementById("chatQuestion").value = "";
+    });
+
+    document.getElementById("loadUniversityChatbotMessages").addEventListener("click", async () => {
+      const token = document.getElementById("token").value.trim();
+
+      const response = await fetch("/api/chatbot/messages", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        alert(await response.text());
+        return;
+      }
+
+      const data = await response.json();
+      renderUniversityChatbotMessages(data.messages || []);
+    });
+
+    document.getElementById("universityChatbotForm").addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const token = document.getElementById("token").value.trim();
+      const message = document.getElementById("universityChatbotMessage").value.trim();
+
+      const response = await fetch("/api/chatbot", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ message }),
+      });
+
+      if (!response.ok) {
+        alert(await response.text());
+        return;
+      }
+
+      const data = await response.json();
+      const current = document.getElementById("universityChatbotMessages").textContent.trim();
+      document.getElementById("universityChatbotMessages").textContent = `${current ? current + "\n\n" : ""}USER: ${message}\n\nMODEL: ${data.answer}`;
+      document.getElementById("universityChatbotMessage").value = "";
     });
   </script>
 </body>

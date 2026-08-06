@@ -287,6 +287,23 @@ export type EnumLectureTypeWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumLectureTypeFilter<$PrismaModel>
 }
 
+export type EnumCourseAiChatMessageSenderFilter<$PrismaModel = never> = {
+  equals?: $Enums.CourseAiChatMessageSender | Prisma.EnumCourseAiChatMessageSenderFieldRefInput<$PrismaModel>
+  in?: $Enums.CourseAiChatMessageSender[] | Prisma.ListEnumCourseAiChatMessageSenderFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CourseAiChatMessageSender[] | Prisma.ListEnumCourseAiChatMessageSenderFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCourseAiChatMessageSenderFilter<$PrismaModel> | $Enums.CourseAiChatMessageSender
+}
+
+export type EnumCourseAiChatMessageSenderWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CourseAiChatMessageSender | Prisma.EnumCourseAiChatMessageSenderFieldRefInput<$PrismaModel>
+  in?: $Enums.CourseAiChatMessageSender[] | Prisma.ListEnumCourseAiChatMessageSenderFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CourseAiChatMessageSender[] | Prisma.ListEnumCourseAiChatMessageSenderFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCourseAiChatMessageSenderWithAggregatesFilter<$PrismaModel> | $Enums.CourseAiChatMessageSender
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCourseAiChatMessageSenderFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCourseAiChatMessageSenderFilter<$PrismaModel>
+}
+
 export type JsonFilter<$PrismaModel = never> =
 | Prisma.PatchUndefined<
     Prisma.Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
@@ -741,6 +758,23 @@ export type NestedEnumLectureTypeWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumLectureTypeFilter<$PrismaModel>
   _max?: Prisma.NestedEnumLectureTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumCourseAiChatMessageSenderFilter<$PrismaModel = never> = {
+  equals?: $Enums.CourseAiChatMessageSender | Prisma.EnumCourseAiChatMessageSenderFieldRefInput<$PrismaModel>
+  in?: $Enums.CourseAiChatMessageSender[] | Prisma.ListEnumCourseAiChatMessageSenderFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CourseAiChatMessageSender[] | Prisma.ListEnumCourseAiChatMessageSenderFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCourseAiChatMessageSenderFilter<$PrismaModel> | $Enums.CourseAiChatMessageSender
+}
+
+export type NestedEnumCourseAiChatMessageSenderWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CourseAiChatMessageSender | Prisma.EnumCourseAiChatMessageSenderFieldRefInput<$PrismaModel>
+  in?: $Enums.CourseAiChatMessageSender[] | Prisma.ListEnumCourseAiChatMessageSenderFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CourseAiChatMessageSender[] | Prisma.ListEnumCourseAiChatMessageSenderFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCourseAiChatMessageSenderWithAggregatesFilter<$PrismaModel> | $Enums.CourseAiChatMessageSender
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCourseAiChatMessageSenderFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCourseAiChatMessageSenderFilter<$PrismaModel>
 }
 
 export type NestedJsonFilter<$PrismaModel = never> =

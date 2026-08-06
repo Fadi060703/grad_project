@@ -55,6 +55,14 @@ export const CourseMarksPublishType = {
 export type CourseMarksPublishType = (typeof CourseMarksPublishType)[keyof typeof CourseMarksPublishType]
 
 
+export const CourseAiChatMessageSender = {
+  USER: 'USER',
+  MODEL: 'MODEL'
+} as const
+
+export type CourseAiChatMessageSender = (typeof CourseAiChatMessageSender)[keyof typeof CourseAiChatMessageSender]
+
+
 export const StudentCourseStatus = {
   ENROLLED: 'ENROLLED',
   PASSED: 'PASSED',

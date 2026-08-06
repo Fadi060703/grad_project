@@ -66,6 +66,10 @@ export const ModelName = {
   SectionCourse: 'SectionCourse',
   MajorCourse: 'MajorCourse',
   CourseFile: 'CourseFile',
+  CourseAiChatSession: 'CourseAiChatSession',
+  CourseAiChatMessage: 'CourseAiChatMessage',
+  ChatbotSession: 'ChatbotSession',
+  ChatbotMessage: 'ChatbotMessage',
   CourseFileFlashcards: 'CourseFileFlashcards',
   CourseFileSummary: 'CourseFileSummary',
   Mark: 'Mark',
@@ -128,6 +132,7 @@ export const FaculityInfoScalarFieldEnum = {
   lectures_schedule_url: 'lectures_schedule_url',
   theoritical_exam_schedule_url: 'theoritical_exam_schedule_url',
   practical_exam_schedule_url: 'practical_exam_schedule_url',
+  uni_chatbot_file: 'uni_chatbot_file',
   created_at: 'created_at',
   updated_at: 'updated_at'
 } as const
@@ -304,6 +309,54 @@ export const CourseFileScalarFieldEnum = {
 } as const
 
 export type CourseFileScalarFieldEnum = (typeof CourseFileScalarFieldEnum)[keyof typeof CourseFileScalarFieldEnum]
+
+
+export const CourseAiChatSessionScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  student_id: 'student_id',
+  course_id: 'course_id',
+  previous_interaction_id: 'previous_interaction_id',
+  summaries_hash: 'summaries_hash',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type CourseAiChatSessionScalarFieldEnum = (typeof CourseAiChatSessionScalarFieldEnum)[keyof typeof CourseAiChatSessionScalarFieldEnum]
+
+
+export const CourseAiChatMessageScalarFieldEnum = {
+  id: 'id',
+  session_id: 'session_id',
+  sender: 'sender',
+  content: 'content',
+  created_at: 'created_at'
+} as const
+
+export type CourseAiChatMessageScalarFieldEnum = (typeof CourseAiChatMessageScalarFieldEnum)[keyof typeof CourseAiChatMessageScalarFieldEnum]
+
+
+export const ChatbotSessionScalarFieldEnum = {
+  id: 'id',
+  student_id: 'student_id',
+  previous_interaction_id: 'previous_interaction_id',
+  content_hash: 'content_hash',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type ChatbotSessionScalarFieldEnum = (typeof ChatbotSessionScalarFieldEnum)[keyof typeof ChatbotSessionScalarFieldEnum]
+
+
+export const ChatbotMessageScalarFieldEnum = {
+  id: 'id',
+  session_id: 'session_id',
+  sender: 'sender',
+  content: 'content',
+  created_at: 'created_at'
+} as const
+
+export type ChatbotMessageScalarFieldEnum = (typeof ChatbotMessageScalarFieldEnum)[keyof typeof ChatbotMessageScalarFieldEnum]
 
 
 export const CourseFileFlashcardsScalarFieldEnum = {

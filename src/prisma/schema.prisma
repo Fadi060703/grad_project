@@ -42,6 +42,7 @@ model FaculityInfo {
   lectures_schedule_url         String?
   theoritical_exam_schedule_url String?
   practical_exam_schedule_url   String?
+  uni_chatbot_file              String?
   created_at                    DateTime @default(now())
   updated_at                    DateTime @updatedAt
 
@@ -74,6 +75,7 @@ model User {
   permissions          String[]       @default([])
   teachingLectures     Lecture[]      @relation("LectureInstructor")
   createdAnnouncements Announcement[] @relation("AnnouncementCreator")
+  aiChatSessions      CourseAiChatSession[]
 
   // Course relations
   teachingCourses Course[]       @relation("CourseTeachers")
@@ -110,6 +112,8 @@ model Student {
   group_id         Int
   group            Group               @relation(fields: [group_id], references: [id], onDelete: Cascade)
   courses            StudentCourse[]
+  aiChatSessions     CourseAiChatSession[]
+  chatbotSession     ChatbotSession?
   marks              Mark[]
   attendances        LectureAttendance[]
   exam_settings      ExamSettings[]      @relation("ExamSettingsStudents")
@@ -261,6 +265,7 @@ model Course {
   courseFiles                  CourseFile[]
   fileFlashcards               CourseFileFlashcards[]
   fileSummaries                CourseFileSummary[]
+  aiChatSessions               CourseAiChatSession[]
   students                     StudentCourse[]
   announcements                Announcement[]
   exams                        Exam[]
@@ -316,6 +321,68 @@ model CourseFile {
 
   @@index([course_id])
   @@map("course_files")
+}
+
+enum CourseAiChatMessageSender {
+  USER
+  MODEL
+}
+
+model CourseAiChatSession {
+  id                      Int                   @id @default(autoincrement())
+  user_id                 Int
+  user                    User                  @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  student_id              Int?
+  student                 Student?              @relation(fields: [student_id], references: [student_id], onDelete: Cascade)
+  course_id               Int
+  course                  Course                @relation(fields: [course_id], references: [id], onDelete: Cascade)
+  previous_interaction_id String
+  summaries_hash          String?
+  messages                CourseAiChatMessage[]
+  created_at              DateTime              @default(now())
+  updated_at              DateTime              @updatedAt
+
+  @@unique([user_id, course_id])
+  @@index([course_id])
+  @@index([student_id])
+  @@map("course_ai_chat_sessions")
+}
+
+model CourseAiChatMessage {
+  id         Int                       @id @default(autoincrement())
+  session_id Int
+  session    CourseAiChatSession       @relation(fields: [session_id], references: [id], onDelete: Cascade)
+  sender     CourseAiChatMessageSender
+  content    String
+  created_at DateTime                  @default(now())
+
+  @@index([session_id, created_at])
+  @@map("course_ai_chat_messages")
+}
+
+model ChatbotSession {
+  id                      Int              @id @default(autoincrement())
+  student_id              Int              @unique
+  student                 Student          @relation(fields: [student_id], references: [student_id], onDelete: Cascade)
+  previous_interaction_id String?
+  content_hash            String?
+  messages                ChatbotMessage[]
+  created_at              DateTime         @default(now())
+  updated_at              DateTime         @updatedAt
+
+  @@map("chatbot_sessions")
+}
+
+model ChatbotMessage {
+  id         Int                       @id @default(autoincrement())
+  session_id Int
+  session    ChatbotSession            @relation(fields: [session_id], references: [id], onDelete: Cascade)
+  sender     CourseAiChatMessageSender
+  content    String
+  created_at DateTime                  @default(now())
+
+  @@index([session_id, created_at])
+  @@map("chatbot_messages")
 }
 
 model CourseFileFlashcards {

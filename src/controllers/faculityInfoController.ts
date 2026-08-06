@@ -26,6 +26,7 @@ export const getFaculityInfo = asyncHandler(async (req: Request, res: Response) 
       lectures_schedule_url: true,
       theoritical_exam_schedule_url: true,
       practical_exam_schedule_url: true,
+      uni_chatbot_file: true,
       created_at: true,
       updated_at: true,
     },
@@ -63,6 +64,7 @@ export const createOrUpdateFaculityInfo = asyncHandler(async (req: Request, res:
     lectures_schedule_url: data.lectures_schedule_url !== undefined ? data.lectures_schedule_url : undefined,
     theoritical_exam_schedule_url: data.theoritical_exam_schedule_url !== undefined ? data.theoritical_exam_schedule_url : undefined,
     practical_exam_schedule_url: data.practical_exam_schedule_url !== undefined ? data.practical_exam_schedule_url : undefined,
+    uni_chatbot_file: data.uni_chatbot_file !== undefined ? data.uni_chatbot_file : undefined,
   };
 
   if (!existing) {
@@ -80,6 +82,7 @@ export const createOrUpdateFaculityInfo = asyncHandler(async (req: Request, res:
         lectures_schedule_url: payload.lectures_schedule_url ?? null,
         theoritical_exam_schedule_url: payload.theoritical_exam_schedule_url ?? null,
         practical_exam_schedule_url: payload.practical_exam_schedule_url ?? null,
+        uni_chatbot_file: payload.uni_chatbot_file ?? null,
       },
       select: {
         id: true,
@@ -95,6 +98,7 @@ export const createOrUpdateFaculityInfo = asyncHandler(async (req: Request, res:
         lectures_schedule_url: true,
         theoritical_exam_schedule_url: true,
         practical_exam_schedule_url: true,
+        uni_chatbot_file: true,
         created_at: true,
         updated_at: true,
       },
@@ -124,6 +128,7 @@ export const createOrUpdateFaculityInfo = asyncHandler(async (req: Request, res:
       lectures_schedule_url: true,
       theoritical_exam_schedule_url: true,
       practical_exam_schedule_url: true,
+      uni_chatbot_file: true,
       created_at: true,
       updated_at: true,
     },

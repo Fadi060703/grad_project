@@ -48,6 +48,7 @@ export type FaculityInfoMinAggregateOutputType = {
   lectures_schedule_url: string | null
   theoritical_exam_schedule_url: string | null
   practical_exam_schedule_url: string | null
+  uni_chatbot_file: string | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -66,6 +67,7 @@ export type FaculityInfoMaxAggregateOutputType = {
   lectures_schedule_url: string | null
   theoritical_exam_schedule_url: string | null
   practical_exam_schedule_url: string | null
+  uni_chatbot_file: string | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -84,6 +86,7 @@ export type FaculityInfoCountAggregateOutputType = {
   lectures_schedule_url: number
   theoritical_exam_schedule_url: number
   practical_exam_schedule_url: number
+  uni_chatbot_file: number
   created_at: number
   updated_at: number
   _all: number
@@ -112,6 +115,7 @@ export type FaculityInfoMinAggregateInputType = {
   lectures_schedule_url?: true
   theoritical_exam_schedule_url?: true
   practical_exam_schedule_url?: true
+  uni_chatbot_file?: true
   created_at?: true
   updated_at?: true
 }
@@ -130,6 +134,7 @@ export type FaculityInfoMaxAggregateInputType = {
   lectures_schedule_url?: true
   theoritical_exam_schedule_url?: true
   practical_exam_schedule_url?: true
+  uni_chatbot_file?: true
   created_at?: true
   updated_at?: true
 }
@@ -148,6 +153,7 @@ export type FaculityInfoCountAggregateInputType = {
   lectures_schedule_url?: true
   theoritical_exam_schedule_url?: true
   practical_exam_schedule_url?: true
+  uni_chatbot_file?: true
   created_at?: true
   updated_at?: true
   _all?: true
@@ -253,6 +259,7 @@ export type FaculityInfoGroupByOutputType = {
   lectures_schedule_url: string | null
   theoritical_exam_schedule_url: string | null
   practical_exam_schedule_url: string | null
+  uni_chatbot_file: string | null
   created_at: Date
   updated_at: Date
   _count: FaculityInfoCountAggregateOutputType | null
@@ -294,6 +301,7 @@ export type FaculityInfoWhereInput = {
   lectures_schedule_url?: Prisma.StringNullableFilter<"FaculityInfo"> | string | null
   theoritical_exam_schedule_url?: Prisma.StringNullableFilter<"FaculityInfo"> | string | null
   practical_exam_schedule_url?: Prisma.StringNullableFilter<"FaculityInfo"> | string | null
+  uni_chatbot_file?: Prisma.StringNullableFilter<"FaculityInfo"> | string | null
   created_at?: Prisma.DateTimeFilter<"FaculityInfo"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"FaculityInfo"> | Date | string
 }
@@ -312,6 +320,7 @@ export type FaculityInfoOrderByWithRelationInput = {
   lectures_schedule_url?: Prisma.SortOrderInput | Prisma.SortOrder
   theoritical_exam_schedule_url?: Prisma.SortOrderInput | Prisma.SortOrder
   practical_exam_schedule_url?: Prisma.SortOrderInput | Prisma.SortOrder
+  uni_chatbot_file?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -333,6 +342,7 @@ export type FaculityInfoWhereUniqueInput = Prisma.AtLeast<{
   lectures_schedule_url?: Prisma.StringNullableFilter<"FaculityInfo"> | string | null
   theoritical_exam_schedule_url?: Prisma.StringNullableFilter<"FaculityInfo"> | string | null
   practical_exam_schedule_url?: Prisma.StringNullableFilter<"FaculityInfo"> | string | null
+  uni_chatbot_file?: Prisma.StringNullableFilter<"FaculityInfo"> | string | null
   created_at?: Prisma.DateTimeFilter<"FaculityInfo"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"FaculityInfo"> | Date | string
 }, "id">
@@ -351,6 +361,7 @@ export type FaculityInfoOrderByWithAggregationInput = {
   lectures_schedule_url?: Prisma.SortOrderInput | Prisma.SortOrder
   theoritical_exam_schedule_url?: Prisma.SortOrderInput | Prisma.SortOrder
   practical_exam_schedule_url?: Prisma.SortOrderInput | Prisma.SortOrder
+  uni_chatbot_file?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   _count?: Prisma.FaculityInfoCountOrderByAggregateInput
@@ -377,6 +388,7 @@ export type FaculityInfoScalarWhereWithAggregatesInput = {
   lectures_schedule_url?: Prisma.StringNullableWithAggregatesFilter<"FaculityInfo"> | string | null
   theoritical_exam_schedule_url?: Prisma.StringNullableWithAggregatesFilter<"FaculityInfo"> | string | null
   practical_exam_schedule_url?: Prisma.StringNullableWithAggregatesFilter<"FaculityInfo"> | string | null
+  uni_chatbot_file?: Prisma.StringNullableWithAggregatesFilter<"FaculityInfo"> | string | null
   created_at?: Prisma.DateTimeWithAggregatesFilter<"FaculityInfo"> | Date | string
   updated_at?: Prisma.DateTimeWithAggregatesFilter<"FaculityInfo"> | Date | string
 }
@@ -394,6 +406,7 @@ export type FaculityInfoCreateInput = {
   lectures_schedule_url?: string | null
   theoritical_exam_schedule_url?: string | null
   practical_exam_schedule_url?: string | null
+  uni_chatbot_file?: string | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -412,6 +425,7 @@ export type FaculityInfoUncheckedCreateInput = {
   lectures_schedule_url?: string | null
   theoritical_exam_schedule_url?: string | null
   practical_exam_schedule_url?: string | null
+  uni_chatbot_file?: string | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -429,6 +443,7 @@ export type FaculityInfoUpdateInput = {
   lectures_schedule_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   theoritical_exam_schedule_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   practical_exam_schedule_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  uni_chatbot_file?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -447,6 +462,7 @@ export type FaculityInfoUncheckedUpdateInput = {
   lectures_schedule_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   theoritical_exam_schedule_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   practical_exam_schedule_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  uni_chatbot_file?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -465,6 +481,7 @@ export type FaculityInfoCreateManyInput = {
   lectures_schedule_url?: string | null
   theoritical_exam_schedule_url?: string | null
   practical_exam_schedule_url?: string | null
+  uni_chatbot_file?: string | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -482,6 +499,7 @@ export type FaculityInfoUpdateManyMutationInput = {
   lectures_schedule_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   theoritical_exam_schedule_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   practical_exam_schedule_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  uni_chatbot_file?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -500,6 +518,7 @@ export type FaculityInfoUncheckedUpdateManyInput = {
   lectures_schedule_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   theoritical_exam_schedule_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   practical_exam_schedule_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  uni_chatbot_file?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -518,6 +537,7 @@ export type FaculityInfoCountOrderByAggregateInput = {
   lectures_schedule_url?: Prisma.SortOrder
   theoritical_exam_schedule_url?: Prisma.SortOrder
   practical_exam_schedule_url?: Prisma.SortOrder
+  uni_chatbot_file?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -540,6 +560,7 @@ export type FaculityInfoMaxOrderByAggregateInput = {
   lectures_schedule_url?: Prisma.SortOrder
   theoritical_exam_schedule_url?: Prisma.SortOrder
   practical_exam_schedule_url?: Prisma.SortOrder
+  uni_chatbot_file?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -558,6 +579,7 @@ export type FaculityInfoMinOrderByAggregateInput = {
   lectures_schedule_url?: Prisma.SortOrder
   theoritical_exam_schedule_url?: Prisma.SortOrder
   practical_exam_schedule_url?: Prisma.SortOrder
+  uni_chatbot_file?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -582,6 +604,7 @@ export type FaculityInfoSelect<ExtArgs extends runtime.Types.Extensions.Internal
   lectures_schedule_url?: boolean
   theoritical_exam_schedule_url?: boolean
   practical_exam_schedule_url?: boolean
+  uni_chatbot_file?: boolean
   created_at?: boolean
   updated_at?: boolean
 }, ExtArgs["result"]["faculityInfo"]>
@@ -600,6 +623,7 @@ export type FaculityInfoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   lectures_schedule_url?: boolean
   theoritical_exam_schedule_url?: boolean
   practical_exam_schedule_url?: boolean
+  uni_chatbot_file?: boolean
   created_at?: boolean
   updated_at?: boolean
 }, ExtArgs["result"]["faculityInfo"]>
@@ -618,6 +642,7 @@ export type FaculityInfoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   lectures_schedule_url?: boolean
   theoritical_exam_schedule_url?: boolean
   practical_exam_schedule_url?: boolean
+  uni_chatbot_file?: boolean
   created_at?: boolean
   updated_at?: boolean
 }, ExtArgs["result"]["faculityInfo"]>
@@ -636,11 +661,12 @@ export type FaculityInfoSelectScalar = {
   lectures_schedule_url?: boolean
   theoritical_exam_schedule_url?: boolean
   practical_exam_schedule_url?: boolean
+  uni_chatbot_file?: boolean
   created_at?: boolean
   updated_at?: boolean
 }
 
-export type FaculityInfoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "telegram_url" | "facebook_url" | "instagram_url" | "linkedin_url" | "website_url" | "university_name" | "faculity_name" | "faculity_picture_url" | "support_email" | "lectures_schedule_url" | "theoritical_exam_schedule_url" | "practical_exam_schedule_url" | "created_at" | "updated_at", ExtArgs["result"]["faculityInfo"]>
+export type FaculityInfoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "telegram_url" | "facebook_url" | "instagram_url" | "linkedin_url" | "website_url" | "university_name" | "faculity_name" | "faculity_picture_url" | "support_email" | "lectures_schedule_url" | "theoritical_exam_schedule_url" | "practical_exam_schedule_url" | "uni_chatbot_file" | "created_at" | "updated_at", ExtArgs["result"]["faculityInfo"]>
 
 export type $FaculityInfoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "FaculityInfo"
@@ -659,6 +685,7 @@ export type $FaculityInfoPayload<ExtArgs extends runtime.Types.Extensions.Intern
     lectures_schedule_url: string | null
     theoritical_exam_schedule_url: string | null
     practical_exam_schedule_url: string | null
+    uni_chatbot_file: string | null
     created_at: Date
     updated_at: Date
   }, ExtArgs["result"]["faculityInfo"]>
@@ -1097,6 +1124,7 @@ export interface FaculityInfoFieldRefs {
   readonly lectures_schedule_url: Prisma.FieldRef<"FaculityInfo", 'String'>
   readonly theoritical_exam_schedule_url: Prisma.FieldRef<"FaculityInfo", 'String'>
   readonly practical_exam_schedule_url: Prisma.FieldRef<"FaculityInfo", 'String'>
+  readonly uni_chatbot_file: Prisma.FieldRef<"FaculityInfo", 'String'>
   readonly created_at: Prisma.FieldRef<"FaculityInfo", 'DateTime'>
   readonly updated_at: Prisma.FieldRef<"FaculityInfo", 'DateTime'>
 }

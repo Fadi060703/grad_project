@@ -117,6 +117,26 @@ export type MajorCourse = Prisma.MajorCourseModel
  */
 export type CourseFile = Prisma.CourseFileModel
 /**
+ * Model CourseAiChatSession
+ * 
+ */
+export type CourseAiChatSession = Prisma.CourseAiChatSessionModel
+/**
+ * Model CourseAiChatMessage
+ * 
+ */
+export type CourseAiChatMessage = Prisma.CourseAiChatMessageModel
+/**
+ * Model ChatbotSession
+ * 
+ */
+export type ChatbotSession = Prisma.ChatbotSessionModel
+/**
+ * Model ChatbotMessage
+ * 
+ */
+export type ChatbotMessage = Prisma.ChatbotMessageModel
+/**
  * Model CourseFileFlashcards
  * 
  */

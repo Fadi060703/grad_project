@@ -276,10 +276,7 @@ export const createCourseFile = async (req: Request, res: Response) => {
     }
 
     if (err instanceof AiStudyMaterialGenerationError) {
-      return res.status(502).json({
-        error: err.message,
-        debug: err.debugDetails,
-      });
+      return res.status(502).json({ error: err.message });
     }
 
     return res.status(400).json({ error: err });
@@ -386,10 +383,7 @@ export const updateCourseFile = async (req: Request, res: Response) => {
     }
 
     if (err instanceof AiStudyMaterialGenerationError) {
-      return res.status(502).json({
-        error: err.message,
-        debug: err.debugDetails,
-      });
+      return res.status(502).json({ error: err.message });
     }
 
     return res.status(400).json({ error: err });

@@ -286,6 +286,8 @@ export type StudentWhereInput = {
   major?: Prisma.XOR<Prisma.MajorNullableScalarRelationFilter, Prisma.MajorWhereInput> | null
   group?: Prisma.XOR<Prisma.GroupScalarRelationFilter, Prisma.GroupWhereInput>
   courses?: Prisma.StudentCourseListRelationFilter
+  aiChatSessions?: Prisma.CourseAiChatSessionListRelationFilter
+  chatbotSession?: Prisma.XOR<Prisma.ChatbotSessionNullableScalarRelationFilter, Prisma.ChatbotSessionWhereInput> | null
   marks?: Prisma.MarkListRelationFilter
   attendances?: Prisma.LectureAttendanceListRelationFilter
   exam_settings?: Prisma.ExamSettingsListRelationFilter
@@ -310,6 +312,8 @@ export type StudentOrderByWithRelationInput = {
   major?: Prisma.MajorOrderByWithRelationInput
   group?: Prisma.GroupOrderByWithRelationInput
   courses?: Prisma.StudentCourseOrderByRelationAggregateInput
+  aiChatSessions?: Prisma.CourseAiChatSessionOrderByRelationAggregateInput
+  chatbotSession?: Prisma.ChatbotSessionOrderByWithRelationInput
   marks?: Prisma.MarkOrderByRelationAggregateInput
   attendances?: Prisma.LectureAttendanceOrderByRelationAggregateInput
   exam_settings?: Prisma.ExamSettingsOrderByRelationAggregateInput
@@ -337,6 +341,8 @@ export type StudentWhereUniqueInput = Prisma.AtLeast<{
   major?: Prisma.XOR<Prisma.MajorNullableScalarRelationFilter, Prisma.MajorWhereInput> | null
   group?: Prisma.XOR<Prisma.GroupScalarRelationFilter, Prisma.GroupWhereInput>
   courses?: Prisma.StudentCourseListRelationFilter
+  aiChatSessions?: Prisma.CourseAiChatSessionListRelationFilter
+  chatbotSession?: Prisma.XOR<Prisma.ChatbotSessionNullableScalarRelationFilter, Prisma.ChatbotSessionWhereInput> | null
   marks?: Prisma.MarkListRelationFilter
   attendances?: Prisma.LectureAttendanceListRelationFilter
   exam_settings?: Prisma.ExamSettingsListRelationFilter
@@ -389,6 +395,8 @@ export type StudentCreateInput = {
   major?: Prisma.MajorCreateNestedOneWithoutStudentsInput
   group: Prisma.GroupCreateNestedOneWithoutStudentsInput
   courses?: Prisma.StudentCourseCreateNestedManyWithoutStudentInput
+  aiChatSessions?: Prisma.CourseAiChatSessionCreateNestedManyWithoutStudentInput
+  chatbotSession?: Prisma.ChatbotSessionCreateNestedOneWithoutStudentInput
   marks?: Prisma.MarkCreateNestedManyWithoutStudentInput
   attendances?: Prisma.LectureAttendanceCreateNestedManyWithoutStudentInput
   exam_settings?: Prisma.ExamSettingsCreateNestedManyWithoutStudentsInput
@@ -408,6 +416,8 @@ export type StudentUncheckedCreateInput = {
   major_id?: number | null
   group_id: number
   courses?: Prisma.StudentCourseUncheckedCreateNestedManyWithoutStudentInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedCreateNestedManyWithoutStudentInput
+  chatbotSession?: Prisma.ChatbotSessionUncheckedCreateNestedOneWithoutStudentInput
   marks?: Prisma.MarkUncheckedCreateNestedManyWithoutStudentInput
   attendances?: Prisma.LectureAttendanceUncheckedCreateNestedManyWithoutStudentInput
   exam_settings?: Prisma.ExamSettingsUncheckedCreateNestedManyWithoutStudentsInput
@@ -426,6 +436,8 @@ export type StudentUpdateInput = {
   major?: Prisma.MajorUpdateOneWithoutStudentsNestedInput
   group?: Prisma.GroupUpdateOneRequiredWithoutStudentsNestedInput
   courses?: Prisma.StudentCourseUpdateManyWithoutStudentNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUpdateManyWithoutStudentNestedInput
+  chatbotSession?: Prisma.ChatbotSessionUpdateOneWithoutStudentNestedInput
   marks?: Prisma.MarkUpdateManyWithoutStudentNestedInput
   attendances?: Prisma.LectureAttendanceUpdateManyWithoutStudentNestedInput
   exam_settings?: Prisma.ExamSettingsUpdateManyWithoutStudentsNestedInput
@@ -445,6 +457,8 @@ export type StudentUncheckedUpdateInput = {
   major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   group_id?: Prisma.IntFieldUpdateOperationsInput | number
   courses?: Prisma.StudentCourseUncheckedUpdateManyWithoutStudentNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedUpdateManyWithoutStudentNestedInput
+  chatbotSession?: Prisma.ChatbotSessionUncheckedUpdateOneWithoutStudentNestedInput
   marks?: Prisma.MarkUncheckedUpdateManyWithoutStudentNestedInput
   attendances?: Prisma.LectureAttendanceUncheckedUpdateManyWithoutStudentNestedInput
   exam_settings?: Prisma.ExamSettingsUncheckedUpdateManyWithoutStudentsNestedInput
@@ -792,6 +806,36 @@ export type StudentUncheckedUpdateManyWithoutGroupNestedInput = {
   deleteMany?: Prisma.StudentScalarWhereInput | Prisma.StudentScalarWhereInput[]
 }
 
+export type StudentCreateNestedOneWithoutAiChatSessionsInput = {
+  create?: Prisma.XOR<Prisma.StudentCreateWithoutAiChatSessionsInput, Prisma.StudentUncheckedCreateWithoutAiChatSessionsInput>
+  connectOrCreate?: Prisma.StudentCreateOrConnectWithoutAiChatSessionsInput
+  connect?: Prisma.StudentWhereUniqueInput
+}
+
+export type StudentUpdateOneWithoutAiChatSessionsNestedInput = {
+  create?: Prisma.XOR<Prisma.StudentCreateWithoutAiChatSessionsInput, Prisma.StudentUncheckedCreateWithoutAiChatSessionsInput>
+  connectOrCreate?: Prisma.StudentCreateOrConnectWithoutAiChatSessionsInput
+  upsert?: Prisma.StudentUpsertWithoutAiChatSessionsInput
+  disconnect?: Prisma.StudentWhereInput | boolean
+  delete?: Prisma.StudentWhereInput | boolean
+  connect?: Prisma.StudentWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.StudentUpdateToOneWithWhereWithoutAiChatSessionsInput, Prisma.StudentUpdateWithoutAiChatSessionsInput>, Prisma.StudentUncheckedUpdateWithoutAiChatSessionsInput>
+}
+
+export type StudentCreateNestedOneWithoutChatbotSessionInput = {
+  create?: Prisma.XOR<Prisma.StudentCreateWithoutChatbotSessionInput, Prisma.StudentUncheckedCreateWithoutChatbotSessionInput>
+  connectOrCreate?: Prisma.StudentCreateOrConnectWithoutChatbotSessionInput
+  connect?: Prisma.StudentWhereUniqueInput
+}
+
+export type StudentUpdateOneRequiredWithoutChatbotSessionNestedInput = {
+  create?: Prisma.XOR<Prisma.StudentCreateWithoutChatbotSessionInput, Prisma.StudentUncheckedCreateWithoutChatbotSessionInput>
+  connectOrCreate?: Prisma.StudentCreateOrConnectWithoutChatbotSessionInput
+  upsert?: Prisma.StudentUpsertWithoutChatbotSessionInput
+  connect?: Prisma.StudentWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.StudentUpdateToOneWithWhereWithoutChatbotSessionInput, Prisma.StudentUpdateWithoutChatbotSessionInput>, Prisma.StudentUncheckedUpdateWithoutChatbotSessionInput>
+}
+
 export type StudentCreateNestedOneWithoutMarksInput = {
   create?: Prisma.XOR<Prisma.StudentCreateWithoutMarksInput, Prisma.StudentUncheckedCreateWithoutMarksInput>
   connectOrCreate?: Prisma.StudentCreateOrConnectWithoutMarksInput
@@ -882,6 +926,8 @@ export type StudentCreateWithoutUserInput = {
   major?: Prisma.MajorCreateNestedOneWithoutStudentsInput
   group: Prisma.GroupCreateNestedOneWithoutStudentsInput
   courses?: Prisma.StudentCourseCreateNestedManyWithoutStudentInput
+  aiChatSessions?: Prisma.CourseAiChatSessionCreateNestedManyWithoutStudentInput
+  chatbotSession?: Prisma.ChatbotSessionCreateNestedOneWithoutStudentInput
   marks?: Prisma.MarkCreateNestedManyWithoutStudentInput
   attendances?: Prisma.LectureAttendanceCreateNestedManyWithoutStudentInput
   exam_settings?: Prisma.ExamSettingsCreateNestedManyWithoutStudentsInput
@@ -900,6 +946,8 @@ export type StudentUncheckedCreateWithoutUserInput = {
   major_id?: number | null
   group_id: number
   courses?: Prisma.StudentCourseUncheckedCreateNestedManyWithoutStudentInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedCreateNestedManyWithoutStudentInput
+  chatbotSession?: Prisma.ChatbotSessionUncheckedCreateNestedOneWithoutStudentInput
   marks?: Prisma.MarkUncheckedCreateNestedManyWithoutStudentInput
   attendances?: Prisma.LectureAttendanceUncheckedCreateNestedManyWithoutStudentInput
   exam_settings?: Prisma.ExamSettingsUncheckedCreateNestedManyWithoutStudentsInput
@@ -933,6 +981,8 @@ export type StudentUpdateWithoutUserInput = {
   major?: Prisma.MajorUpdateOneWithoutStudentsNestedInput
   group?: Prisma.GroupUpdateOneRequiredWithoutStudentsNestedInput
   courses?: Prisma.StudentCourseUpdateManyWithoutStudentNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUpdateManyWithoutStudentNestedInput
+  chatbotSession?: Prisma.ChatbotSessionUpdateOneWithoutStudentNestedInput
   marks?: Prisma.MarkUpdateManyWithoutStudentNestedInput
   attendances?: Prisma.LectureAttendanceUpdateManyWithoutStudentNestedInput
   exam_settings?: Prisma.ExamSettingsUpdateManyWithoutStudentsNestedInput
@@ -951,6 +1001,8 @@ export type StudentUncheckedUpdateWithoutUserInput = {
   major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   group_id?: Prisma.IntFieldUpdateOperationsInput | number
   courses?: Prisma.StudentCourseUncheckedUpdateManyWithoutStudentNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedUpdateManyWithoutStudentNestedInput
+  chatbotSession?: Prisma.ChatbotSessionUncheckedUpdateOneWithoutStudentNestedInput
   marks?: Prisma.MarkUncheckedUpdateManyWithoutStudentNestedInput
   attendances?: Prisma.LectureAttendanceUncheckedUpdateManyWithoutStudentNestedInput
   exam_settings?: Prisma.ExamSettingsUncheckedUpdateManyWithoutStudentsNestedInput
@@ -969,6 +1021,8 @@ export type StudentCreateWithoutPush_subscriptionsInput = {
   major?: Prisma.MajorCreateNestedOneWithoutStudentsInput
   group: Prisma.GroupCreateNestedOneWithoutStudentsInput
   courses?: Prisma.StudentCourseCreateNestedManyWithoutStudentInput
+  aiChatSessions?: Prisma.CourseAiChatSessionCreateNestedManyWithoutStudentInput
+  chatbotSession?: Prisma.ChatbotSessionCreateNestedOneWithoutStudentInput
   marks?: Prisma.MarkCreateNestedManyWithoutStudentInput
   attendances?: Prisma.LectureAttendanceCreateNestedManyWithoutStudentInput
   exam_settings?: Prisma.ExamSettingsCreateNestedManyWithoutStudentsInput
@@ -987,6 +1041,8 @@ export type StudentUncheckedCreateWithoutPush_subscriptionsInput = {
   major_id?: number | null
   group_id: number
   courses?: Prisma.StudentCourseUncheckedCreateNestedManyWithoutStudentInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedCreateNestedManyWithoutStudentInput
+  chatbotSession?: Prisma.ChatbotSessionUncheckedCreateNestedOneWithoutStudentInput
   marks?: Prisma.MarkUncheckedCreateNestedManyWithoutStudentInput
   attendances?: Prisma.LectureAttendanceUncheckedCreateNestedManyWithoutStudentInput
   exam_settings?: Prisma.ExamSettingsUncheckedCreateNestedManyWithoutStudentsInput
@@ -1020,6 +1076,8 @@ export type StudentUpdateWithoutPush_subscriptionsInput = {
   major?: Prisma.MajorUpdateOneWithoutStudentsNestedInput
   group?: Prisma.GroupUpdateOneRequiredWithoutStudentsNestedInput
   courses?: Prisma.StudentCourseUpdateManyWithoutStudentNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUpdateManyWithoutStudentNestedInput
+  chatbotSession?: Prisma.ChatbotSessionUpdateOneWithoutStudentNestedInput
   marks?: Prisma.MarkUpdateManyWithoutStudentNestedInput
   attendances?: Prisma.LectureAttendanceUpdateManyWithoutStudentNestedInput
   exam_settings?: Prisma.ExamSettingsUpdateManyWithoutStudentsNestedInput
@@ -1038,6 +1096,8 @@ export type StudentUncheckedUpdateWithoutPush_subscriptionsInput = {
   major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   group_id?: Prisma.IntFieldUpdateOperationsInput | number
   courses?: Prisma.StudentCourseUncheckedUpdateManyWithoutStudentNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedUpdateManyWithoutStudentNestedInput
+  chatbotSession?: Prisma.ChatbotSessionUncheckedUpdateOneWithoutStudentNestedInput
   marks?: Prisma.MarkUncheckedUpdateManyWithoutStudentNestedInput
   attendances?: Prisma.LectureAttendanceUncheckedUpdateManyWithoutStudentNestedInput
   exam_settings?: Prisma.ExamSettingsUncheckedUpdateManyWithoutStudentsNestedInput
@@ -1055,6 +1115,8 @@ export type StudentCreateWithoutNotificationsInput = {
   major?: Prisma.MajorCreateNestedOneWithoutStudentsInput
   group: Prisma.GroupCreateNestedOneWithoutStudentsInput
   courses?: Prisma.StudentCourseCreateNestedManyWithoutStudentInput
+  aiChatSessions?: Prisma.CourseAiChatSessionCreateNestedManyWithoutStudentInput
+  chatbotSession?: Prisma.ChatbotSessionCreateNestedOneWithoutStudentInput
   marks?: Prisma.MarkCreateNestedManyWithoutStudentInput
   attendances?: Prisma.LectureAttendanceCreateNestedManyWithoutStudentInput
   exam_settings?: Prisma.ExamSettingsCreateNestedManyWithoutStudentsInput
@@ -1073,6 +1135,8 @@ export type StudentUncheckedCreateWithoutNotificationsInput = {
   major_id?: number | null
   group_id: number
   courses?: Prisma.StudentCourseUncheckedCreateNestedManyWithoutStudentInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedCreateNestedManyWithoutStudentInput
+  chatbotSession?: Prisma.ChatbotSessionUncheckedCreateNestedOneWithoutStudentInput
   marks?: Prisma.MarkUncheckedCreateNestedManyWithoutStudentInput
   attendances?: Prisma.LectureAttendanceUncheckedCreateNestedManyWithoutStudentInput
   exam_settings?: Prisma.ExamSettingsUncheckedCreateNestedManyWithoutStudentsInput
@@ -1106,6 +1170,8 @@ export type StudentUpdateWithoutNotificationsInput = {
   major?: Prisma.MajorUpdateOneWithoutStudentsNestedInput
   group?: Prisma.GroupUpdateOneRequiredWithoutStudentsNestedInput
   courses?: Prisma.StudentCourseUpdateManyWithoutStudentNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUpdateManyWithoutStudentNestedInput
+  chatbotSession?: Prisma.ChatbotSessionUpdateOneWithoutStudentNestedInput
   marks?: Prisma.MarkUpdateManyWithoutStudentNestedInput
   attendances?: Prisma.LectureAttendanceUpdateManyWithoutStudentNestedInput
   exam_settings?: Prisma.ExamSettingsUpdateManyWithoutStudentsNestedInput
@@ -1124,6 +1190,8 @@ export type StudentUncheckedUpdateWithoutNotificationsInput = {
   major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   group_id?: Prisma.IntFieldUpdateOperationsInput | number
   courses?: Prisma.StudentCourseUncheckedUpdateManyWithoutStudentNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedUpdateManyWithoutStudentNestedInput
+  chatbotSession?: Prisma.ChatbotSessionUncheckedUpdateOneWithoutStudentNestedInput
   marks?: Prisma.MarkUncheckedUpdateManyWithoutStudentNestedInput
   attendances?: Prisma.LectureAttendanceUncheckedUpdateManyWithoutStudentNestedInput
   exam_settings?: Prisma.ExamSettingsUncheckedUpdateManyWithoutStudentsNestedInput
@@ -1140,6 +1208,8 @@ export type StudentCreateWithoutYearInput = {
   major?: Prisma.MajorCreateNestedOneWithoutStudentsInput
   group: Prisma.GroupCreateNestedOneWithoutStudentsInput
   courses?: Prisma.StudentCourseCreateNestedManyWithoutStudentInput
+  aiChatSessions?: Prisma.CourseAiChatSessionCreateNestedManyWithoutStudentInput
+  chatbotSession?: Prisma.ChatbotSessionCreateNestedOneWithoutStudentInput
   marks?: Prisma.MarkCreateNestedManyWithoutStudentInput
   attendances?: Prisma.LectureAttendanceCreateNestedManyWithoutStudentInput
   exam_settings?: Prisma.ExamSettingsCreateNestedManyWithoutStudentsInput
@@ -1158,6 +1228,8 @@ export type StudentUncheckedCreateWithoutYearInput = {
   major_id?: number | null
   group_id: number
   courses?: Prisma.StudentCourseUncheckedCreateNestedManyWithoutStudentInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedCreateNestedManyWithoutStudentInput
+  chatbotSession?: Prisma.ChatbotSessionUncheckedCreateNestedOneWithoutStudentInput
   marks?: Prisma.MarkUncheckedCreateNestedManyWithoutStudentInput
   attendances?: Prisma.LectureAttendanceUncheckedCreateNestedManyWithoutStudentInput
   exam_settings?: Prisma.ExamSettingsUncheckedCreateNestedManyWithoutStudentsInput
@@ -1217,6 +1289,8 @@ export type StudentCreateWithoutSectionInput = {
   major?: Prisma.MajorCreateNestedOneWithoutStudentsInput
   group: Prisma.GroupCreateNestedOneWithoutStudentsInput
   courses?: Prisma.StudentCourseCreateNestedManyWithoutStudentInput
+  aiChatSessions?: Prisma.CourseAiChatSessionCreateNestedManyWithoutStudentInput
+  chatbotSession?: Prisma.ChatbotSessionCreateNestedOneWithoutStudentInput
   marks?: Prisma.MarkCreateNestedManyWithoutStudentInput
   attendances?: Prisma.LectureAttendanceCreateNestedManyWithoutStudentInput
   exam_settings?: Prisma.ExamSettingsCreateNestedManyWithoutStudentsInput
@@ -1235,6 +1309,8 @@ export type StudentUncheckedCreateWithoutSectionInput = {
   major_id?: number | null
   group_id: number
   courses?: Prisma.StudentCourseUncheckedCreateNestedManyWithoutStudentInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedCreateNestedManyWithoutStudentInput
+  chatbotSession?: Prisma.ChatbotSessionUncheckedCreateNestedOneWithoutStudentInput
   marks?: Prisma.MarkUncheckedCreateNestedManyWithoutStudentInput
   attendances?: Prisma.LectureAttendanceUncheckedCreateNestedManyWithoutStudentInput
   exam_settings?: Prisma.ExamSettingsUncheckedCreateNestedManyWithoutStudentsInput
@@ -1278,6 +1354,8 @@ export type StudentCreateWithoutMajorInput = {
   section?: Prisma.SectionCreateNestedOneWithoutStudentsInput
   group: Prisma.GroupCreateNestedOneWithoutStudentsInput
   courses?: Prisma.StudentCourseCreateNestedManyWithoutStudentInput
+  aiChatSessions?: Prisma.CourseAiChatSessionCreateNestedManyWithoutStudentInput
+  chatbotSession?: Prisma.ChatbotSessionCreateNestedOneWithoutStudentInput
   marks?: Prisma.MarkCreateNestedManyWithoutStudentInput
   attendances?: Prisma.LectureAttendanceCreateNestedManyWithoutStudentInput
   exam_settings?: Prisma.ExamSettingsCreateNestedManyWithoutStudentsInput
@@ -1296,6 +1374,8 @@ export type StudentUncheckedCreateWithoutMajorInput = {
   section_id?: number | null
   group_id: number
   courses?: Prisma.StudentCourseUncheckedCreateNestedManyWithoutStudentInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedCreateNestedManyWithoutStudentInput
+  chatbotSession?: Prisma.ChatbotSessionUncheckedCreateNestedOneWithoutStudentInput
   marks?: Prisma.MarkUncheckedCreateNestedManyWithoutStudentInput
   attendances?: Prisma.LectureAttendanceUncheckedCreateNestedManyWithoutStudentInput
   exam_settings?: Prisma.ExamSettingsUncheckedCreateNestedManyWithoutStudentsInput
@@ -1339,6 +1419,8 @@ export type StudentCreateWithoutGroupInput = {
   section?: Prisma.SectionCreateNestedOneWithoutStudentsInput
   major?: Prisma.MajorCreateNestedOneWithoutStudentsInput
   courses?: Prisma.StudentCourseCreateNestedManyWithoutStudentInput
+  aiChatSessions?: Prisma.CourseAiChatSessionCreateNestedManyWithoutStudentInput
+  chatbotSession?: Prisma.ChatbotSessionCreateNestedOneWithoutStudentInput
   marks?: Prisma.MarkCreateNestedManyWithoutStudentInput
   attendances?: Prisma.LectureAttendanceCreateNestedManyWithoutStudentInput
   exam_settings?: Prisma.ExamSettingsCreateNestedManyWithoutStudentsInput
@@ -1357,6 +1439,8 @@ export type StudentUncheckedCreateWithoutGroupInput = {
   section_id?: number | null
   major_id?: number | null
   courses?: Prisma.StudentCourseUncheckedCreateNestedManyWithoutStudentInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedCreateNestedManyWithoutStudentInput
+  chatbotSession?: Prisma.ChatbotSessionUncheckedCreateNestedOneWithoutStudentInput
   marks?: Prisma.MarkUncheckedCreateNestedManyWithoutStudentInput
   attendances?: Prisma.LectureAttendanceUncheckedCreateNestedManyWithoutStudentInput
   exam_settings?: Prisma.ExamSettingsUncheckedCreateNestedManyWithoutStudentsInput
@@ -1390,6 +1474,194 @@ export type StudentUpdateManyWithWhereWithoutGroupInput = {
   data: Prisma.XOR<Prisma.StudentUpdateManyMutationInput, Prisma.StudentUncheckedUpdateManyWithoutGroupInput>
 }
 
+export type StudentCreateWithoutAiChatSessionsInput = {
+  mother_name: string
+  exam_seat_number?: number
+  profile_picture?: string | null
+  birthdate?: Date | string | null
+  user: Prisma.UserCreateNestedOneWithoutStudentInput
+  year: Prisma.YearCreateNestedOneWithoutStudentsInput
+  section?: Prisma.SectionCreateNestedOneWithoutStudentsInput
+  major?: Prisma.MajorCreateNestedOneWithoutStudentsInput
+  group: Prisma.GroupCreateNestedOneWithoutStudentsInput
+  courses?: Prisma.StudentCourseCreateNestedManyWithoutStudentInput
+  chatbotSession?: Prisma.ChatbotSessionCreateNestedOneWithoutStudentInput
+  marks?: Prisma.MarkCreateNestedManyWithoutStudentInput
+  attendances?: Prisma.LectureAttendanceCreateNestedManyWithoutStudentInput
+  exam_settings?: Prisma.ExamSettingsCreateNestedManyWithoutStudentsInput
+  push_subscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutStudentInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutStudentInput
+}
+
+export type StudentUncheckedCreateWithoutAiChatSessionsInput = {
+  student_id?: number
+  userId: number
+  mother_name: string
+  exam_seat_number?: number
+  profile_picture?: string | null
+  birthdate?: Date | string | null
+  year_id: number
+  section_id?: number | null
+  major_id?: number | null
+  group_id: number
+  courses?: Prisma.StudentCourseUncheckedCreateNestedManyWithoutStudentInput
+  chatbotSession?: Prisma.ChatbotSessionUncheckedCreateNestedOneWithoutStudentInput
+  marks?: Prisma.MarkUncheckedCreateNestedManyWithoutStudentInput
+  attendances?: Prisma.LectureAttendanceUncheckedCreateNestedManyWithoutStudentInput
+  exam_settings?: Prisma.ExamSettingsUncheckedCreateNestedManyWithoutStudentsInput
+  push_subscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutStudentInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutStudentInput
+}
+
+export type StudentCreateOrConnectWithoutAiChatSessionsInput = {
+  where: Prisma.StudentWhereUniqueInput
+  create: Prisma.XOR<Prisma.StudentCreateWithoutAiChatSessionsInput, Prisma.StudentUncheckedCreateWithoutAiChatSessionsInput>
+}
+
+export type StudentUpsertWithoutAiChatSessionsInput = {
+  update: Prisma.XOR<Prisma.StudentUpdateWithoutAiChatSessionsInput, Prisma.StudentUncheckedUpdateWithoutAiChatSessionsInput>
+  create: Prisma.XOR<Prisma.StudentCreateWithoutAiChatSessionsInput, Prisma.StudentUncheckedCreateWithoutAiChatSessionsInput>
+  where?: Prisma.StudentWhereInput
+}
+
+export type StudentUpdateToOneWithWhereWithoutAiChatSessionsInput = {
+  where?: Prisma.StudentWhereInput
+  data: Prisma.XOR<Prisma.StudentUpdateWithoutAiChatSessionsInput, Prisma.StudentUncheckedUpdateWithoutAiChatSessionsInput>
+}
+
+export type StudentUpdateWithoutAiChatSessionsInput = {
+  mother_name?: Prisma.StringFieldUpdateOperationsInput | string
+  exam_seat_number?: Prisma.IntFieldUpdateOperationsInput | number
+  profile_picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthdate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user?: Prisma.UserUpdateOneRequiredWithoutStudentNestedInput
+  year?: Prisma.YearUpdateOneRequiredWithoutStudentsNestedInput
+  section?: Prisma.SectionUpdateOneWithoutStudentsNestedInput
+  major?: Prisma.MajorUpdateOneWithoutStudentsNestedInput
+  group?: Prisma.GroupUpdateOneRequiredWithoutStudentsNestedInput
+  courses?: Prisma.StudentCourseUpdateManyWithoutStudentNestedInput
+  chatbotSession?: Prisma.ChatbotSessionUpdateOneWithoutStudentNestedInput
+  marks?: Prisma.MarkUpdateManyWithoutStudentNestedInput
+  attendances?: Prisma.LectureAttendanceUpdateManyWithoutStudentNestedInput
+  exam_settings?: Prisma.ExamSettingsUpdateManyWithoutStudentsNestedInput
+  push_subscriptions?: Prisma.PushSubscriptionUpdateManyWithoutStudentNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutStudentNestedInput
+}
+
+export type StudentUncheckedUpdateWithoutAiChatSessionsInput = {
+  student_id?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
+  mother_name?: Prisma.StringFieldUpdateOperationsInput | string
+  exam_seat_number?: Prisma.IntFieldUpdateOperationsInput | number
+  profile_picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthdate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  year_id?: Prisma.IntFieldUpdateOperationsInput | number
+  section_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  group_id?: Prisma.IntFieldUpdateOperationsInput | number
+  courses?: Prisma.StudentCourseUncheckedUpdateManyWithoutStudentNestedInput
+  chatbotSession?: Prisma.ChatbotSessionUncheckedUpdateOneWithoutStudentNestedInput
+  marks?: Prisma.MarkUncheckedUpdateManyWithoutStudentNestedInput
+  attendances?: Prisma.LectureAttendanceUncheckedUpdateManyWithoutStudentNestedInput
+  exam_settings?: Prisma.ExamSettingsUncheckedUpdateManyWithoutStudentsNestedInput
+  push_subscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutStudentNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutStudentNestedInput
+}
+
+export type StudentCreateWithoutChatbotSessionInput = {
+  mother_name: string
+  exam_seat_number?: number
+  profile_picture?: string | null
+  birthdate?: Date | string | null
+  user: Prisma.UserCreateNestedOneWithoutStudentInput
+  year: Prisma.YearCreateNestedOneWithoutStudentsInput
+  section?: Prisma.SectionCreateNestedOneWithoutStudentsInput
+  major?: Prisma.MajorCreateNestedOneWithoutStudentsInput
+  group: Prisma.GroupCreateNestedOneWithoutStudentsInput
+  courses?: Prisma.StudentCourseCreateNestedManyWithoutStudentInput
+  aiChatSessions?: Prisma.CourseAiChatSessionCreateNestedManyWithoutStudentInput
+  marks?: Prisma.MarkCreateNestedManyWithoutStudentInput
+  attendances?: Prisma.LectureAttendanceCreateNestedManyWithoutStudentInput
+  exam_settings?: Prisma.ExamSettingsCreateNestedManyWithoutStudentsInput
+  push_subscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutStudentInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutStudentInput
+}
+
+export type StudentUncheckedCreateWithoutChatbotSessionInput = {
+  student_id?: number
+  userId: number
+  mother_name: string
+  exam_seat_number?: number
+  profile_picture?: string | null
+  birthdate?: Date | string | null
+  year_id: number
+  section_id?: number | null
+  major_id?: number | null
+  group_id: number
+  courses?: Prisma.StudentCourseUncheckedCreateNestedManyWithoutStudentInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedCreateNestedManyWithoutStudentInput
+  marks?: Prisma.MarkUncheckedCreateNestedManyWithoutStudentInput
+  attendances?: Prisma.LectureAttendanceUncheckedCreateNestedManyWithoutStudentInput
+  exam_settings?: Prisma.ExamSettingsUncheckedCreateNestedManyWithoutStudentsInput
+  push_subscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutStudentInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutStudentInput
+}
+
+export type StudentCreateOrConnectWithoutChatbotSessionInput = {
+  where: Prisma.StudentWhereUniqueInput
+  create: Prisma.XOR<Prisma.StudentCreateWithoutChatbotSessionInput, Prisma.StudentUncheckedCreateWithoutChatbotSessionInput>
+}
+
+export type StudentUpsertWithoutChatbotSessionInput = {
+  update: Prisma.XOR<Prisma.StudentUpdateWithoutChatbotSessionInput, Prisma.StudentUncheckedUpdateWithoutChatbotSessionInput>
+  create: Prisma.XOR<Prisma.StudentCreateWithoutChatbotSessionInput, Prisma.StudentUncheckedCreateWithoutChatbotSessionInput>
+  where?: Prisma.StudentWhereInput
+}
+
+export type StudentUpdateToOneWithWhereWithoutChatbotSessionInput = {
+  where?: Prisma.StudentWhereInput
+  data: Prisma.XOR<Prisma.StudentUpdateWithoutChatbotSessionInput, Prisma.StudentUncheckedUpdateWithoutChatbotSessionInput>
+}
+
+export type StudentUpdateWithoutChatbotSessionInput = {
+  mother_name?: Prisma.StringFieldUpdateOperationsInput | string
+  exam_seat_number?: Prisma.IntFieldUpdateOperationsInput | number
+  profile_picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthdate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user?: Prisma.UserUpdateOneRequiredWithoutStudentNestedInput
+  year?: Prisma.YearUpdateOneRequiredWithoutStudentsNestedInput
+  section?: Prisma.SectionUpdateOneWithoutStudentsNestedInput
+  major?: Prisma.MajorUpdateOneWithoutStudentsNestedInput
+  group?: Prisma.GroupUpdateOneRequiredWithoutStudentsNestedInput
+  courses?: Prisma.StudentCourseUpdateManyWithoutStudentNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUpdateManyWithoutStudentNestedInput
+  marks?: Prisma.MarkUpdateManyWithoutStudentNestedInput
+  attendances?: Prisma.LectureAttendanceUpdateManyWithoutStudentNestedInput
+  exam_settings?: Prisma.ExamSettingsUpdateManyWithoutStudentsNestedInput
+  push_subscriptions?: Prisma.PushSubscriptionUpdateManyWithoutStudentNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutStudentNestedInput
+}
+
+export type StudentUncheckedUpdateWithoutChatbotSessionInput = {
+  student_id?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
+  mother_name?: Prisma.StringFieldUpdateOperationsInput | string
+  exam_seat_number?: Prisma.IntFieldUpdateOperationsInput | number
+  profile_picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthdate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  year_id?: Prisma.IntFieldUpdateOperationsInput | number
+  section_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  group_id?: Prisma.IntFieldUpdateOperationsInput | number
+  courses?: Prisma.StudentCourseUncheckedUpdateManyWithoutStudentNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedUpdateManyWithoutStudentNestedInput
+  marks?: Prisma.MarkUncheckedUpdateManyWithoutStudentNestedInput
+  attendances?: Prisma.LectureAttendanceUncheckedUpdateManyWithoutStudentNestedInput
+  exam_settings?: Prisma.ExamSettingsUncheckedUpdateManyWithoutStudentsNestedInput
+  push_subscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutStudentNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutStudentNestedInput
+}
+
 export type StudentCreateWithoutMarksInput = {
   mother_name: string
   exam_seat_number?: number
@@ -1401,6 +1673,8 @@ export type StudentCreateWithoutMarksInput = {
   major?: Prisma.MajorCreateNestedOneWithoutStudentsInput
   group: Prisma.GroupCreateNestedOneWithoutStudentsInput
   courses?: Prisma.StudentCourseCreateNestedManyWithoutStudentInput
+  aiChatSessions?: Prisma.CourseAiChatSessionCreateNestedManyWithoutStudentInput
+  chatbotSession?: Prisma.ChatbotSessionCreateNestedOneWithoutStudentInput
   attendances?: Prisma.LectureAttendanceCreateNestedManyWithoutStudentInput
   exam_settings?: Prisma.ExamSettingsCreateNestedManyWithoutStudentsInput
   push_subscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutStudentInput
@@ -1419,6 +1693,8 @@ export type StudentUncheckedCreateWithoutMarksInput = {
   major_id?: number | null
   group_id: number
   courses?: Prisma.StudentCourseUncheckedCreateNestedManyWithoutStudentInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedCreateNestedManyWithoutStudentInput
+  chatbotSession?: Prisma.ChatbotSessionUncheckedCreateNestedOneWithoutStudentInput
   attendances?: Prisma.LectureAttendanceUncheckedCreateNestedManyWithoutStudentInput
   exam_settings?: Prisma.ExamSettingsUncheckedCreateNestedManyWithoutStudentsInput
   push_subscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutStudentInput
@@ -1452,6 +1728,8 @@ export type StudentUpdateWithoutMarksInput = {
   major?: Prisma.MajorUpdateOneWithoutStudentsNestedInput
   group?: Prisma.GroupUpdateOneRequiredWithoutStudentsNestedInput
   courses?: Prisma.StudentCourseUpdateManyWithoutStudentNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUpdateManyWithoutStudentNestedInput
+  chatbotSession?: Prisma.ChatbotSessionUpdateOneWithoutStudentNestedInput
   attendances?: Prisma.LectureAttendanceUpdateManyWithoutStudentNestedInput
   exam_settings?: Prisma.ExamSettingsUpdateManyWithoutStudentsNestedInput
   push_subscriptions?: Prisma.PushSubscriptionUpdateManyWithoutStudentNestedInput
@@ -1470,6 +1748,8 @@ export type StudentUncheckedUpdateWithoutMarksInput = {
   major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   group_id?: Prisma.IntFieldUpdateOperationsInput | number
   courses?: Prisma.StudentCourseUncheckedUpdateManyWithoutStudentNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedUpdateManyWithoutStudentNestedInput
+  chatbotSession?: Prisma.ChatbotSessionUncheckedUpdateOneWithoutStudentNestedInput
   attendances?: Prisma.LectureAttendanceUncheckedUpdateManyWithoutStudentNestedInput
   exam_settings?: Prisma.ExamSettingsUncheckedUpdateManyWithoutStudentsNestedInput
   push_subscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutStudentNestedInput
@@ -1486,6 +1766,8 @@ export type StudentCreateWithoutCoursesInput = {
   section?: Prisma.SectionCreateNestedOneWithoutStudentsInput
   major?: Prisma.MajorCreateNestedOneWithoutStudentsInput
   group: Prisma.GroupCreateNestedOneWithoutStudentsInput
+  aiChatSessions?: Prisma.CourseAiChatSessionCreateNestedManyWithoutStudentInput
+  chatbotSession?: Prisma.ChatbotSessionCreateNestedOneWithoutStudentInput
   marks?: Prisma.MarkCreateNestedManyWithoutStudentInput
   attendances?: Prisma.LectureAttendanceCreateNestedManyWithoutStudentInput
   exam_settings?: Prisma.ExamSettingsCreateNestedManyWithoutStudentsInput
@@ -1504,6 +1786,8 @@ export type StudentUncheckedCreateWithoutCoursesInput = {
   section_id?: number | null
   major_id?: number | null
   group_id: number
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedCreateNestedManyWithoutStudentInput
+  chatbotSession?: Prisma.ChatbotSessionUncheckedCreateNestedOneWithoutStudentInput
   marks?: Prisma.MarkUncheckedCreateNestedManyWithoutStudentInput
   attendances?: Prisma.LectureAttendanceUncheckedCreateNestedManyWithoutStudentInput
   exam_settings?: Prisma.ExamSettingsUncheckedCreateNestedManyWithoutStudentsInput
@@ -1537,6 +1821,8 @@ export type StudentUpdateWithoutCoursesInput = {
   section?: Prisma.SectionUpdateOneWithoutStudentsNestedInput
   major?: Prisma.MajorUpdateOneWithoutStudentsNestedInput
   group?: Prisma.GroupUpdateOneRequiredWithoutStudentsNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUpdateManyWithoutStudentNestedInput
+  chatbotSession?: Prisma.ChatbotSessionUpdateOneWithoutStudentNestedInput
   marks?: Prisma.MarkUpdateManyWithoutStudentNestedInput
   attendances?: Prisma.LectureAttendanceUpdateManyWithoutStudentNestedInput
   exam_settings?: Prisma.ExamSettingsUpdateManyWithoutStudentsNestedInput
@@ -1555,6 +1841,8 @@ export type StudentUncheckedUpdateWithoutCoursesInput = {
   section_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   group_id?: Prisma.IntFieldUpdateOperationsInput | number
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedUpdateManyWithoutStudentNestedInput
+  chatbotSession?: Prisma.ChatbotSessionUncheckedUpdateOneWithoutStudentNestedInput
   marks?: Prisma.MarkUncheckedUpdateManyWithoutStudentNestedInput
   attendances?: Prisma.LectureAttendanceUncheckedUpdateManyWithoutStudentNestedInput
   exam_settings?: Prisma.ExamSettingsUncheckedUpdateManyWithoutStudentsNestedInput
@@ -1573,6 +1861,8 @@ export type StudentCreateWithoutAttendancesInput = {
   major?: Prisma.MajorCreateNestedOneWithoutStudentsInput
   group: Prisma.GroupCreateNestedOneWithoutStudentsInput
   courses?: Prisma.StudentCourseCreateNestedManyWithoutStudentInput
+  aiChatSessions?: Prisma.CourseAiChatSessionCreateNestedManyWithoutStudentInput
+  chatbotSession?: Prisma.ChatbotSessionCreateNestedOneWithoutStudentInput
   marks?: Prisma.MarkCreateNestedManyWithoutStudentInput
   exam_settings?: Prisma.ExamSettingsCreateNestedManyWithoutStudentsInput
   push_subscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutStudentInput
@@ -1591,6 +1881,8 @@ export type StudentUncheckedCreateWithoutAttendancesInput = {
   major_id?: number | null
   group_id: number
   courses?: Prisma.StudentCourseUncheckedCreateNestedManyWithoutStudentInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedCreateNestedManyWithoutStudentInput
+  chatbotSession?: Prisma.ChatbotSessionUncheckedCreateNestedOneWithoutStudentInput
   marks?: Prisma.MarkUncheckedCreateNestedManyWithoutStudentInput
   exam_settings?: Prisma.ExamSettingsUncheckedCreateNestedManyWithoutStudentsInput
   push_subscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutStudentInput
@@ -1624,6 +1916,8 @@ export type StudentUpdateWithoutAttendancesInput = {
   major?: Prisma.MajorUpdateOneWithoutStudentsNestedInput
   group?: Prisma.GroupUpdateOneRequiredWithoutStudentsNestedInput
   courses?: Prisma.StudentCourseUpdateManyWithoutStudentNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUpdateManyWithoutStudentNestedInput
+  chatbotSession?: Prisma.ChatbotSessionUpdateOneWithoutStudentNestedInput
   marks?: Prisma.MarkUpdateManyWithoutStudentNestedInput
   exam_settings?: Prisma.ExamSettingsUpdateManyWithoutStudentsNestedInput
   push_subscriptions?: Prisma.PushSubscriptionUpdateManyWithoutStudentNestedInput
@@ -1642,6 +1936,8 @@ export type StudentUncheckedUpdateWithoutAttendancesInput = {
   major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   group_id?: Prisma.IntFieldUpdateOperationsInput | number
   courses?: Prisma.StudentCourseUncheckedUpdateManyWithoutStudentNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedUpdateManyWithoutStudentNestedInput
+  chatbotSession?: Prisma.ChatbotSessionUncheckedUpdateOneWithoutStudentNestedInput
   marks?: Prisma.MarkUncheckedUpdateManyWithoutStudentNestedInput
   exam_settings?: Prisma.ExamSettingsUncheckedUpdateManyWithoutStudentsNestedInput
   push_subscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutStudentNestedInput
@@ -1659,6 +1955,8 @@ export type StudentCreateWithoutExam_settingsInput = {
   major?: Prisma.MajorCreateNestedOneWithoutStudentsInput
   group: Prisma.GroupCreateNestedOneWithoutStudentsInput
   courses?: Prisma.StudentCourseCreateNestedManyWithoutStudentInput
+  aiChatSessions?: Prisma.CourseAiChatSessionCreateNestedManyWithoutStudentInput
+  chatbotSession?: Prisma.ChatbotSessionCreateNestedOneWithoutStudentInput
   marks?: Prisma.MarkCreateNestedManyWithoutStudentInput
   attendances?: Prisma.LectureAttendanceCreateNestedManyWithoutStudentInput
   push_subscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutStudentInput
@@ -1677,6 +1975,8 @@ export type StudentUncheckedCreateWithoutExam_settingsInput = {
   major_id?: number | null
   group_id: number
   courses?: Prisma.StudentCourseUncheckedCreateNestedManyWithoutStudentInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedCreateNestedManyWithoutStudentInput
+  chatbotSession?: Prisma.ChatbotSessionUncheckedCreateNestedOneWithoutStudentInput
   marks?: Prisma.MarkUncheckedCreateNestedManyWithoutStudentInput
   attendances?: Prisma.LectureAttendanceUncheckedCreateNestedManyWithoutStudentInput
   push_subscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutStudentInput
@@ -1726,6 +2026,8 @@ export type StudentUpdateWithoutYearInput = {
   major?: Prisma.MajorUpdateOneWithoutStudentsNestedInput
   group?: Prisma.GroupUpdateOneRequiredWithoutStudentsNestedInput
   courses?: Prisma.StudentCourseUpdateManyWithoutStudentNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUpdateManyWithoutStudentNestedInput
+  chatbotSession?: Prisma.ChatbotSessionUpdateOneWithoutStudentNestedInput
   marks?: Prisma.MarkUpdateManyWithoutStudentNestedInput
   attendances?: Prisma.LectureAttendanceUpdateManyWithoutStudentNestedInput
   exam_settings?: Prisma.ExamSettingsUpdateManyWithoutStudentsNestedInput
@@ -1744,6 +2046,8 @@ export type StudentUncheckedUpdateWithoutYearInput = {
   major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   group_id?: Prisma.IntFieldUpdateOperationsInput | number
   courses?: Prisma.StudentCourseUncheckedUpdateManyWithoutStudentNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedUpdateManyWithoutStudentNestedInput
+  chatbotSession?: Prisma.ChatbotSessionUncheckedUpdateOneWithoutStudentNestedInput
   marks?: Prisma.MarkUncheckedUpdateManyWithoutStudentNestedInput
   attendances?: Prisma.LectureAttendanceUncheckedUpdateManyWithoutStudentNestedInput
   exam_settings?: Prisma.ExamSettingsUncheckedUpdateManyWithoutStudentsNestedInput
@@ -1785,6 +2089,8 @@ export type StudentUpdateWithoutSectionInput = {
   major?: Prisma.MajorUpdateOneWithoutStudentsNestedInput
   group?: Prisma.GroupUpdateOneRequiredWithoutStudentsNestedInput
   courses?: Prisma.StudentCourseUpdateManyWithoutStudentNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUpdateManyWithoutStudentNestedInput
+  chatbotSession?: Prisma.ChatbotSessionUpdateOneWithoutStudentNestedInput
   marks?: Prisma.MarkUpdateManyWithoutStudentNestedInput
   attendances?: Prisma.LectureAttendanceUpdateManyWithoutStudentNestedInput
   exam_settings?: Prisma.ExamSettingsUpdateManyWithoutStudentsNestedInput
@@ -1803,6 +2109,8 @@ export type StudentUncheckedUpdateWithoutSectionInput = {
   major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   group_id?: Prisma.IntFieldUpdateOperationsInput | number
   courses?: Prisma.StudentCourseUncheckedUpdateManyWithoutStudentNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedUpdateManyWithoutStudentNestedInput
+  chatbotSession?: Prisma.ChatbotSessionUncheckedUpdateOneWithoutStudentNestedInput
   marks?: Prisma.MarkUncheckedUpdateManyWithoutStudentNestedInput
   attendances?: Prisma.LectureAttendanceUncheckedUpdateManyWithoutStudentNestedInput
   exam_settings?: Prisma.ExamSettingsUncheckedUpdateManyWithoutStudentsNestedInput
@@ -1844,6 +2152,8 @@ export type StudentUpdateWithoutMajorInput = {
   section?: Prisma.SectionUpdateOneWithoutStudentsNestedInput
   group?: Prisma.GroupUpdateOneRequiredWithoutStudentsNestedInput
   courses?: Prisma.StudentCourseUpdateManyWithoutStudentNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUpdateManyWithoutStudentNestedInput
+  chatbotSession?: Prisma.ChatbotSessionUpdateOneWithoutStudentNestedInput
   marks?: Prisma.MarkUpdateManyWithoutStudentNestedInput
   attendances?: Prisma.LectureAttendanceUpdateManyWithoutStudentNestedInput
   exam_settings?: Prisma.ExamSettingsUpdateManyWithoutStudentsNestedInput
@@ -1862,6 +2172,8 @@ export type StudentUncheckedUpdateWithoutMajorInput = {
   section_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   group_id?: Prisma.IntFieldUpdateOperationsInput | number
   courses?: Prisma.StudentCourseUncheckedUpdateManyWithoutStudentNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedUpdateManyWithoutStudentNestedInput
+  chatbotSession?: Prisma.ChatbotSessionUncheckedUpdateOneWithoutStudentNestedInput
   marks?: Prisma.MarkUncheckedUpdateManyWithoutStudentNestedInput
   attendances?: Prisma.LectureAttendanceUncheckedUpdateManyWithoutStudentNestedInput
   exam_settings?: Prisma.ExamSettingsUncheckedUpdateManyWithoutStudentsNestedInput
@@ -1903,6 +2215,8 @@ export type StudentUpdateWithoutGroupInput = {
   section?: Prisma.SectionUpdateOneWithoutStudentsNestedInput
   major?: Prisma.MajorUpdateOneWithoutStudentsNestedInput
   courses?: Prisma.StudentCourseUpdateManyWithoutStudentNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUpdateManyWithoutStudentNestedInput
+  chatbotSession?: Prisma.ChatbotSessionUpdateOneWithoutStudentNestedInput
   marks?: Prisma.MarkUpdateManyWithoutStudentNestedInput
   attendances?: Prisma.LectureAttendanceUpdateManyWithoutStudentNestedInput
   exam_settings?: Prisma.ExamSettingsUpdateManyWithoutStudentsNestedInput
@@ -1921,6 +2235,8 @@ export type StudentUncheckedUpdateWithoutGroupInput = {
   section_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   courses?: Prisma.StudentCourseUncheckedUpdateManyWithoutStudentNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedUpdateManyWithoutStudentNestedInput
+  chatbotSession?: Prisma.ChatbotSessionUncheckedUpdateOneWithoutStudentNestedInput
   marks?: Prisma.MarkUncheckedUpdateManyWithoutStudentNestedInput
   attendances?: Prisma.LectureAttendanceUncheckedUpdateManyWithoutStudentNestedInput
   exam_settings?: Prisma.ExamSettingsUncheckedUpdateManyWithoutStudentsNestedInput
@@ -1951,6 +2267,8 @@ export type StudentUpdateWithoutExam_settingsInput = {
   major?: Prisma.MajorUpdateOneWithoutStudentsNestedInput
   group?: Prisma.GroupUpdateOneRequiredWithoutStudentsNestedInput
   courses?: Prisma.StudentCourseUpdateManyWithoutStudentNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUpdateManyWithoutStudentNestedInput
+  chatbotSession?: Prisma.ChatbotSessionUpdateOneWithoutStudentNestedInput
   marks?: Prisma.MarkUpdateManyWithoutStudentNestedInput
   attendances?: Prisma.LectureAttendanceUpdateManyWithoutStudentNestedInput
   push_subscriptions?: Prisma.PushSubscriptionUpdateManyWithoutStudentNestedInput
@@ -1969,6 +2287,8 @@ export type StudentUncheckedUpdateWithoutExam_settingsInput = {
   major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   group_id?: Prisma.IntFieldUpdateOperationsInput | number
   courses?: Prisma.StudentCourseUncheckedUpdateManyWithoutStudentNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedUpdateManyWithoutStudentNestedInput
+  chatbotSession?: Prisma.ChatbotSessionUncheckedUpdateOneWithoutStudentNestedInput
   marks?: Prisma.MarkUncheckedUpdateManyWithoutStudentNestedInput
   attendances?: Prisma.LectureAttendanceUncheckedUpdateManyWithoutStudentNestedInput
   push_subscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutStudentNestedInput
@@ -1995,6 +2315,7 @@ export type StudentUncheckedUpdateManyWithoutExam_settingsInput = {
 
 export type StudentCountOutputType = {
   courses: number
+  aiChatSessions: number
   marks: number
   attendances: number
   exam_settings: number
@@ -2004,6 +2325,7 @@ export type StudentCountOutputType = {
 
 export type StudentCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   courses?: boolean | StudentCountOutputTypeCountCoursesArgs
+  aiChatSessions?: boolean | StudentCountOutputTypeCountAiChatSessionsArgs
   marks?: boolean | StudentCountOutputTypeCountMarksArgs
   attendances?: boolean | StudentCountOutputTypeCountAttendancesArgs
   exam_settings?: boolean | StudentCountOutputTypeCountExam_settingsArgs
@@ -2026,6 +2348,13 @@ export type StudentCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Exte
  */
 export type StudentCountOutputTypeCountCoursesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.StudentCourseWhereInput
+}
+
+/**
+ * StudentCountOutputType without action
+ */
+export type StudentCountOutputTypeCountAiChatSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CourseAiChatSessionWhereInput
 }
 
 /**
@@ -2081,6 +2410,8 @@ export type StudentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   major?: boolean | Prisma.Student$majorArgs<ExtArgs>
   group?: boolean | Prisma.GroupDefaultArgs<ExtArgs>
   courses?: boolean | Prisma.Student$coursesArgs<ExtArgs>
+  aiChatSessions?: boolean | Prisma.Student$aiChatSessionsArgs<ExtArgs>
+  chatbotSession?: boolean | Prisma.Student$chatbotSessionArgs<ExtArgs>
   marks?: boolean | Prisma.Student$marksArgs<ExtArgs>
   attendances?: boolean | Prisma.Student$attendancesArgs<ExtArgs>
   exam_settings?: boolean | Prisma.Student$exam_settingsArgs<ExtArgs>
@@ -2146,6 +2477,8 @@ export type StudentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   major?: boolean | Prisma.Student$majorArgs<ExtArgs>
   group?: boolean | Prisma.GroupDefaultArgs<ExtArgs>
   courses?: boolean | Prisma.Student$coursesArgs<ExtArgs>
+  aiChatSessions?: boolean | Prisma.Student$aiChatSessionsArgs<ExtArgs>
+  chatbotSession?: boolean | Prisma.Student$chatbotSessionArgs<ExtArgs>
   marks?: boolean | Prisma.Student$marksArgs<ExtArgs>
   attendances?: boolean | Prisma.Student$attendancesArgs<ExtArgs>
   exam_settings?: boolean | Prisma.Student$exam_settingsArgs<ExtArgs>
@@ -2177,6 +2510,8 @@ export type $StudentPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     major: Prisma.$MajorPayload<ExtArgs> | null
     group: Prisma.$GroupPayload<ExtArgs>
     courses: Prisma.$StudentCoursePayload<ExtArgs>[]
+    aiChatSessions: Prisma.$CourseAiChatSessionPayload<ExtArgs>[]
+    chatbotSession: Prisma.$ChatbotSessionPayload<ExtArgs> | null
     marks: Prisma.$MarkPayload<ExtArgs>[]
     attendances: Prisma.$LectureAttendancePayload<ExtArgs>[]
     exam_settings: Prisma.$ExamSettingsPayload<ExtArgs>[]
@@ -2594,6 +2929,8 @@ export interface Prisma__StudentClient<T, Null = never, ExtArgs extends runtime.
   major<T extends Prisma.Student$majorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Student$majorArgs<ExtArgs>>): Prisma.Prisma__MajorClient<runtime.Types.Result.GetResult<Prisma.$MajorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   group<T extends Prisma.GroupDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GroupDefaultArgs<ExtArgs>>): Prisma.Prisma__GroupClient<runtime.Types.Result.GetResult<Prisma.$GroupPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   courses<T extends Prisma.Student$coursesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Student$coursesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudentCoursePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  aiChatSessions<T extends Prisma.Student$aiChatSessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Student$aiChatSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CourseAiChatSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  chatbotSession<T extends Prisma.Student$chatbotSessionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Student$chatbotSessionArgs<ExtArgs>>): Prisma.Prisma__ChatbotSessionClient<runtime.Types.Result.GetResult<Prisma.$ChatbotSessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   marks<T extends Prisma.Student$marksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Student$marksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MarkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   attendances<T extends Prisma.Student$attendancesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Student$attendancesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LectureAttendancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   exam_settings<T extends Prisma.Student$exam_settingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Student$exam_settingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ExamSettingsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -3098,6 +3435,49 @@ export type Student$coursesArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.StudentCourseScalarFieldEnum | Prisma.StudentCourseScalarFieldEnum[]
+}
+
+/**
+ * Student.aiChatSessions
+ */
+export type Student$aiChatSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CourseAiChatSession
+   */
+  select?: Prisma.CourseAiChatSessionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CourseAiChatSession
+   */
+  omit?: Prisma.CourseAiChatSessionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CourseAiChatSessionInclude<ExtArgs> | null
+  where?: Prisma.CourseAiChatSessionWhereInput
+  orderBy?: Prisma.CourseAiChatSessionOrderByWithRelationInput | Prisma.CourseAiChatSessionOrderByWithRelationInput[]
+  cursor?: Prisma.CourseAiChatSessionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CourseAiChatSessionScalarFieldEnum | Prisma.CourseAiChatSessionScalarFieldEnum[]
+}
+
+/**
+ * Student.chatbotSession
+ */
+export type Student$chatbotSessionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ChatbotSession
+   */
+  select?: Prisma.ChatbotSessionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ChatbotSession
+   */
+  omit?: Prisma.ChatbotSessionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ChatbotSessionInclude<ExtArgs> | null
+  where?: Prisma.ChatbotSessionWhereInput
 }
 
 /**
