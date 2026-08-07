@@ -109,6 +109,15 @@ export const AnnouncementType = {
 export type AnnouncementType = (typeof AnnouncementType)[keyof typeof AnnouncementType]
 
 
+export const SurveyStatus = {
+  DRAFT: 'DRAFT',
+  PUBLISHED: 'PUBLISHED',
+  COMPLETED: 'COMPLETED'
+} as const
+
+export type SurveyStatus = (typeof SurveyStatus)[keyof typeof SurveyStatus]
+
+
 export const ExamCategory = {
   THEORETICAL: 'THEORETICAL',
   PRACTICAL: 'PRACTICAL'

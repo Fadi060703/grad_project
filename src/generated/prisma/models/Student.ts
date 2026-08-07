@@ -293,6 +293,7 @@ export type StudentWhereInput = {
   exam_settings?: Prisma.ExamSettingsListRelationFilter
   push_subscriptions?: Prisma.PushSubscriptionListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
+  survey_answers?: Prisma.SurveyAnswerListRelationFilter
 }
 
 export type StudentOrderByWithRelationInput = {
@@ -319,6 +320,7 @@ export type StudentOrderByWithRelationInput = {
   exam_settings?: Prisma.ExamSettingsOrderByRelationAggregateInput
   push_subscriptions?: Prisma.PushSubscriptionOrderByRelationAggregateInput
   notifications?: Prisma.NotificationOrderByRelationAggregateInput
+  survey_answers?: Prisma.SurveyAnswerOrderByRelationAggregateInput
 }
 
 export type StudentWhereUniqueInput = Prisma.AtLeast<{
@@ -348,6 +350,7 @@ export type StudentWhereUniqueInput = Prisma.AtLeast<{
   exam_settings?: Prisma.ExamSettingsListRelationFilter
   push_subscriptions?: Prisma.PushSubscriptionListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
+  survey_answers?: Prisma.SurveyAnswerListRelationFilter
 }, "student_id" | "userId">
 
 export type StudentOrderByWithAggregationInput = {
@@ -402,6 +405,7 @@ export type StudentCreateInput = {
   exam_settings?: Prisma.ExamSettingsCreateNestedManyWithoutStudentsInput
   push_subscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutStudentInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutStudentInput
+  survey_answers?: Prisma.SurveyAnswerCreateNestedManyWithoutStudentInput
 }
 
 export type StudentUncheckedCreateInput = {
@@ -423,6 +427,7 @@ export type StudentUncheckedCreateInput = {
   exam_settings?: Prisma.ExamSettingsUncheckedCreateNestedManyWithoutStudentsInput
   push_subscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutStudentInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutStudentInput
+  survey_answers?: Prisma.SurveyAnswerUncheckedCreateNestedManyWithoutStudentInput
 }
 
 export type StudentUpdateInput = {
@@ -443,6 +448,7 @@ export type StudentUpdateInput = {
   exam_settings?: Prisma.ExamSettingsUpdateManyWithoutStudentsNestedInput
   push_subscriptions?: Prisma.PushSubscriptionUpdateManyWithoutStudentNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutStudentNestedInput
+  survey_answers?: Prisma.SurveyAnswerUpdateManyWithoutStudentNestedInput
 }
 
 export type StudentUncheckedUpdateInput = {
@@ -464,6 +470,7 @@ export type StudentUncheckedUpdateInput = {
   exam_settings?: Prisma.ExamSettingsUncheckedUpdateManyWithoutStudentsNestedInput
   push_subscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutStudentNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutStudentNestedInput
+  survey_answers?: Prisma.SurveyAnswerUncheckedUpdateManyWithoutStudentNestedInput
 }
 
 export type StudentCreateManyInput = {
@@ -878,6 +885,20 @@ export type StudentUpdateOneRequiredWithoutAttendancesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.StudentUpdateToOneWithWhereWithoutAttendancesInput, Prisma.StudentUpdateWithoutAttendancesInput>, Prisma.StudentUncheckedUpdateWithoutAttendancesInput>
 }
 
+export type StudentCreateNestedOneWithoutSurvey_answersInput = {
+  create?: Prisma.XOR<Prisma.StudentCreateWithoutSurvey_answersInput, Prisma.StudentUncheckedCreateWithoutSurvey_answersInput>
+  connectOrCreate?: Prisma.StudentCreateOrConnectWithoutSurvey_answersInput
+  connect?: Prisma.StudentWhereUniqueInput
+}
+
+export type StudentUpdateOneRequiredWithoutSurvey_answersNestedInput = {
+  create?: Prisma.XOR<Prisma.StudentCreateWithoutSurvey_answersInput, Prisma.StudentUncheckedCreateWithoutSurvey_answersInput>
+  connectOrCreate?: Prisma.StudentCreateOrConnectWithoutSurvey_answersInput
+  upsert?: Prisma.StudentUpsertWithoutSurvey_answersInput
+  connect?: Prisma.StudentWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.StudentUpdateToOneWithWhereWithoutSurvey_answersInput, Prisma.StudentUpdateWithoutSurvey_answersInput>, Prisma.StudentUncheckedUpdateWithoutSurvey_answersInput>
+}
+
 export type StudentCreateNestedManyWithoutExam_settingsInput = {
   create?: Prisma.XOR<Prisma.StudentCreateWithoutExam_settingsInput, Prisma.StudentUncheckedCreateWithoutExam_settingsInput> | Prisma.StudentCreateWithoutExam_settingsInput[] | Prisma.StudentUncheckedCreateWithoutExam_settingsInput[]
   connectOrCreate?: Prisma.StudentCreateOrConnectWithoutExam_settingsInput | Prisma.StudentCreateOrConnectWithoutExam_settingsInput[]
@@ -933,6 +954,7 @@ export type StudentCreateWithoutUserInput = {
   exam_settings?: Prisma.ExamSettingsCreateNestedManyWithoutStudentsInput
   push_subscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutStudentInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutStudentInput
+  survey_answers?: Prisma.SurveyAnswerCreateNestedManyWithoutStudentInput
 }
 
 export type StudentUncheckedCreateWithoutUserInput = {
@@ -953,6 +975,7 @@ export type StudentUncheckedCreateWithoutUserInput = {
   exam_settings?: Prisma.ExamSettingsUncheckedCreateNestedManyWithoutStudentsInput
   push_subscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutStudentInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutStudentInput
+  survey_answers?: Prisma.SurveyAnswerUncheckedCreateNestedManyWithoutStudentInput
 }
 
 export type StudentCreateOrConnectWithoutUserInput = {
@@ -988,6 +1011,7 @@ export type StudentUpdateWithoutUserInput = {
   exam_settings?: Prisma.ExamSettingsUpdateManyWithoutStudentsNestedInput
   push_subscriptions?: Prisma.PushSubscriptionUpdateManyWithoutStudentNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutStudentNestedInput
+  survey_answers?: Prisma.SurveyAnswerUpdateManyWithoutStudentNestedInput
 }
 
 export type StudentUncheckedUpdateWithoutUserInput = {
@@ -1008,6 +1032,7 @@ export type StudentUncheckedUpdateWithoutUserInput = {
   exam_settings?: Prisma.ExamSettingsUncheckedUpdateManyWithoutStudentsNestedInput
   push_subscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutStudentNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutStudentNestedInput
+  survey_answers?: Prisma.SurveyAnswerUncheckedUpdateManyWithoutStudentNestedInput
 }
 
 export type StudentCreateWithoutPush_subscriptionsInput = {
@@ -1027,6 +1052,7 @@ export type StudentCreateWithoutPush_subscriptionsInput = {
   attendances?: Prisma.LectureAttendanceCreateNestedManyWithoutStudentInput
   exam_settings?: Prisma.ExamSettingsCreateNestedManyWithoutStudentsInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutStudentInput
+  survey_answers?: Prisma.SurveyAnswerCreateNestedManyWithoutStudentInput
 }
 
 export type StudentUncheckedCreateWithoutPush_subscriptionsInput = {
@@ -1047,6 +1073,7 @@ export type StudentUncheckedCreateWithoutPush_subscriptionsInput = {
   attendances?: Prisma.LectureAttendanceUncheckedCreateNestedManyWithoutStudentInput
   exam_settings?: Prisma.ExamSettingsUncheckedCreateNestedManyWithoutStudentsInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutStudentInput
+  survey_answers?: Prisma.SurveyAnswerUncheckedCreateNestedManyWithoutStudentInput
 }
 
 export type StudentCreateOrConnectWithoutPush_subscriptionsInput = {
@@ -1082,6 +1109,7 @@ export type StudentUpdateWithoutPush_subscriptionsInput = {
   attendances?: Prisma.LectureAttendanceUpdateManyWithoutStudentNestedInput
   exam_settings?: Prisma.ExamSettingsUpdateManyWithoutStudentsNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutStudentNestedInput
+  survey_answers?: Prisma.SurveyAnswerUpdateManyWithoutStudentNestedInput
 }
 
 export type StudentUncheckedUpdateWithoutPush_subscriptionsInput = {
@@ -1102,6 +1130,7 @@ export type StudentUncheckedUpdateWithoutPush_subscriptionsInput = {
   attendances?: Prisma.LectureAttendanceUncheckedUpdateManyWithoutStudentNestedInput
   exam_settings?: Prisma.ExamSettingsUncheckedUpdateManyWithoutStudentsNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutStudentNestedInput
+  survey_answers?: Prisma.SurveyAnswerUncheckedUpdateManyWithoutStudentNestedInput
 }
 
 export type StudentCreateWithoutNotificationsInput = {
@@ -1121,6 +1150,7 @@ export type StudentCreateWithoutNotificationsInput = {
   attendances?: Prisma.LectureAttendanceCreateNestedManyWithoutStudentInput
   exam_settings?: Prisma.ExamSettingsCreateNestedManyWithoutStudentsInput
   push_subscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutStudentInput
+  survey_answers?: Prisma.SurveyAnswerCreateNestedManyWithoutStudentInput
 }
 
 export type StudentUncheckedCreateWithoutNotificationsInput = {
@@ -1141,6 +1171,7 @@ export type StudentUncheckedCreateWithoutNotificationsInput = {
   attendances?: Prisma.LectureAttendanceUncheckedCreateNestedManyWithoutStudentInput
   exam_settings?: Prisma.ExamSettingsUncheckedCreateNestedManyWithoutStudentsInput
   push_subscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutStudentInput
+  survey_answers?: Prisma.SurveyAnswerUncheckedCreateNestedManyWithoutStudentInput
 }
 
 export type StudentCreateOrConnectWithoutNotificationsInput = {
@@ -1176,6 +1207,7 @@ export type StudentUpdateWithoutNotificationsInput = {
   attendances?: Prisma.LectureAttendanceUpdateManyWithoutStudentNestedInput
   exam_settings?: Prisma.ExamSettingsUpdateManyWithoutStudentsNestedInput
   push_subscriptions?: Prisma.PushSubscriptionUpdateManyWithoutStudentNestedInput
+  survey_answers?: Prisma.SurveyAnswerUpdateManyWithoutStudentNestedInput
 }
 
 export type StudentUncheckedUpdateWithoutNotificationsInput = {
@@ -1196,6 +1228,7 @@ export type StudentUncheckedUpdateWithoutNotificationsInput = {
   attendances?: Prisma.LectureAttendanceUncheckedUpdateManyWithoutStudentNestedInput
   exam_settings?: Prisma.ExamSettingsUncheckedUpdateManyWithoutStudentsNestedInput
   push_subscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutStudentNestedInput
+  survey_answers?: Prisma.SurveyAnswerUncheckedUpdateManyWithoutStudentNestedInput
 }
 
 export type StudentCreateWithoutYearInput = {
@@ -1215,6 +1248,7 @@ export type StudentCreateWithoutYearInput = {
   exam_settings?: Prisma.ExamSettingsCreateNestedManyWithoutStudentsInput
   push_subscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutStudentInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutStudentInput
+  survey_answers?: Prisma.SurveyAnswerCreateNestedManyWithoutStudentInput
 }
 
 export type StudentUncheckedCreateWithoutYearInput = {
@@ -1235,6 +1269,7 @@ export type StudentUncheckedCreateWithoutYearInput = {
   exam_settings?: Prisma.ExamSettingsUncheckedCreateNestedManyWithoutStudentsInput
   push_subscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutStudentInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutStudentInput
+  survey_answers?: Prisma.SurveyAnswerUncheckedCreateNestedManyWithoutStudentInput
 }
 
 export type StudentCreateOrConnectWithoutYearInput = {
@@ -1296,6 +1331,7 @@ export type StudentCreateWithoutSectionInput = {
   exam_settings?: Prisma.ExamSettingsCreateNestedManyWithoutStudentsInput
   push_subscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutStudentInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutStudentInput
+  survey_answers?: Prisma.SurveyAnswerCreateNestedManyWithoutStudentInput
 }
 
 export type StudentUncheckedCreateWithoutSectionInput = {
@@ -1316,6 +1352,7 @@ export type StudentUncheckedCreateWithoutSectionInput = {
   exam_settings?: Prisma.ExamSettingsUncheckedCreateNestedManyWithoutStudentsInput
   push_subscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutStudentInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutStudentInput
+  survey_answers?: Prisma.SurveyAnswerUncheckedCreateNestedManyWithoutStudentInput
 }
 
 export type StudentCreateOrConnectWithoutSectionInput = {
@@ -1361,6 +1398,7 @@ export type StudentCreateWithoutMajorInput = {
   exam_settings?: Prisma.ExamSettingsCreateNestedManyWithoutStudentsInput
   push_subscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutStudentInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutStudentInput
+  survey_answers?: Prisma.SurveyAnswerCreateNestedManyWithoutStudentInput
 }
 
 export type StudentUncheckedCreateWithoutMajorInput = {
@@ -1381,6 +1419,7 @@ export type StudentUncheckedCreateWithoutMajorInput = {
   exam_settings?: Prisma.ExamSettingsUncheckedCreateNestedManyWithoutStudentsInput
   push_subscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutStudentInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutStudentInput
+  survey_answers?: Prisma.SurveyAnswerUncheckedCreateNestedManyWithoutStudentInput
 }
 
 export type StudentCreateOrConnectWithoutMajorInput = {
@@ -1426,6 +1465,7 @@ export type StudentCreateWithoutGroupInput = {
   exam_settings?: Prisma.ExamSettingsCreateNestedManyWithoutStudentsInput
   push_subscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutStudentInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutStudentInput
+  survey_answers?: Prisma.SurveyAnswerCreateNestedManyWithoutStudentInput
 }
 
 export type StudentUncheckedCreateWithoutGroupInput = {
@@ -1446,6 +1486,7 @@ export type StudentUncheckedCreateWithoutGroupInput = {
   exam_settings?: Prisma.ExamSettingsUncheckedCreateNestedManyWithoutStudentsInput
   push_subscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutStudentInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutStudentInput
+  survey_answers?: Prisma.SurveyAnswerUncheckedCreateNestedManyWithoutStudentInput
 }
 
 export type StudentCreateOrConnectWithoutGroupInput = {
@@ -1491,6 +1532,7 @@ export type StudentCreateWithoutAiChatSessionsInput = {
   exam_settings?: Prisma.ExamSettingsCreateNestedManyWithoutStudentsInput
   push_subscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutStudentInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutStudentInput
+  survey_answers?: Prisma.SurveyAnswerCreateNestedManyWithoutStudentInput
 }
 
 export type StudentUncheckedCreateWithoutAiChatSessionsInput = {
@@ -1511,6 +1553,7 @@ export type StudentUncheckedCreateWithoutAiChatSessionsInput = {
   exam_settings?: Prisma.ExamSettingsUncheckedCreateNestedManyWithoutStudentsInput
   push_subscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutStudentInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutStudentInput
+  survey_answers?: Prisma.SurveyAnswerUncheckedCreateNestedManyWithoutStudentInput
 }
 
 export type StudentCreateOrConnectWithoutAiChatSessionsInput = {
@@ -1546,6 +1589,7 @@ export type StudentUpdateWithoutAiChatSessionsInput = {
   exam_settings?: Prisma.ExamSettingsUpdateManyWithoutStudentsNestedInput
   push_subscriptions?: Prisma.PushSubscriptionUpdateManyWithoutStudentNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutStudentNestedInput
+  survey_answers?: Prisma.SurveyAnswerUpdateManyWithoutStudentNestedInput
 }
 
 export type StudentUncheckedUpdateWithoutAiChatSessionsInput = {
@@ -1566,6 +1610,7 @@ export type StudentUncheckedUpdateWithoutAiChatSessionsInput = {
   exam_settings?: Prisma.ExamSettingsUncheckedUpdateManyWithoutStudentsNestedInput
   push_subscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutStudentNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutStudentNestedInput
+  survey_answers?: Prisma.SurveyAnswerUncheckedUpdateManyWithoutStudentNestedInput
 }
 
 export type StudentCreateWithoutChatbotSessionInput = {
@@ -1585,6 +1630,7 @@ export type StudentCreateWithoutChatbotSessionInput = {
   exam_settings?: Prisma.ExamSettingsCreateNestedManyWithoutStudentsInput
   push_subscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutStudentInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutStudentInput
+  survey_answers?: Prisma.SurveyAnswerCreateNestedManyWithoutStudentInput
 }
 
 export type StudentUncheckedCreateWithoutChatbotSessionInput = {
@@ -1605,6 +1651,7 @@ export type StudentUncheckedCreateWithoutChatbotSessionInput = {
   exam_settings?: Prisma.ExamSettingsUncheckedCreateNestedManyWithoutStudentsInput
   push_subscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutStudentInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutStudentInput
+  survey_answers?: Prisma.SurveyAnswerUncheckedCreateNestedManyWithoutStudentInput
 }
 
 export type StudentCreateOrConnectWithoutChatbotSessionInput = {
@@ -1640,6 +1687,7 @@ export type StudentUpdateWithoutChatbotSessionInput = {
   exam_settings?: Prisma.ExamSettingsUpdateManyWithoutStudentsNestedInput
   push_subscriptions?: Prisma.PushSubscriptionUpdateManyWithoutStudentNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutStudentNestedInput
+  survey_answers?: Prisma.SurveyAnswerUpdateManyWithoutStudentNestedInput
 }
 
 export type StudentUncheckedUpdateWithoutChatbotSessionInput = {
@@ -1660,6 +1708,7 @@ export type StudentUncheckedUpdateWithoutChatbotSessionInput = {
   exam_settings?: Prisma.ExamSettingsUncheckedUpdateManyWithoutStudentsNestedInput
   push_subscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutStudentNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutStudentNestedInput
+  survey_answers?: Prisma.SurveyAnswerUncheckedUpdateManyWithoutStudentNestedInput
 }
 
 export type StudentCreateWithoutMarksInput = {
@@ -1679,6 +1728,7 @@ export type StudentCreateWithoutMarksInput = {
   exam_settings?: Prisma.ExamSettingsCreateNestedManyWithoutStudentsInput
   push_subscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutStudentInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutStudentInput
+  survey_answers?: Prisma.SurveyAnswerCreateNestedManyWithoutStudentInput
 }
 
 export type StudentUncheckedCreateWithoutMarksInput = {
@@ -1699,6 +1749,7 @@ export type StudentUncheckedCreateWithoutMarksInput = {
   exam_settings?: Prisma.ExamSettingsUncheckedCreateNestedManyWithoutStudentsInput
   push_subscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutStudentInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutStudentInput
+  survey_answers?: Prisma.SurveyAnswerUncheckedCreateNestedManyWithoutStudentInput
 }
 
 export type StudentCreateOrConnectWithoutMarksInput = {
@@ -1734,6 +1785,7 @@ export type StudentUpdateWithoutMarksInput = {
   exam_settings?: Prisma.ExamSettingsUpdateManyWithoutStudentsNestedInput
   push_subscriptions?: Prisma.PushSubscriptionUpdateManyWithoutStudentNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutStudentNestedInput
+  survey_answers?: Prisma.SurveyAnswerUpdateManyWithoutStudentNestedInput
 }
 
 export type StudentUncheckedUpdateWithoutMarksInput = {
@@ -1754,6 +1806,7 @@ export type StudentUncheckedUpdateWithoutMarksInput = {
   exam_settings?: Prisma.ExamSettingsUncheckedUpdateManyWithoutStudentsNestedInput
   push_subscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutStudentNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutStudentNestedInput
+  survey_answers?: Prisma.SurveyAnswerUncheckedUpdateManyWithoutStudentNestedInput
 }
 
 export type StudentCreateWithoutCoursesInput = {
@@ -1773,6 +1826,7 @@ export type StudentCreateWithoutCoursesInput = {
   exam_settings?: Prisma.ExamSettingsCreateNestedManyWithoutStudentsInput
   push_subscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutStudentInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutStudentInput
+  survey_answers?: Prisma.SurveyAnswerCreateNestedManyWithoutStudentInput
 }
 
 export type StudentUncheckedCreateWithoutCoursesInput = {
@@ -1793,6 +1847,7 @@ export type StudentUncheckedCreateWithoutCoursesInput = {
   exam_settings?: Prisma.ExamSettingsUncheckedCreateNestedManyWithoutStudentsInput
   push_subscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutStudentInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutStudentInput
+  survey_answers?: Prisma.SurveyAnswerUncheckedCreateNestedManyWithoutStudentInput
 }
 
 export type StudentCreateOrConnectWithoutCoursesInput = {
@@ -1828,6 +1883,7 @@ export type StudentUpdateWithoutCoursesInput = {
   exam_settings?: Prisma.ExamSettingsUpdateManyWithoutStudentsNestedInput
   push_subscriptions?: Prisma.PushSubscriptionUpdateManyWithoutStudentNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutStudentNestedInput
+  survey_answers?: Prisma.SurveyAnswerUpdateManyWithoutStudentNestedInput
 }
 
 export type StudentUncheckedUpdateWithoutCoursesInput = {
@@ -1848,6 +1904,7 @@ export type StudentUncheckedUpdateWithoutCoursesInput = {
   exam_settings?: Prisma.ExamSettingsUncheckedUpdateManyWithoutStudentsNestedInput
   push_subscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutStudentNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutStudentNestedInput
+  survey_answers?: Prisma.SurveyAnswerUncheckedUpdateManyWithoutStudentNestedInput
 }
 
 export type StudentCreateWithoutAttendancesInput = {
@@ -1867,6 +1924,7 @@ export type StudentCreateWithoutAttendancesInput = {
   exam_settings?: Prisma.ExamSettingsCreateNestedManyWithoutStudentsInput
   push_subscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutStudentInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutStudentInput
+  survey_answers?: Prisma.SurveyAnswerCreateNestedManyWithoutStudentInput
 }
 
 export type StudentUncheckedCreateWithoutAttendancesInput = {
@@ -1887,6 +1945,7 @@ export type StudentUncheckedCreateWithoutAttendancesInput = {
   exam_settings?: Prisma.ExamSettingsUncheckedCreateNestedManyWithoutStudentsInput
   push_subscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutStudentInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutStudentInput
+  survey_answers?: Prisma.SurveyAnswerUncheckedCreateNestedManyWithoutStudentInput
 }
 
 export type StudentCreateOrConnectWithoutAttendancesInput = {
@@ -1922,6 +1981,7 @@ export type StudentUpdateWithoutAttendancesInput = {
   exam_settings?: Prisma.ExamSettingsUpdateManyWithoutStudentsNestedInput
   push_subscriptions?: Prisma.PushSubscriptionUpdateManyWithoutStudentNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutStudentNestedInput
+  survey_answers?: Prisma.SurveyAnswerUpdateManyWithoutStudentNestedInput
 }
 
 export type StudentUncheckedUpdateWithoutAttendancesInput = {
@@ -1939,6 +1999,105 @@ export type StudentUncheckedUpdateWithoutAttendancesInput = {
   aiChatSessions?: Prisma.CourseAiChatSessionUncheckedUpdateManyWithoutStudentNestedInput
   chatbotSession?: Prisma.ChatbotSessionUncheckedUpdateOneWithoutStudentNestedInput
   marks?: Prisma.MarkUncheckedUpdateManyWithoutStudentNestedInput
+  exam_settings?: Prisma.ExamSettingsUncheckedUpdateManyWithoutStudentsNestedInput
+  push_subscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutStudentNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutStudentNestedInput
+  survey_answers?: Prisma.SurveyAnswerUncheckedUpdateManyWithoutStudentNestedInput
+}
+
+export type StudentCreateWithoutSurvey_answersInput = {
+  mother_name: string
+  exam_seat_number?: number
+  profile_picture?: string | null
+  birthdate?: Date | string | null
+  user: Prisma.UserCreateNestedOneWithoutStudentInput
+  year: Prisma.YearCreateNestedOneWithoutStudentsInput
+  section?: Prisma.SectionCreateNestedOneWithoutStudentsInput
+  major?: Prisma.MajorCreateNestedOneWithoutStudentsInput
+  group: Prisma.GroupCreateNestedOneWithoutStudentsInput
+  courses?: Prisma.StudentCourseCreateNestedManyWithoutStudentInput
+  aiChatSessions?: Prisma.CourseAiChatSessionCreateNestedManyWithoutStudentInput
+  chatbotSession?: Prisma.ChatbotSessionCreateNestedOneWithoutStudentInput
+  marks?: Prisma.MarkCreateNestedManyWithoutStudentInput
+  attendances?: Prisma.LectureAttendanceCreateNestedManyWithoutStudentInput
+  exam_settings?: Prisma.ExamSettingsCreateNestedManyWithoutStudentsInput
+  push_subscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutStudentInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutStudentInput
+}
+
+export type StudentUncheckedCreateWithoutSurvey_answersInput = {
+  student_id?: number
+  userId: number
+  mother_name: string
+  exam_seat_number?: number
+  profile_picture?: string | null
+  birthdate?: Date | string | null
+  year_id: number
+  section_id?: number | null
+  major_id?: number | null
+  group_id: number
+  courses?: Prisma.StudentCourseUncheckedCreateNestedManyWithoutStudentInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedCreateNestedManyWithoutStudentInput
+  chatbotSession?: Prisma.ChatbotSessionUncheckedCreateNestedOneWithoutStudentInput
+  marks?: Prisma.MarkUncheckedCreateNestedManyWithoutStudentInput
+  attendances?: Prisma.LectureAttendanceUncheckedCreateNestedManyWithoutStudentInput
+  exam_settings?: Prisma.ExamSettingsUncheckedCreateNestedManyWithoutStudentsInput
+  push_subscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutStudentInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutStudentInput
+}
+
+export type StudentCreateOrConnectWithoutSurvey_answersInput = {
+  where: Prisma.StudentWhereUniqueInput
+  create: Prisma.XOR<Prisma.StudentCreateWithoutSurvey_answersInput, Prisma.StudentUncheckedCreateWithoutSurvey_answersInput>
+}
+
+export type StudentUpsertWithoutSurvey_answersInput = {
+  update: Prisma.XOR<Prisma.StudentUpdateWithoutSurvey_answersInput, Prisma.StudentUncheckedUpdateWithoutSurvey_answersInput>
+  create: Prisma.XOR<Prisma.StudentCreateWithoutSurvey_answersInput, Prisma.StudentUncheckedCreateWithoutSurvey_answersInput>
+  where?: Prisma.StudentWhereInput
+}
+
+export type StudentUpdateToOneWithWhereWithoutSurvey_answersInput = {
+  where?: Prisma.StudentWhereInput
+  data: Prisma.XOR<Prisma.StudentUpdateWithoutSurvey_answersInput, Prisma.StudentUncheckedUpdateWithoutSurvey_answersInput>
+}
+
+export type StudentUpdateWithoutSurvey_answersInput = {
+  mother_name?: Prisma.StringFieldUpdateOperationsInput | string
+  exam_seat_number?: Prisma.IntFieldUpdateOperationsInput | number
+  profile_picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthdate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user?: Prisma.UserUpdateOneRequiredWithoutStudentNestedInput
+  year?: Prisma.YearUpdateOneRequiredWithoutStudentsNestedInput
+  section?: Prisma.SectionUpdateOneWithoutStudentsNestedInput
+  major?: Prisma.MajorUpdateOneWithoutStudentsNestedInput
+  group?: Prisma.GroupUpdateOneRequiredWithoutStudentsNestedInput
+  courses?: Prisma.StudentCourseUpdateManyWithoutStudentNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUpdateManyWithoutStudentNestedInput
+  chatbotSession?: Prisma.ChatbotSessionUpdateOneWithoutStudentNestedInput
+  marks?: Prisma.MarkUpdateManyWithoutStudentNestedInput
+  attendances?: Prisma.LectureAttendanceUpdateManyWithoutStudentNestedInput
+  exam_settings?: Prisma.ExamSettingsUpdateManyWithoutStudentsNestedInput
+  push_subscriptions?: Prisma.PushSubscriptionUpdateManyWithoutStudentNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutStudentNestedInput
+}
+
+export type StudentUncheckedUpdateWithoutSurvey_answersInput = {
+  student_id?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
+  mother_name?: Prisma.StringFieldUpdateOperationsInput | string
+  exam_seat_number?: Prisma.IntFieldUpdateOperationsInput | number
+  profile_picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthdate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  year_id?: Prisma.IntFieldUpdateOperationsInput | number
+  section_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  major_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  group_id?: Prisma.IntFieldUpdateOperationsInput | number
+  courses?: Prisma.StudentCourseUncheckedUpdateManyWithoutStudentNestedInput
+  aiChatSessions?: Prisma.CourseAiChatSessionUncheckedUpdateManyWithoutStudentNestedInput
+  chatbotSession?: Prisma.ChatbotSessionUncheckedUpdateOneWithoutStudentNestedInput
+  marks?: Prisma.MarkUncheckedUpdateManyWithoutStudentNestedInput
+  attendances?: Prisma.LectureAttendanceUncheckedUpdateManyWithoutStudentNestedInput
   exam_settings?: Prisma.ExamSettingsUncheckedUpdateManyWithoutStudentsNestedInput
   push_subscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutStudentNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutStudentNestedInput
@@ -1961,6 +2120,7 @@ export type StudentCreateWithoutExam_settingsInput = {
   attendances?: Prisma.LectureAttendanceCreateNestedManyWithoutStudentInput
   push_subscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutStudentInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutStudentInput
+  survey_answers?: Prisma.SurveyAnswerCreateNestedManyWithoutStudentInput
 }
 
 export type StudentUncheckedCreateWithoutExam_settingsInput = {
@@ -1981,6 +2141,7 @@ export type StudentUncheckedCreateWithoutExam_settingsInput = {
   attendances?: Prisma.LectureAttendanceUncheckedCreateNestedManyWithoutStudentInput
   push_subscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutStudentInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutStudentInput
+  survey_answers?: Prisma.SurveyAnswerUncheckedCreateNestedManyWithoutStudentInput
 }
 
 export type StudentCreateOrConnectWithoutExam_settingsInput = {
@@ -2033,6 +2194,7 @@ export type StudentUpdateWithoutYearInput = {
   exam_settings?: Prisma.ExamSettingsUpdateManyWithoutStudentsNestedInput
   push_subscriptions?: Prisma.PushSubscriptionUpdateManyWithoutStudentNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutStudentNestedInput
+  survey_answers?: Prisma.SurveyAnswerUpdateManyWithoutStudentNestedInput
 }
 
 export type StudentUncheckedUpdateWithoutYearInput = {
@@ -2053,6 +2215,7 @@ export type StudentUncheckedUpdateWithoutYearInput = {
   exam_settings?: Prisma.ExamSettingsUncheckedUpdateManyWithoutStudentsNestedInput
   push_subscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutStudentNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutStudentNestedInput
+  survey_answers?: Prisma.SurveyAnswerUncheckedUpdateManyWithoutStudentNestedInput
 }
 
 export type StudentUncheckedUpdateManyWithoutYearInput = {
@@ -2096,6 +2259,7 @@ export type StudentUpdateWithoutSectionInput = {
   exam_settings?: Prisma.ExamSettingsUpdateManyWithoutStudentsNestedInput
   push_subscriptions?: Prisma.PushSubscriptionUpdateManyWithoutStudentNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutStudentNestedInput
+  survey_answers?: Prisma.SurveyAnswerUpdateManyWithoutStudentNestedInput
 }
 
 export type StudentUncheckedUpdateWithoutSectionInput = {
@@ -2116,6 +2280,7 @@ export type StudentUncheckedUpdateWithoutSectionInput = {
   exam_settings?: Prisma.ExamSettingsUncheckedUpdateManyWithoutStudentsNestedInput
   push_subscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutStudentNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutStudentNestedInput
+  survey_answers?: Prisma.SurveyAnswerUncheckedUpdateManyWithoutStudentNestedInput
 }
 
 export type StudentUncheckedUpdateManyWithoutSectionInput = {
@@ -2159,6 +2324,7 @@ export type StudentUpdateWithoutMajorInput = {
   exam_settings?: Prisma.ExamSettingsUpdateManyWithoutStudentsNestedInput
   push_subscriptions?: Prisma.PushSubscriptionUpdateManyWithoutStudentNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutStudentNestedInput
+  survey_answers?: Prisma.SurveyAnswerUpdateManyWithoutStudentNestedInput
 }
 
 export type StudentUncheckedUpdateWithoutMajorInput = {
@@ -2179,6 +2345,7 @@ export type StudentUncheckedUpdateWithoutMajorInput = {
   exam_settings?: Prisma.ExamSettingsUncheckedUpdateManyWithoutStudentsNestedInput
   push_subscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutStudentNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutStudentNestedInput
+  survey_answers?: Prisma.SurveyAnswerUncheckedUpdateManyWithoutStudentNestedInput
 }
 
 export type StudentUncheckedUpdateManyWithoutMajorInput = {
@@ -2222,6 +2389,7 @@ export type StudentUpdateWithoutGroupInput = {
   exam_settings?: Prisma.ExamSettingsUpdateManyWithoutStudentsNestedInput
   push_subscriptions?: Prisma.PushSubscriptionUpdateManyWithoutStudentNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutStudentNestedInput
+  survey_answers?: Prisma.SurveyAnswerUpdateManyWithoutStudentNestedInput
 }
 
 export type StudentUncheckedUpdateWithoutGroupInput = {
@@ -2242,6 +2410,7 @@ export type StudentUncheckedUpdateWithoutGroupInput = {
   exam_settings?: Prisma.ExamSettingsUncheckedUpdateManyWithoutStudentsNestedInput
   push_subscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutStudentNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutStudentNestedInput
+  survey_answers?: Prisma.SurveyAnswerUncheckedUpdateManyWithoutStudentNestedInput
 }
 
 export type StudentUncheckedUpdateManyWithoutGroupInput = {
@@ -2273,6 +2442,7 @@ export type StudentUpdateWithoutExam_settingsInput = {
   attendances?: Prisma.LectureAttendanceUpdateManyWithoutStudentNestedInput
   push_subscriptions?: Prisma.PushSubscriptionUpdateManyWithoutStudentNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutStudentNestedInput
+  survey_answers?: Prisma.SurveyAnswerUpdateManyWithoutStudentNestedInput
 }
 
 export type StudentUncheckedUpdateWithoutExam_settingsInput = {
@@ -2293,6 +2463,7 @@ export type StudentUncheckedUpdateWithoutExam_settingsInput = {
   attendances?: Prisma.LectureAttendanceUncheckedUpdateManyWithoutStudentNestedInput
   push_subscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutStudentNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutStudentNestedInput
+  survey_answers?: Prisma.SurveyAnswerUncheckedUpdateManyWithoutStudentNestedInput
 }
 
 export type StudentUncheckedUpdateManyWithoutExam_settingsInput = {
@@ -2321,6 +2492,7 @@ export type StudentCountOutputType = {
   exam_settings: number
   push_subscriptions: number
   notifications: number
+  survey_answers: number
 }
 
 export type StudentCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2331,6 +2503,7 @@ export type StudentCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   exam_settings?: boolean | StudentCountOutputTypeCountExam_settingsArgs
   push_subscriptions?: boolean | StudentCountOutputTypeCountPush_subscriptionsArgs
   notifications?: boolean | StudentCountOutputTypeCountNotificationsArgs
+  survey_answers?: boolean | StudentCountOutputTypeCountSurvey_answersArgs
 }
 
 /**
@@ -2392,6 +2565,13 @@ export type StudentCountOutputTypeCountNotificationsArgs<ExtArgs extends runtime
   where?: Prisma.NotificationWhereInput
 }
 
+/**
+ * StudentCountOutputType without action
+ */
+export type StudentCountOutputTypeCountSurvey_answersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SurveyAnswerWhereInput
+}
+
 
 export type StudentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   student_id?: boolean
@@ -2417,6 +2597,7 @@ export type StudentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   exam_settings?: boolean | Prisma.Student$exam_settingsArgs<ExtArgs>
   push_subscriptions?: boolean | Prisma.Student$push_subscriptionsArgs<ExtArgs>
   notifications?: boolean | Prisma.Student$notificationsArgs<ExtArgs>
+  survey_answers?: boolean | Prisma.Student$survey_answersArgs<ExtArgs>
   _count?: boolean | Prisma.StudentCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["student"]>
 
@@ -2484,6 +2665,7 @@ export type StudentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   exam_settings?: boolean | Prisma.Student$exam_settingsArgs<ExtArgs>
   push_subscriptions?: boolean | Prisma.Student$push_subscriptionsArgs<ExtArgs>
   notifications?: boolean | Prisma.Student$notificationsArgs<ExtArgs>
+  survey_answers?: boolean | Prisma.Student$survey_answersArgs<ExtArgs>
   _count?: boolean | Prisma.StudentCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type StudentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2517,6 +2699,7 @@ export type $StudentPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     exam_settings: Prisma.$ExamSettingsPayload<ExtArgs>[]
     push_subscriptions: Prisma.$PushSubscriptionPayload<ExtArgs>[]
     notifications: Prisma.$NotificationPayload<ExtArgs>[]
+    survey_answers: Prisma.$SurveyAnswerPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     student_id: number
@@ -2936,6 +3119,7 @@ export interface Prisma__StudentClient<T, Null = never, ExtArgs extends runtime.
   exam_settings<T extends Prisma.Student$exam_settingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Student$exam_settingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ExamSettingsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   push_subscriptions<T extends Prisma.Student$push_subscriptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Student$push_subscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PushSubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   notifications<T extends Prisma.Student$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Student$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  survey_answers<T extends Prisma.Student$survey_answersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Student$survey_answersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SurveyAnswerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3598,6 +3782,30 @@ export type Student$notificationsArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.NotificationScalarFieldEnum | Prisma.NotificationScalarFieldEnum[]
+}
+
+/**
+ * Student.survey_answers
+ */
+export type Student$survey_answersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SurveyAnswer
+   */
+  select?: Prisma.SurveyAnswerSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SurveyAnswer
+   */
+  omit?: Prisma.SurveyAnswerOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SurveyAnswerInclude<ExtArgs> | null
+  where?: Prisma.SurveyAnswerWhereInput
+  orderBy?: Prisma.SurveyAnswerOrderByWithRelationInput | Prisma.SurveyAnswerOrderByWithRelationInput[]
+  cursor?: Prisma.SurveyAnswerWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SurveyAnswerScalarFieldEnum | Prisma.SurveyAnswerScalarFieldEnum[]
 }
 
 /**

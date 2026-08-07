@@ -192,6 +192,16 @@ export type WeeklyLecture = Prisma.WeeklyLectureModel
  */
 export type LectureAttendance = Prisma.LectureAttendanceModel
 /**
+ * Model Survey
+ * 
+ */
+export type Survey = Prisma.SurveyModel
+/**
+ * Model SurveyAnswer
+ * 
+ */
+export type SurveyAnswer = Prisma.SurveyAnswerModel
+/**
  * Model Announcement
  * 
  */

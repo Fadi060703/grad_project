@@ -81,6 +81,8 @@ export const ModelName = {
   Lecture: 'Lecture',
   WeeklyLecture: 'WeeklyLecture',
   LectureAttendance: 'LectureAttendance',
+  Survey: 'Survey',
+  SurveyAnswer: 'SurveyAnswer',
   Announcement: 'Announcement',
   Exam: 'Exam',
   ExamSettings: 'ExamSettings'
@@ -501,6 +503,34 @@ export const LectureAttendanceScalarFieldEnum = {
 export type LectureAttendanceScalarFieldEnum = (typeof LectureAttendanceScalarFieldEnum)[keyof typeof LectureAttendanceScalarFieldEnum]
 
 
+export const SurveyScalarFieldEnum = {
+  id: 'id',
+  year_id: 'year_id',
+  title: 'title',
+  description: 'description',
+  questions: 'questions',
+  status: 'status',
+  summary: 'summary',
+  ai_insights: 'ai_insights',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type SurveyScalarFieldEnum = (typeof SurveyScalarFieldEnum)[keyof typeof SurveyScalarFieldEnum]
+
+
+export const SurveyAnswerScalarFieldEnum = {
+  id: 'id',
+  survey_id: 'survey_id',
+  student_id: 'student_id',
+  answers: 'answers',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type SurveyAnswerScalarFieldEnum = (typeof SurveyAnswerScalarFieldEnum)[keyof typeof SurveyAnswerScalarFieldEnum]
+
+
 export const AnnouncementScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -560,6 +590,14 @@ export const JsonNullValueInput = {
 } as const
 
 export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
 export const QueryMode = {

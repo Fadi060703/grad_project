@@ -119,6 +119,7 @@ model Student {
   exam_settings      ExamSettings[]      @relation("ExamSettingsStudents")
   push_subscriptions PushSubscription[]
   notifications      Notification[]
+  survey_answers     SurveyAnswer[]
 }
 
 model PushSubscription {
@@ -158,6 +159,7 @@ model Year {
   courses       Course[]
   students      Student[]
   announcements Announcement[]
+  surveys       Survey[]
   created_at    DateTime       @default(now())
   updated_at    DateTime?      @updatedAt
 }
@@ -579,6 +581,48 @@ enum AnnouncementType {
   REGULAR
   IMPORTANT
   EMERGENCY
+}
+
+enum SurveyStatus {
+  DRAFT
+  PUBLISHED
+  COMPLETED
+}
+
+model Survey {
+  id          Int          @id @default(autoincrement())
+  year_id     Int?
+  year        Year?        @relation(fields: [year_id], references: [id], onDelete: SetNull)
+  title       String
+  description String?
+  questions   Json
+  status      SurveyStatus @default(DRAFT)
+  summary     Json?
+  ai_insights String?
+  answers     SurveyAnswer[]
+  created_at  DateTime     @default(now())
+  updated_at  DateTime     @updatedAt
+
+  @@index([year_id])
+  @@index([status])
+  @@index([created_at])
+  @@map("surveys")
+}
+
+model SurveyAnswer {
+  id         Int      @id @default(autoincrement())
+  survey_id  Int
+  survey     Survey   @relation(fields: [survey_id], references: [id], onDelete: Cascade)
+  student_id Int
+  student    Student  @relation(fields: [student_id], references: [student_id], onDelete: Cascade)
+  answers    Json
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@unique([survey_id, student_id])
+  @@index([survey_id])
+  @@index([student_id])
+  @@map("survey_answers")
 }
 
 model Announcement {
