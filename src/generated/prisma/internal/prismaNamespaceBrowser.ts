@@ -108,6 +108,7 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const SystemSettingsScalarFieldEnum = {
   id: 'id',
   lecture_duration: 'lecture_duration',
+  passing_grade: 'passing_grade',
   lectures_start_time: 'lectures_start_time',
   aided_pass_courses_number: 'aided_pass_courses_number',
   aided_marks_number: 'aided_marks_number',

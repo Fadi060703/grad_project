@@ -14,6 +14,7 @@ import dashboardRoutes from "./dashboard.routes";
 import aiRoutes from "./ai.routes";
 import surveyRoutes from "./survey.routes";
 import auditRoutes from "./audit.routes";
+import actionsRoutes from "./actions.routes";
 
 const router = Router();
 
@@ -32,5 +33,6 @@ router.use("/", dashboardRoutes);
 router.use("/", aiRoutes);
 router.use("/", surveyRoutes);
 router.use("/", auditRoutes);
+router.use("/", actionsRoutes);
 
 export default router;

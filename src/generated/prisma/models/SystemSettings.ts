@@ -29,6 +29,7 @@ export type AggregateSystemSettings = {
 export type SystemSettingsAvgAggregateOutputType = {
   id: number | null
   lecture_duration: number | null
+  passing_grade: number | null
   aided_pass_courses_number: number | null
   aided_marks_number: number | null
 }
@@ -36,6 +37,7 @@ export type SystemSettingsAvgAggregateOutputType = {
 export type SystemSettingsSumAggregateOutputType = {
   id: number | null
   lecture_duration: number | null
+  passing_grade: number | null
   aided_pass_courses_number: number | null
   aided_marks_number: number | null
 }
@@ -43,6 +45,7 @@ export type SystemSettingsSumAggregateOutputType = {
 export type SystemSettingsMinAggregateOutputType = {
   id: number | null
   lecture_duration: number | null
+  passing_grade: number | null
   lectures_start_time: string | null
   aided_pass_courses_number: number | null
   aided_marks_number: number | null
@@ -56,6 +59,7 @@ export type SystemSettingsMinAggregateOutputType = {
 export type SystemSettingsMaxAggregateOutputType = {
   id: number | null
   lecture_duration: number | null
+  passing_grade: number | null
   lectures_start_time: string | null
   aided_pass_courses_number: number | null
   aided_marks_number: number | null
@@ -69,6 +73,7 @@ export type SystemSettingsMaxAggregateOutputType = {
 export type SystemSettingsCountAggregateOutputType = {
   id: number
   lecture_duration: number
+  passing_grade: number
   lectures_start_time: number
   aided_pass_courses_number: number
   aided_marks_number: number
@@ -84,6 +89,7 @@ export type SystemSettingsCountAggregateOutputType = {
 export type SystemSettingsAvgAggregateInputType = {
   id?: true
   lecture_duration?: true
+  passing_grade?: true
   aided_pass_courses_number?: true
   aided_marks_number?: true
 }
@@ -91,6 +97,7 @@ export type SystemSettingsAvgAggregateInputType = {
 export type SystemSettingsSumAggregateInputType = {
   id?: true
   lecture_duration?: true
+  passing_grade?: true
   aided_pass_courses_number?: true
   aided_marks_number?: true
 }
@@ -98,6 +105,7 @@ export type SystemSettingsSumAggregateInputType = {
 export type SystemSettingsMinAggregateInputType = {
   id?: true
   lecture_duration?: true
+  passing_grade?: true
   lectures_start_time?: true
   aided_pass_courses_number?: true
   aided_marks_number?: true
@@ -111,6 +119,7 @@ export type SystemSettingsMinAggregateInputType = {
 export type SystemSettingsMaxAggregateInputType = {
   id?: true
   lecture_duration?: true
+  passing_grade?: true
   lectures_start_time?: true
   aided_pass_courses_number?: true
   aided_marks_number?: true
@@ -124,6 +133,7 @@ export type SystemSettingsMaxAggregateInputType = {
 export type SystemSettingsCountAggregateInputType = {
   id?: true
   lecture_duration?: true
+  passing_grade?: true
   lectures_start_time?: true
   aided_pass_courses_number?: true
   aided_marks_number?: true
@@ -224,6 +234,7 @@ export type SystemSettingsGroupByArgs<ExtArgs extends runtime.Types.Extensions.I
 export type SystemSettingsGroupByOutputType = {
   id: number
   lecture_duration: number | null
+  passing_grade: number
   lectures_start_time: string | null
   aided_pass_courses_number: number | null
   aided_marks_number: number | null
@@ -260,6 +271,7 @@ export type SystemSettingsWhereInput = {
   NOT?: Prisma.SystemSettingsWhereInput | Prisma.SystemSettingsWhereInput[]
   id?: Prisma.IntFilter<"SystemSettings"> | number
   lecture_duration?: Prisma.IntNullableFilter<"SystemSettings"> | number | null
+  passing_grade?: Prisma.IntFilter<"SystemSettings"> | number
   lectures_start_time?: Prisma.StringNullableFilter<"SystemSettings"> | string | null
   aided_pass_courses_number?: Prisma.IntNullableFilter<"SystemSettings"> | number | null
   aided_marks_number?: Prisma.IntNullableFilter<"SystemSettings"> | number | null
@@ -273,6 +285,7 @@ export type SystemSettingsWhereInput = {
 export type SystemSettingsOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   lecture_duration?: Prisma.SortOrderInput | Prisma.SortOrder
+  passing_grade?: Prisma.SortOrder
   lectures_start_time?: Prisma.SortOrderInput | Prisma.SortOrder
   aided_pass_courses_number?: Prisma.SortOrderInput | Prisma.SortOrder
   aided_marks_number?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -289,6 +302,7 @@ export type SystemSettingsWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.SystemSettingsWhereInput[]
   NOT?: Prisma.SystemSettingsWhereInput | Prisma.SystemSettingsWhereInput[]
   lecture_duration?: Prisma.IntNullableFilter<"SystemSettings"> | number | null
+  passing_grade?: Prisma.IntFilter<"SystemSettings"> | number
   lectures_start_time?: Prisma.StringNullableFilter<"SystemSettings"> | string | null
   aided_pass_courses_number?: Prisma.IntNullableFilter<"SystemSettings"> | number | null
   aided_marks_number?: Prisma.IntNullableFilter<"SystemSettings"> | number | null
@@ -302,6 +316,7 @@ export type SystemSettingsWhereUniqueInput = Prisma.AtLeast<{
 export type SystemSettingsOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   lecture_duration?: Prisma.SortOrderInput | Prisma.SortOrder
+  passing_grade?: Prisma.SortOrder
   lectures_start_time?: Prisma.SortOrderInput | Prisma.SortOrder
   aided_pass_courses_number?: Prisma.SortOrderInput | Prisma.SortOrder
   aided_marks_number?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -323,6 +338,7 @@ export type SystemSettingsScalarWhereWithAggregatesInput = {
   NOT?: Prisma.SystemSettingsScalarWhereWithAggregatesInput | Prisma.SystemSettingsScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"SystemSettings"> | number
   lecture_duration?: Prisma.IntNullableWithAggregatesFilter<"SystemSettings"> | number | null
+  passing_grade?: Prisma.IntWithAggregatesFilter<"SystemSettings"> | number
   lectures_start_time?: Prisma.StringNullableWithAggregatesFilter<"SystemSettings"> | string | null
   aided_pass_courses_number?: Prisma.IntNullableWithAggregatesFilter<"SystemSettings"> | number | null
   aided_marks_number?: Prisma.IntNullableWithAggregatesFilter<"SystemSettings"> | number | null
@@ -335,6 +351,7 @@ export type SystemSettingsScalarWhereWithAggregatesInput = {
 
 export type SystemSettingsCreateInput = {
   lecture_duration?: number | null
+  passing_grade?: number
   lectures_start_time?: string | null
   aided_pass_courses_number?: number | null
   aided_marks_number?: number | null
@@ -348,6 +365,7 @@ export type SystemSettingsCreateInput = {
 export type SystemSettingsUncheckedCreateInput = {
   id?: number
   lecture_duration?: number | null
+  passing_grade?: number
   lectures_start_time?: string | null
   aided_pass_courses_number?: number | null
   aided_marks_number?: number | null
@@ -360,6 +378,7 @@ export type SystemSettingsUncheckedCreateInput = {
 
 export type SystemSettingsUpdateInput = {
   lecture_duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  passing_grade?: Prisma.IntFieldUpdateOperationsInput | number
   lectures_start_time?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aided_pass_courses_number?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   aided_marks_number?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -373,6 +392,7 @@ export type SystemSettingsUpdateInput = {
 export type SystemSettingsUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   lecture_duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  passing_grade?: Prisma.IntFieldUpdateOperationsInput | number
   lectures_start_time?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aided_pass_courses_number?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   aided_marks_number?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -386,6 +406,7 @@ export type SystemSettingsUncheckedUpdateInput = {
 export type SystemSettingsCreateManyInput = {
   id?: number
   lecture_duration?: number | null
+  passing_grade?: number
   lectures_start_time?: string | null
   aided_pass_courses_number?: number | null
   aided_marks_number?: number | null
@@ -398,6 +419,7 @@ export type SystemSettingsCreateManyInput = {
 
 export type SystemSettingsUpdateManyMutationInput = {
   lecture_duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  passing_grade?: Prisma.IntFieldUpdateOperationsInput | number
   lectures_start_time?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aided_pass_courses_number?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   aided_marks_number?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -411,6 +433,7 @@ export type SystemSettingsUpdateManyMutationInput = {
 export type SystemSettingsUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   lecture_duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  passing_grade?: Prisma.IntFieldUpdateOperationsInput | number
   lectures_start_time?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aided_pass_courses_number?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   aided_marks_number?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -424,6 +447,7 @@ export type SystemSettingsUncheckedUpdateManyInput = {
 export type SystemSettingsCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   lecture_duration?: Prisma.SortOrder
+  passing_grade?: Prisma.SortOrder
   lectures_start_time?: Prisma.SortOrder
   aided_pass_courses_number?: Prisma.SortOrder
   aided_marks_number?: Prisma.SortOrder
@@ -437,6 +461,7 @@ export type SystemSettingsCountOrderByAggregateInput = {
 export type SystemSettingsAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   lecture_duration?: Prisma.SortOrder
+  passing_grade?: Prisma.SortOrder
   aided_pass_courses_number?: Prisma.SortOrder
   aided_marks_number?: Prisma.SortOrder
 }
@@ -444,6 +469,7 @@ export type SystemSettingsAvgOrderByAggregateInput = {
 export type SystemSettingsMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   lecture_duration?: Prisma.SortOrder
+  passing_grade?: Prisma.SortOrder
   lectures_start_time?: Prisma.SortOrder
   aided_pass_courses_number?: Prisma.SortOrder
   aided_marks_number?: Prisma.SortOrder
@@ -457,6 +483,7 @@ export type SystemSettingsMaxOrderByAggregateInput = {
 export type SystemSettingsMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   lecture_duration?: Prisma.SortOrder
+  passing_grade?: Prisma.SortOrder
   lectures_start_time?: Prisma.SortOrder
   aided_pass_courses_number?: Prisma.SortOrder
   aided_marks_number?: Prisma.SortOrder
@@ -470,12 +497,21 @@ export type SystemSettingsMinOrderByAggregateInput = {
 export type SystemSettingsSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   lecture_duration?: Prisma.SortOrder
+  passing_grade?: Prisma.SortOrder
   aided_pass_courses_number?: Prisma.SortOrder
   aided_marks_number?: Prisma.SortOrder
 }
 
 export type NullableIntFieldUpdateOperationsInput = {
   set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
+export type IntFieldUpdateOperationsInput = {
+  set?: number
   increment?: number
   decrement?: number
   multiply?: number
@@ -494,19 +530,12 @@ export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
-export type IntFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 
 
 export type SystemSettingsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   lecture_duration?: boolean
+  passing_grade?: boolean
   lectures_start_time?: boolean
   aided_pass_courses_number?: boolean
   aided_marks_number?: boolean
@@ -520,6 +549,7 @@ export type SystemSettingsSelect<ExtArgs extends runtime.Types.Extensions.Intern
 export type SystemSettingsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   lecture_duration?: boolean
+  passing_grade?: boolean
   lectures_start_time?: boolean
   aided_pass_courses_number?: boolean
   aided_marks_number?: boolean
@@ -533,6 +563,7 @@ export type SystemSettingsSelectCreateManyAndReturn<ExtArgs extends runtime.Type
 export type SystemSettingsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   lecture_duration?: boolean
+  passing_grade?: boolean
   lectures_start_time?: boolean
   aided_pass_courses_number?: boolean
   aided_marks_number?: boolean
@@ -546,6 +577,7 @@ export type SystemSettingsSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
 export type SystemSettingsSelectScalar = {
   id?: boolean
   lecture_duration?: boolean
+  passing_grade?: boolean
   lectures_start_time?: boolean
   aided_pass_courses_number?: boolean
   aided_marks_number?: boolean
@@ -556,7 +588,7 @@ export type SystemSettingsSelectScalar = {
   updated_at?: boolean
 }
 
-export type SystemSettingsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "lecture_duration" | "lectures_start_time" | "aided_pass_courses_number" | "aided_marks_number" | "theoretical_exam_date" | "practical_exam_date" | "current_academic_key" | "created_at" | "updated_at", ExtArgs["result"]["systemSettings"]>
+export type SystemSettingsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "lecture_duration" | "passing_grade" | "lectures_start_time" | "aided_pass_courses_number" | "aided_marks_number" | "theoretical_exam_date" | "practical_exam_date" | "current_academic_key" | "created_at" | "updated_at", ExtArgs["result"]["systemSettings"]>
 
 export type $SystemSettingsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "SystemSettings"
@@ -564,6 +596,7 @@ export type $SystemSettingsPayload<ExtArgs extends runtime.Types.Extensions.Inte
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     lecture_duration: number | null
+    passing_grade: number
     lectures_start_time: string | null
     aided_pass_courses_number: number | null
     aided_marks_number: number | null
@@ -997,6 +1030,7 @@ export interface Prisma__SystemSettingsClient<T, Null = never, ExtArgs extends r
 export interface SystemSettingsFieldRefs {
   readonly id: Prisma.FieldRef<"SystemSettings", 'Int'>
   readonly lecture_duration: Prisma.FieldRef<"SystemSettings", 'Int'>
+  readonly passing_grade: Prisma.FieldRef<"SystemSettings", 'Int'>
   readonly lectures_start_time: Prisma.FieldRef<"SystemSettings", 'String'>
   readonly aided_pass_courses_number: Prisma.FieldRef<"SystemSettings", 'Int'>
   readonly aided_marks_number: Prisma.FieldRef<"SystemSettings", 'Int'>

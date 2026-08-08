@@ -80,6 +80,7 @@ export const permissions: Record<string, string[]> = {
     "time-conditioned-items:read",
     "admin-dashboard:read",
     "audit-logs:read",
+    "actions:end-year-action",
   ],
   DOCTOR: [
     "course-files:read",

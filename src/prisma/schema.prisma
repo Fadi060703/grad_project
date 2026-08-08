@@ -16,6 +16,7 @@ datasource db {
 model SystemSettings {
   id                        Int       @id @default(autoincrement())
   lecture_duration          Int?
+  passing_grade             Int       @default(60)
   lectures_start_time       String?
   aided_pass_courses_number Int?
   aided_marks_number        Int?

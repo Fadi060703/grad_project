@@ -1,6 +1,6 @@
 import { prisma } from "../lib/prisma";
 import {
-  PromotionPreviewResult,
+  EndYearActionResult,
   StudentPromotionResult,
   CourseResult,
   PromotionState,
@@ -8,9 +8,18 @@ import {
 
 // ─── Main entry point ─────────────────────────────────────────────────────────
 
-export async function generatePromotionPreview(): Promise<PromotionPreviewResult> {
-  // 1. Load system settings
-  const settings = await prisma.systemSettings.findFirst({
+export async function executeEndYearAction(): Promise<EndYearActionResult> {
+  return prisma.$transaction(async (tx) => {
+    const result = await buildEndYearActionResult(tx);
+    await applyEndYearAction(tx, result.students);
+    return result;
+  });
+}
+
+// ─── Build action plan ────────────────────────────────────────────────────────
+
+async function buildEndYearActionResult(db: any): Promise<EndYearActionResult> {
+  const settings = await db.systemSettings.findFirst({
     orderBy: { id: "desc" },
   });
 
@@ -21,25 +30,25 @@ export async function generatePromotionPreview(): Promise<PromotionPreviewResult
   const passingGrade = settings.passing_grade ?? 60;
   const aidedMarksNumber = settings.aided_marks_number ?? 0;
   const aidedPassCoursesNumber = settings.aided_pass_courses_number ?? 0;
+  const academicKey = settings.current_academic_key ?? "";
 
-  // 2. Load all years ordered by `order` field (to find next year)
-  const allYears = await prisma.year.findMany({
+  const allYears: Array<{ id: number; name: string; order: number }> = await db.year.findMany({
     orderBy: { order: "asc" },
     select: { id: true, name: true, order: true },
   });
 
-  const yearOrderMap = new Map(allYears.map((y) => [y.id, y]));
-
-  // Build next-year lookup: yearId → nextYear
+  const yearOrderMap = new Map<number, { id: number; name: string; order: number }>(
+    allYears.map((year) => [year.id, year]),
+  );
   const nextYearMap = new Map<number, { id: number; name: string } | null>();
+
   for (let i = 0; i < allYears.length; i++) {
     const current = allYears[i];
     const next = allYears[i + 1] ?? null;
     nextYearMap.set(current.id, next ? { id: next.id, name: next.name } : null);
   }
 
-  // 3. Load all students with their courses and marks
-  const students = await prisma.student.findMany({
+  const students = await db.student.findMany({
     select: {
       student_id: true,
       year_id: true,
@@ -53,36 +62,28 @@ export async function generatePromotionPreview(): Promise<PromotionPreviewResult
       courses: {
         select: {
           course_id: true,
-          status: true,
           course: {
             select: {
               id: true,
               name: true,
-              course_type: true,
-              marks_course_id: true,
             },
           },
         },
       },
       marks: {
+        where: {
+          academic_key: academicKey,
+        },
         select: {
-          marks_course_id: true,
+          course_id: true,
           practical_grade: true,
           theoretical_grade: true,
-          marks_course: {
-            select: {
-              courses: {
-                select: { id: true },
-              },
-            },
-          },
         },
       },
     },
   });
 
-  // 4. Process each student
-  const results: StudentPromotionResult[] = students.map((student) => {
+  const results: StudentPromotionResult[] = students.map((student: any) => {
     return evaluateStudent({
       student,
       passingGrade,
@@ -93,17 +94,17 @@ export async function generatePromotionPreview(): Promise<PromotionPreviewResult
     });
   });
 
-  // 5. Build summary
   const summary = {
     total_students: results.length,
-    fully_passed: results.filter((r) => r.state === "FULLY_PASSED").length,
-    graduated: results.filter((r) => r.state === "GRADUATED").length,
-    moved: results.filter((r) => r.state === "MOVED").length,
-    failed: results.filter((r) => r.state === "FAILED").length,
+    fully_passed: results.filter((result) => result.state === "FULLY_PASSED").length,
+    graduated: results.filter((result) => result.state === "GRADUATED").length,
+    moved: results.filter((result) => result.state === "MOVED").length,
+    failed: results.filter((result) => result.state === "FAILED").length,
   };
 
   return {
-    generated_at: new Date().toISOString(),
+    executed_at: new Date().toISOString(),
+    academic_key: academicKey,
     settings: {
       passing_grade: passingGrade,
       aided_marks_number: aidedMarksNumber,
@@ -131,29 +132,24 @@ function evaluateStudent({
   nextYearMap: Map<number, { id: number; name: string } | null>;
   yearOrderMap: Map<number, { id: number; name: string; order: number }>;
 }): StudentPromotionResult {
-  const currentYear = yearOrderMap.get(student.year_id)!;
+  const currentYear = yearOrderMap.get(student.year_id);
+
+  if (!currentYear) {
+    throw new Error(`Year not found for student ${student.student_id}`);
+  }
+
   const nextYear = nextYearMap.get(student.year_id) ?? null;
   const isLastYear = nextYear === null;
 
-  // ── Build course results ──────────────────────────────────────────────────
-
-  // Build a marks lookup: marks_course_id → total grade
   const marksLookup = new Map<number, number>();
   for (const mark of student.marks) {
     const total = mark.practical_grade + mark.theoretical_grade;
-    // A marks_course may map to multiple courses; store by marks_course_id
-    marksLookup.set(mark.marks_course_id, total);
+    marksLookup.set(mark.course_id, total);
   }
 
-  const courseResults: CourseResult[] = student.courses.map((sc: any) => {
-    const course = sc.course;
-
-    // Find total grade via marks_course_id link
-    let totalGrade = 0;
-    if (course.marks_course_id !== null) {
-      totalGrade = marksLookup.get(course.marks_course_id) ?? 0;
-    }
-
+  const courseResults: CourseResult[] = student.courses.map((studentCourse: any) => {
+    const course = studentCourse.course;
+    const totalGrade = marksLookup.get(studentCourse.course_id) ?? 0;
     const deficit = Math.max(0, passingGrade - totalGrade);
     const passed = deficit === 0;
 
@@ -164,71 +160,50 @@ function evaluateStudent({
       passing_grade: passingGrade,
       deficit,
       passed,
-      aided: false, // will be updated below if aided
+      aided: false,
     };
   });
 
-  // ── Separate passed / failed ──────────────────────────────────────────────
-
-  const failedCourses = courseResults.filter((c) => !c.passed);
-  const passedCourses = courseResults.filter((c) => c.passed);
-
-  const totalDeficit = failedCourses.reduce((sum, c) => sum + c.deficit, 0);
-
-  // ── Apply aided marks logic ───────────────────────────────────────────────
-  // Aid is only applied if ALL failed courses can be rescued within the pool.
-  // Rule: total deficit across ALL failed courses <= aided_marks_number
+  const failedCourses = courseResults.filter((course) => !course.passed);
+  const totalDeficit = failedCourses.reduce((sum, course) => sum + course.deficit, 0);
 
   let aidedMarksUsed = 0;
   let effectivelyFailedCount = failedCourses.length;
 
   if (failedCourses.length > 0 && totalDeficit <= aidedMarksNumber) {
-    // All failed courses can be rescued — mark them as aided
     for (const course of failedCourses) {
       course.aided = true;
-      course.passed = true; // aided = effectively passed
+      course.passed = true;
     }
+
     aidedMarksUsed = totalDeficit;
     effectivelyFailedCount = 0;
   }
 
-  // ── Determine promotion state ─────────────────────────────────────────────
-
   let state: PromotionState;
 
   if (effectivelyFailedCount === 0) {
-    // Passed all (either genuinely or with aid)
     state = isLastYear ? "GRADUATED" : "FULLY_PASSED";
   } else if (effectivelyFailedCount <= aidedPassCoursesNumber) {
-    // Failed some but within the allowable moved threshold
     state = "MOVED";
   } else {
     state = "FAILED";
   }
 
-  // ── Determine course attachment changes ──────────────────────────────────
-  // FULLY_PASSED / GRADUATED → detach all courses (clean slate / graduated)
-  // MOVED → keep failed courses, detach passed courses
-  // FAILED → no changes (stays in same year with all courses)
-
   const coursesToKeep: number[] = [];
   const coursesToDetach: number[] = [];
 
   if (state === "FULLY_PASSED" || state === "GRADUATED") {
-    courseResults.forEach((c) => coursesToDetach.push(c.course_id));
-  } else if (state === "MOVED") {
-    courseResults.forEach((c) => {
-      if (!c.passed || c.aided) {
-        // Keep actually failed courses (aided ones are effectively passed, detach them)
-        coursesToKeep.push(c.course_id);
+    courseResults.forEach((course) => coursesToDetach.push(course.course_id));
+  } else {
+    courseResults.forEach((course) => {
+      if (course.passed) {
+        coursesToDetach.push(course.course_id);
       } else {
-        coursesToDetach.push(c.course_id);
+        coursesToKeep.push(course.course_id);
       }
     });
   }
-  // FAILED: both arrays stay empty — no changes
-
-  // ── Next year assignment ──────────────────────────────────────────────────
 
   const movesToNextYear = state === "FULLY_PASSED" || state === "MOVED";
 
@@ -243,11 +218,69 @@ function evaluateStudent({
     next_year_name: movesToNextYear ? (nextYear?.name ?? null) : null,
     state,
     total_courses: courseResults.length,
-    passed_courses: courseResults.filter((c) => c.passed).length,
+    passed_courses: courseResults.filter((course) => course.passed).length,
     failed_courses: effectivelyFailedCount,
     aided_marks_used: aidedMarksUsed,
     courses: courseResults,
     courses_to_keep: coursesToKeep,
     courses_to_detach: coursesToDetach,
   };
+}
+
+// ─── Apply DB mutations ───────────────────────────────────────────────────────
+
+async function applyEndYearAction(
+  db: any,
+  students: StudentPromotionResult[],
+): Promise<void> {
+  for (const result of students) {
+    if (result.state === "GRADUATED") {
+      await deleteGraduatedStudent(db, result);
+      continue;
+    }
+
+    if (result.courses_to_detach.length > 0) {
+      await db.studentCourse.deleteMany({
+        where: {
+          student_id: result.student_id,
+          course_id: { in: result.courses_to_detach },
+        },
+      });
+    }
+
+    if (
+      (result.state === "FULLY_PASSED" || result.state === "MOVED") &&
+      result.next_year_id !== null
+    ) {
+      await db.student.update({
+        where: { student_id: result.student_id },
+        data: {
+          year_id: result.next_year_id,
+          section_id: null,
+          major_id: null,
+        },
+      });
+    }
+  }
+}
+
+async function deleteGraduatedStudent(
+  db: any,
+  result: StudentPromotionResult,
+): Promise<void> {
+  await db.mark.deleteMany({
+    where: { student_id: result.student_id },
+  });
+
+  await db.studentCourse.deleteMany({
+    where: { student_id: result.student_id },
+  });
+
+  await db.student.delete({
+    where: { student_id: result.student_id },
+  });
+
+  await db.user.delete({
+    where: { id: result.user_id },
+  });
 }
