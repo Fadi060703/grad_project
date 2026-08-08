@@ -61,21 +61,21 @@ enum Role {
 }
 
 model User {
-  id                   Int            @id @default(autoincrement())
-  email                String?        @unique
-  username             String         @unique
+  id                   Int                   @id @default(autoincrement())
+  email                String?               @unique
+  username             String                @unique
   full_name            String
   phone_number         String?
   role                 Role
-  is_active            Boolean        @default(true)
+  is_active            Boolean               @default(true)
   password             String
-  created_at           DateTime       @default(now())
-  updated_at           DateTime?      @updatedAt
+  created_at           DateTime              @default(now())
+  updated_at           DateTime?             @updatedAt
   student              Student?
-  permissions          String[]       @default([])
-  teachingLectures     Lecture[]      @relation("LectureInstructor")
-  createdAnnouncements Announcement[] @relation("AnnouncementCreator")
-  aiChatSessions      CourseAiChatSession[]
+  permissions          String[]              @default([])
+  teachingLectures     Lecture[]             @relation("LectureInstructor")
+  createdAnnouncements Announcement[]        @relation("AnnouncementCreator")
+  aiChatSessions       CourseAiChatSession[]
 
   // Course relations
   teachingCourses Course[]       @relation("CourseTeachers")
@@ -96,27 +96,27 @@ model User {
 // - These rules are enforced in app logic .
 
 model Student {
-  student_id       Int                 @id @default(autoincrement())
-  userId           Int                 @unique
-  user             User                @relation(fields: [userId], references: [id], onDelete: Cascade)
-  mother_name      String
-  exam_seat_number Int                 @default(0)
-  profile_picture  String?
-  birthdate        DateTime?
-  year_id          Int
-  year             Year                @relation(fields: [year_id], references: [id], onDelete: Cascade)
-  section_id       Int?
-  section          Section?            @relation(fields: [section_id], references: [id], onDelete: SetNull)
-  major_id         Int?
-  major            Major?              @relation(fields: [major_id], references: [id], onDelete: SetNull)
-  group_id         Int
-  group            Group               @relation(fields: [group_id], references: [id], onDelete: Cascade)
+  student_id         Int                   @id @default(autoincrement())
+  userId             Int                   @unique
+  user               User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  mother_name        String
+  exam_seat_number   Int                   @default(0)
+  profile_picture    String?
+  birthdate          DateTime?
+  year_id            Int
+  year               Year                  @relation(fields: [year_id], references: [id], onDelete: Cascade)
+  section_id         Int?
+  section            Section?              @relation(fields: [section_id], references: [id], onDelete: SetNull)
+  major_id           Int?
+  major              Major?                @relation(fields: [major_id], references: [id], onDelete: SetNull)
+  group_id           Int
+  group              Group                 @relation(fields: [group_id], references: [id], onDelete: Cascade)
   courses            StudentCourse[]
   aiChatSessions     CourseAiChatSession[]
   chatbotSession     ChatbotSession?
   marks              Mark[]
   attendances        LectureAttendance[]
-  exam_settings      ExamSettings[]      @relation("ExamSettingsStudents")
+  exam_settings      ExamSettings[]        @relation("ExamSettingsStudents")
   push_subscriptions PushSubscription[]
   notifications      Notification[]
   survey_answers     SurveyAnswer[]
@@ -245,6 +245,14 @@ enum Semester {
 enum CourseMarksPublishType {
   PRACTICAL
   FULL
+}
+
+enum AuditLogAction {
+  MARK_CREATED
+  MARK_UPDATED
+  MARK_DELETED
+  MARK_PRACTICAL_PUBLISHED
+  MARK_FULL_PUBLISHED
 }
 
 model Course {
@@ -452,6 +460,37 @@ model CourseMarksPublication {
   @@map("course_marks_publications")
 }
 
+model AuditLog {
+  id                Int            @id @default(autoincrement())
+  action            AuditLogAction
+  actor_id          Int?
+  actor_role        Role?
+  actor_name        String?
+  mark_id           Int?
+  course_id         Int?
+  course_name       String?
+  student_id        Int?
+  student_full_name String?
+  academic_key      String?
+  before_data       Json?
+  after_data        Json?
+  metadata          Json?
+  created_at        DateTime       @default(now())
+
+  @@index([action])
+  @@index([actor_id])
+  @@index([actor_role])
+  @@index([actor_name])
+  @@index([mark_id])
+  @@index([course_id])
+  @@index([course_name])
+  @@index([student_id])
+  @@index([student_full_name])
+  @@index([academic_key])
+  @@index([created_at])
+  @@map("audit_logs")
+}
+
 enum StudentCourseStatus {
   ENROLLED
   PASSED
@@ -590,18 +629,18 @@ enum SurveyStatus {
 }
 
 model Survey {
-  id          Int          @id @default(autoincrement())
+  id          Int            @id @default(autoincrement())
   year_id     Int?
-  year        Year?        @relation(fields: [year_id], references: [id], onDelete: SetNull)
+  year        Year?          @relation(fields: [year_id], references: [id], onDelete: SetNull)
   title       String
   description String?
   questions   Json
-  status      SurveyStatus @default(DRAFT)
+  status      SurveyStatus   @default(DRAFT)
   summary     Json?
   ai_insights String?
   answers     SurveyAnswer[]
-  created_at  DateTime     @default(now())
-  updated_at  DateTime     @updatedAt
+  created_at  DateTime       @default(now())
+  updated_at  DateTime       @updatedAt
 
   @@index([year_id])
   @@index([status])

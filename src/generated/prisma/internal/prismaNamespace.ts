@@ -407,6 +407,7 @@ export const ModelName = {
   CourseFileSummary: 'CourseFileSummary',
   Mark: 'Mark',
   CourseMarksPublication: 'CourseMarksPublication',
+  AuditLog: 'AuditLog',
   StudentCourse: 'StudentCourse',
   FAQ: 'FAQ',
   Blog: 'Blog',
@@ -434,7 +435,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "systemSettings" | "faculityInfo" | "user" | "student" | "pushSubscription" | "notification" | "year" | "section" | "major" | "group" | "universityLocation" | "course" | "sectionCourse" | "majorCourse" | "courseFile" | "courseAiChatSession" | "courseAiChatMessage" | "chatbotSession" | "chatbotMessage" | "courseFileFlashcards" | "courseFileSummary" | "mark" | "courseMarksPublication" | "studentCourse" | "fAQ" | "blog" | "examGuideline" | "lecture" | "weeklyLecture" | "lectureAttendance" | "survey" | "surveyAnswer" | "announcement" | "exam" | "examSettings"
+    modelProps: "systemSettings" | "faculityInfo" | "user" | "student" | "pushSubscription" | "notification" | "year" | "section" | "major" | "group" | "universityLocation" | "course" | "sectionCourse" | "majorCourse" | "courseFile" | "courseAiChatSession" | "courseAiChatMessage" | "chatbotSession" | "chatbotMessage" | "courseFileFlashcards" | "courseFileSummary" | "mark" | "courseMarksPublication" | "auditLog" | "studentCourse" | "fAQ" | "blog" | "examGuideline" | "lecture" | "weeklyLecture" | "lectureAttendance" | "survey" | "surveyAnswer" | "announcement" | "exam" | "examSettings"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2140,6 +2141,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    AuditLog: {
+      payload: Prisma.$AuditLogPayload<ExtArgs>
+      fields: Prisma.AuditLogFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AuditLogFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AuditLogFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogPayload>
+        }
+        findFirst: {
+          args: Prisma.AuditLogFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AuditLogFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogPayload>
+        }
+        findMany: {
+          args: Prisma.AuditLogFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogPayload>[]
+        }
+        create: {
+          args: Prisma.AuditLogCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogPayload>
+        }
+        createMany: {
+          args: Prisma.AuditLogCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AuditLogCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogPayload>[]
+        }
+        delete: {
+          args: Prisma.AuditLogDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogPayload>
+        }
+        update: {
+          args: Prisma.AuditLogUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogPayload>
+        }
+        deleteMany: {
+          args: Prisma.AuditLogDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AuditLogUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AuditLogUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogPayload>[]
+        }
+        upsert: {
+          args: Prisma.AuditLogUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditLogPayload>
+        }
+        aggregate: {
+          args: Prisma.AuditLogAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAuditLog>
+        }
+        groupBy: {
+          args: Prisma.AuditLogGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AuditLogGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AuditLogCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AuditLogCountAggregateOutputType> | number
+        }
+      }
+    }
     StudentCourse: {
       payload: Prisma.$StudentCoursePayload<ExtArgs>
       fields: Prisma.StudentCourseFieldRefs
@@ -3378,6 +3453,27 @@ export const CourseMarksPublicationScalarFieldEnum = {
 export type CourseMarksPublicationScalarFieldEnum = (typeof CourseMarksPublicationScalarFieldEnum)[keyof typeof CourseMarksPublicationScalarFieldEnum]
 
 
+export const AuditLogScalarFieldEnum = {
+  id: 'id',
+  action: 'action',
+  actor_id: 'actor_id',
+  actor_role: 'actor_role',
+  actor_name: 'actor_name',
+  mark_id: 'mark_id',
+  course_id: 'course_id',
+  course_name: 'course_name',
+  student_id: 'student_id',
+  student_full_name: 'student_full_name',
+  academic_key: 'academic_key',
+  before_data: 'before_data',
+  after_data: 'after_data',
+  metadata: 'metadata',
+  created_at: 'created_at'
+} as const
+
+export type AuditLogScalarFieldEnum = (typeof AuditLogScalarFieldEnum)[keyof typeof AuditLogScalarFieldEnum]
+
+
 export const StudentCourseScalarFieldEnum = {
   id: 'id',
   student_id: 'student_id',
@@ -3756,6 +3852,20 @@ export type ListEnumCourseMarksPublishTypeFieldRefInput<$PrismaModel> = FieldRef
 
 
 /**
+ * Reference to a field of type 'AuditLogAction'
+ */
+export type EnumAuditLogActionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AuditLogAction'>
+    
+
+
+/**
+ * Reference to a field of type 'AuditLogAction[]'
+ */
+export type ListEnumAuditLogActionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AuditLogAction[]'>
+    
+
+
+/**
  * Reference to a field of type 'StudentCourseStatus'
  */
 export type EnumStudentCourseStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StudentCourseStatus'>
@@ -3999,6 +4109,7 @@ export type GlobalOmitConfig = {
   courseFileSummary?: Prisma.CourseFileSummaryOmit
   mark?: Prisma.MarkOmit
   courseMarksPublication?: Prisma.CourseMarksPublicationOmit
+  auditLog?: Prisma.AuditLogOmit
   studentCourse?: Prisma.StudentCourseOmit
   fAQ?: Prisma.FAQOmit
   blog?: Prisma.BlogOmit

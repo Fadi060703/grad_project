@@ -13,6 +13,7 @@ import notificationRoutes from "./notifications.routes";
 import dashboardRoutes from "./dashboard.routes";
 import aiRoutes from "./ai.routes";
 import surveyRoutes from "./survey.routes";
+import auditRoutes from "./audit.routes";
 
 const router = Router();
 
@@ -30,5 +31,6 @@ router.use("/", notificationRoutes);
 router.use("/", dashboardRoutes);
 router.use("/", aiRoutes);
 router.use("/", surveyRoutes);
+router.use("/", auditRoutes);
 
 export default router;

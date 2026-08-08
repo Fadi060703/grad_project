@@ -74,6 +74,7 @@ export const ModelName = {
   CourseFileSummary: 'CourseFileSummary',
   Mark: 'Mark',
   CourseMarksPublication: 'CourseMarksPublication',
+  AuditLog: 'AuditLog',
   StudentCourse: 'StudentCourse',
   FAQ: 'FAQ',
   Blog: 'Blog',
@@ -413,6 +414,27 @@ export const CourseMarksPublicationScalarFieldEnum = {
 } as const
 
 export type CourseMarksPublicationScalarFieldEnum = (typeof CourseMarksPublicationScalarFieldEnum)[keyof typeof CourseMarksPublicationScalarFieldEnum]
+
+
+export const AuditLogScalarFieldEnum = {
+  id: 'id',
+  action: 'action',
+  actor_id: 'actor_id',
+  actor_role: 'actor_role',
+  actor_name: 'actor_name',
+  mark_id: 'mark_id',
+  course_id: 'course_id',
+  course_name: 'course_name',
+  student_id: 'student_id',
+  student_full_name: 'student_full_name',
+  academic_key: 'academic_key',
+  before_data: 'before_data',
+  after_data: 'after_data',
+  metadata: 'metadata',
+  created_at: 'created_at'
+} as const
+
+export type AuditLogScalarFieldEnum = (typeof AuditLogScalarFieldEnum)[keyof typeof AuditLogScalarFieldEnum]
 
 
 export const StudentCourseScalarFieldEnum = {

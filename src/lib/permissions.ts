@@ -79,6 +79,7 @@ export const permissions: Record<string, string[]> = {
     "surveys:delete",
     "time-conditioned-items:read",
     "admin-dashboard:read",
+    "audit-logs:read",
   ],
   DOCTOR: [
     "course-files:read",

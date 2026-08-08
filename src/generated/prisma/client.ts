@@ -157,6 +157,11 @@ export type Mark = Prisma.MarkModel
  */
 export type CourseMarksPublication = Prisma.CourseMarksPublicationModel
 /**
+ * Model AuditLog
+ * 
+ */
+export type AuditLog = Prisma.AuditLogModel
+/**
  * Model StudentCourse
  * 
  */

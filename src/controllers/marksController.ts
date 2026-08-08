@@ -57,6 +57,122 @@ const mapMark = (mark: any) => ({
   total_grade: mark.practical_grade + mark.theoretical_grade,
 });
 
+const auditMarkSelect = {
+  id: true,
+  course_id: true,
+  student_id: true,
+  academic_key: true,
+  practical_grade: true,
+  theoretical_grade: true,
+  created_at: true,
+  updated_at: true,
+} as const;
+
+const AUDIT_ROLE_VALUES = new Set([
+  "ADMIN",
+  "DOCTOR",
+  "TEACHER",
+  "STUDENT",
+  "CONTENT_DE",
+  "EXAMS_DE",
+  "LECTURES_SCHEDULE_DE",
+  "MARKS_DE",
+]);
+
+const getMarkAuditKey = (mark: {
+  course_id: number;
+  student_id: number;
+  academic_key: string;
+}) => `${mark.course_id}:${mark.student_id}:${mark.academic_key}`;
+
+const serializeDate = (value: Date | null | undefined) =>
+  value ? value.toISOString() : null;
+
+const markToAuditSnapshot = (mark: any) => ({
+  id: mark.id,
+  course_id: mark.course_id,
+  student_id: mark.student_id,
+  academic_key: mark.academic_key,
+  practical_grade: mark.practical_grade,
+  theoretical_grade: mark.theoretical_grade,
+  created_at: serializeDate(mark.created_at),
+  updated_at: serializeDate(mark.updated_at),
+});
+
+const publicationToAuditSnapshot = (publication: any): any => publication ? ({
+  id: publication.id,
+  course_id: publication.course_id,
+  academic_key: publication.academic_key,
+  publish_type: publication.publish_type,
+  published_by: publication.published_by,
+  published_at: serializeDate(publication.published_at),
+  created_at: serializeDate(publication.created_at),
+  updated_at: serializeDate(publication.updated_at),
+}) : undefined;
+
+const getStudentFullName = (student: any) => student?.user?.full_name ?? null;
+
+const getAuditActor = async (req: Request) => {
+  const user = req.user as { id?: number | string; role?: string } | undefined;
+  const actorId = Number(user?.id);
+  const normalizedActorId = Number.isInteger(actorId) ? actorId : null;
+  const actorRole = user?.role && AUDIT_ROLE_VALUES.has(user.role) ? user.role : null;
+
+  const actor = normalizedActorId
+    ? await prisma.user.findUnique({
+        where: { id: normalizedActorId },
+        select: { full_name: true },
+      })
+    : null;
+
+  return {
+    id: normalizedActorId,
+    role: actorRole,
+    name: actor?.full_name ?? null,
+  };
+};
+
+const buildMarkAuditLogData = ({
+  action,
+  actor,
+  mark,
+  courseName,
+  studentFullName,
+  beforeData,
+  afterData,
+}: {
+  action: string;
+  actor: { id: number | null; role: string | null; name: string | null };
+  mark: any;
+  courseName?: string | null;
+  studentFullName?: string | null;
+  beforeData?: any;
+  afterData?: any;
+}) => {
+  const data: any = {
+    action,
+    actor_id: actor.id,
+    actor_role: actor.role,
+    actor_name: actor.name,
+    mark_id: mark.id,
+    course_id: mark.course_id,
+    course_name: courseName ?? null,
+    student_id: mark.student_id,
+    student_full_name: studentFullName ?? null,
+    academic_key: mark.academic_key,
+  };
+
+  if (beforeData) {
+    data.before_data = markToAuditSnapshot(beforeData);
+  }
+
+  if (afterData) {
+    data.after_data = markToAuditSnapshot(afterData);
+  }
+
+  return data;
+};
+
 const buildCourseSearchWhere = (search: unknown) => {
   if (typeof search !== "string" || !search.trim()) {
     return null;
@@ -459,11 +575,14 @@ export const bulkCreateMarks = asyncHandler(
     const [courses, students] = await Promise.all([
       prisma.course.findMany({
         where: { id: { in: courseIds } },
-        select: { id: true },
+        select: { id: true, name: true },
       }),
       prisma.student.findMany({
         where: { student_id: { in: studentIds } },
-        select: { student_id: true },
+        select: {
+          student_id: true,
+          user: { select: { full_name: true } },
+        },
       }),
     ]);
 
@@ -475,9 +594,28 @@ export const bulkCreateMarks = asyncHandler(
       throw new NotFoundError("Student");
     }
 
-    await prisma.$transaction(
-      marks.map((mark) =>
-        prisma.mark.upsert({
+    const courseById = new Map(courses.map((course) => [course.id, course]));
+    const studentById = new Map(students.map((student) => [student.student_id, student]));
+    const actor = await getAuditActor(req);
+
+    const existingMarks = await prisma.mark.findMany({
+      where: {
+        OR: marks.map((mark) => ({
+          course_id: mark.course_id,
+          student_id: mark.student_id,
+          academic_key: mark.academic_key,
+        })),
+      },
+      select: auditMarkSelect,
+    });
+    const existingByKey = new Map(
+      existingMarks.map((mark) => [getMarkAuditKey(mark), mark]),
+    );
+
+    await prisma.$transaction(async (tx) => {
+      for (const mark of marks) {
+        const existing = existingByKey.get(getMarkAuditKey(mark));
+        const saved = await tx.mark.upsert({
           where: {
             course_id_student_id_academic_key: {
               course_id: mark.course_id,
@@ -490,9 +628,22 @@ export const bulkCreateMarks = asyncHandler(
             practical_grade: mark.practical_grade,
             theoretical_grade: mark.theoretical_grade,
           },
-        }),
-      ),
-    );
+          select: auditMarkSelect,
+        });
+
+        await tx.auditLog.create({
+          data: buildMarkAuditLogData({
+            action: existing ? "MARK_UPDATED" : "MARK_CREATED",
+            actor,
+            mark: saved,
+            courseName: courseById.get(saved.course_id)?.name,
+            studentFullName: getStudentFullName(studentById.get(saved.student_id)),
+            beforeData: existing,
+            afterData: saved,
+          }),
+        });
+      }
+    });
 
     return res.status(200).json({
       count: marks.length,
@@ -505,6 +656,7 @@ export const publishPracticalMarks = asyncHandler(async (req: Request, res: Resp
   const publishedBy = assertCanPublishMarks(req);
   const courseId = parseCourseId(req.params.courseId as string | undefined);
   const academicKey = await getCurrentAcademicKey();
+  const actor = await getAuditActor(req);
 
   await assertCourseMarksComplete(courseId, academicKey);
 
@@ -527,8 +679,8 @@ export const publishPracticalMarks = asyncHandler(async (req: Request, res: Resp
   }
 
   const publishedAt = new Date();
-  const [publication, course] = await prisma.$transaction([
-    prisma.courseMarksPublication.create({
+  const [publication, course] = await prisma.$transaction(async (tx) => {
+    const publication = await tx.courseMarksPublication.create({
       data: {
         course_id: courseId,
         academic_key: academicKey,
@@ -536,8 +688,9 @@ export const publishPracticalMarks = asyncHandler(async (req: Request, res: Resp
         published_by: publishedBy,
         published_at: publishedAt,
       },
-    }),
-    prisma.course.update({
+    });
+
+    const course = await tx.course.update({
       where: { id: courseId },
       data: { is_practical_marks_published: true },
       select: {
@@ -545,8 +698,39 @@ export const publishPracticalMarks = asyncHandler(async (req: Request, res: Resp
         is_practical_marks_published: true,
         is_marks_published: true,
       },
-    }),
-  ]);
+    });
+
+    const [auditCourse, marksCount] = await Promise.all([
+      tx.course.findUnique({ where: { id: courseId }, select: { name: true } }),
+      tx.mark.count({ where: { course_id: courseId, academic_key: academicKey } }),
+    ]);
+
+    await tx.auditLog.create({
+      data: {
+        action: "MARK_PRACTICAL_PUBLISHED",
+        actor_id: actor.id,
+        actor_role: actor.role as any,
+        actor_name: actor.name,
+        course_id: courseId,
+        course_name: auditCourse?.name ?? null,
+        academic_key: academicKey,
+        after_data: {
+          course_id: courseId,
+          academic_key: academicKey,
+          publish_type: "PRACTICAL",
+          is_practical_marks_published: course.is_practical_marks_published,
+          is_marks_published: course.is_marks_published,
+        },
+        metadata: {
+          publication_id: publication.id,
+          published_at: serializeDate(publishedAt),
+          marks_count: marksCount,
+        },
+      },
+    });
+
+    return [publication, course];
+  });
 
   await notifyPublishedPracticalMarks(courseId, academicKey);
 
@@ -564,6 +748,7 @@ export const publishFullMarks = asyncHandler(async (req: Request, res: Response)
   const publishedBy = assertCanPublishMarks(req);
   const courseId = parseCourseId(req.params.courseId as string | undefined);
   const academicKey = await getCurrentAcademicKey();
+  const actor = await getAuditActor(req);
 
   await assertCourseMarksComplete(courseId, academicKey);
 
@@ -574,7 +759,16 @@ export const publishFullMarks = asyncHandler(async (req: Request, res: Response)
         academic_key: academicKey,
       },
     },
-    select: { id: true, publish_type: true },
+    select: {
+      id: true,
+      course_id: true,
+      academic_key: true,
+      publish_type: true,
+      published_by: true,
+      published_at: true,
+      created_at: true,
+      updated_at: true,
+    },
   });
 
   if (existingPublication?.publish_type === "FULL") {
@@ -582,28 +776,27 @@ export const publishFullMarks = asyncHandler(async (req: Request, res: Response)
   }
 
   const publishedAt = new Date();
-  const publicationWrite = existingPublication
-    ? prisma.courseMarksPublication.update({
-        where: { id: existingPublication.id },
-        data: {
-          publish_type: "FULL" as const,
-          published_by: publishedBy,
-          published_at: publishedAt,
-        },
-      })
-    : prisma.courseMarksPublication.create({
-        data: {
-          course_id: courseId,
-          academic_key: academicKey,
-          publish_type: "FULL",
-          published_by: publishedBy,
-          published_at: publishedAt,
-        },
-      });
+  const [publication, course] = await prisma.$transaction(async (tx) => {
+    const publication = existingPublication
+      ? await tx.courseMarksPublication.update({
+          where: { id: existingPublication.id },
+          data: {
+            publish_type: "FULL" as const,
+            published_by: publishedBy,
+            published_at: publishedAt,
+          },
+        })
+      : await tx.courseMarksPublication.create({
+          data: {
+            course_id: courseId,
+            academic_key: academicKey,
+            publish_type: "FULL",
+            published_by: publishedBy,
+            published_at: publishedAt,
+          },
+        });
 
-  const [publication, course] = await prisma.$transaction([
-    publicationWrite,
-    prisma.course.update({
+    const course = await tx.course.update({
       where: { id: courseId },
       data: {
         is_practical_marks_published: true,
@@ -614,8 +807,39 @@ export const publishFullMarks = asyncHandler(async (req: Request, res: Response)
         is_practical_marks_published: true,
         is_marks_published: true,
       },
-    }),
-  ]);
+    });
+
+    const [auditCourse, marksCount] = await Promise.all([
+      tx.course.findUnique({ where: { id: courseId }, select: { name: true } }),
+      tx.mark.count({ where: { course_id: courseId, academic_key: academicKey } }),
+    ]);
+
+    await tx.auditLog.create({
+      data: {
+        action: "MARK_FULL_PUBLISHED",
+        actor_id: actor.id,
+        actor_role: actor.role as any,
+        actor_name: actor.name,
+        course_id: courseId,
+        course_name: auditCourse?.name ?? null,
+        academic_key: academicKey,
+        before_data: existingPublication
+          ? publicationToAuditSnapshot(existingPublication)
+          : undefined,
+        after_data: publicationToAuditSnapshot(publication),
+        metadata: {
+          publication_id: publication.id,
+          published_at: serializeDate(publishedAt),
+          marks_count: marksCount,
+          upgraded_from: existingPublication?.publish_type ?? null,
+          is_practical_marks_published: course.is_practical_marks_published,
+          is_marks_published: course.is_marks_published,
+        },
+      },
+    });
+
+    return [publication, course];
+  });
 
   await notifyPublishedFullMarks(courseId, academicKey);
 
@@ -639,6 +863,11 @@ export const updateMark = asyncHandler(async (req: Request, res: Response) => {
 
   const existing = await prisma.mark.findUnique({
     where: { id },
+    select: {
+      ...auditMarkSelect,
+      course: { select: { name: true } },
+      student: { select: { user: { select: { full_name: true } } } },
+    },
   });
 
   if (!existing) {
@@ -703,26 +932,43 @@ export const updateMark = asyncHandler(async (req: Request, res: Response) => {
     );
   }
 
-  const updated = await prisma.mark.update({
-    where: { id },
-    data: {
-      course_id: data.course_id,
-      student_id: data.student_id,
-      practical_grade: data.practical_grade,
-      theoretical_grade: data.theoretical_grade,
-    },
-    select: {
-      id: true,
-      course_id: true,
-      course: { select: markCourseSelect },
-      student_id: true,
-      student: { select: markStudentSelect },
-      academic_key: true,
-      practical_grade: true,
-      theoretical_grade: true,
-      created_at: true,
-      updated_at: true,
-    },
+  const actor = await getAuditActor(req);
+  const updated = await prisma.$transaction(async (tx) => {
+    const updated = await tx.mark.update({
+      where: { id },
+      data: {
+        course_id: data.course_id,
+        student_id: data.student_id,
+        practical_grade: data.practical_grade,
+        theoretical_grade: data.theoretical_grade,
+      },
+      select: {
+        id: true,
+        course_id: true,
+        course: { select: markCourseSelect },
+        student_id: true,
+        student: { select: markStudentSelect },
+        academic_key: true,
+        practical_grade: true,
+        theoretical_grade: true,
+        created_at: true,
+        updated_at: true,
+      },
+    });
+
+    await tx.auditLog.create({
+      data: buildMarkAuditLogData({
+        action: "MARK_UPDATED",
+        actor,
+        mark: updated,
+        courseName: updated.course.name,
+        studentFullName: updated.student.user.full_name,
+        beforeData: existing,
+        afterData: updated,
+      }),
+    });
+
+    return updated;
   });
 
   return res.status(200).json(getMarksSchema.parse(mapMark(updated)));
@@ -734,17 +980,37 @@ export const bulkDeleteMarks = asyncHandler(
 
     const existing = await prisma.mark.findMany({
       where: { id: { in: data.ids } },
-      select: { id: true },
+      select: {
+        ...auditMarkSelect,
+        course: { select: { name: true } },
+        student: { select: { user: { select: { full_name: true } } } },
+      },
     });
 
     if (existing.length !== data.ids.length) {
       throw new NotFoundError("Mark");
     }
 
+    const actor = await getAuditActor(req);
     const result = await prisma.$transaction(async (tx) => {
-      return tx.mark.deleteMany({
+      const result = await tx.mark.deleteMany({
         where: { id: { in: data.ids } },
       });
+
+      for (const mark of existing) {
+        await tx.auditLog.create({
+          data: buildMarkAuditLogData({
+            action: "MARK_DELETED",
+            actor,
+            mark,
+            courseName: mark.course.name,
+            studentFullName: getStudentFullName(mark.student),
+            beforeData: mark,
+          }),
+        });
+      }
+
+      return result;
     });
 
     return res.status(200).json({

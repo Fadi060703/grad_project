@@ -55,6 +55,17 @@ export const CourseMarksPublishType = {
 export type CourseMarksPublishType = (typeof CourseMarksPublishType)[keyof typeof CourseMarksPublishType]
 
 
+export const AuditLogAction = {
+  MARK_CREATED: 'MARK_CREATED',
+  MARK_UPDATED: 'MARK_UPDATED',
+  MARK_DELETED: 'MARK_DELETED',
+  MARK_PRACTICAL_PUBLISHED: 'MARK_PRACTICAL_PUBLISHED',
+  MARK_FULL_PUBLISHED: 'MARK_FULL_PUBLISHED'
+} as const
+
+export type AuditLogAction = (typeof AuditLogAction)[keyof typeof AuditLogAction]
+
+
 export const CourseAiChatMessageSender = {
   USER: 'USER',
   MODEL: 'MODEL'
