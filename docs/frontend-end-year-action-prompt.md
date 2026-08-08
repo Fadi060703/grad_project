@@ -24,10 +24,11 @@ Add a new sidebar group named:
 Actions
 ```
 
-Under it, add a sidebar item/page named:
+Under it, add sidebar items/pages for actions, including:
 
 ```text
 End Year Action
+Start Year Action
 ```
 
 Only users who are admins and have the permission below should be able to access or see this page:
@@ -70,6 +71,7 @@ What this action will do:
 - Passed courses will be detached from students.
 - The action does not attach next-year courses. That will happen later in the Start Year Action.
 - Student groups are kept as they are for now and will be reassigned later in the Start Year Action.
+- All stored weekly lectures and their attendance records will be deleted.
 
 This action cannot be safely undone from the UI.
 ```
@@ -169,4 +171,4 @@ On error:
 - Do not auto-run the API on page load.
 - Do not call the API without confirmation.
 - Do not expose the page to users without `actions:end-year-action` permission.
-- Do not implement the Start Year Action yet. Only add the sidebar group and this End Year Action page.
+

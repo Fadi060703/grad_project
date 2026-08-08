@@ -12,6 +12,7 @@ export async function executeEndYearAction(): Promise<EndYearActionResult> {
   return prisma.$transaction(async (tx) => {
     const result = await buildEndYearActionResult(tx);
     await applyEndYearAction(tx, result.students);
+    await tx.weeklyLecture.deleteMany();
     return result;
   });
 }

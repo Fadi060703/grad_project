@@ -119,6 +119,8 @@ All changes run inside a single Prisma transaction.
 | `FAILED` | Delete passed `StudentCourse` rows → keep failed course rows attached → keep the same `year_id`, `section_id`, `major_id`, and `group_id` |
 | `GRADUATED` | Delete all `Mark` rows for the student → delete all `StudentCourse` rows for the student → delete the `Student` row → delete the related `User` row |
 
+After all student changes are applied, the action deletes all stored `WeeklyLecture` rows. Related lecture attendance rows are removed by cascade.
+
 `StudentCourse.status` and `StudentCourse.enrollment_date` are not used by this action.
 
 The action does not attach next-year courses. Course attachment is handled later by the start year action.
