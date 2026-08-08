@@ -28,6 +28,7 @@ Under it, add sidebar items/pages for actions, including:
 
 ```text
 End Year Action
+Mid Year Action
 Start Year Action
 ```
 
@@ -67,7 +68,7 @@ What this action will do:
 - Students who passed all courses will move to the next year.
 - Students who passed all courses in the last year will be graduated and deleted from the system, including their student profile, user account, and marks.
 - Students who failed only an allowed number of courses will move to the next year, but their failed courses will stay attached.
-- Students who failed too many courses will stay in the same year, but their passed courses will be detached.
+- Students who failed too many courses will stay in the same year, their passed courses will be detached, and they will be marked as failed for the next actions.
 - Passed courses will be detached from students.
 - The action does not attach next-year courses. That will happen later in the Start Year Action.
 - Student groups are kept as they are for now and will be reassigned later in the Start Year Action.

@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
 import { asyncHandler } from "../utils/asyncHandler";
 import { executeEndYearAction } from "../services/promotionService";
+import { executeMidYearAction } from "../services/midYearActionService";
 import { executeStartYearAction } from "../services/startYearActionService";
-import { parseStartYearActionInput } from "../validators/actions";
+import { parseMidYearActionInput, parseStartYearActionInput } from "../validators/actions";
 
 export const runEndYearAction = asyncHandler(async (_req: Request, res: Response) => {
   const result = await executeEndYearAction();
@@ -22,5 +23,15 @@ export const runStartYearAction = asyncHandler(async (req: Request, res: Respons
     success: true,
     message: "تم تنفيذ إجراء بداية السنة بنجاح.",
     data: result,
+  });
+});
+
+export const runMidYearAction = asyncHandler(async (req: Request, res: Response) => {
+  const input = parseMidYearActionInput(req.body);
+  await executeMidYearAction(input);
+
+  return res.status(200).json({
+    success: true,
+    message: "تم تنفيذ إجراء منتصف السنة بنجاح.",
   });
 });

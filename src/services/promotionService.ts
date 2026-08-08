@@ -249,6 +249,14 @@ async function applyEndYearAction(
       });
     }
 
+    if (result.state === "FAILED") {
+      await db.student.update({
+        where: { student_id: result.student_id },
+        data: { is_failed: true },
+      });
+      continue;
+    }
+
     if (
       (result.state === "FULLY_PASSED" || result.state === "MOVED") &&
       result.next_year_id !== null
@@ -259,6 +267,7 @@ async function applyEndYearAction(
           year_id: result.next_year_id,
           section_id: null,
           major_id: null,
+          is_failed: false,
         },
       });
     }

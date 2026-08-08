@@ -3203,6 +3203,7 @@ export const StudentScalarFieldEnum = {
   userId: 'userId',
   mother_name: 'mother_name',
   exam_seat_number: 'exam_seat_number',
+  is_failed: 'is_failed',
   profile_picture: 'profile_picture',
   birthdate: 'birthdate',
   year_id: 'year_id',

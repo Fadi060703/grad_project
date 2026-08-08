@@ -21,13 +21,31 @@ export const startYearActionSchema = z.object({
   major_assignments: z.array(majorAssignmentSchema).default([]),
 });
 
+export const midYearActionSchema = z.object({
+  confirm: z.literal(true, {
+    message: "يجب تأكيد تنفيذ إجراء منتصف السنة",
+  }),
+});
+
 export type StartYearActionInput = z.infer<typeof startYearActionSchema>;
+export type MidYearActionInput = z.infer<typeof midYearActionSchema>;
 
 export function parseStartYearActionInput(body: unknown): StartYearActionInput {
   const parsed = startYearActionSchema.safeParse(body);
 
   if (!parsed.success) {
     const message = parsed.error.issues[0]?.message ?? "بيانات إجراء بداية السنة غير صحيحة";
+    throw new BadRequestError(message);
+  }
+
+  return parsed.data;
+}
+
+export function parseMidYearActionInput(body: unknown): MidYearActionInput {
+  const parsed = midYearActionSchema.safeParse(body);
+
+  if (!parsed.success) {
+    const message = parsed.error.issues[0]?.message ?? "بيانات إجراء منتصف السنة غير صحيحة";
     throw new BadRequestError(message);
   }
 

@@ -86,7 +86,8 @@ What this action will do:
 - For years without majors, students are distributed equally across sections.
 - For years with majors, you must upload each student's intended major.
 - It will then distribute students equally across the groups inside their section or major.
-- It will attach current-year courses while keeping any previously failed course attachments.
+- It will attach first-semester courses while keeping any previously failed course attachments.
+- Students marked as failed from the end-year action will not receive new first-semester courses.
 - It will generate new unique 4-digit exam seat numbers for all students.
 
 This action changes academic placement and should only be run once at the start of the year.
@@ -141,7 +142,7 @@ Suggested dialog text:
 ```text
 Are you sure you want to run the Start Year Action?
 
-This will update the academic key, create first-year students, reshuffle all students into sections/majors/groups, attach courses, and regenerate exam seat numbers.
+This will update the academic key, create first-year students, reshuffle all students into sections/majors/groups, attach first-semester courses, and regenerate exam seat numbers.
 
 Make sure your Excel files are correct before continuing.
 ```

@@ -82,6 +82,7 @@ export const permissions: Record<string, string[]> = {
     "audit-logs:read",
     "actions:end-year-action",
     "actions:start-year-action",
+    "actions:mid-year-action",
   ],
   DOCTOR: [
     "course-files:read",

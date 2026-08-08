@@ -25,6 +25,7 @@ interface YearRecord {
 interface StudentRecord {
   student_id: number;
   year_id: number;
+  is_failed: boolean;
 }
 
 interface SectionRecord {
@@ -49,6 +50,7 @@ interface Placement {
   section_id: number | null;
   major_id: number | null;
   group_id: number;
+  is_failed: boolean;
 }
 
 interface ScopePlacement extends Omit<Placement, "group_id"> {}
@@ -70,7 +72,9 @@ export async function executeStartYearAction(
   );
 
   return prisma.$transaction(async (tx) => {
-    const settings = await tx.systemSettings.findFirst({
+    const db = tx as any;
+
+    const settings = await db.systemSettings.findFirst({
       orderBy: { id: "desc" },
       select: { id: true, current_academic_key: true },
     });
@@ -91,14 +95,14 @@ export async function executeStartYearAction(
     }
 
     const firstYear = years[0];
-    const temporaryGroup = await findTemporaryFirstYearGroup(tx, firstYear.id);
+    const temporaryGroup = await findTemporaryFirstYearGroup(db, firstYear.id);
 
-    await validateFirstYearStudents(tx, input.first_year_students);
+    await validateFirstYearStudents(db, input.first_year_students);
 
     const createdStudents: CreatedFirstYearStudent[] = [];
 
     for (const student of preparedStudents) {
-      await tx.user.create({
+      await db.user.create({
         data: {
           username: student.username,
           full_name: student.full_name,
@@ -127,26 +131,29 @@ export async function executeStartYearAction(
     }
 
     const [students, sections, majors, groups, sectionCourses, majorCourses, directCourses] = await Promise.all([
-      tx.student.findMany({
-        select: { student_id: true, year_id: true },
+      db.student.findMany({
+        select: { student_id: true, year_id: true, is_failed: true },
       }),
-      tx.section.findMany({
+      db.section.findMany({
         select: { id: true, year_id: true },
       }),
-      tx.major.findMany({
+      db.major.findMany({
         select: { id: true, year_id: true },
       }),
-      tx.group.findMany({
+      db.group.findMany({
         select: { id: true, section_id: true, major_id: true },
       }),
-      tx.sectionCourse.findMany({
+      db.sectionCourse.findMany({
+        where: { course: { semester: "FIRST" } },
         select: { course_id: true, section_id: true },
       }),
-      tx.majorCourse.findMany({
+      db.majorCourse.findMany({
+        where: { course: { semester: "FIRST" } },
         select: { course_id: true, major_id: true },
       }),
-      tx.course.findMany({
+      db.course.findMany({
         where: {
+          semester: "FIRST",
           sectionCourses: { none: {} },
           majorCourses: { none: {} },
         },
@@ -169,7 +176,7 @@ export async function executeStartYearAction(
     for (let i = 0; i < placements.length; i++) {
       const placement = placements[i];
 
-      await tx.student.update({
+      await db.student.update({
         where: { student_id: placement.student_id },
         data: {
           section_id: placement.section_id,
@@ -180,9 +187,9 @@ export async function executeStartYearAction(
       });
     }
 
-    await attachStudentCourses(tx, placements, sectionCourses, majorCourses, directCourses);
+    await attachStudentCourses(db, placements, sectionCourses, majorCourses, directCourses);
 
-    await tx.systemSettings.update({
+    await db.systemSettings.update({
       where: { id: settings.id },
       data: { current_academic_key: nextAcademicKey },
     });
@@ -349,6 +356,7 @@ function assignSectionsAndMajors(
           year_id: student.year_id,
           section_id: null,
           major_id: major.id,
+          is_failed: student.is_failed,
         });
       }
 
@@ -369,6 +377,7 @@ function assignSectionsAndMajors(
         year_id: student.year_id,
         section_id: section.id,
         major_id: null,
+        is_failed: student.is_failed,
       });
     });
   }
@@ -433,6 +442,10 @@ async function attachStudentCourses(
   const data: Array<{ student_id: number; course_id: number }> = [];
 
   for (const placement of placements) {
+    if (placement.is_failed) {
+      continue;
+    }
+
     const courseIds = new Set<number>(directCourseMap.get(placement.year_id) ?? []);
 
     if (placement.section_id !== null) {

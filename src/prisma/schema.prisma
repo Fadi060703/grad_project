@@ -102,6 +102,7 @@ model Student {
   user               User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
   mother_name        String
   exam_seat_number   Int                   @default(0)
+  is_failed          Boolean               @default(false)
   profile_picture    String?
   birthdate          DateTime?
   year_id            Int

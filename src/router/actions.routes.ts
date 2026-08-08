@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { runEndYearAction, runStartYearAction } from "../controllers/promotionController";
+import { runEndYearAction, runMidYearAction, runStartYearAction } from "../controllers/promotionController";
 import { authMiddleware } from "../middlewares/auth";
 import { check } from "../middlewares/check-permission";
 
@@ -17,6 +17,13 @@ router.post(
   authMiddleware,
   check("actions:start-year-action"),
   runStartYearAction,
+);
+
+router.post(
+  "/actions/mid-year-action",
+  authMiddleware,
+  check("actions:mid-year-action"),
+  runMidYearAction,
 );
 
 export default router;

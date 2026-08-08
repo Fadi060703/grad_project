@@ -116,10 +116,12 @@ All changes run inside a single Prisma transaction.
 |---|---|
 | `FULLY_PASSED` | Delete all current `StudentCourse` rows for the student → update `student.year_id` to next year → clear `section_id` and `major_id` → keep `group_id` unchanged |
 | `MOVED` | Delete passed `StudentCourse` rows → keep failed course rows attached → update `student.year_id` to next year → clear `section_id` and `major_id` → keep `group_id` unchanged |
-| `FAILED` | Delete passed `StudentCourse` rows → keep failed course rows attached → keep the same `year_id`, `section_id`, `major_id`, and `group_id` |
+| `FAILED` | Delete passed `StudentCourse` rows → keep failed course rows attached → set `student.is_failed = true` → keep the same `year_id`, `section_id`, `major_id`, and `group_id` |
 | `GRADUATED` | Delete all `Mark` rows for the student → delete all `StudentCourse` rows for the student → delete the `Student` row → delete the related `User` row |
 
 After all student changes are applied, the action deletes all stored `WeeklyLecture` rows. Related lecture attendance rows are removed by cascade.
+
+For `FULLY_PASSED` and `MOVED` students, `student.is_failed` is set to `false` to avoid stale failed flags.
 
 `StudentCourse.status` and `StudentCourse.enrollment_date` are not used by this action.
 

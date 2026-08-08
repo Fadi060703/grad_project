@@ -65,11 +65,13 @@ The action runs inside one Prisma transaction.
    - Years without majors: students are shuffled equally across the year's sections.
    - Years with majors: each student is assigned to the requested `major_id`.
    - After section/major assignment, students are shuffled equally across groups in that section/major.
-4. Attaches courses.
+4. Attaches first-semester courses.
+   - Only courses with `semester = FIRST` are attached.
    - Section students get courses linked through `SectionCourse`.
    - Major students get courses linked through `MajorCourse`.
    - Every student also gets direct year courses where the course has no section or major links.
    - Existing course attachments are kept, including failed courses from end-year action.
+   - Students marked `is_failed = true` do not receive any new courses in this action.
    - Duplicate `StudentCourse` rows are skipped.
 5. Generates a random unique 4-digit `exam_seat_number` for every current student.
 6. Updates `system_settings.current_academic_key`.
